@@ -13,6 +13,10 @@
     left: 0;
     right: 0;
     position: fixed;
+
+    .c-masthead__placeholder {
+      display: block;
+    }
   }
 
   &--hideOnNarrowScreen {
@@ -23,9 +27,15 @@
     }
   }
 
+  &--theme-film {
+    background: $film-primary;
+    border-bottom: 0;
+  }
+
   &__placeholder {
     min-height: $masthead-height;
     width: 100%;
+    display: none;
   }
 
   &__content {

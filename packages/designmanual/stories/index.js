@@ -8,4 +8,5 @@ require('./search');
 require('./licenses');
 require('./produksjonssystem');
 require('./beta');
+require('./film');
 require('./experimental');

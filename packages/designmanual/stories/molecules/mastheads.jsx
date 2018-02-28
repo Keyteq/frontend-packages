@@ -21,6 +21,7 @@ import {
   SearchOverlay,
   SearchField,
   SafeLink,
+  constants,
 } from 'ndla-ui';
 
 import {
@@ -201,6 +202,8 @@ MastheadWithTopicMenu.defaultProps = {
     </Fragment>
   ),
 };
+
+export const FilmMasthead = () => <Masthead theme={constants.themes.FILM} />;
 
 export { MastheadWithTopicMenu };
 

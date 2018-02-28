@@ -7,7 +7,9 @@
  */
 
 import * as contentTypes from './ContentType';
+import { themes } from './Theme';
 
 export default {
   contentTypes,
+  themes,
 };

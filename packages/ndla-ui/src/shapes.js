@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as contentTypes from './model/ContentType';
+import { themes } from './model/Theme';
 
 export const LicenseRightShape = PropTypes.shape({
   short: PropTypes.string.isRequired,
@@ -82,3 +83,7 @@ export const ContentTypeResultShape = PropTypes.shape({
     }),
   ),
 });
+
+export const ThemeShape = PropTypes.oneOf(
+  Object.keys(themes).map(key => themes[key]),
+);

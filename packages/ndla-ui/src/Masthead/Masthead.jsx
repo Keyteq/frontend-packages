@@ -12,6 +12,8 @@ import classNames from 'classnames';
 import BEMHelper from 'react-bem-helper';
 
 import { DisplayOnPageYOffset } from '../Animation';
+import { themes, getCssModifierByTheme } from '../model/Theme';
+import { ThemeShape } from '../shapes';
 
 const classes = new BEMHelper({
   name: 'masthead',
@@ -55,26 +57,44 @@ export const Masthead = ({
   fixed,
   hideOnNarrowScreen,
   infoContent,
-}) => (
-  <Fragment>
-    <div {...classes('placeholder', { infoContent })} />
-    <div {...classes('', { fixed, hideOnNarrowScreen, infoContent })}>
-      {infoContent && (
-        <DisplayOnPageYOffset yOffsetMin={0} yOffsetMax={90}>
-          <MastheadInfo>{infoContent}</MastheadInfo>
-        </DisplayOnPageYOffset>
-      )}
+  theme,
+}) => {
+  const modifiers = { fixed, hideOnNarrowScreen, infoContent };
 
-      <div className={`u-1/1 ${classes('content').className}`}>{children}</div>
-    </div>
-  </Fragment>
-);
+  const themeModifier = getCssModifierByTheme(theme);
+
+  if (themeModifier) {
+    modifiers[themeModifier] = true;
+  }
+
+  return (
+    <Fragment>
+      <div {...classes('placeholder', { infoContent })} />
+      <div {...classes('', modifiers)}>
+        {infoContent && (
+          <DisplayOnPageYOffset yOffsetMin={0} yOffsetMax={90}>
+            <MastheadInfo>{infoContent}</MastheadInfo>
+          </DisplayOnPageYOffset>
+        )}
+
+        <div className={`u-1/1 ${classes('content').className}`}>
+          {children}
+        </div>
+      </div>
+    </Fragment>
+  );
+};
 
 Masthead.propTypes = {
   children: PropTypes.node,
   fixed: PropTypes.bool,
   hideOnNarrowScreen: PropTypes.bool,
   infoContent: PropTypes.node,
+  theme: ThemeShape,
+};
+
+Masthead.defaultProps = {
+  theme: themes.NORMAL,
 };
 
 export default Masthead;

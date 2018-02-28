@@ -12,6 +12,10 @@
       background-color: $brand-grey--lightest;
     }
   }
+
+  &--theme-film {
+    background-color: $film-primary;
+  }
 }
 
 .o-content {

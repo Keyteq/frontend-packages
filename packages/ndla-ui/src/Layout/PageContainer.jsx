@@ -9,23 +9,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
+import { ThemeShape } from '../shapes';
+import { getCssModifierByTheme, themes } from '../model/Theme';
 
 const classes = new BEMHelper({
   name: 'container',
   prefix: 'o-',
 });
 
-export const PageContainer = ({ children, background, backgroundWide }) => (
-  <div {...classes('', { background, backgroundWide })}>{children}</div>
-);
+export const PageContainer = ({
+  children,
+  background,
+  backgroundWide,
+  theme,
+}) => {
+  const modifiers = { background, backgroundWide };
+
+  const themeModifier = getCssModifierByTheme(theme);
+
+  if (themeModifier) {
+    modifiers[themeModifier] = true;
+  }
+
+  return <div {...classes('', modifiers)}>{children}</div>;
+};
 
 PageContainer.propTypes = {
+  theme: ThemeShape,
   children: PropTypes.node,
   background: PropTypes.bool,
   backgroundWide: PropTypes.bool,
 };
 
 PageContainer.defaultProps = {
+  theme: themes.NORMAL,
   background: false,
   backgroundWide: false,
 };

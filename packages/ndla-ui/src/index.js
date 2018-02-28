@@ -105,3 +105,5 @@ export { default as ContentLoader } from './ContentLoader';
 export { default as constants } from './model';
 
 export { DisplayOnPageYOffset } from './Animation';
+
+export { FeaturingMovieBanner } from './Film';
