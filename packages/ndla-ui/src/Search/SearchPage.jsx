@@ -6,6 +6,7 @@ import { Cross } from 'ndla-icons/action';
 import createFocusTrap from 'focus-trap';
 import { noScroll } from 'ndla-util';
 import Button from '../Button';
+import Main from '../Main';
 
 import SafeLink from '../common/SafeLink';
 import SearchField from './SearchField';
@@ -83,7 +84,7 @@ export default class SearchPage extends Component {
     }
 
     return (
-      <main {...classes()}>
+      <Main className={classes().className}>
         <SafeLink to={closeUrl} {...classes('close-button')}>
           <span>{messages.closeButton}</span> <Cross />
         </SafeLink>
@@ -138,7 +139,7 @@ export default class SearchPage extends Component {
             {children}
           </div>
         </div>
-      </main>
+      </Main>
     );
   }
 }

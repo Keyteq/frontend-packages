@@ -2,4 +2,44 @@
   position: relative;
   width: 100%;
   padding-top: 34.722222222%;
+
+  &__link {
+    color: $white;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__heading {
+    margin: 0 0 $spacing 0;
+    @include font-size(72px, 72px);
+    text-shadow: 2px 1px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  &__description {
+    background: rgba($film-primary, 0.7);
+    border-radius: 2px;
+    max-width: 660px;
+    padding: $spacing;
+    @include font-size(18px, 27px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    & > * {
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
