@@ -13,10 +13,6 @@
     left: 0;
     right: 0;
     position: fixed;
-
-    .c-masthead__placeholder {
-      display: block;
-    }
   }
 
   &--hideOnNarrowScreen {
@@ -36,6 +32,10 @@
     min-height: $masthead-height;
     width: 100%;
     display: none;
+
+    &--fixed {
+      display: block;
+    }
   }
 
   &__content {

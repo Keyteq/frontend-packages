@@ -69,7 +69,7 @@ export const Masthead = ({
 
   return (
     <Fragment>
-      <div {...classes('placeholder', { infoContent })} />
+      <div {...classes('placeholder', { infoContent, fixed })} />
       <div {...classes('', modifiers)}>
         {infoContent && (
           <DisplayOnPageYOffset yOffsetMin={0} yOffsetMax={90}>
