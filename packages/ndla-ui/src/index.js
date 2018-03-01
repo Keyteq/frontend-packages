@@ -33,6 +33,7 @@ export {
   ToggleSearchButton,
   SearchOverlay,
   SearchField,
+  SearchFieldResult,
   SearchPage,
   SearchResult,
   SearchResultList,
@@ -107,4 +108,4 @@ export { default as constants } from './model';
 
 export { DisplayOnPageYOffset } from './Animation';
 
-export { FeaturingMovieBanner } from './Film';
+export { FeaturingMovieBanner, MovieSearch } from './Film';

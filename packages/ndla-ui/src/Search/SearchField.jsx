@@ -18,14 +18,6 @@ import ContentTypeResult from './ContentTypeResult';
 
 const classes = new BEMHelper('c-search-field');
 
-const messagesShape = PropTypes.shape({
-  searchResultHeading: PropTypes.string.isRequired,
-  allResultButtonText: PropTypes.string.isRequired,
-  allContentTypeResultLabel: PropTypes.string.isRequired,
-  searchFieldTitle: PropTypes.string.isRequired,
-  contentTypeResultNoHit: PropTypes.string.isRequired,
-});
-
 const searchResultShape = PropTypes.arrayOf(
   PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -41,7 +33,7 @@ const searchResultShape = PropTypes.arrayOf(
   }),
 );
 
-const SearchResult = ({ result, messages, allResultUrl }) => (
+export const SearchResult = ({ result, messages, allResultUrl }) => (
   <section {...classes('search-result')}>
     <h1 {...classes('search-result-heading')}>
       {messages.searchResultHeading}
@@ -66,7 +58,12 @@ const SearchResult = ({ result, messages, allResultUrl }) => (
 
 SearchResult.propTypes = {
   result: searchResultShape,
-  messages: messagesShape.isRequired,
+  messages: PropTypes.shape({
+    allResultButtonText: PropTypes.string.isRequired,
+    searchResultHeading: PropTypes.string.isRequired,
+    allContentTypeResultLabel: PropTypes.string.isRequired,
+    contentTypeResultNoHit: PropTypes.string.isRequired,
+  }).isRequired,
   allResultUrl: PropTypes.string.isRequired,
 };
 
@@ -76,27 +73,15 @@ const SearchField = ({
   onChange,
   filters,
   onFilterRemove,
-  searchResult,
   messages,
-  allResultUrl,
+  children,
 }) => {
   const modifiers = [];
 
-  const hasSearchResult = searchResult && searchResult.length > 0;
-
-  let searchResultView = null;
+  const hasSearchResult = children !== null;
 
   if (hasSearchResult) {
     modifiers.push('has-search-result');
-
-    searchResultView = (
-      <SearchResult
-        result={searchResult}
-        messages={messages}
-        searchString={value}
-        allResultUrl={allResultUrl}
-      />
-    );
   }
 
   if (filters && filters.length > 0) {
@@ -106,12 +91,11 @@ const SearchField = ({
   return (
     <div {...classes('', modifiers)}>
       <input
-        title={messages.searchFieldTitle}
+        aria-label={messages.searchFieldTitle}
         type="search"
         {...classes('input')}
         aria-autocomplete="list"
         autoComplete="off"
-        id="search"
         name="search"
         placeholder={placeholder}
         value={value}
@@ -123,7 +107,7 @@ const SearchField = ({
       <button tabIndex="-1" {...classes('button')} type="submit" value="Search">
         <SearchIcon />
       </button>
-      {searchResultView}
+      {children}
     </div>
   );
 };
@@ -139,9 +123,16 @@ SearchField.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   ),
-  messages: messagesShape,
+  messages: PropTypes.shape({
+    searchFieldTitle: PropTypes.string.isRequired,
+  }).isRequired,
   searchResult: searchResultShape,
   allResultUrl: PropTypes.string,
+  children: PropTypes.node,
+};
+
+SearchField.defaultProps = {
+  children: null,
 };
 
 export default SearchField;

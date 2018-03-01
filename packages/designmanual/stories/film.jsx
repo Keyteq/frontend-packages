@@ -1,7 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { PageContainer, constants, FeaturingMovieBanner, Main } from 'ndla-ui';
+import {
+  PageContainer,
+  constants,
+  FeaturingMovieBanner,
+  Main,
+  MovieSearch,
+} from 'ndla-ui';
 import { breakpoints } from 'ndla-util';
 
 import { FilmMasthead } from './molecules/mastheads';
@@ -21,6 +27,14 @@ storiesOf('Film', module).add('Film forside', () => (
             types: Object.keys(breakpoints).map(key => breakpoints[key]),
           },
         ]}
+      />
+      <MovieSearch
+        searchValue=""
+        onSearchChange={() => {}}
+        searchPlaceholder="Her kan du søke etter filmer, regissører, fag eller emner"
+        messages={{
+          searchFieldTitle: 'Søk',
+        }}
       />
     </Main>
   </PageContainer>

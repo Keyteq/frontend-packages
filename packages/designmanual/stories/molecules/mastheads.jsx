@@ -20,6 +20,7 @@ import {
   ToggleSearchButton,
   SearchOverlay,
   SearchField,
+  SearchFieldResult,
   SafeLink,
   constants,
 } from 'ndla-ui';
@@ -69,6 +70,20 @@ class MastheadWithTopicMenu extends Component {
 
     let searchButtonView = null;
 
+    const searchResultView = searchFieldResults !== null && (
+      <SearchFieldResult
+        result={searchFieldResults}
+        messages={{
+          allContentTypeResultLabel: 'Se alle',
+          allResultButtonText: 'Vis alle søketreff',
+          searchResultHeading: 'Forslag:',
+          contentTypeResultNoHit: 'Ingen treff',
+        }}
+        searchString={this.state.value}
+        allResultUrl="#"
+      />
+    );
+
     if (!this.props.hideSearchButton) {
       searchButtonView = (
         <ToggleSearchButton
@@ -94,15 +109,10 @@ class MastheadWithTopicMenu extends Component {
               ]}
               onFilterRemove={() => {}}
               messages={{
-                allContentTypeResultLabel: 'Se alle',
-                allResultButtonText: 'Vis alle søketreff',
                 searchFieldTitle: 'Søk',
-                searchResultHeading: 'Forslag:',
-                contentTypeResultNoHit: 'Ingen treff',
-              }}
-              allResultUrl="#"
-              searchResult={searchFieldResults}
-            />
+              }}>
+              {searchResultView}
+            </SearchField>
           </SearchOverlay>
         </ToggleSearchButton>
       );

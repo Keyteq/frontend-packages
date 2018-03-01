@@ -6,7 +6,7 @@
  *
  */
 
-import SearchField from './SearchField';
+import SearchField, { SearchResult as SearchFieldResult } from './SearchField';
 import SearchOverlay from './SearchOverlay';
 import ToggleSearchButton, { OpenSearchButton } from './ToggleSearchButton';
 import SearchPage from './SearchPage';
@@ -19,6 +19,7 @@ import ContentTypeResult from './ContentTypeResult';
 
 export {
   SearchField,
+  SearchFieldResult,
   ToggleSearchButton,
   OpenSearchButton,
   SearchOverlay,
