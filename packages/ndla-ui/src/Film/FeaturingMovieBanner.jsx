@@ -4,7 +4,7 @@ import BEMHelper from 'react-bem-helper';
 
 import OneColumn from '../Layout/OneColumn';
 
-import { BackgroundImage } from '../BackgroundImage';
+import BackgroundImage from '../BackgroundImage';
 
 const classes = BEMHelper('c-featuring-movie-banner');
 

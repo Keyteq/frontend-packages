@@ -7,6 +7,7 @@ import {
   FeaturingMovieBanner,
   Main,
   MovieSearch,
+  MovieCaroucel,
 } from 'ndla-ui';
 import { breakpoints } from 'ndla-util';
 
@@ -36,6 +37,79 @@ storiesOf('Film', module).add('Film forside', () => (
           searchFieldTitle: 'Søk',
         }}
       />
+
+      <MovieCaroucel heading="Nyeste">
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+        <div
+          style={{
+            background: 'red',
+            height: '150px',
+            marginRight: '25px',
+          }}
+        />
+      </MovieCaroucel>
     </Main>
   </PageContainer>
 ));

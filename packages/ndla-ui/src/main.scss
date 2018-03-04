@@ -4,6 +4,9 @@
 @import 'global/settings/settings.colors';
 @import 'global/settings/settings.animations';
 
+//vendor
+@import '~slick-carousel/slick/slick.css';
+
 // Grids
 @import 'global/utilities/utilities.widths';
 @import 'global/utilities/utilities.grids';

@@ -108,4 +108,9 @@ export { default as constants } from './model';
 
 export { DisplayOnPageYOffset } from './Animation';
 
-export { FeaturingMovieBanner, MovieSearch } from './Film';
+export {
+  FeaturingMovieBanner,
+  MovieSearch,
+  MovieCaroucel,
+  MovieCaroucelItem,
+} from './Film';
