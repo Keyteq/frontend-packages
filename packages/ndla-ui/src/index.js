@@ -27,7 +27,7 @@ export { default as Select } from './select/Select';
 export { default as Button } from './Button';
 export { default as Logo } from './Logo';
 export { default as Table } from './Table';
-export { default as Pager } from './pager';
+export { default as Pager } from './Pager';
 export { FilterList } from './Filter';
 export { default as AudioPlayer } from './AudioPlayer';
 export { default as Aside } from './Aside';

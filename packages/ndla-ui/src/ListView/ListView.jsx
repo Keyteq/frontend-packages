@@ -122,7 +122,61 @@ class ListView extends Component {
     return (
       <div {...classes()}>
         <h1>Listevisning</h1>
-        <p> asdasdas dasd asd s</p>
+        { filterComponents }
+
+        <div {...classes('sorting')}>
+          <div {...classes('sortBy')}>
+            <Select id="listViewSortBy" label="Sorter etter:">
+              <option value="alphabet">Alfabetisk a-å</option>
+            </Select>
+          </div>
+
+          <div {...classes('search')}>
+            <div {...searchFieldClasses()}>
+              <input {...searchFieldClasses('input', 'small')}
+                type="search"
+                placeholder="Søk i listen"
+                onChange={(e) => this.setState({ searchWord: e.target.value })} />
+              <button tabIndex="-1" {...searchFieldClasses('button')} type="submit" value="Search">
+                <SearchIcon />
+              </button>
+            </div>
+          </div>
+
+          <div {...classes('list-style')}>
+            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid'})}>
+              Grid
+            </button>
+            <button {...classes('style-button', { active: viewStyle === 'list'})} onClick={ () => this.setState({ viewStyle: 'list'})}>
+              List
+            </button>
+          </div>
+
+          { viewStyle === 'list' ?
+          <ul {...classes('alphabet')}>
+            { alphabet.split('').map((letter) =>
+              <li key={`letter-${letter}`} {...classes('letter')}>
+                <button
+                  {...classes('letter-button', { active: this.state.selectedLetter === letter, disabled: !this.getActiveLetters()[letter] })}
+                  onClick={() => (this.state.selectedLetter === letter) ? this.setState({ selectedLetter: ''}) : this.setState({ selectedLetter: letter }) }>
+                  { letter }
+                </button>
+              </li>
+            )}
+          </ul> : null }
+        </div>
+
+        <ul {...classes('content', [viewStyle] )}>{listItems}</ul>
+        {this.state.detailedItem ? (
+          <ListViewDialog
+            item={this.state.detailedItem}
+            index={this.state.index}
+            nextItem={this.state.nextItem}
+            previousItem={this.state.previousItem}
+            closeCallback={() => this.setState({ detailedItem: null })}
+            setItemCallback={this.setDetailedItem}
+          />
+        ) : null}
       </div>
     );
   }
