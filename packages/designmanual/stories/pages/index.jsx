@@ -42,7 +42,11 @@ import ArticleExercise from './ArticleExercise';
 import ArticleExternalLearningResource from './ArticleExternalLearningResource';
 import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
-import article, { topicList, subjectList } from '../../dummydata/index';
+import article, {
+  topicList,
+  subjectList,
+  mockListView,
+} from '../../dummydata/index';
 
 const ResourcesSubTopics = () => (
   <LayoutItem layout="extend">

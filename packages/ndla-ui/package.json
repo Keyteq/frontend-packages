@@ -32,6 +32,7 @@
     "es"
   ],
   "dependencies": {
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "classnames": "2.2.5",
     "focus-trap": "^2.4.3",
     "jump.js": "^1.0.2",

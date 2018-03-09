@@ -29,6 +29,7 @@ import Tabs, { TabsControlled } from './molecules/tabs';
 import { Resources } from './molecules/resources';
 import LicenseExample from './article/LicenseExample';
 import ConceptExample from './organisms/ConceptExample';
+import ListViewExample from './organisms/ListViewExample';
 import RelatedArticleListExample, {
   RelatedArticleExerciseList,
   RelatedArticleMixedList,
@@ -222,6 +223,14 @@ storiesOf('Sammensatte moduler', module)
           </article>
         </Center>
       </Content>
+    </PageContainer>
+  ))
+  .add('Listevisning', () => (
+    <PageContainer>
+      <StoryIntro title="Listevisning" />
+      <LayoutItem layout="center">
+        <ListViewExample />
+      </LayoutItem>
     </PageContainer>
   ))
   .add('Læringsressurser', () => (

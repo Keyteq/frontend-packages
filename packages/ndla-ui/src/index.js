@@ -22,10 +22,12 @@ export { InfoBox } from './InfoBox';
 
 export { BetaNavigation } from './Beta';
 
+export { default as Select } from './select/Select';
+
 export { default as Button } from './Button';
 export { default as Logo } from './Logo';
 export { default as Table } from './Table';
-export { default as Pager } from './Pager';
+export { default as Pager } from './pager';
 export { FilterList } from './Filter';
 export { default as AudioPlayer } from './AudioPlayer';
 export { default as Aside } from './Aside';
@@ -97,6 +99,8 @@ export {
   MediaListItemImage,
   MediaListItemMeta,
 } from './MediaList';
+export { ListView, ListViewDialog } from './ListView';
+
 export { default as Image } from './Image';
 export { default as Translation } from './Translation/Translation';
 export { default as TranslationLine } from './Translation/TranslationLine';

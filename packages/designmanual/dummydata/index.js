@@ -1,4 +1,5 @@
 import { topicMenu, subtopicList, topicList } from './mockTopics';
+import { mockListView } from './mockListView';
 import {
   learningPathResources,
   articleResources,
@@ -35,4 +36,5 @@ export {
   youTubeMockVideo,
   assessmentResources,
   searchFieldSearchResults,
+  mockListView,
 };
