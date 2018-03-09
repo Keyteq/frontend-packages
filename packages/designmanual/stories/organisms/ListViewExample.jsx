@@ -5,7 +5,6 @@ import { mockListView } from '../../dummydata';
 
 class ListViewExample extends Component {
   render() {
-    console.log(mockListView);
     return (
       <div>
         <ListView
@@ -20,9 +19,10 @@ class ListViewExample extends Component {
               ],
               values: [],
               label: 'Fag',
+              onChange: () => console.log('Filter items based on fag'),
+              id: '1',
             },
-          ]}
-        />
+          ]} />
       </div>
     );
   }

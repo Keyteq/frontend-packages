@@ -116,7 +116,8 @@ class ListView extends Component {
         options={filter.options}
         values={filter.values}
         label={filter.label}
-        onChange={filter.onChange} />
+        onChange={filter.onChange}
+        key={filter.id} />
     ));
 
     return (
