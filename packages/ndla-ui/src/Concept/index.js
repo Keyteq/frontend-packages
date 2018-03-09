@@ -6,6 +6,5 @@
  *
  */
 
-import Concept from './Concept';
-
-export default Concept;
+ export { default as Concept } from './Concept';
+ export { default as ConceptDialog } from './ConceptDialog';

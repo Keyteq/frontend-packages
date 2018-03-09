@@ -13,6 +13,8 @@ export const mockListView = {
         title: 'Murerfaget',
         value: 'murerfaget',
       },
+      source: 'snl.no',
+      license: 'by-nc-nd',
     },
     {
       name: 'Armeringskutter',
@@ -28,6 +30,8 @@ export const mockListView = {
         title: 'Betongfaget',
         value: 'betongfaget',
       },
+      source: 'snl.no',
+      license: 'by-nc-nd',
     },
     {
       name: 'Bajonettsag',
@@ -42,6 +46,8 @@ export const mockListView = {
         title: 'Murerfaget',
         value: 'murerfaget',
       },
+      source: 'snl.no',
+      license: 'by-nc-nd',
     },
     {
       name: 'Batteridrill',
@@ -57,6 +63,8 @@ export const mockListView = {
         title: 'Betongfaget',
         value: 'betongfaget',
       },
+      source: 'snl.no',
+      license: 'by-nc-nd',
     },
   ],
 };

@@ -18,8 +18,6 @@ class ListView extends Component {
     super(props);
     this.state = {
       detailedItem: null,
-      nextItem: null,
-      index: null,
       viewStyle: this.props.viewStyle,
       sortBy: 'alphabet',
       searchWord: '',
@@ -39,11 +37,8 @@ class ListView extends Component {
     return letters;
   }
 
-  setDetailedItem(item, index) {
-    const { items } = this.props;
-    const nextItem = items[index + 1] ? items[index + 1] : null;
-    const previousItem = items[index - 1] ? items[index - 1] : null;
-    const stateObj = { detailedItem: item, nextItem, previousItem, index };
+  setDetailedItem(item) {
+    const stateObj = { detailedItem: item};
     this.setState(stateObj);
   }
 
@@ -102,12 +97,11 @@ class ListView extends Component {
     const { filters } = this.props;
     const { viewStyle } = this.state;
     const sortedItems = this.sortItems();
-    const listItems = sortedItems.map((item, index) => (
+    const listItems = sortedItems.map((item) => (
       <ListItem
         item={item}
         key={item.id}
-        clickCallback={this.setDetailedItem}
-        itemIndex={index} />
+        clickCallback={this.setDetailedItem} />
     ));
 
     const filterComponents = filters.map(filter => (
@@ -145,7 +139,7 @@ class ListView extends Component {
           </div>
 
           <div {...classes('list-style')}>
-            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid'})}>
+            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid', selectedLetter: ''})}>
               Grid
             </button>
             <button {...classes('style-button', { active: viewStyle === 'list'})} onClick={ () => this.setState({ viewStyle: 'list'})}>
@@ -171,9 +165,6 @@ class ListView extends Component {
         {this.state.detailedItem ? (
           <ListViewDialog
             item={this.state.detailedItem}
-            index={this.state.index}
-            nextItem={this.state.nextItem}
-            previousItem={this.state.previousItem}
             closeCallback={() => this.setState({ detailedItem: null })}
             setItemCallback={this.setDetailedItem}
           />
@@ -189,7 +180,10 @@ ListView.propTypes = {
       id: PropTypes.string,
     }),
   ).isRequired,
-  filters: PropTypes.array,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+    })
+  ),
   viewStyle: PropTypes.oneOf(['grid', 'list']),
 };
 

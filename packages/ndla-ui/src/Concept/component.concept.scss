@@ -54,15 +54,25 @@
   width: 90%;
   left: 5%;
 
+  &--listview {
+    position: fixed;
+    top: 10%;
+  }
+
   @include mq($from: tablet) {
     max-width: 500px;
     left: 50%;
     margin-left: -250px;
   }
+  @include mq($from: desktop) {
+    max-width: 720px;
+    margin-left: -360px;
+    left: 50%;
+  }
   box-shadow: 0 0 30px rgba($black, 0.2);
   box-sizing: border-box;
   z-index: 1;
-  background: $brand-color--lighter;
+  background: $white;
   padding: $spacing;
   opacity: 0;
 }
@@ -79,7 +89,30 @@
   border-bottom: 2px solid $brand-color;
   text-transform: capitalize;
   display: block;
+  @include inuit-font-size(24px, 31px);
 }
+
+.c-concept__subtitle {
+  color: $text-light-color;
+  font-weight: $font-weight-normal;
+  padding-left: $spacing--small;
+  // border-left: 1px solid #8A8888;
+  @include inuit-font-size(16px, 28px);
+  margin: 4px $spacing--small 4px $spacing--small;
+  display: inline-block;
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 1px;
+    height: 15px;
+    background: #8A8888;
+    position: absolute;
+    left: 0px;
+    top: 7px;
+  }
+}
+
 .c-concept__content {
   display: block;
   padding-top: $spacing--small/2;
@@ -103,7 +136,7 @@
   background: transparent;
   border: none;
   color: $brand-color;
-  @include font-size(20px);
+  @include font-size(18px, 23px);
   font-weight: $font-weight-normal;
   z-index: 9;
   cursor: pointer;
