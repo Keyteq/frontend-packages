@@ -24,11 +24,12 @@ const ConceptDialog = ({
   modifiers,
   closeCallback,
   subtitle,
+  ariaHidden,
 }) => {
   const licenseRights = getLicenseByAbbreviation(license).rights;
   return (
     <div
-      aria-hidden="true"
+      aria-hidden={ariaHidden}
       role="dialog"
       data-concept-id={id}
       aria-labelledby={id}
@@ -36,7 +37,7 @@ const ConceptDialog = ({
       {...classes('popup', modifiers)}>
       <button {...classes('close', 'u-close')} onClick={() => closeCallback ? closeCallback() : null}>{messages.close}</button>
       <h3 {...classes('title')}>{title} { subtitle ? <span {...classes('subtitle')}>{ subtitle }</span> : null }</h3>
-      <p {...classes('content')}>{content}</p>
+      <div {...classes('content')}>{content}</div>
       <div {...sourceClasses()}>
         {licenseRights.length > 0 && (
           <LicenseByline
@@ -75,6 +76,7 @@ ConceptDialog.propTypes = {
   modifiers: PropTypes.arrayOf(PropTypes.string),
   closeCallback: PropTypes.func,
   subtitle: PropTypes.string,
+  ariaHidden: PropTypes.bool,
 };
 
 ConceptDialog.defaultProps = {
@@ -82,6 +84,7 @@ ConceptDialog.defaultProps = {
   license: '',
   children: '',
   modifiers: [],
+  ariaHidden: true,
 };
 
 export default ConceptDialog;

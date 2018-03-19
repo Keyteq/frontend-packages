@@ -54,7 +54,7 @@ class ListViewDialog extends Component {
             content: <p>Ordliste</p>,
           },
         ]} />;
-
+            
     return (
       <div>
       { createUniversalPortal(
@@ -70,7 +70,8 @@ class ListViewDialog extends Component {
           }}
           closeCallback={this.handleClick}
           license={item.license}
-          source={item.source} />,
+          source={item.source}
+          ariaHidden={false} />,
           'body'
       )}
       </div>

@@ -65,6 +65,7 @@ export const mockListView = {
       },
       source: 'snl.no',
       license: 'by-nc-nd',
+      glossary: ['Ord'],
     },
   ],
 };

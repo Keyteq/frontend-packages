@@ -57,8 +57,15 @@
 
   &--listview {
     position: fixed;
-    top: 0%;
-    // transform: translate(0%, -50%);
+    max-height: 100%;
+    overflow-y: auto;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.c-concept__popup--visible {
+      // Use other animation to allow fixed div to be vertically aligned using translateY
+      animation: fadeInTopFixed 0.4s;
+    }
   }
 
   @include mq($from: tablet) {

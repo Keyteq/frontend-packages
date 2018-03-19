@@ -5,6 +5,7 @@ import { mockListView } from '../../dummydata';
 
 class ListViewExample extends Component {
   render() {
+    console.log(mockListView.items)
     return (
       <div>
         <ListView
