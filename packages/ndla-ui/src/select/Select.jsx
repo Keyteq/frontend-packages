@@ -1,6 +1,7 @@
 import React from 'react';
 import BEMHelper from 'react-bem-helper';
 import PropTypes from 'prop-types';
+import { ChevronDown } from 'ndla-icons/common';
 
 const classes = BEMHelper('c-select');
 
@@ -13,7 +14,7 @@ const Select = ({ children, className, label, id, ...rest }) => (
       <select {...classes('input')} {...rest} id={id}>
         {children}
       </select>
-      <span {...classes('symbol')}>-</span>
+      <span {...classes('symbol')}><ChevronDown /></span>
     </div>
   </div>
 );
