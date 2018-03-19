@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
 import { FilterList, Select } from 'ndla-ui';
+import { List as ListIcon, Grid as GridIcon } from 'ndla-icons/action';
 import { Search as SearchIcon } from 'ndla-icons/common';
 import ListViewDialog from './ListViewDialog';
 import ListItem from './ListItem';
@@ -140,10 +141,10 @@ class ListView extends Component {
 
           <div {...classes('list-style')}>
             <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid', selectedLetter: ''})}>
-              Grid
+              <GridIcon />
             </button>
             <button {...classes('style-button', { active: viewStyle === 'list'})} onClick={ () => this.setState({ viewStyle: 'list'})}>
-              List
+              <ListIcon />
             </button>
           </div>
 
