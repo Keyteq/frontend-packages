@@ -237,8 +237,9 @@
 }
 
 .c-listview-dialog {
-  position: fixed;
-  top: 10%;
+  position: absolute;
+  top: 0;
+  
   left: 25%;
   width: 50%;
   background: $white;

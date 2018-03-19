@@ -62,7 +62,10 @@ ConceptDialog.propTypes = {
   title: PropTypes.string.isRequired,
   authors: PropTypes.arrayOf(PropTypes.string),
   source: PropTypes.string,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+  ]).isRequired,
   messages: PropTypes.shape({
     ariaLabel: PropTypes.string.isRequired,
     close: PropTypes.string.isRequired,

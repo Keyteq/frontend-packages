@@ -40,15 +40,6 @@ class ListViewDialog extends Component {
   }
 
   render() {
-    /*
-    <div {...classes('')}>
-      <div {...classes('topbar')}>
-        <h1 {...classes('name')}>
-          {item.name}{' '}
-          <span {...classes('subject')}>{item.subject.title}</span>
-        </h1>
-      </div>
-    */
     const { item } = this.props;
     const dialogContent =
       <Tabs
