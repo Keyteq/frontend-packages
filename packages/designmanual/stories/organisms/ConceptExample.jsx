@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import BEMHelper from 'react-bem-helper';
 import { Time, User } from 'ndla-icons/common';
 import { Concept, OneColumn, LayoutItem, Image } from 'ndla-ui';
 import Tabs from 'ndla-tabs';
@@ -16,11 +17,16 @@ import { addShowConceptDefinitionClickListeners } from 'ndla-article-scripts';
 import LicenseExample from '../article/LicenseExample';
 import FigureWithLicense from '../article/FigureWithLicense';
 
+const classes = BEMHelper({
+  name: 'concept',
+  prefix: 'c-',
+});
+
 const ConceptContent = ({
   content
 }) =>
   <div>
-    { content.image ? <img src={content.image.url} alt={content.image.altText} /> : null}
+    { content.image ? <div {...classes('popup-image')}><img src={content.image.url} alt={content.image.altText} /></div> : null}
     { content.text ? <p>{ content.text }</p> : null }
   </div>
 
@@ -170,7 +176,7 @@ class ConceptExample extends Component {
                       close: 'Lukk',
                     }}
                     linkTo={{ href: "#", label: "Les artikkel om Sanksjon"}}
-                    tags={['Test tag']}
+                    tags={['Test tag', 'Tag 2']}
                     license="by-nc-nd"
                     id={2}>
                     Sanksjonene

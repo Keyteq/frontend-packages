@@ -85,6 +85,19 @@
   padding: $spacing;
   opacity: 0;
 
+  // Some styling for images used in popup
+  &-image {
+    height: 347px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      margin: 0 auto 0 auto;
+      position: relative;
+      height: 95%;
+      width: auto;
+    }
+  }
   // Additional styling for extras in the dialog such as links and tags
   &-extra {
     display: block;
@@ -118,10 +131,11 @@
     float: left;
     text-align: right;
     a {
+      display: inline-block;
       color: $brand-color;
       font-weight: $font-weight-semibold;
       font-family: $font;
-      @include inuit-font-size(14px);
+      @include inuit-font-size(14px, 25px);
     }
   }
 }

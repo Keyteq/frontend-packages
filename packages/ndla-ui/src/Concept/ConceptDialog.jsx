@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { getLicenseByAbbreviation } from 'ndla-licenses';
+import { ForwardArrow } from 'ndla-icons/action';
 import LicenseByline from '../LicenseByline';
 
 const classes = new BEMHelper({
@@ -40,18 +41,18 @@ const ConceptDialog = ({
       <button {...classes('close', 'u-close')} onClick={() => closeCallback ? closeCallback() : null}>{messages.close}</button>
       <h3 {...classes('title')}>{title} { subtitle ? <span {...classes('subtitle')}>{ subtitle }</span> : null }</h3>
       <div {...classes('content')}>{content}</div>
-      
+
       { tags || linkTo ?
       <div {...classes('popup-extra')}>
         { tags ?
           <div { ...classes('popup-tags')}>
             Brukes i:
-            { tags.map((tag) => <span {...classes('popup-tag')}>{tag}</span> )}
+            { tags.map((tag) => <span {...classes('popup-tag')} key={`key-${tag}`}>{tag}</span> )}
           </div> : null
         }
         { linkTo ?
           <div {...classes('popup-link')}>
-            <a {...classes('linkTo')} href={linkTo.href}>{ linkTo.label }</a>
+            <a {...classes('linkTo')} href={linkTo.href}>{ linkTo.label } <ForwardArrow /></a>
           </div> : null
         }
       </div> : null }
@@ -95,7 +96,10 @@ ConceptDialog.propTypes = {
   closeCallback: PropTypes.func,
   subtitle: PropTypes.string,
   ariaHidden: PropTypes.bool,
-  linkTo: PropTypes.string,
+  linkTo: PropTypes.shape({
+    label: PropTypes.string,
+    href: PropTypes.string,
+  }),
   tags: PropTypes.arrayOf(PropTypes.string),
 };
 

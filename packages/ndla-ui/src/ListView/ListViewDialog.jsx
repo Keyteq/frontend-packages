@@ -4,12 +4,15 @@ import BEMHelper from 'react-bem-helper';
 import { ConceptDialog } from 'ndla-ui';
 import { createUniversalPortal } from '../utils/createUniversalPortal';
 
-const classes = BEMHelper('c-listview-dialog');
+const classes = BEMHelper({
+  name: 'concept',
+  prefix: 'c-',
+});
 
 const ConceptContent = ({ item }) => (
   <div>
     { item.image ?
-    <div {...classes('image')}>
+    <div {...classes('popup-image')}>
       <img src={item.image} alt={item.description} />
     </div> : null }
     <p {...classes('description')}>{item.description}</p>
