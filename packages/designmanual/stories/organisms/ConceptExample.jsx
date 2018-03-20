@@ -33,21 +33,18 @@ const ConceptDialog = ({
 }) => {
   let contentElements = null;
   if (content.tabs) {
-    const tabContent = content.tabs.map((tab) => {
-      return {
+    const tabContent = content.tabs.map((tab) => (
+      {
         title: tab.title,
         content: <ConceptContent content={tab.content} />
-      }
-    })
+      }))
 
-    console.log(tabContent)
     contentElements = (<Tabs tabs={tabContent} />)
   } else {
     contentElements = (
       <ConceptContent content={content} />
     )
   }
-  console.log(content)
   return (
     <div>
       { contentElements }
@@ -81,7 +78,7 @@ class ConceptExample extends Component {
               url: 'https://studieweb.no/wp-content/uploads/2014/08/sanksjon.jpg',
               altText: '',
             },
-            text: 'Sanksjon, en negativ eller positiv reaksjon på noens atferd. I dagligtalen er det vanlig å oppfatte sanksjoner først og fremst som negative reaksjoner rettet mot uønsket atferd eller avvik. Et eksempel er foreldrene som nekter ungen lørdagsgodteri (sanksjon) fordi han eller hun ikke spiser opp grønnsakene sine (uønsket atferd).'
+            text: 'Sanksjon, en negativ eller positiv reaksjon på noens atferd. I dagligtalen er det vanlig å oppfatte sanksjoner først og fremst som negative reaksjoner rettet mot uønsket atferd eller avvik. Et eksempel er foreldrene som nekter ungen lørdagsgodteri (sanksjon) fordi han eller hun ikke spiser opp grønnsakene sine (uønsket atferd).',
           }
         },
         {
@@ -172,6 +169,8 @@ class ConceptExample extends Component {
                       ariaLabel: 'Vis begrep beskrivelse',
                       close: 'Lukk',
                     }}
+                    linkTo={{ href: "#", label: "Les artikkel om Sanksjon"}}
+                    tags={['Test tag']}
                     license="by-nc-nd"
                     id={2}>
                     Sanksjonene

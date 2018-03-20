@@ -13,11 +13,6 @@ const ConceptContent = ({ item }) => (
       <img src={item.image} alt={item.description} />
     </div> : null }
     <p {...classes('description')}>{item.description}</p>
-    { item.category ?
-    <div {...classes('meta')}>
-      <span {...classes('category-label')}>Brukes i:</span>
-      <span {...classes('category')}>{item.category.title}</span>
-    </div> : null }
   </div>
 );
 
@@ -60,6 +55,7 @@ class ListViewDialog extends Component {
           closeCallback={this.handleClick}
           license={item.license}
           source={item.source}
+          tags={item.tags}
           ariaHidden={false} />,
           'body'
       )}

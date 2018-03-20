@@ -15,6 +15,7 @@ export const mockListView = {
       },
       source: 'snl.no',
       license: 'by-nc-nd',
+      tags: ['Murerfaget'],
     },
     {
       name: 'Armeringskutter',

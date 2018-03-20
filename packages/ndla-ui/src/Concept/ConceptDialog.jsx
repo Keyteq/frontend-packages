@@ -25,6 +25,8 @@ const ConceptDialog = ({
   closeCallback,
   subtitle,
   ariaHidden,
+  linkTo,
+  tags,
 }) => {
   const licenseRights = getLicenseByAbbreviation(license).rights;
   return (
@@ -38,6 +40,22 @@ const ConceptDialog = ({
       <button {...classes('close', 'u-close')} onClick={() => closeCallback ? closeCallback() : null}>{messages.close}</button>
       <h3 {...classes('title')}>{title} { subtitle ? <span {...classes('subtitle')}>{ subtitle }</span> : null }</h3>
       <div {...classes('content')}>{content}</div>
+      
+      { tags || linkTo ?
+      <div {...classes('popup-extra')}>
+        { tags ?
+          <div { ...classes('popup-tags')}>
+            Brukes i:
+            { tags.map((tag) => <span {...classes('popup-tag')}>{tag}</span> )}
+          </div> : null
+        }
+        { linkTo ?
+          <div {...classes('popup-link')}>
+            <a {...classes('linkTo')} href={linkTo.href}>{ linkTo.label }</a>
+          </div> : null
+        }
+      </div> : null }
+
       <div {...sourceClasses()}>
         {licenseRights.length > 0 && (
           <LicenseByline
@@ -77,6 +95,8 @@ ConceptDialog.propTypes = {
   closeCallback: PropTypes.func,
   subtitle: PropTypes.string,
   ariaHidden: PropTypes.bool,
+  linkTo: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 ConceptDialog.defaultProps = {

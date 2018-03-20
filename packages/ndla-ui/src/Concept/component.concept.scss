@@ -84,6 +84,46 @@
   background: $white;
   padding: $spacing;
   opacity: 0;
+
+  // Additional styling for extras in the dialog such as links and tags
+  &-extra {
+    display: block;
+    &:after {
+      content: "";
+      display: inline-table;
+      clear: both;
+    }
+  }
+
+  &-tags {
+    width: 50%;
+    float: left;
+  }
+
+  &-tag {
+    font-family: $font;
+    @include inuit-font-size(12px);
+    background: $brand-grey--lightest;
+    display: inline-block;
+    font-weight: 600;
+    border-radius: 0.2em;
+    padding: 0.3rem;
+    line-height: .5rem;
+    margin-left: 0.5em;
+    font-family: $font;
+  }
+
+  &-link {
+    width: 50%;
+    float: left;
+    text-align: right;
+    a {
+      color: $brand-color;
+      font-weight: $font-weight-semibold;
+      font-family: $font;
+      @include inuit-font-size(14px);
+    }
+  }
 }
 
 .c-concept__popup--visible {
