@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { ConceptDialog } from 'ndla-ui';
-import Tabs from 'ndla-tabs';
 import { createUniversalPortal } from '../utils/createUniversalPortal';
 
 const classes = BEMHelper('c-listview-dialog');
 
 const ConceptContent = ({ item }) => (
   <div>
+    { item.image ?
     <div {...classes('image')}>
       <img src={item.image} alt={item.description} />
-    </div>
+    </div> : null }
     <p {...classes('description')}>{item.description}</p>
+    { item.category ?
     <div {...classes('meta')}>
       <span {...classes('category-label')}>Brukes i:</span>
       <span {...classes('category')}>{item.category.title}</span>
-    </div>
+    </div> : null }
   </div>
 );
 
@@ -41,20 +42,8 @@ class ListViewDialog extends Component {
 
   render() {
     const { item } = this.props;
-    const dialogContent =
-      <Tabs
-        selectedIndex={0}
-        tabs={[
-          {
-            title: 'Begrep',
-            content: <ConceptContent item={item} />,
-          },
-          {
-            title: 'Ordliste',
-            content: <p>Ordliste</p>,
-          },
-        ]} />;
-            
+    const  dialogContent = <ConceptContent item={item} />
+
     return (
       <div>
       { createUniversalPortal(

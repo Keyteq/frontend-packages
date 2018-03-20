@@ -93,12 +93,13 @@
         height: 41px;
         line-height: 41px;
         padding: $spacing--small;
+        padding-right: 0;
         @include inuit-font-size(16px);
 
         & + .c-search-field__button {
           padding: $spacing--small / 2;
           top: 2px;
-          right: $spacing--small;
+          right: 4px;
           svg {
             @include inuit-font-size(18px);
           }

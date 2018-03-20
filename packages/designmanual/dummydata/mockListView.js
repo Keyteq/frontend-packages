@@ -2,9 +2,25 @@ export const mockListView = {
   items: [
     {
       name: 'Bajonettsag',
-      description: 'Bajonettsag brukes med ulike typer blad.',
+      text: 'Bajonettsag brukes med ulike typer blad.',
       image: 'https://www.clasohlson.com/medias/sys_master/9058803056670.jpg',
       id: '1',
+      tabs: [
+        {
+          name: 'Begrep',
+          content: {
+            image: 'https://www.clasohlson.com/medias/sys_master/9058803056670.jpg',
+            text: 'Bajonettsag brukes med ulike typer blad.',
+          },
+        },
+        {
+          name: 'Ordliste',
+          content: {
+            image: 'https://www.clasohlson.com/medias/sys_master/9058803056670.jpg',
+            text: 'Bajonettsag ordliste.',
+          }
+        },
+      ],
       subject: {
         title: 'El-Håndverkøy',
         value: 'elhandverktoy',
@@ -65,7 +81,6 @@ export const mockListView = {
       },
       source: 'snl.no',
       license: 'by-nc-nd',
-      glossary: ['Ord'],
     },
   ],
 };
