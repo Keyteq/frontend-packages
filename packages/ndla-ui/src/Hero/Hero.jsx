@@ -18,13 +18,19 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-export const Hero = ({ children, contentType }) => (
-  <div {...classes('', contentType)}>{children || null}</div>
-);
+export const Hero = ({ children, contentType, transparentBackground }) => {
+  console.log(transparentBackground)
+  console.log(contentType)
+
+  return (
+    <div {...classes('', [contentType, transparentBackground ? 'transparent' : '' ] )}>{children || null}</div>
+  )
+};
 
 Hero.propTypes = {
   contentType: ContentTypeShape.isRequired,
   children: PropTypes.node,
+  transparentBackground: PropTypes.bool,
 };
 
 export const SubjectMaterialHero = props => (

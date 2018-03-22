@@ -28,6 +28,7 @@ import {
   LayoutItem,
   Breadcrumb,
   Content,
+  LearningPath,
 } from 'ndla-ui';
 
 import {
@@ -425,6 +426,23 @@ storiesOf('Emnesider', module)
         />
       </Content>
       <FooterExample />
+    </PageContainer>
+  ))
+  .add('5. Læringssti', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+
+        <LearningPath
+          breadcrumb={
+          <Breadcrumb
+            toSubjects={() => '#'}
+            subjectsTitle="Fag"
+            subject={subjectList[1]}
+            topicPath={topicList.slice(0, -1)}
+            toTopic={() => '#'}
+            isCurrent />} />
+      </Content>
     </PageContainer>
   ))
   .add('Last inn emne', () => (
