@@ -10,6 +10,7 @@
 export { default as Additional } from './Additional';
 export { default as Audio } from './Audio';
 export { default as Back } from './Back';
+export { default as Checked } from './Checked';
 export { default as ChevronDown } from './ChevronDown';
 export { default as ChevronLeft } from './ChevronLeft';
 export { default as ChevronRight } from './ChevronRight';

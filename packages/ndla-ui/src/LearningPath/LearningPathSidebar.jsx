@@ -5,8 +5,8 @@ import {
   ContentTypeBadge,
 } from 'ndla-ui';
 import {
-  Check,
-} from 'ndla-icons/editor';
+  Checked,
+} from 'ndla-icons/common';
 import * as contentTypes from '../model/ContentType';
 
 
@@ -19,7 +19,7 @@ const LearningPathSidebarIcon = ({  activeStepLoaded, step, activeStep }) => {
   if (activeStepLoaded || !activeStep) {
     return (<ContentTypeBadge type={step.type} extraClass='c-learning-path__navitem-icon' />)
   }
-  return <div {...classes('navitem-icon')}><Check /></div>
+  return <div {...classes('navitem-icon')}><Checked /></div>
 }
 
 const LearningPathSidebarItem = ({ step, index, callback, activeStep, activeStepLoaded }) => {
