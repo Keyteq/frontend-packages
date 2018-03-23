@@ -18,13 +18,10 @@ class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      detailedItem: null,
       viewStyle: this.props.viewStyle,
       sortBy: 'alphabet',
       searchWord: '',
-      selectedLetter: '',
     };
-    this.setDetailedItem = this.setDetailedItem.bind(this);
   }
 
   getActiveLetters() {
@@ -36,11 +33,6 @@ class ListView extends Component {
       letters[item.name.charAt(0).toLowerCase()] = true;
     }
     return letters;
-  }
-
-  setDetailedItem(item) {
-    const stateObj = { detailedItem: item};
-    this.setState(stateObj);
   }
 
   sortItems() {
@@ -62,12 +54,12 @@ class ListView extends Component {
       return 0;
     });
 
-    if (this.state.selectedLetter === '' && this.state.searchWord === '') {
+    if (this.props.selectedLetter === '' && this.state.searchWord === '') {
       return sortedItems;
     }
 
-    if (this.state.selectedLetter) {
-      const { selectedLetter } = this.state;
+    if (this.props.selectedLetter) {
+      const { selectedLetter } = this.props;
       const itemsLen = sortedItems.length;
       for (let i = 0; i < itemsLen; i += 1) {
         const item = sortedItems[i];
@@ -95,14 +87,14 @@ class ListView extends Component {
   }
 
   render() {
-    const { filters } = this.props;
+    const { filters, detailedItem, selectedLetter, selectCallback, selectedLetterCallback } = this.props;
     const { viewStyle } = this.state;
     const sortedItems = this.sortItems();
     const listItems = sortedItems.map((item) => (
       <ListItem
         item={item}
         key={item.id}
-        clickCallback={this.setDetailedItem} />
+        clickCallback={() => selectCallback(item)} />
     ));
 
     const filterComponents = filters.map(filter => (
@@ -140,7 +132,7 @@ class ListView extends Component {
           </div>
 
           <div {...classes('list-style')}>
-            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid', selectedLetter: ''})}>
+            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid'})}>
               <GridIcon />
             </button>
             <button {...classes('style-button', { active: viewStyle === 'list'})} onClick={ () => this.setState({ viewStyle: 'list'})}>
@@ -153,8 +145,8 @@ class ListView extends Component {
             { alphabet.split('').map((letter) =>
               <li key={`letter-${letter}`} {...classes('letter')}>
                 <button
-                  {...classes('letter-button', { active: this.state.selectedLetter === letter, disabled: !this.getActiveLetters()[letter] })}
-                  onClick={() => (this.state.selectedLetter === letter) ? this.setState({ selectedLetter: ''}) : this.setState({ selectedLetter: letter }) }>
+                  {...classes('letter-button', { active: selectedLetter === letter, disabled: !this.getActiveLetters()[letter] })}
+                  onClick={() => (selectedLetter === letter) ? selectedLetterCallback('') : selectedLetterCallback(letter)}>
                   { letter }
                 </button>
               </li>
@@ -163,11 +155,10 @@ class ListView extends Component {
         </div>
 
         <ul {...classes('content', [viewStyle] )}>{listItems}</ul>
-        {this.state.detailedItem ? (
+        { detailedItem ? (
           <ListViewDialog
-            item={this.state.detailedItem}
-            closeCallback={() => this.setState({ detailedItem: null })}
-            setItemCallback={this.setDetailedItem}
+            item={detailedItem}
+            closeCallback={() => selectCallback(null)}
           />
         ) : null}
       </div>
@@ -185,12 +176,17 @@ ListView.propTypes = {
     PropTypes.shape({
     })
   ),
+  detailedItem: PropTypes.shape(),
+  selectCallback: PropTypes.func,
+  selectedLetterCallback: PropTypes.func,
+  selectedLetter: PropTypes.string,
   viewStyle: PropTypes.oneOf(['grid', 'list']),
 };
 
 ListView.defaultProps = {
   filters: [],
   viewStyle: 'grid',
+  selectedLetter: '',
 };
 
 export default ListView;
