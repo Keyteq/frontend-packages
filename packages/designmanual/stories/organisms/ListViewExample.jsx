@@ -23,7 +23,6 @@ class ListViewExample extends Component {
 
   render() {
     const { detailedItem, selectedLetter } = this.state
-    console.log(detailedItem)
     return (
       <div>
         <ListView

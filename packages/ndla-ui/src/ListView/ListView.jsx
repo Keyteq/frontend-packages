@@ -140,7 +140,7 @@ class ListView extends Component {
             </button>
           </div>
 
-          { viewStyle === 'list' ?
+          { viewStyle === 'list' && selectedLetterCallback ?
           <ul {...classes('alphabet')}>
             { alphabet.split('').map((letter) =>
               <li key={`letter-${letter}`} {...classes('letter')}>
