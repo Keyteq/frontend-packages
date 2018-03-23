@@ -82,6 +82,12 @@
         text-transform: uppercase;
         font-weight: $font-weight-normal;
       }
+
+      &--toplink {
+        display: block;
+        font-weight: $font-weight-normal;
+        line-height: 3.5rem;
+      }
     }
 
     &-icon {
@@ -96,6 +102,19 @@
       text-align: center;
     }
 
+    &-time {
+      @include inuit-font-size(14px, 40px);
+      margin-top: $spacing--small;
+      margin-bottom: $spacing--small;
+      padding-left: $spacing--small;
+      padding-right: $spacing--small;
+      border: 1px solid #E8E3E3;
+      border-radius: 4px;
+      font-weight: $font-weight-bold;
+      svg {
+        margin-right: $spacing--small / 2;
+      }
+    }
     // States
     &--done {
       .c-learning-path__navitem-title {
@@ -107,6 +126,9 @@
       }
       .c-learning-path__navitem-icon {
         border: 2px solid #8A8888;
+        svg {
+          opacity: 0.5;
+        }
       }
     }
 

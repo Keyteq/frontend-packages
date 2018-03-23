@@ -6,6 +6,7 @@ import {
   assessmentResources,
 } from './mockResources';
 import { subjectList } from './mockSubjects';
+import { learningPath } from './mockLearningPath';
 import {
   firstBrightcoveList,
   secondBrightcoveList,
@@ -23,6 +24,7 @@ export {
   topicMenu,
   topicList,
   subjectList,
+  learningPath,
   learningPathResources,
   articleResources,
   exerciseResources,
