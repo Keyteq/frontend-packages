@@ -20,11 +20,16 @@
     // background: $white;
   }
 
+  &__main {
+    height: 100%;
+  }
+
   &__article {
     border: 1px solid #EFF0F2;
     margin-top: $spacing--medium;
     position: relative;
-    height: 95%;
+    overflow: hidden;
+    height: auto;
 
     &__iframe {
       /* position: absolute;

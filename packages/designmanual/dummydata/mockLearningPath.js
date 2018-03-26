@@ -12,20 +12,20 @@ export const learningPath = {
     },
     {
       id: '2',
-      title: 'Blikkets reise over komposisjonen',
-      linkTo: 'https://no.wikipedia.org/wiki/Komposisjon_(billedkunst)',
+      title: 'P for produkt',
+      linkTo: 'https://beta.ndla.no/article-iframe/nb/article/2713',
       type: 'subject',
     },
     {
       id: '3',
-      title: 'Komposisjonsprinsippet',
-      linkTo: 'https://no.wikipedia.org/wiki/Komposisjonsprinsipp',
+      title: 'P for pris på fem minuter',
+      linkTo: 'https://beta.ndla.no/article-iframe/nb/article/2706',
       type: 'subject-material',
     },
     {
       id: '4',
-      title: 'Enhet og rytme',
-      linkTo: '#',
+      title: 'P for pris på fem minuter',
+      linkTo: 'https://beta.ndla.no/article-iframe/nb/article/2706',
       type: 'tasks-and-activities',
     },
     {
