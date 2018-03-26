@@ -41,7 +41,7 @@ const LearningPathSidebarItem = ({ step, activeStep, activeStepLoaded, callback,
   return (
     <li {...classes('navitem', modifiers)}
         key={`navitem-${step.id}`}>
-        <div role="button" tabIndex={0} onClick={callback} onKeyUp={(evt)=> keyUpCallback(step, evt)} onKeyDown={(evt) => handleKeyDown(evt)}>
+        <div role="button" tabIndex={0} onClick={() => callback(step)} onKeyUp={(evt)=> keyUpCallback(step, evt)} onKeyDown={(evt) => handleKeyDown(evt)}>
           <div {...classes('navitem-border')} />
           { <LearningPathSidebarIcon activeStepLoaded={ activeStepLoaded } step={step} activeStep={activeStep} /> }
           <span {...classes('navitem-title')}>{ step.title }</span>

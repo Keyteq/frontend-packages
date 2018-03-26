@@ -7,7 +7,7 @@ export const learningPath = {
     {
       id: '1',
       title: 'Hva husker du om grafisk design?',
-      linkTo: 'https://no.wikipedia.org/wiki/Grafisk_design',
+      linkTo: 'https://beta.ndla.no/article-iframe/nb/article/2556',
       type: 'assessment-resources',
     },
     {
