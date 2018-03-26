@@ -11,6 +11,8 @@ class ListViewExample extends Component {
     };
     this.setDetailedItem = this.setDetailedItem.bind(this);
     this.setSelectedLetter = this.setSelectedLetter.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSortBy = this.handleSortBy.bind(this);
   }
 
   setDetailedItem(item) {
@@ -19,6 +21,14 @@ class ListViewExample extends Component {
 
   setSelectedLetter(letter) {
     this.setState({ selectedLetter: letter })
+  }
+
+  handleSearch(searchWord) {
+    console.log('Search ', searchWord)
+  }
+
+  handleSortBy(value) {
+    console.log('value: ', value);
   }
 
   render() {
@@ -31,6 +41,20 @@ class ListViewExample extends Component {
           selectedLetter={selectedLetter}
           selectCallback={this.setDetailedItem}
           selectedLetterCallback={this.setSelectedLetter}
+          sortBy={{
+            label: 'Sorter etter',
+            options: [
+              {
+                value: 'alphabet',
+                label: 'Alfabetisk a-å',
+              }
+            ],
+            onChange: this.handleSortBy,
+          }}
+          search={{
+            placeholder: 'Søk i listen',
+            callback: this.handleSearch,
+          }}
           filters={[
             {
               options: [

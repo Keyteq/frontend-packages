@@ -152,7 +152,7 @@
 
    &__sortBy {
      flex: 0 1 33.33%;
-
+     padding-right: $spacing--small;
      label {
        flex: 0 1 33%;
      }
@@ -164,14 +164,13 @@
 
    &__search {
      flex: 0 1 33.33%;
-     padding-left: $spacing--small;
      .c-search-field {
        max-width: 75%;
      }
    }
 
    &__list-style {
-     flex: 0 1 33.33%;
+     flex: 3 1 33.33%;
      text-align: right;
    }
    /* Style for alphabet filter */

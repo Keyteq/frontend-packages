@@ -19,8 +19,6 @@ class ListView extends Component {
     super(props);
     this.state = {
       viewStyle: this.props.viewStyle,
-      sortBy: 'alphabet',
-      searchWord: '',
     };
   }
 
@@ -35,62 +33,19 @@ class ListView extends Component {
     return letters;
   }
 
-  sortItems() {
-    const { items } = this.props;
-    let result = [];
-    let filtered = false;
-    const sortedItems = items.sort((a, b) => {
-      if (this.state.sortBy === 'alphabet') {
-        const aName = a.name.toLowerCase();
-        const bName = b.name.toLowerCase();
-        if (aName > bName) {
-          return 1;
-        }
-        if (aName < bName) {
-          return -1;
-        }
-        return 0;
-      }
-      return 0;
-    });
-
-    if (this.props.selectedLetter === '' && this.state.searchWord === '') {
-      return sortedItems;
-    }
-
-    if (this.props.selectedLetter) {
-      const { selectedLetter } = this.props;
-      const itemsLen = sortedItems.length;
-      for (let i = 0; i < itemsLen; i += 1) {
-        const item = sortedItems[i];
-        if (item.name.charAt(0).toLowerCase() === selectedLetter) {
-          result.push(item);
-        }
-      }
-      filtered = true;
-    }
-
-    if (this.state.searchWord !== '') {
-      const searchWord = this.state.searchWord.toLowerCase();
-      if (filtered) {
-        // Use results
-        result = result.filter(
-          item => item.name.toLowerCase().indexOf(searchWord) > -1,
-        );
-      } else {
-        result = sortedItems.filter(
-          item => item.name.toLowerCase().indexOf(searchWord) > -1,
-        );
-      }
-    }
-    return result;
-  }
-
   render() {
-    const { filters, detailedItem, selectedLetter, selectCallback, selectedLetterCallback } = this.props;
+    const {
+      items,
+      filters,
+      detailedItem,
+      selectedLetter,
+      selectCallback,
+      selectedLetterCallback,
+      sortBy,
+      search,
+    } = this.props;
     const { viewStyle } = this.state;
-    const sortedItems = this.sortItems();
-    const listItems = sortedItems.map((item) => (
+    const listItems = items.map((item) => (
       <ListItem
         item={item}
         key={item.id}
@@ -107,36 +62,40 @@ class ListView extends Component {
         key={filter.id} />
     ));
 
+    const sortByComponent = sortBy ?
+      <div {...classes('sortBy')}>
+        <Select id="listViewSortBy" label={sortBy.label} onChange={sortBy.onChange}>
+        { sortBy.options.map((option) =>
+          <option value={option.value}>{option.label}</option>
+        )}
+        </Select>
+      </div> : null;
+
+    const searchComponent = search ?
+      <div {...classes('search')}>
+        <div {...searchFieldClasses()}>
+          <input {...searchFieldClasses('input', 'small')}
+            type="search"
+            placeholder={search.placeholder}
+            onChange={(e) => search.callback ? search.callback(e.target.value) : null } />
+            <button tabIndex="-1" {...searchFieldClasses('button')} type="submit" value="Search">
+              <SearchIcon />
+            </button>
+        </div>
+      </div> : null;
+
     return (
       <div {...classes()}>
         <h1>Listevisning</h1>
-        { filterComponents }
-
         <div {...classes('sorting')}>
-          <div {...classes('sortBy')}>
-            <Select id="listViewSortBy" label="Sorter etter:">
-              <option value="alphabet">Alfabetisk a-å</option>
-            </Select>
-          </div>
-
-          <div {...classes('search')}>
-            <div {...searchFieldClasses()}>
-              <input {...searchFieldClasses('input', 'small')}
-                type="search"
-                placeholder="Søk i listen"
-                onChange={(e) => this.setState({ searchWord: e.target.value })} />
-              <button tabIndex="-1" {...searchFieldClasses('button')} type="submit" value="Search">
-                <SearchIcon />
-              </button>
-            </div>
-          </div>
-
+          { sortByComponent }
+          { searchComponent }
           <div {...classes('list-style')}>
-            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid'})}>
-              <GridIcon />
-            </button>
             <button {...classes('style-button', { active: viewStyle === 'list'})} onClick={ () => this.setState({ viewStyle: 'list'})}>
               <ListIcon />
+            </button>
+            <button {...classes('style-button', { active: viewStyle === 'grid'})} onClick={ () => this.setState({ viewStyle: 'grid'})}>
+              <GridIcon />
             </button>
           </div>
 
@@ -153,6 +112,7 @@ class ListView extends Component {
             )}
           </ul> : null }
         </div>
+        { filterComponents }
 
         <ul {...classes('content', [viewStyle] )}>{listItems}</ul>
         { detailedItem ? (
@@ -180,6 +140,16 @@ ListView.propTypes = {
   selectCallback: PropTypes.func,
   selectedLetterCallback: PropTypes.func,
   selectedLetter: PropTypes.string,
+  sortBy: PropTypes.shape({
+    label: PropTypes.string,
+    options: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    onChange: PropTypes.func,
+  }),
+  search: PropTypes.shape({
+    placeholder: PropTypes.string,
+  }),
   viewStyle: PropTypes.oneOf(['grid', 'list']),
 };
 

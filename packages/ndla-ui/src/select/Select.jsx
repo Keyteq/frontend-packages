@@ -5,13 +5,13 @@ import { ChevronDown } from 'ndla-icons/common';
 
 const classes = BEMHelper('c-select');
 
-const Select = ({ children, className, label, id, ...rest }) => (
+const Select = ({ children, className, label, id, onChange, ...rest }) => (
   <div {...classes()}>
     <label htmlFor={id} {...classes('label')}>
       {label}
     </label>
     <div {...classes('wrapper')}>
-      <select {...classes('input')} {...rest} id={id}>
+      <select {...classes('input')} {...rest} id={id} onChange={(e) => onChange ? onChange(e.target.value) : null }>
         {children}
       </select>
       <span {...classes('symbol')}><ChevronDown /></span>
@@ -24,6 +24,7 @@ Select.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   id: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 Select.defaultProps = {
