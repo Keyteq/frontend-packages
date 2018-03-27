@@ -45,7 +45,10 @@ Concept.propTypes = {
   }),
   license: PropTypes.string,
   children: PropTypes.string,
-  linkTo: PropTypes.string,
+  linkTo: PropTypes.shape({
+    label: PropTypes.string,
+    href: PropTypes.string,
+  }),
 };
 
 export default Concept;

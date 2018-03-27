@@ -8,3 +8,4 @@
 
  export { default as Concept } from './Concept';
  export { default as ConceptDialog } from './ConceptDialog';
+ export { ConceptDialogContent, ConceptDialogText, ConceptDialogImage } from './ConceptDialog';

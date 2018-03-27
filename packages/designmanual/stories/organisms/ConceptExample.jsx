@@ -8,27 +8,25 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BEMHelper from 'react-bem-helper';
 import { Time, User } from 'ndla-icons/common';
-import { Concept, OneColumn, LayoutItem, Image } from 'ndla-ui';
+import {
+  Concept, ConceptDialogContent, ConceptDialogText, ConceptDialogImage,
+  OneColumn, LayoutItem, Image, ToggleLicenseBox } from 'ndla-ui';
 import Tabs from 'ndla-tabs';
 import { addShowConceptDefinitionClickListeners } from 'ndla-article-scripts';
 
 import LicenseExample from '../article/LicenseExample';
 import FigureWithLicense from '../article/FigureWithLicense';
 
-const classes = BEMHelper({
-  name: 'concept',
-  prefix: 'c-',
-});
-
 const ConceptContent = ({
   content
 }) =>
-  <div>
-    { content.image ? <div {...classes('popup-image')}><img src={content.image.url} alt={content.image.altText} /></div> : null}
-    { content.text ? <p>{ content.text }</p> : null }
-  </div>
+  <ConceptDialogContent>
+    { content.text ?
+      <ConceptDialogText>{ content.text }</ConceptDialogText> : null }
+    { content.image ?
+      <ConceptDialogImage src={content.image.url} alt={content.image.altText} small /> : null}
+  </ConceptDialogContent>
 
 ConceptContent.propTypes = {
   content: PropTypes.shape(),
@@ -93,7 +91,7 @@ class ConceptExample extends Component {
             text: 'Ordliste goes here',
           },
         }
-      ]
+      ],
     }
     const socialisingDialog = <ConceptDialog content={socialisingContent} />
     const sanctionDialog = <ConceptDialog content={sanctionContent} />
@@ -132,6 +130,7 @@ class ConceptExample extends Component {
                       close: 'Lukk',
                     }}
                     license="by-nc-nd"
+                    licenseBox={<ToggleLicenseBox title="Bruk innhold"  closeTitle="Lukk boks"><p>Derp</p></ToggleLicenseBox>}
                     id={1}>
                     sosialisering
                   </Concept>{' '}

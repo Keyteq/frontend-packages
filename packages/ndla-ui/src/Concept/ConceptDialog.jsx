@@ -14,6 +14,49 @@ const sourceClasses = new BEMHelper({
   prefix: 'c-',
 });
 
+export const ConceptDialogContent = ({
+  children,
+  ...rest,
+}) => (
+  <div {...classes('popup__content')} {...rest}>
+  { children }
+  </div>
+);
+
+ConceptDialogContent.propTypes = {
+  children: PropTypes.node,
+};
+
+export const ConceptDialogText = ({
+  children,
+  ...rest,
+}) => (
+  <p {...classes('popup__paragraph')} {...rest}>{ children }</p>
+);
+
+ConceptDialogText.propTypes = {
+  children: PropTypes.node,
+};
+
+export const ConceptDialogImage = ({
+  alt,
+  small,
+  ...rest,
+}) => {
+  const modifiers = []
+  if (small) {
+    modifiers.push('small')
+  }
+  return (
+    <div {...classes('popup__image', modifiers)}><img {...rest} alt={alt} /></div>
+  )
+};
+
+ConceptDialogImage.propTypes = {
+  alt: PropTypes.string,
+  small: PropTypes.bool,
+}
+
 const ConceptDialog = ({
   title,
   authors,
@@ -28,8 +71,13 @@ const ConceptDialog = ({
   ariaHidden,
   linkTo,
   tags,
+  smallImage,
+  licenseBox,
 }) => {
   const licenseRights = getLicenseByAbbreviation(license).rights;
+  if (smallImage) {
+    modifiers.push('small-image');
+  }
   return (
     <div
       aria-hidden={ariaHidden}
@@ -72,6 +120,7 @@ const ConceptDialog = ({
         <span {...sourceClasses('item')} key={source}>
         {source}
         </span>
+        <licenseBox />
       </div>
     </div>
   )
@@ -101,6 +150,8 @@ ConceptDialog.propTypes = {
     href: PropTypes.string,
   }),
   tags: PropTypes.arrayOf(PropTypes.string),
+  smallImage: PropTypes.bool,
+  licenseBox: PropTypes.node,
 };
 
 ConceptDialog.defaultProps = {

@@ -73,7 +73,7 @@ export {
   ResourcesTitle,
 } from './ResourcesWrapper';
 export { default as ResourceGroup } from './ResourceGroup';
-export { Concept, ConceptDialog } from './Concept';
+export { Concept, ConceptDialog, ConceptDialogContent, ConceptDialogText, ConceptDialogImage } from './Concept';
 export { default as Breadcrumb, BreadcrumbBlock } from './Breadcrumb';
 export {
   SubjectMaterialHero,
