@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BEMHelper from 'react-bem-helper';
-import { ConceptDialog } from 'ndla-ui';
+import { ConceptDialog, ConceptDialogContent, ConceptDialogText, ConceptDialogImage } from 'ndla-ui';
 import { createUniversalPortal } from '../utils/createUniversalPortal';
 
-const classes = BEMHelper({
-  name: 'concept',
-  prefix: 'c-',
-});
-
 const ConceptContent = ({ item }) => (
-  <div>
+  <ConceptDialogContent>
     { item.image ?
-    <div {...classes('popup-image')}>
-      <img src={item.image} alt={item.description} />
-    </div> : null }
-    <p {...classes('description')}>{item.description}</p>
-  </div>
+    <ConceptDialogImage src={item.image} alt={item.description} wide /> : null }
+    <ConceptDialogText>{item.description}</ConceptDialogText>
+  </ConceptDialogContent>
 );
 
 ConceptContent.propTypes = {

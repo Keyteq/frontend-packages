@@ -86,12 +86,16 @@
 
   // Styling for concept-popup content components, Content, Text, Image
   &__content {
-    display: flex;
     padding-bottom: $spacing;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   &__paragraph {
-    flex: 1 100%;
+    flex: 1 1 100%;
+    &--small {
+      flex: 1 1 75%;
+    }
   }
 
   &__image {
@@ -101,10 +105,20 @@
       display: block;
       position: relative;
       margin: 0 auto 0 auto;
+      max-height: 320px;
     }
     &--small {
-      flex: 1 1 253px;
+      flex: 0 1 25%;
     }
+
+    &--wide {
+      flex: 1 100%;
+    }
+  }
+
+  &__licensebox {
+    flex: 2 1 auto;
+    justify-content: flex-end;
   }
 
   // Additional styling for extras in the dialog such as links and tags

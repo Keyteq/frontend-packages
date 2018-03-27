@@ -29,23 +29,35 @@ ConceptDialogContent.propTypes = {
 
 export const ConceptDialogText = ({
   children,
-  ...rest,
-}) => (
-  <p {...classes('popup__paragraph')} {...rest}>{ children }</p>
-);
-
-ConceptDialogText.propTypes = {
-  children: PropTypes.node,
-};
-
-export const ConceptDialogImage = ({
-  alt,
   small,
   ...rest,
 }) => {
   const modifiers = []
   if (small) {
     modifiers.push('small')
+  }
+  return (
+    <p {...classes('popup__paragraph', modifiers)} {...rest}>{ children }</p>
+  );
+};
+
+ConceptDialogText.propTypes = {
+  children: PropTypes.node,
+  small: PropTypes.bool,
+};
+
+export const ConceptDialogImage = ({
+  alt,
+  small,
+  wide,
+  ...rest,
+}) => {
+  const modifiers = []
+  if (small) {
+    modifiers.push('small')
+  }
+  if (wide) {
+    modifiers.push('wide')
   }
   return (
     <div {...classes('popup__image', modifiers)}><img {...rest} alt={alt} /></div>
@@ -55,7 +67,8 @@ export const ConceptDialogImage = ({
 ConceptDialogImage.propTypes = {
   alt: PropTypes.string,
   small: PropTypes.bool,
-}
+  wide: PropTypes.bool,
+};
 
 const ConceptDialog = ({
   title,
@@ -71,13 +84,9 @@ const ConceptDialog = ({
   ariaHidden,
   linkTo,
   tags,
-  smallImage,
   licenseBox,
 }) => {
   const licenseRights = getLicenseByAbbreviation(license).rights;
-  if (smallImage) {
-    modifiers.push('small-image');
-  }
   return (
     <div
       aria-hidden={ariaHidden}
@@ -118,9 +127,11 @@ const ConceptDialog = ({
           </span>
         ))}
         <span {...sourceClasses('item')} key={source}>
-        {source}
+          {source}
         </span>
-        <licenseBox />
+        <span {...classes('popup__licensebox')}>
+          { licenseBox }
+        </span>
       </div>
     </div>
   )
@@ -150,7 +161,6 @@ ConceptDialog.propTypes = {
     href: PropTypes.string,
   }),
   tags: PropTypes.arrayOf(PropTypes.string),
-  smallImage: PropTypes.bool,
   licenseBox: PropTypes.node,
 };
 

@@ -32,7 +32,6 @@ const packagePatterns = getPackages().map(p => {
   }
 });
 
-console.log(packagePatterns);
 // Initialize watcher
 const watcher = chokidar.watch(packagePatterns, {
   ignored: [IGNORE_PATTERN],

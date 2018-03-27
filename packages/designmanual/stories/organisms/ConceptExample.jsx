@@ -23,7 +23,7 @@ const ConceptContent = ({
 }) =>
   <ConceptDialogContent>
     { content.text ?
-      <ConceptDialogText>{ content.text }</ConceptDialogText> : null }
+      <ConceptDialogText small>{ content.text }</ConceptDialogText> : null }
     { content.image ?
       <ConceptDialogImage src={content.image.url} alt={content.image.altText} small /> : null}
   </ConceptDialogContent>
@@ -62,6 +62,14 @@ ConceptDialog.propTypes = {
     PropTypes.shape(),
   ])
 }
+
+const LicenseBox = () =>
+  <ToggleLicenseBox
+    openTitle="Bruk innhold"
+    closeTitle="Lukk boks"
+    expanded={false}>
+    <p>Lisenseboks innhold</p>
+  </ToggleLicenseBox>
 
 class ConceptExample extends Component {
   componentDidMount() {
@@ -130,7 +138,7 @@ class ConceptExample extends Component {
                       close: 'Lukk',
                     }}
                     license="by-nc-nd"
-                    licenseBox={<ToggleLicenseBox title="Bruk innhold"  closeTitle="Lukk boks"><p>Derp</p></ToggleLicenseBox>}
+                    licenseBox={<LicenseBox />}
                     id={1}>
                     sosialisering
                   </Concept>{' '}
