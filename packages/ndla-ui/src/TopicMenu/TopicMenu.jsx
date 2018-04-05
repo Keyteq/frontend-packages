@@ -17,7 +17,7 @@ import debounce from 'lodash/debounce';
 
 import { Home } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-
+import { Button, CourseObjectives } from 'ndla-ui';
 import SafeLink from '../common/SafeLink';
 import SubtopicLinkList from './SubtopicLinkList';
 import { TopicShape } from '../shapes';
@@ -34,7 +34,6 @@ const classes = new BEMHelper({
 export default class TopicMenu extends Component {
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
     this.handleBtnKeyPress = this.handleBtnKeyPress.bind(this);
     this.handleSubtopicExpand = this.handleSubtopicExpand.bind(this);
@@ -47,6 +46,7 @@ export default class TopicMenu extends Component {
 
     this.state = {
       isNarrowScreen: false,
+      courseObjectivesOpen: false,
     };
   }
 
@@ -124,7 +124,9 @@ export default class TopicMenu extends Component {
       onFilterClick,
       resourceToLinkProps,
       hideSearch,
+      courseObjectives,
     } = this.props;
+    const { courseObjectivesOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
     let expandedSubtopic = null;
     let expandedSubtopicLevel2 = null;
@@ -146,7 +148,6 @@ export default class TopicMenu extends Component {
     if (!expandedSubtopic) {
       subTopicModifiers.push('no-border');
     }
-
     const disableMain = this.state.isNarrowScreen && expandedTopic;
     const disableSubTopic = disableMain && expandedSubtopic;
     const disableSubTopicLevel2 = disableSubTopic && expandedSubtopicLevel2;
@@ -159,7 +160,6 @@ export default class TopicMenu extends Component {
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
     };
-
     return (
       <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
         <div {...classes('masthead')}>
@@ -199,9 +199,34 @@ export default class TopicMenu extends Component {
                 {...classes('subject', {
                   hasFilter: filterOptions && filterOptions.length > 0,
                 })}>
-                <h1>
-                  <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
-                </h1>
+                <div {...classes('subject__header')}>
+                  <h1>
+                    <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
+                  </h1>
+                  {courseObjectives ? (
+                    <Button
+                      className="c-course-objectives__button"
+                      stripped
+                      onClick={() =>
+                        this.setState({
+                          courseObjectivesOpen: !courseObjectivesOpen,
+                        })
+                      }>
+                      {courseObjectivesOpen ? (
+                        <span>
+                          Lukk kompetansemål <Cross />
+                        </span>
+                      ) : (
+                        'Kompetansemål'
+                      )}
+                    </Button>
+                  ) : null}
+                </div>
+                {courseObjectivesOpen ? (
+                  <div {...classes('subject__competence')}>
+                    <CourseObjectives>{courseObjectives}</CourseObjectives>
+                  </div>
+                ) : null}
                 {filterOptions &&
                   filterOptions.length > 0 && (
                     <FilterList
@@ -338,4 +363,5 @@ TopicMenu.propTypes = {
   expandedSubtopicLevel2Id: PropTypes.string,
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,
+  courseObjectives: PropTypes.node,
 };

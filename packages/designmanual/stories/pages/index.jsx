@@ -38,6 +38,7 @@ import ArticleExercise from './ArticleExercise';
 import ArticleExternalLearningResource from './ArticleExternalLearningResource';
 import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
+import CourseObjectivesExample from './CourseObjectivesExample';
 import article, { topicList } from '../../dummydata/index';
 import Breadcrumb from '../molecules/breadcrumbs';
 
@@ -216,6 +217,23 @@ storiesOf('Læringsressurser', module)
       </Content>
       <FooterExample />
     </PageContainer>
+  ))
+  .add('Kompetansemål', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <TasksAndActivitiesHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </TasksAndActivitiesHero>
+        <ArticleExercise />
+      </Content>
+    </PageContainer>
   ));
 
 storiesOf('Emnesider', module)
@@ -342,6 +360,29 @@ storiesOf('Emnesider', module)
           closeButton
           icon={<SubjectBadge size="large" background />}
           label="Emne"
+        />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('Emneside med kompetansemål', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu courseObjectives={<CourseObjectivesExample />} />
+        <SubjectHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </SubjectHero>
+        <ArticleLoader
+          articleId="4853"
+          icon={<SubjectBadge size="large" background />}
+          label="Emne"
+          courseObjectives={<CourseObjectivesExample />}
         />
       </Content>
       <FooterExample />
