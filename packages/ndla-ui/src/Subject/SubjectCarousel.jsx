@@ -1,36 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { ChevronLeft, ChevronRight, Play } from 'ndla-icons/common';
-import Slider from 'react-slick';
-import SafeLink from '../common/SafeLink';
+import { breakpoints } from 'ndla-util';
 
+import ContentCard from '../ContentCard';
 import { SubjectSectionTitle } from './Subject';
+import Carousel from '../Carousel';
 
 const classes = BEMHelper('c-subject-carousel');
 
-const arrow = direction => (
-  { className, style, onClick }, // eslint-disable-line
-) => (
-  <button
-    className={`${classes('arrow', [direction]).className} ${className}`}
-    onClick={onClick}>
-    {direction === 'prev' ? <ChevronLeft /> : <ChevronRight />}
-  </button>
-);
-
-const NextArrow = arrow('next');
-const PrevArrow = arrow('prev');
-
 const getSettings = (maxCol = null) => ({
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
-  dots: false,
-  infinite: false,
   slidesToShow: 5.5,
   slidesToScroll: 4,
-  swipeToScroll: false,
-  draggable: false,
   responsive: [
     {
       breakpoint: 3000,
@@ -70,28 +51,23 @@ const getSettings = (maxCol = null) => ({
 });
 
 const SubjectCarousel = ({ subjects, title, narrowScreen, wideScreen }) => {
-  const slides = subjects.map(subject => {
-    const styleAttr = {};
-    if (subject.image) {
-      styleAttr.backgroundImage = `url(${subject.image})`;
-    }
-    return (
-      <article {...classes('subject')} key={`slide-${subject.id}`}>
-        <SafeLink to={subject.linkTo} {...classes('link')}>
-          <div {...classes('image')} style={styleAttr}>
-            <span {...classes('type')}>{subject.type}</span>
-            {subject.type === 'film' && (
-              <div {...classes('play-background')}>
-                <Play />
-              </div>
-            )}
-          </div>
-          <h1 {...classes('title')}>{subject.title}</h1>
-          <p {...classes('description')}>{subject.text}</p>
-        </SafeLink>
-      </article>
-    );
-  });
+  const slides = subjects.map(subject => (
+    <div key={`slide-${subject.id}`}>
+      <ContentCard
+        url={subject.linkTo}
+        heading={subject.title}
+        description={subject.text}
+        isFilm={subject.isFilm}
+        type={subject.type}
+        images={[
+          {
+            url: subject.image,
+            types: Object.keys(breakpoints),
+          },
+        ]}
+      />
+    </div>
+  ));
 
   const modifiers = { narrowScreen, wideScreen };
   let settings = getSettings();
@@ -111,9 +87,9 @@ const SubjectCarousel = ({ subjects, title, narrowScreen, wideScreen }) => {
   return (
     <section {...classes('', modifiers)}>
       <SubjectSectionTitle>{title}</SubjectSectionTitle>
-      <Slider {...classes('slider')} {...settings}>
+      <Carousel {...classes('slider')} settings={settings}>
         {slides}
-      </Slider>
+      </Carousel>
     </section>
   );
 };

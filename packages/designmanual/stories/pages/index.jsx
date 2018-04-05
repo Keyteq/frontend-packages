@@ -24,12 +24,9 @@ import {
   Content,
 } from 'ndla-ui';
 
+import { MastheadWithTopicMenu } from '../molecules/mastheads';
 import Subject, { SubjectWithTwoColumn } from './Subject';
 
-import {
-  MastheadWithTopicMenu,
-  MastheadWithLogo,
-} from '../molecules/mastheads';
 import FooterExample from '../molecules/footers';
 import ArticleLoader from '../article/ArticleLoader';
 import ArticleLearningmaterial from './ArticleLearningmaterial';
@@ -39,8 +36,8 @@ import ArticleExternalLearningResource from './ArticleExternalLearningResource';
 import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
 import CourseObjectivesExample from './CourseObjectivesExample';
-import article, { topicList } from '../../dummydata/index';
 import Breadcrumb from '../molecules/breadcrumbs';
+import Frontpage from './FrontpageExample';
 
 storiesOf('Sidevisninger', module)
   .add('En side uten innhold', () => (
@@ -238,42 +235,9 @@ storiesOf('Læringsressurser', module)
 
 storiesOf('Emnesider', module)
   .add('1. Fagoversikt', () => (
-    <PageContainer>
+    <PageContainer background>
       <Content>
-        <MastheadWithLogo />
-        <OneColumn cssModifier="clear">
-          <article>
-            <h1>Yrkesfag</h1>
-            <ul>
-              {[
-                'Naturfag',
-                'Engelsk',
-                'Helsearbeiderfag vg2',
-                'Barne- og ungdomsarbeiderfag Vg2',
-                'Brønnteknikk Vg2BETA',
-                'Bygg- og anleggsteknikk Vg1BETA',
-                'Design og håndverk Vg1',
-                'Elektrofag Vg1',
-                'Helse- og oppvekstfag Vg1',
-                'Helsearbeiderfag Vg2 ',
-                'IKT-servicefag Vg2',
-                'Kokk- og servitørfag Vg2',
-                'Naturbruk Vg1',
-                'Reiseliv Vg2',
-                'Restaurant- og matfag Vg1',
-                'Romteknologi Vg3',
-                'Salg, service og sikkerhet Vg2',
-                'Service og samferdsel Vg1',
-                'Teknikk og industriell produksjon Vg1',
-                'Transport og logistikk Vg2',
-              ].map(subject => (
-                <li key={subject}>
-                  <a href="https://example.com">{subject}</a>
-                </li>
-              ))}
-            </ul>
-          </article>
-        </OneColumn>
+        <Frontpage />
       </Content>
       <FooterExample />
     </PageContainer>

@@ -38,10 +38,7 @@ import { EmailOutline } from 'ndla-icons/common';
 import { breakpoints } from 'ndla-util';
 
 import exampleBackground from '../images/medie-example.jpg';
-import article, {
-  subjectList,
-  subjectCarouselList,
-} from '../../dummydata/index';
+import article, { contentCards } from '../../dummydata/index';
 
 import TopicListExample from '../molecules/TopicListExample';
 import TwoColumnsExample from '../molecules/TwoColumnsExample';
@@ -136,6 +133,7 @@ const secondaryContent = (
           </SubjectFlexChild>
           <SubjectFlexChild>
             <InfoWidget
+              center
               heading="Nyhetsbrev"
               description="Få tilgang til det som er nytt for undervisningen og aktuelt for tidspunktet."
               mainLink={{
@@ -250,7 +248,7 @@ export default () => (
           />
           <SubjectCarousel
             narrowScreen
-            subjects={subjectCarouselList}
+            subjects={contentCards}
             title="Litt forskjellig fra faget"
           />
           {subjectArchive(true)}
@@ -260,7 +258,7 @@ export default () => (
     </OneColumn>
     <SubjectCarousel
       wideScreen
-      subjects={subjectCarouselList}
+      subjects={contentCards}
       title="Litt forskjellig fra faget"
     />
     {secondaryContent}
@@ -359,7 +357,7 @@ export const SubjectWithTwoColumn = () => (
           </SubjectFlexWrapper>
           <SubjectCarousel
             narrowScreen
-            subjects={subjectCarouselList}
+            subjects={contentCards}
             title="Litt forskjellig fra faget"
           />
         </SubjectChildContent>
@@ -375,7 +373,7 @@ export const SubjectWithTwoColumn = () => (
     </OneColumn>
     <SubjectCarousel
       wideScreen
-      subjects={subjectCarouselList}
+      subjects={contentCards}
       title="Litt forskjellig fra faget"
       subjectPage
     />
