@@ -34,6 +34,10 @@
   &--beta {
     background: $brand-color;
   }
+
+  &--transparent {
+    background: transparent;
+  }
 }
 .c-hero__content {
   padding: 0 0 $spacing--small;

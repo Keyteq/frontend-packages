@@ -36,6 +36,7 @@ import ArticleExternalLearningResource from './ArticleExternalLearningResource';
 import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
 import CourseObjectivesExample from './CourseObjectivesExample';
+import LearningPathExample from './LearningPathExample';
 import Breadcrumb from '../molecules/breadcrumbs';
 import Frontpage from './FrontpageExample';
 
@@ -213,6 +214,14 @@ storiesOf('Læringsressurser', module)
         <ArticleAdditional />
       </Content>
       <FooterExample />
+    </PageContainer>
+  ))
+  .add('Læringssti', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <LearningPathExample />
+      </Content>
     </PageContainer>
   ))
   .add('Kompetansemål', () => (

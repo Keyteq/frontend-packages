@@ -1,0 +1,192 @@
+.c-learning-path {
+  justify-content: center;
+  padding: $spacing--small;
+  display: flex;
+  overflow: hidden;
+
+  @include mq(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $spacing--small $spacing;
+    padding-bottom: 130px;
+  }
+  @include mq(desktop) {
+    padding: $spacing--small $spacing--large;
+    padding-bottom: 130px;
+  }
+
+  &__content {
+    flex: 2 1 auto;
+    // background: $white;
+  }
+
+  &__main {
+    height: 100%;
+  }
+
+  &__article {
+    border: 1px solid #EFF0F2;
+    margin-top: $spacing--medium;
+    position: relative;
+    overflow: hidden;
+    height: auto;
+
+    &__iframe {
+      /* position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; */
+      position: relative;
+    }
+  }
+
+  &__sidebar {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: $spacing--large + $spacing;
+    flex-basis: 280px;
+  }
+
+  &__navitem {
+    position: relative;
+    margin: 0;
+    padding: $spacing--small;
+    padding-left: $spacing--medium;
+    padding-right: $spacing--medium;
+
+    &:first-child {
+      padding-top: 0;
+
+      .c-learning-path__navitem-icon {
+        top: 18px;
+      }
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      height: 30px;
+
+      .c-learning-path__navitem-icon {
+        top: 30px;
+      }
+    }
+
+    &-border {
+      height: 100%;
+      width: 2px;
+      background: #757575;
+      display: inline-block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+
+    &-title {
+      @include inuit-font-size(14px, 23px);
+      font-weight: $font-weight-bold;
+
+      &--top {
+        text-transform: uppercase;
+        font-weight: $font-weight-normal;
+      }
+
+      &--toplink {
+        display: block;
+        font-weight: $font-weight-normal;
+        line-height: 3.5rem;
+      }
+    }
+
+    &-icon {
+      width: 36px;
+      height: 36px;
+      background: #f8f8f8;
+      border-radius: 100%;
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      margin-top: -18px;
+      text-align: center;
+    }
+
+    &-time {
+      @include inuit-font-size(14px, 40px);
+      margin-top: $spacing--small;
+      margin-bottom: $spacing--small;
+      padding-left: $spacing--small;
+      padding-right: $spacing--small;
+      border: 1px solid #E8E3E3;
+      border-radius: 4px;
+      font-weight: $font-weight-bold;
+      svg {
+        margin-right: $spacing--small / 2;
+      }
+    }
+    // States
+    &--done {
+      .c-learning-path__navitem-title {
+        font-weight: $font-weight-normal;
+      }
+
+      .c-learning-path__navitem-border {
+        background-color: #8A8888;
+      }
+      .c-learning-path__navitem-icon {
+        border: 2px solid #8A8888;
+        svg {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__navheader {
+    @include inuit-font-size(18px);
+    margin: 0;
+  }
+
+  &__navigation {
+    background-color: $brand-color--lighter;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 87px;
+    width: 100%;
+    display: flex;
+
+    &__filler {
+      flex-basis: 280px;
+    }
+
+    &__content {
+      flex: 2 1 auto;
+      padding-left: $spacing--large + $spacing;
+      padding-right: $spacing--large + $spacing;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__item {
+      flex: 2 1 50%;
+
+      &--next {
+        text-align: right;
+      }
+      button {
+        @include inuit-font-size(18px, 23px);
+        color: $brand-color--dark;
+        font-weight: $font-weight-semibold;
+        text-decoration: underline;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
