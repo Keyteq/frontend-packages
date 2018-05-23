@@ -70,14 +70,14 @@
         .c-content-type-badge {
           display: none;
 
-          @include mq(tablet) {
+          @include mq(desktop) {
             display: inline-flex;
           }
         }
       }
 
       &__content {
-        @include mq(tablet) {
+        @include mq(desktop) {
           margin-left: $spacing--medium + $spacing--large;
         }
       }
@@ -85,7 +85,7 @@
       &__title {
         @include inuit-font-size(16px, 32px);
 
-        @include mq(tablet) {
+        @include mq(desktop) {
           @include inuit-font-size(22px, 32px);
         }
       }
@@ -94,7 +94,7 @@
         margin-left: $spacing;
         margin-right: $spacing;
 
-        @include mq(tablet) {
+        @include mq(desktop) {
           margin-left: 0;
           margin-right: 0;
         }
@@ -102,7 +102,7 @@
     }
 
     .c-topic-introduction__list {
-      @include mq($until: tablet) {
+      @include mq($until: desktop) {
         padding: 0 $spacing;
       }
     }

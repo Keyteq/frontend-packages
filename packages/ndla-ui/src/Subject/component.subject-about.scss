@@ -1,7 +1,7 @@
 .c-subject-about {
   margin-bottom: $spacing--large;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     border: 1px solid $brand-grey--light;
   }
 
@@ -20,7 +20,7 @@
   &__content {
     padding: $spacing--small 0 0 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       padding: $spacing;
     }
   }
@@ -28,7 +28,7 @@
   &__top-heading {
     margin: 0 0 $spacing--small 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: none;
     }
   }
@@ -41,7 +41,7 @@
 
     display: none;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: block;
     }
   }

@@ -37,8 +37,9 @@ import {
 import { EmailOutline } from 'ndla-icons/common';
 import { breakpoints } from 'ndla-util';
 
-import exampleBackground from '../images/medie-example.jpg';
 import article, { contentCards } from '../../dummydata/index';
+import illustrationWide from '../images/subject-page-header-wide.svg';
+import illustrationNarrow from '../images/subject-page-header-narrow.svg';
 
 import TopicListExample from '../molecules/TopicListExample';
 import TwoColumnsExample from '../molecules/TwoColumnsExample';
@@ -169,12 +170,8 @@ export default () => (
   <article>
     <SubjectHeader
       heading="Medieuttrykk og mediesamfunnet"
-      images={[
-        {
-          url: exampleBackground,
-          types: Object.keys(breakpoints),
-        },
-      ]}
+      urlWide={illustrationWide}
+      urlNarrow={illustrationNarrow}
     />
     <OneColumn noPadding>
       <SubjectContent breadcrumb={<Breadcrumb onlySubject />}>

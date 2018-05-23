@@ -32,14 +32,6 @@ const getSettings = (maxCol = null) => ({
       },
     },
     {
-      breakpoint: 1000,
-      settings: { slidesToShow: 3.25, slidesToScroll: 3 },
-    },
-    {
-      breakpoint: 720,
-      settings: { slidesToShow: 2.5, slidesToScroll: 2 },
-    },
-    {
       breakpoint: 600,
       settings: { slidesToShow: 3.25, slidesToScroll: 2 },
     },

@@ -20,7 +20,9 @@
   align-items: center;
   flex-grow: 2;
 
-  & > h1, & > h2, & > h3 {
+  & > h1,
+  & > h2,
+  & > h3 {
     border-bottom: 1px solid $brand-color--light;
     margin-bottom: $spacing--small;
 
@@ -28,8 +30,6 @@
       border: none;
     }
   }
-
-
 
   &__list {
     list-style: none;
@@ -102,8 +102,6 @@
         }
       }
     }
-
-
   }
 
   &__label {
@@ -260,22 +258,22 @@
   }
 
   &--subject {
-    @include mq($until: tablet) {
+    @include mq($until: desktop) {
       padding: $spacing;
     }
 
     .c-filter {
       &__item {
-        @include mq($until: tablet) {
+        @include mq($until: desktop) {
           display: block;
           margin-left: 0;
           margin-bottom: $spacing;
         }
 
         &:last-child {
-          @include mq($until: tablet) {
+          @include mq($until: desktop) {
             margin-bottom: 0;
-          }  
+          }
         }
       }
     }

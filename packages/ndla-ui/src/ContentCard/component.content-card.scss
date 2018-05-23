@@ -9,7 +9,7 @@
     overflow: hidden;
     background: $background-color--gray-dark;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       height: 125px;
     }
   }
@@ -32,7 +32,7 @@
 
     display: none;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: inline-block;
     }
   }
@@ -42,7 +42,7 @@
     @include font-size(12px);
     margin: 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       margin: $spacing--small 0 0 0;
       @include inuit-font-size(20px);
     }
@@ -55,7 +55,7 @@
     margin: 0;
     display: none;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: block;
     }
   }
@@ -73,7 +73,7 @@
     align-items: center;
     justify-content: center;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       height: 42px;
       width: 42px;
     }
@@ -84,7 +84,7 @@
       width: 20px;
       margin-right: -1px;
 
-      @include mq(tablet) {
+      @include mq(desktop) {
         height: 25px;
         width: 25px;
       }

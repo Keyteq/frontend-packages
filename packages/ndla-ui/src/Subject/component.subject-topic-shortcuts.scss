@@ -5,7 +5,7 @@
   display: none;
   align-items: center;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     display: flex;
   }
 

@@ -3,7 +3,7 @@
   display: flex;
   flex-flow: column;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     border: 1px solid $brand-grey--light;
   }
 
@@ -38,7 +38,7 @@
   &__content {
     padding: $spacing--small 0 0 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       padding: $spacing $spacing 0 $spacing;
     }
   }
@@ -51,7 +51,7 @@
 
   &__section-heading {
     margin: 0 0 $spacing--small 0;
-    @include mq(tablet) {
+    @include mq(desktop) {
       @include visually-hidden();
     }
   }
@@ -81,7 +81,7 @@
       margin-right: 9px;
     }
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       margin: $spacing--small/2 $spacing $spacing;
     }
   }
@@ -89,7 +89,7 @@
   &__archive {
     padding: 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       padding: $spacing--large $spacing--large 0 $spacing--large;
     }
   }

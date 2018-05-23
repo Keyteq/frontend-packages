@@ -12,7 +12,7 @@ $subject-section-padding: 100px;
 @import './component.subject-new-content';
 
 .c-subject-content {
-  @include mq(tablet) {
+  @include mq(desktop) {
     margin-bottom: $subject-section-padding;
   }
 
@@ -20,7 +20,7 @@ $subject-section-padding: 100px;
     display: none;
     margin: $spacing--medium 0 0 $subject-margin;
 
-    @include mq (tablet) {
+    @include mq (desktop) {
       display: block;
     }
   }
@@ -30,13 +30,13 @@ $subject-section-padding: 100px;
     flex-flow: column;
     margin-top: $spacing--small;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       flex-flow: row;
       margin-top: $spacing--large;
     }
 
     & > *:first-child {
-      @include mq(tablet) {
+      @include mq(desktop) {
         margin-right: 80px;
       }
     }
@@ -45,7 +45,7 @@ $subject-section-padding: 100px;
       flex-flow: column;
 
       & > *:first-child {
-        @include mq(tablet) {
+        @include mq(desktop) {
           margin-right: 0;
           margin-bottom: $subject-section-padding;
         }
@@ -59,7 +59,7 @@ $subject-section-padding: 100px;
   padding: $spacing 0;
   margin-top: $spacing--large;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     padding: 100px 0 $spacing--large 0;
     margin-bottom: 100px;
     margin-top: 0;
@@ -71,7 +71,7 @@ $subject-section-padding: 100px;
   flex-shrink: 0;
   margin: 0 $spacing;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     margin: 9px 0 0 0;
   }
 
@@ -84,7 +84,7 @@ $subject-section-padding: 100px;
   &__content {
     display: none;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: flex;
     }
   }
@@ -108,7 +108,7 @@ $subject-section-padding: 100px;
   flex-direction: column;
   margin-bottom: $spacing--large;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     flex-direction: row;
     margin-bottom: $subject-section-padding;
   }
@@ -120,7 +120,7 @@ $subject-section-padding: 100px;
   &__child {
     box-sizing: border-box;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       flex-basis: 50%;
       flex-grow: 1;
       flex-direction: row;
@@ -129,14 +129,14 @@ $subject-section-padding: 100px;
 
     &:last-child {
       & > * {
-        @include mq($until: tablet) {
+        @include mq($until: desktop) {
           margin-bottom: 0;
         }
       }
     }
 
     & > * {
-      @include mq(tablet) {
+      @include mq(desktop) {
         margin-bottom: 0;
       }
     }
@@ -146,7 +146,7 @@ $subject-section-padding: 100px;
 .c-subject-section-title {
   margin: 0 0 $spacing--small 0;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     margin: 0 0 $spacing 0;
   }
 }
@@ -154,7 +154,7 @@ $subject-section-padding: 100px;
 .c-subject-child-content {
   padding: 0 $spacing;
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     padding: 0 0 0 $subject-margin;
   }
 }

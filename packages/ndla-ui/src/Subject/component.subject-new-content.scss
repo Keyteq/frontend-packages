@@ -1,5 +1,5 @@
 .c-subject-new-content {
-  @include mq($until: tablet) {
+  @include mq($until: desktop) {
     margin-bottom: $spacing--large;
   }
 
@@ -24,7 +24,7 @@
     flex-flow: column;
     align-items: flex-start;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       flex-flow: row;
       align-items: center;
     }
@@ -38,7 +38,7 @@
       display: none;
       flex-flow: row;
 
-      @include mq(tablet) {
+      @include mq(desktop) {
         display: block;
       }
     }
@@ -50,7 +50,7 @@
     @include font-size(16px, 20px);
     margin-bottom: $spacing--small/2;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       @include font-size(18px, 30px);
     }
   }
@@ -60,7 +60,7 @@
     color: $text-light-color;
     @include font-size(14px, 18px);
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       @include font-size(16px, 20px);
     }
   }
@@ -68,7 +68,7 @@
   &__date {
     align-self: flex-end;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       align-self: center;
     }
   }

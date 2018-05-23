@@ -3,7 +3,6 @@
 ** Topic list with introductions
 **/
 
-
 .c-topic-introduction {
   &__text {
     padding: $spacing 0;
@@ -15,14 +14,12 @@
     padding: 0;
 
     &--twoColumns {
-
       @include mq(tablet) {
         display: flex;
         flex-wrap: wrap;
         border-bottom: none;
         margin-bottom: 0;
       }
-
 
       & > li {
         flex-basis: 50%;
@@ -65,7 +62,7 @@
     }
 
     &--subjectPage {
-      @include mq(tablet) {
+      @include mq(desktop) {
         border-bottom: 0;
         padding-right: 0;
       }
@@ -74,7 +71,7 @@
         padding-bottom: $spacing--medium;
         border-bottom: 2px solid $brand-grey--lighter;
 
-        @include mq(tablet) {
+        @include mq(desktop) {
           border-bottom: 0;
           padding-bottom: 0;
         }

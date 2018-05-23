@@ -16,8 +16,12 @@ const FrontpageHighlighted = ({ heading, children }) => (
       settings={{
         responsive: [
           {
-            breakpoint: 1000,
-            settings: { slidesToShow: 3.25, slidesToScroll: 3 },
+            breakpoint: 1200,
+            settings: { slidesToShow: 4, slidesToScroll: 4 },
+          },
+          {
+            breakpoint: 950,
+            settings: { slidesToShow: 3.5, slidesToScroll: 3 },
           },
           {
             breakpoint: 400,

@@ -15,7 +15,7 @@
 
   &--wideScreen {
     display: none;
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: block;
     }
   }
@@ -41,7 +41,7 @@
   &--narrowScreen {
     margin-left: 0;
 
-    @include mq(tablet) {
+    @include mq(desktop) {
       display: none;
     }
   }
