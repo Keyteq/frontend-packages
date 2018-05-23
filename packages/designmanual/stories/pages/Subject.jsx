@@ -269,12 +269,8 @@ export const SubjectWithTwoColumn = () => (
   <article>
     <SubjectHeader
       heading="Medieuttrykk og mediesamfunnet"
-      images={[
-        {
-          url: exampleBackground,
-          types: Object.keys(breakpoints),
-        },
-      ]}
+      urlWide={illustrationWide}
+      urlNarrow={illustrationNarrow}
     />
     <OneColumn noPadding>
       <SubjectContent twoColumns breadcrumb={<Breadcrumb onlySubject />}>
