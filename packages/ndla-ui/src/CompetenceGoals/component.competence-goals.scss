@@ -3,7 +3,6 @@
 
   &__heading {
     margin-top: 0;
-    color: $brand-color;
     @include font-size(20px, 32px);
 
     @include mq(tablet) {
@@ -114,6 +113,7 @@
   &__topic-list {
     margin: 0 0 0 18px;
     padding: 0;
+    max-width: 650px;
 
     @include mq(desktop) {
       margin: 0;

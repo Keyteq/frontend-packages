@@ -54,7 +54,7 @@
   }
 
   .c-dialog__content--large {
-    max-width: 970px;
+    max-width: 700px;
 
     @include mq (tablet) {
       max-height: 85vh;
