@@ -1,4 +1,4 @@
-.c-compentence-goals {
+.c-competence-goals {
   height: 100%;
 
   &__heading {
@@ -58,7 +58,7 @@
       max-height: 35px;
       transition: max-height 0.5s ease-in-out;
 
-      .c-compentence-goals {
+      .c-competence-goals {
         &__topic-list {
           opacity: 0;
           transition: opacity 0.1s ease-in-out 0.1s;
@@ -68,7 +68,7 @@
 
     &--expanded {
       max-height: 4000px;
-      .c-compentence-goals {
+      .c-competence-goals {
         &__topic-list {
           opacity: 1;
         }
@@ -136,7 +136,7 @@
   }
 
   &--menu {
-    .c-compentence-goals {
+    .c-competence-goals {
       &__heading {
         text-transform: uppercase;
         color: $primary-color;
@@ -147,7 +147,7 @@
   }
 }
 
-.c-compentence-goals-dialog {
+.c-competence-goals-dialog {
   &__content {
     padding: $spacing--large 0 $spacing 0;
 

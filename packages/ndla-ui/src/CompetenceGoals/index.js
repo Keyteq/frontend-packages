@@ -1,4 +1,4 @@
-import CompentenceGoals from './CompentenceGoals';
+import CompetenceGoals from './CompetenceGoals';
 
-export { default as CompentenceGoalsDialog } from './CompentenceGoalsDialog';
-export default CompentenceGoals;
+export { default as CompetenceGoalsDialog } from './CompetenceGoalsDialog';
+export default CompetenceGoals;

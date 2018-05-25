@@ -103,8 +103,8 @@ export {
   RelatedArticle,
 } from './RelatedArticleList';
 export {
-  default as CompentenceGoals,
-  CompentenceGoalsDialog,
+  default as CompetenceGoals,
+  CompetenceGoalsDialog,
 } from './CompetenceGoals';
 
 export {

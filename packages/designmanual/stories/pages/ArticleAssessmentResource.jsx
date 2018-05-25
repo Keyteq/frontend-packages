@@ -24,7 +24,7 @@ import { getLicenseByAbbreviation } from 'ndla-licenses';
 
 import FigureWithLicense from '../article/FigureWithLicense';
 import LicenseExample from '../article/LicenseExample';
-import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
+import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 import { Resources } from '../molecules/resources';
 
 export default () => (
@@ -32,7 +32,7 @@ export default () => (
     <ArticleWrapper>
       <LayoutItem layout="center">
         <ArticleHeaderWrapper>
-          <CompentenceGoalsDialogExample wide />
+          <CompetenceGoalsDialogExample wide />
           <ArticleTitle
             icon={<AssessmentResourcesBadge background size="large" />}
             label="Vurderingsressurs">
@@ -57,7 +57,7 @@ export default () => (
             }}>
             <LicenseExample />
           </ArticleByline>
-          <CompentenceGoalsDialogExample narrow />
+          <CompetenceGoalsDialogExample narrow />
         </ArticleHeaderWrapper>
       </LayoutItem>
       <LayoutItem layout="center">

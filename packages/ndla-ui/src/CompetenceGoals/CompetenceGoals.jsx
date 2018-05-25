@@ -7,7 +7,7 @@ import { FilterList } from '../Filter';
 import SafeLink from '../common/SafeLink';
 
 const classes = new BEMHelper({
-  name: 'compentence-goals',
+  name: 'competence-goals',
   prefix: 'c-',
 });
 
@@ -27,7 +27,7 @@ const renderItem = (item, expanded = true) => {
   );
 };
 
-class CompentenceGoals extends Component {
+class CompetenceGoals extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -129,7 +129,7 @@ class CompentenceGoals extends Component {
   }
 }
 
-CompentenceGoals.propTypes = {
+CompetenceGoals.propTypes = {
   id: PropTypes.string,
   headingId: PropTypes.string,
   menu: PropTypes.bool,
@@ -160,9 +160,9 @@ CompentenceGoals.propTypes = {
   ),
 };
 
-CompentenceGoals.defaultProps = {
+CompetenceGoals.defaultProps = {
   headingId: null,
   menu: false,
 };
 
-export default CompentenceGoals;
+export default CompetenceGoals;

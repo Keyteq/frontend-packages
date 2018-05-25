@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CompentenceGoalsDialog, CompentenceGoals } from 'ndla-ui';
+import { CompetenceGoalsDialog, CompetenceGoals } from 'ndla-ui';
 
-const CompentenceGoalsExample = ({ headingId, menu }) => {
+const CompetenceGoalsExample = ({ headingId, menu }) => {
   const topics = [
     {
       heading: 'Emne',
@@ -70,10 +70,10 @@ const CompentenceGoalsExample = ({ headingId, menu }) => {
   }
 
   return (
-    <CompentenceGoals
+    <CompetenceGoals
       menu={menu}
       subjectName={menu ? 'Fag' : null}
-      id={menu ? 'compentence-goals-menu' : 'compentence-goals'}
+      id={menu ? 'competence-goals-menu' : 'competence-goals'}
       headingId={headingId}
       filterOptions={filterOptions}
       filterValues={filterValues}
@@ -87,27 +87,27 @@ const CompentenceGoalsExample = ({ headingId, menu }) => {
   );
 };
 
-CompentenceGoalsExample.propTypes = {
+CompetenceGoalsExample.propTypes = {
   headingId: PropTypes.string,
   menu: PropTypes.bool,
 };
 
-export default CompentenceGoalsExample;
+export default CompetenceGoalsExample;
 
-export const CompentenceGoalsDialogExample = ({ narrow, wide }) => (
-  <CompentenceGoalsDialog
+export const CompetenceGoalsDialogExample = ({ narrow, wide }) => (
+  <CompetenceGoalsDialog
     narrow={narrow}
     wide={wide}
-    id="compentence-goals-dialog"
+    id="competence-goals-dialog"
     messages={{
       buttonText: 'Kompetansemål',
       closeButtonText: 'Lukk',
     }}>
-    {headingId => <CompentenceGoalsExample headingId={headingId} />}
-  </CompentenceGoalsDialog>
+    {headingId => <CompetenceGoalsExample headingId={headingId} />}
+  </CompetenceGoalsDialog>
 );
 
-CompentenceGoalsDialogExample.propTypes = {
+CompetenceGoalsDialogExample.propTypes = {
   narrow: PropTypes.bool,
   wide: PropTypes.bool,
 };

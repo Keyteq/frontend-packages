@@ -24,7 +24,7 @@ import LicenseExample from './LicenseExample';
 import SimpleSubmitForm from './SimpleSubmitForm';
 import { topicList } from '../../dummydata/index';
 
-import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
+import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 
 const ResourcesSubTopics = () => (
   <ResourcesWrapper>
@@ -118,8 +118,8 @@ class ArticleLoader extends Component {
                 label,
               }}
               licenseBox={<LicenseExample />}
-              compentenceGoals={<CompentenceGoalsDialogExample wide />}
-              compentenceGoalsNarrow={<CompentenceGoalsDialogExample narrow />}>
+              competenceGoals={<CompetenceGoalsDialogExample wide />}
+              competenceGoalsNarrow={<CompetenceGoalsDialogExample narrow />}>
               {articleChildren}
             </Article>
           </OneColumn>

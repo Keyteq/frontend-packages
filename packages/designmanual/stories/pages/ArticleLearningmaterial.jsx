@@ -27,14 +27,14 @@ import LicenseExample from '../article/LicenseExample';
 import RelatedArticleListExample from '../article/RelatedArticleListExample';
 import { Resources } from '../molecules/resources';
 
-import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
+import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 
 export default () => (
   <OneColumn>
     <ArticleWrapper>
       <LayoutItem layout="center">
         <ArticleHeaderWrapper>
-          <CompentenceGoalsDialogExample wide />
+          <CompetenceGoalsDialogExample wide />
           <ArticleTitle
             icon={<SubjectMaterialBadge background size="large" />}
             label="Fagstoff">
@@ -58,7 +58,7 @@ export default () => (
             }}>
             <LicenseExample />
           </ArticleByline>
-          <CompentenceGoalsDialogExample narrow />
+          <CompetenceGoalsDialogExample narrow />
         </ArticleHeaderWrapper>
       </LayoutItem>
       <LayoutItem layout="center">

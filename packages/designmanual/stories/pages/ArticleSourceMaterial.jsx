@@ -26,7 +26,7 @@ import FigureWithLicense from '../article/FigureWithLicense';
 import LicenseExample from '../article/LicenseExample';
 import RelatedArticleListExample from '../article/RelatedArticleListExample';
 
-import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
+import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 import { Resources } from '../molecules/resources';
 
 export default () => (
@@ -34,7 +34,7 @@ export default () => (
     <ArticleWrapper>
       <LayoutItem layout="center">
         <ArticleHeaderWrapper>
-          <CompentenceGoalsDialogExample wide />
+          <CompetenceGoalsDialogExample wide />
           <ArticleTitle
             icon={<SourceMaterialBadge background size="large" />}
             label="Kildemateriale">
@@ -58,7 +58,7 @@ export default () => (
             }}>
             <LicenseExample />
           </ArticleByline>
-          <CompentenceGoalsDialogExample narrow />
+          <CompetenceGoalsDialogExample narrow />
         </ArticleHeaderWrapper>
       </LayoutItem>
       <LayoutItem layout="center">

@@ -26,14 +26,14 @@ import FigureWithLicense from '../article/FigureWithLicense';
 import LicenseExample from '../article/LicenseExample';
 import { Resources } from '../molecules/resources';
 
-import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
+import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 
 export default () => (
   <OneColumn cssModifier="narrow">
     <ArticleWrapper>
       <LayoutItem layout="center">
         <ArticleHeaderWrapper>
-          <CompentenceGoalsDialogExample wide />
+          <CompetenceGoalsDialogExample wide />
           <ArticleTitle
             icon={<TasksAndActivitiesBadge background size="large" />}
             label="Oppgaver og aktiviteter">
@@ -57,7 +57,7 @@ export default () => (
             }}>
             <LicenseExample />
           </ArticleByline>
-          <CompentenceGoalsDialogExample narrow />
+          <CompetenceGoalsDialogExample narrow />
         </ArticleHeaderWrapper>
       </LayoutItem>
       <LayoutItem layout="center">
