@@ -6,6 +6,7 @@ import { uuid } from 'ndla-util';
 
 import { FilterTabs } from '../Filter';
 import SafeLink from '../common/SafeLink';
+import Button from '../Button';
 
 const resultClasses = BEMHelper('c-search-result');
 
@@ -16,20 +17,51 @@ export const SearchResult = ({
   searchString,
   currentTab,
   onTabChange,
+  currentCompetenceGoal,
+  competenceGoalsOpen,
+  onToggleCompetenceGoals,
+  competenceGoals,
 }) => (
   <div {...resultClasses()}>
-    <h1>
+    <h1
+      {...resultClasses(
+        'heading',
+        currentCompetenceGoal ? 'competence-goal' : null,
+      )}>
       {messages.searchStringLabel} <span>{searchString}</span>
     </h1>
     <h2>{messages.subHeading}</h2>
-    <FilterTabs
-      value={currentTab}
-      options={tabOptions}
-      contentId="search-result-content"
-      onChange={onTabChange}>
-      {children}
-    </FilterTabs>
-    <div {...resultClasses('narrow-result')}>{children}</div>
+    {!competenceGoalsOpen &&
+      currentCompetenceGoal && (
+        <ul {...resultClasses('current-goal')}>
+          <li>{currentCompetenceGoal}</li>
+        </ul>
+      )}
+    {!competenceGoalsOpen &&
+      competenceGoals !== null && (
+        <p {...resultClasses('current-goal-info')}>
+          {messages.openCompetenceGoalsButtonPrefix}{' '}
+          <Button link onClick={onToggleCompetenceGoals}>
+            {messages.openCompetenceGoalsButton}
+          </Button>
+        </p>
+      )}
+    {competenceGoalsOpen && (
+      <div {...resultClasses('competence-goals')}>{competenceGoals}</div>
+    )}
+
+    {!competenceGoalsOpen && (
+      <Fragment>
+        <FilterTabs
+          value={currentTab}
+          options={tabOptions}
+          contentId="search-result-content"
+          onChange={onTabChange}>
+          {children}
+        </FilterTabs>
+        <div {...resultClasses('narrow-result')}>{children}</div>
+      </Fragment>
+    )}
   </div>
 );
 
@@ -45,7 +77,13 @@ SearchResult.propTypes = {
   messages: PropTypes.shape({
     searchStringLabel: PropTypes.string.isRequired,
     subHeading: PropTypes.string.isRequired,
+    openCompetenceGoalsButtonPrefix: PropTypes.string,
+    openCompetenceGoalsButton: PropTypes.string,
   }).isRequired,
+  currentCompetenceGoal: PropTypes.string,
+  competenceGoalsOpen: PropTypes.bool,
+  onToggleCompetenceGoals: PropTypes.func,
+  competenceGoals: PropTypes.node,
   searchString: PropTypes.string.isRequired,
   onTabChange: PropTypes.func.isRequired,
 };

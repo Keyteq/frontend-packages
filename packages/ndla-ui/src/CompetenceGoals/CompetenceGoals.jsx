@@ -42,6 +42,7 @@ class CompetenceGoals extends Component {
       topics,
       id,
       menu,
+      search,
       subjectName,
       filterOptions,
       filterValues,
@@ -50,8 +51,8 @@ class CompetenceGoals extends Component {
     } = this.props;
 
     return (
-      <div {...classes('', { menu })}>
-        {!menu ? (
+      <div {...classes('', { menu, search })}>
+        {!menu && !search ? (
           <Fragment>
             <h1 id={headingId} {...classes('heading')}>
               {messages.heading}
@@ -133,6 +134,7 @@ CompetenceGoals.propTypes = {
   id: PropTypes.string,
   headingId: PropTypes.string,
   menu: PropTypes.bool,
+  search: PropTypes.bool,
   description: PropTypes.string.isRequired,
   messages: PropTypes.shape({
     heading: PropTypes.string.isRequired,

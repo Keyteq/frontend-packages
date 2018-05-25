@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { CompetenceGoalsDialog, CompetenceGoals } from 'ndla-ui';
 
-const CompetenceGoalsExample = ({ headingId, menu }) => {
+const CompetenceGoalsExample = ({ headingId, menu, search }) => {
   const topics = [
     {
       heading: 'Emne',
@@ -30,7 +30,7 @@ const CompetenceGoalsExample = ({ headingId, menu }) => {
   let filterOptions = null;
   let filterValues = null;
 
-  if (menu) {
+  if (menu || search) {
     topics.push({
       heading: 'Emne 2',
       items: [
@@ -72,11 +72,12 @@ const CompetenceGoalsExample = ({ headingId, menu }) => {
   return (
     <CompetenceGoals
       menu={menu}
+      search={search}
       subjectName={menu ? 'Fag' : null}
       id={menu ? 'competence-goals-menu' : 'competence-goals'}
       headingId={headingId}
-      filterOptions={filterOptions}
-      filterValues={filterValues}
+      filterOptions={!search ? filterOptions : null}
+      filterValues={!search ? filterValues : null}
       description="Læreplan i medieuttrykk - felles programfag i utdanningsprogram for medier og kommunikasjon"
       messages={{
         heading: 'Kompetansemål og læreplan',
@@ -90,6 +91,7 @@ const CompetenceGoalsExample = ({ headingId, menu }) => {
 CompetenceGoalsExample.propTypes = {
   headingId: PropTypes.string,
   menu: PropTypes.bool,
+  search: PropTypes.bool,
 };
 
 export default CompetenceGoalsExample;

@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { Core, Additional } from 'ndla-icons/common';
 
 import {
@@ -14,11 +15,14 @@ import {
   Button,
 } from 'ndla-ui';
 
+import CompetenceGoalsExample from '../organisms/CompetenceGoalsExample';
+
 class SearchPageExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentTab: 'all',
+      competenceGoalsOpen: false,
     };
   }
   render() {
@@ -133,7 +137,7 @@ class SearchPageExample extends Component {
     return (
       <SearchPage
         closeUrl="#"
-        searchString=""
+        searchString={this.props.competenceGoals ? '' : 'Ideskaping'}
         onSearchFieldChange={() => {}}
         searchFieldPlaceholder="Søk i fagstoff, oppgaver og aktiviteter eller læringsstier"
         onSearchFieldFilterRemove={() => {}}
@@ -324,8 +328,21 @@ class SearchPageExample extends Component {
           messages={{
             searchStringLabel: 'Du søkte på:',
             subHeading: '43 treff i Ndla',
+            openCompetenceGoalsButtonPrefix: '1 av',
+            openCompetenceGoalsButton:
+              '16 kompetansemål i medieuttrykk- og mediesamfunnet',
           }}
-          searchString="Test"
+          currentCompetenceGoal="Planlegge, produsere og presentere tekst, lyd, stillbilder, levende bilder og kombinasjoner av disse i aktuelle formater og standarder til trykte og elektroniske medier"
+          competenceGoals={<CompetenceGoalsExample search />}
+          competenceGoalsOpen={this.state.competenceGoalsOpen}
+          onToggleCompetenceGoals={() => {
+            this.setState(prevState => ({
+              competenceGoalsOpen: !prevState.competenceGoalsOpen,
+            }));
+          }}
+          searchString={
+            this.props.competenceGoals ? 'Kompetansemål' : 'Ideskaping'
+          }
           tabOptions={[
             {
               title: 'Alle',
@@ -369,5 +386,13 @@ class SearchPageExample extends Component {
     );
   }
 }
+
+SearchPageExample.propTypes = {
+  competenceGoals: PropTypes.bool,
+};
+
+SearchPageExample.defaultProps = {
+  competenceGoals: false,
+};
 
 export default SearchPageExample;
