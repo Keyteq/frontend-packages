@@ -25,6 +25,7 @@ const TopicIntroduction = ({
   subjectPage,
   shortcuts,
   messages,
+  shortcutAlwaysExpanded,
 }) => (
   <li className={topicClasses('item', { subjectPage })}>
     <article className={topicClasses('body')}>
@@ -37,6 +38,7 @@ const TopicIntroduction = ({
       <p dangerouslySetInnerHTML={{ __html: topic.introduction }} />
       {shortcuts && (
         <TopicIntroductionShortcuts
+          alwaysExpanded={shortcutAlwaysExpanded}
           id={`${topic.id}_shortcuts`}
           shortcuts={shortcuts}
           messages={{
@@ -57,18 +59,26 @@ TopicIntroduction.propTypes = {
   subjectPage: PropTypes.bool,
   shortcuts: PropTypes.arrayOf(ShortcutShape),
   twoColumns: PropTypes.bool,
+  shortcutAlwaysExpanded: PropTypes.bool,
 };
 
-const TopicIntroductionList = ({ topics, twoColumns, ...rest }) => (
+const TopicIntroductionList = ({
+  topics,
+  twoColumns,
+  shortcutAlwaysExpanded,
+  ...rest
+}) => (
   <ul className={topicClasses('list', { twoColumns })}>
     {topics.map(topic => {
-      const { shortcuts } = topic;
+      const { shortcuts, additional } = topic;
       return (
         <TopicIntroduction
           key={topic.id}
           {...rest}
           topic={topic}
           shortcuts={shortcuts}
+          additional={additional}
+          shortcutAlwaysExpanded={shortcutAlwaysExpanded}
         />
       );
     })}
@@ -79,10 +89,12 @@ TopicIntroductionList.propTypes = {
   toTopic: PropTypes.func.isRequired,
   topics: PropTypes.arrayOf(TopicShape).isRequired,
   twoColumns: PropTypes.bool,
+  shortcutAlwaysExpanded: PropTypes.bool,
 };
 
 TopicIntroductionList.defaultProps = {
   twoColumns: false,
+  shortcutAlwaysExpanded: false,
 };
 
 export default TopicIntroductionList;

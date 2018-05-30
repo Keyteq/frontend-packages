@@ -14,66 +14,13 @@ import {
   ResourcesTopicTitle,
   ContentTypeBadge,
   constants,
+  TopicIntroductionList,
 } from 'ndla-ui';
 import {
-  learningPathResources,
-  articleResources,
-  exerciseResources,
-  assessmentResources,
-  onlyAdditionalResources,
+  topicList,
 } from '../../dummydata/index';
 
-const { contentTypes } = constants;
-
-const toLink = () => ({
-  href: '#',
-});
-
-const resourceGroup1 = {
-  id: 'type-learning-path',
-  title: 'Læringsstier',
-  contentType: contentTypes.LEARNING_PATH,
-  resources: learningPathResources,
-};
-
-const resourceGroup2 = {
-  id: 'subject-material',
-  title: 'Fagstoff',
-  contentType: contentTypes.SUBJECT_MATERIAL,
-  resources: articleResources,
-};
-
-const resourceGroup3 = {
-  id: 'tasks-and-activities',
-  title: 'Oppgaver og aktiviteter',
-  contentType: contentTypes.TASKS_AND_ACTIVITIES,
-  resources: exerciseResources,
-};
-
-const resourceGroup4 = {
-  id: 'assessment-resources',
-  title: 'Vurderingsressurser',
-  contentType: contentTypes.ASSESSMENT_RESOURCES,
-  resources: assessmentResources,
-};
-
-const resourceGroup5 = {
-  id: 'empty-resources',
-  title: 'Eksempel kun tilleggsressurser',
-  contentType: 'example-empty-resources-with-additionals',
-  resources: onlyAdditionalResources,
-};
-
-const resourceGroups = [
-  resourceGroup1,
-  resourceGroup2,
-  resourceGroup5,
-  resourceGroup3,
-  resourceGroup4,
-  resourceGroup5,
-];
-
-class Resources extends Component {
+class Topics extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -96,9 +43,6 @@ class Resources extends Component {
   render() {
     const { showAdditionalResources, showAdditionalDialog } = this.state;
     const { showTopicHeading } = this.props;
-    const hasAdditionalResources = resourceGroups.some(group => (
-      group.resources.some(resource => (resource.additional))
-    ));
     return (<ResourcesWrapper
       header={
         showTopicHeading && (
@@ -119,34 +63,24 @@ class Resources extends Component {
           />
         )
       }>
-      {resourceGroups.map(group => (
-        <ResourceGroup
-          key={group.id}
-          title={group.title}
-          resources={group.resources}
-          showAdditionalResources={showAdditionalResources}
-          toggleAdditionalResources={this.toggleAdditionalResources}
-          contentType={group.contentType}
-          icon={<ContentTypeBadge type={group.contentType} />}
-          messages={{
-            noCoreResourcesAvailable: 'Det er ikke noe kjernestoff tilgjengelig.',
-            activateAdditionalResources: 'Vis tilleggsstoff',
-            toggleFilterLabel: 'Tilleggsstoff',
-          }}
-          resourceToLinkProps={toLink}
-          modifier={showAdditionalResources ? 'fakeloading' : ''}
-        />
-      ))}
+      <TopicIntroductionList
+        toTopic={() => '#'}
+        topics={topicList}
+        subjectPage
+        messages={{
+          shortcutButtonText: 'Lærestoff',
+        }}
+      />
     </ResourcesWrapper>);
   }
 };
 
-Resources.propTypes = {
+Topics.propTypes = {
   showTopicHeading: PropTypes.bool,
 };
 
-Resources.defaultProps = {
+Topics.defaultProps = {
   showTopicHeading: false,
 };
 
-export default Resources;
+export default Topics;

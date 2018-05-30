@@ -18,6 +18,9 @@ import {
   ArticleHeaderWrapper,
   Image,
   SourceMaterialBadge,
+  ResourcesWrapper,
+  ResourcesTopicTitle,
+  TopicIntroductionList,
 } from 'ndla-ui';
 
 import { getLicenseByAbbreviation } from 'ndla-licenses';
@@ -28,6 +31,7 @@ import RelatedArticleListExample from '../article/RelatedArticleListExample';
 
 import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 import Resources from '../molecules/resources';
+import Topics from '../molecules/topics';
 
 export default () => (
   <OneColumn>
@@ -111,11 +115,12 @@ export default () => (
           Pitching er også en god måte å bevisstgjøre seg selv på. Når du
           pitcher, blir idéen og historien i den filmen du planlegger å lage,
           tydeligere for både deg selv og dem du eventuelt jobber sammen med i
-          klassen.
+          klassen..
         </p>
         <RelatedArticleListExample />
       </LayoutItem>
       <LayoutItem layout="extend">
+        <Topics showTopicHeading />
         <Resources showTopicHeading />
       </LayoutItem>
     </ArticleWrapper>
