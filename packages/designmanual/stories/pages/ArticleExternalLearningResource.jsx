@@ -27,7 +27,7 @@ import LicenseExample from '../article/LicenseExample';
 import RelatedArticleListExample from '../article/RelatedArticleListExample';
 
 import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
-import { Resources } from '../molecules/resources';
+import Resources from '../molecules/resources';
 
 export default () => (
   <OneColumn>

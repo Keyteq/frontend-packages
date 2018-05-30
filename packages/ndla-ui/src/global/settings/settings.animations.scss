@@ -134,12 +134,13 @@
     transform: scale3d(1, 1, 1);
   }
 }
-@mixin fadeInLeftItems($item, $count) {
+@mixin fadeInLeftItems($item, $count, $delay: 0) {
   @for $i from 1 through $count {
     #{$item}:nth-of-type(#{$i}) {
       // @include transition($a-delay linear ($a-duration + ($i - 1) * 0.1));
       animation-name: fadeInLeft;
       animation-duration: (.05s+$i/10);
+      animation-delay: $delay;
     }
     // @debug $i;
   }

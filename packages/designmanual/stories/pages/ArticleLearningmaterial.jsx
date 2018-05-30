@@ -25,7 +25,7 @@ import { getLicenseByAbbreviation } from 'ndla-licenses';
 import FigureWithLicense from '../article/FigureWithLicense';
 import LicenseExample from '../article/LicenseExample';
 import RelatedArticleListExample from '../article/RelatedArticleListExample';
-import { Resources } from '../molecules/resources';
+import Resources from '../molecules/resources';
 
 import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 

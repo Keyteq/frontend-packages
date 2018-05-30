@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import Link from 'react-router-dom/Link';
 import { Button } from 'ndla-ui';
-import { Additional } from 'ndla-icons/common';
+import { Additional, Core } from 'ndla-icons/common';
 import { ResourceShape } from '../shapes';
 
 const classes = new BEMHelper({
@@ -34,16 +34,17 @@ const Resource = ({
       <h1 {...classes('title')}>
         <span>{resource.name}</span>
       </h1>
-      {resource.additional ? (
-        <Additional className="c-icon--20 u-margin-left-tiny" />
-      ) : null}
     </Fragment>
   );
 
   const link = linkProps.href ? (
-    <a {...linkProps} {...classes('link o-flag o-flag--top')}>
-      {linkContent}
-    </a>
+    <Fragment>
+      <a {...linkProps} {...classes('link o-flag o-flag--top')}>
+        {linkContent}
+      </a>
+      {resource.additional && <Additional className="c-icon--20 u-margin-left-tiny" />}
+      {!resource.additional && <Core className="c-icon--20 u-margin-left-tiny" />}
+    </Fragment>
   ) : (
     <Link
       {...resourceToLinkProps(resource)}
@@ -71,39 +72,22 @@ Resource.propTypes = {
 };
 
 const ResourceList = ({
-  additionalResources,
-  normalResources,
+  resources,
   onClick,
   messages,
   type,
-  empty,
   showAdditionalResources,
   ...rest
-}) => (
-  <div>
-    <ul {...classes('list')}>
-      {additionalResources.map(resource => (
-        <Resource
-          key={resource.id}
-          type={type}
-          showAdditionalResources={showAdditionalResources}
-          {...rest}
-          resource={resource}
-        />
-      ))}
-      {normalResources.length === 0 && !showAdditionalResources ? (
-        <div {...classes('additional-resources-trigger')}>
-          <span>
-            <div>
-              <p>{messages.noCoreResourcesAvailable}</p>
-              <Button outline onClick={onClick}>
-                {messages.activateAdditionalResources}
-              </Button>
-            </div>
-          </span>
-        </div>
-      ) : (
-        normalResources.map(resource => (
+}) => {
+  const renderAdditionalResourceTrigger =
+    !showAdditionalResources &&
+    resources.filter(res => (res.additional)).length > 0 &&
+    resources.filter(res => (!res.additional)).length === 0;
+
+  return (
+    <div>
+      <ul {...classes('list')}>
+        {resources.map(resource => (
           <Resource
             key={resource.id}
             type={type}
@@ -111,21 +95,31 @@ const ResourceList = ({
             {...rest}
             resource={resource}
           />
-        ))
-      )}
-    </ul>
-  </div>
-);
+        ))}
+        {renderAdditionalResourceTrigger && (
+          <div {...classes('additional-resources-trigger')}>
+            <span>
+              <div>
+                <p>{messages.noCoreResourcesAvailable}</p>
+                <Button outline onClick={onClick}>
+                  {messages.activateAdditionalResources}
+                </Button>
+              </div>
+            </span>
+          </div>
+        )}
+      </ul>
+    </div>
+  );
+};
 
 ResourceList.propTypes = {
-  additionalResources: PropTypes.arrayOf(ResourceShape).isRequired,
-  normalResources: PropTypes.arrayOf(ResourceShape).isRequired,
+  resources: PropTypes.arrayOf(ResourceShape).isRequired,
   type: PropTypes.string,
   showAdditionalResources: PropTypes.bool,
   onChange: PropTypes.func,
   resourceToLinkProps: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  empty: PropTypes.bool,
   messages: PropTypes.shape({
     noCoreResourcesAvailable: PropTypes.string.isRequired,
     activateAdditionalResources: PropTypes.string.isRequired,

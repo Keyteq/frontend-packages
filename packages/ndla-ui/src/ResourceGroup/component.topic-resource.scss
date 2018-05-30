@@ -17,16 +17,17 @@
   @include mq($from: tablet) {
     flex-direction: row;
   }
-  @include fadeInLeftItems(li, 40);
 }
 .c-topic-resource__body {
   flex: 1 1 auto;
   text-align: left;
+  .c-icon {
+    flex-shrink: 0;
+  }
 }
 .c-topic-resource__item {
   max-width: 100%;
-  // animation-name: fadeInTop;
-  // animation-duration: .4s;
+  margin-bottom: $spacing--small / 2;
 }
 
 .c-topic-resource__link {
@@ -34,12 +35,17 @@
   color: $brand-color--dark;
   align-items: center;
 
+  h1 {
+    @include font-size(16px, 26px);
+    @include mq(tablet) {
+      @include font-size(18px);
+    }
+  }
   h1 span {
     box-shadow: $link;
   }
 
   padding: $spacing--small;
-  margin-bottom: $spacing--small/2;
   box-shadow: none;
 
   &:hover {
@@ -60,6 +66,10 @@
   display: inline-block;
   text-align: center;
   width: auto;
+  padding-right: $spacing--small;
+  @include mq(tablet) {
+    padding-right: $spacing;
+  }
 }
 
 .c-topic-resource__title {
@@ -68,7 +78,6 @@
   margin: 0;
   display: inline;
   @include font-size(18px);
-
   @include mq(tablet) {
     @include font-size(20px);
   }
@@ -81,6 +90,13 @@
   margin: $spacing--small auto;
 }
 .c-topic-resource__additional-resources-trigger {
+  background: $brand-grey--lightest;
+  border: 1px dashed $brand-color--light;
   text-align: center;
-  padding: $spacing 0;
+  padding: $spacing--small $spacing--small $spacing;
+  font-family: $font;
+  p {
+    @include font-size(16px, 18px);
+    margin: $spacing--small;
+  }
 }

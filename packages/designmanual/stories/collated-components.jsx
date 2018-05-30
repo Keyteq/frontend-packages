@@ -24,7 +24,7 @@ import FigureWithLicense from './article/FigureWithLicense';
 import { topicList } from '../dummydata/index';
 import { MastheadWithLogo, MastheadWithTopicMenu } from './molecules/mastheads';
 import Tabs, { TabsControlled } from './molecules/tabs';
-import { Resources } from './molecules/resources';
+import Resources from './molecules/resources';
 import LicenseExample from './article/LicenseExample';
 import ConceptExample from './organisms/ConceptExample';
 import Breadcrumb, { BreadcrumbBlock } from './molecules/breadcrumbs';

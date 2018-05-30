@@ -3,6 +3,50 @@
 ** List resource groups with different colors (and icons)
 **/
 
+@keyframes fakeLoadingAnimation {
+  0% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInAdditionals {
+  0% {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    border-width: 0;
+    transform: translate3d(-60px, 0px, 0px);
+  }
+  49% {
+    border-width: 0;
+  }
+  50% {
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    border-width: 1;
+  }
+  75% {
+    height: 65.44px;
+    opacity: 0;
+    transform: translate3d(-60px, 0px, 0px);
+    margin: $spacing--small / 2;
+  }
+  100% {
+    opacity: 1;
+    height: 65.44px;
+    overflow: visible;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
 .c-resource-group {
   &:before {
     content: '';
@@ -10,8 +54,29 @@
     clear: both;
   }
 
+  &--fakeloading {
+    ul {
+      animation-name: fakeLoadingAnimation;
+      animation-duration: 0.8s;
+    }
+    .c-topic-resource__item--additional {
+      animation-name: fadeInAdditionals;
+      animation-duration: 0.8s;
+    }
+  }
+
+  ul {
+    min-height: 123px;
+  }
+
   li {
     background-color: rgba($brand-grey--light, 0.4);
+    border: 1px solid rgba(0,0,0,0);
+  }
+  .c-topic-resource__body {
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
   }
 
   &__header {
@@ -26,6 +91,7 @@
   }
   .c-topic-resource__item--additional {
     background-color: $subject-material-additional;
+    border: 1px dashed $subject-material-dark;
   }
 }
 
@@ -35,6 +101,7 @@
   }
   .c-topic-resource__item--additional {
     background-color: $tasks-and-activities-additional;
+    border: 1px dashed $tasks-and-activities-dark;
   }
 }
 
@@ -44,6 +111,7 @@
   }
   .c-topic-resource__item--additional {
     background-color: $assessment-resource-additional;
+    border: 1px dashed $assessment-resource-dark;
   }
 }
 

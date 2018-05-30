@@ -12,9 +12,14 @@
     // padding-right: $spacing;
   }
 
+  .c-filter__list--float-right {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
   &__title {
     display: block;
-    @include inuit-font-size(18px);
+    @include inuit-font-size(16px, 18px);
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -40,14 +45,18 @@
   }
 
   &__topic-title-label {
-    color: $text-light-color;
-    @include font-size(16px, 20px);
-    margin: 0;
+    font-family: $font;
+    @include font-size(22px, 26px);
+    font-weight: $font-weight-bold;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 $spacing--small 0 0;
   }
 
   &__topic-title {
-    @include font-size(22px, 32px);
+    font-weight: $font-weight-normal;
+    color: $primary-color;
+    @include font-size(22px, 26px);
     margin: 0;
   }
 
@@ -56,7 +65,10 @@
   }
 
   &__topic-title-text {
-    margin-left: $spacing--small;
+    display: flex;
+    border-bottom: 2px solid $brand-color--lighter;
+    padding-bottom: $spacing--small;
+    width: 100%;
   }
 
   &--subjectPage {

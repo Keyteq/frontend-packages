@@ -222,3 +222,18 @@ export const assessmentResources = [
     title: 'Vurderingsressurs 2',
   },
 ];
+
+export const onlyAdditionalResources = [
+  {
+    id: 'test-only-additional-resources-1',
+    name: 'Test 1',
+    title: 'Test 1',
+    additional: true,
+  },
+  {
+    id: 'test-only-additional-resources-2',
+    name: 'Test 2',
+    title: 'Test 2',
+    additional: true,
+  },
+];

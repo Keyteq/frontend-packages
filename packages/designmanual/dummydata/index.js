@@ -4,6 +4,7 @@ import {
   articleResources,
   exerciseResources,
   assessmentResources,
+  onlyAdditionalResources,
 } from './mockResources';
 import { subjectList, subjectConcepts } from './mockSubjects';
 import {
@@ -37,6 +38,7 @@ export {
   secondYouTubeList,
   youTubeMockVideo,
   assessmentResources,
+  onlyAdditionalResources,
   contentTypeResults,
   contentCards,
 };
