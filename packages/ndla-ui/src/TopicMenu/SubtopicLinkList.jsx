@@ -21,12 +21,14 @@ const SubtopicLink = ({
   subtopic: { id, name },
   onSubtopicExpand,
   expandedSubtopicId,
+  ...rest
 }) => {
   const active = id === expandedSubtopicId;
 
   return (
     <li {...classes('subtopic-item', active && 'active')} key={id}>
       <SafeLink
+        {...rest}
         {...classes('link')}
         onClick={event => {
           event.preventDefault();
@@ -80,6 +82,8 @@ class SubtopicLinkList extends Component {
       onGoBack,
       messages,
       resourceToLinkProps,
+      tabIndexStart,
+      tabIndexStep,
     } = this.props;
 
     const hasSubTopics = topic.subtopics && topic.subtopics.length > 0;
@@ -92,10 +96,14 @@ class SubtopicLinkList extends Component {
         ref={ref => {
           this.containerRef = ref;
         }}>
-        <button {...classes('back-button')} onClick={onGoBack}>
+        <button
+          {...classes('back-button')}
+          onClick={onGoBack}
+          tabIndex={tabIndexStart}>
           <Back /> <span>{messages.backButton}</span>
         </button>
         <SafeLink
+          tabIndex={tabIndexStart ? tabIndexStart + 1 : null}
           {...classes('link', ['big'])}
           onClick={closeMenu}
           to={toTopic(topic.id)}>
@@ -106,8 +114,13 @@ class SubtopicLinkList extends Component {
         </SafeLink>
         {hasSubTopics && (
           <ul {...classes('list')}>
-            {topic.subtopics.map(subtopic => (
+            {topic.subtopics.map((subtopic, index) => (
               <SubtopicLink
+                tabIndex={
+                  tabIndexStart
+                    ? tabIndexStart + tabIndexStep * index + 2
+                    : null
+                }
                 onSubtopicExpand={onSubtopicExpand}
                 expandedSubtopicId={expandedSubtopicId}
                 classes={classes}
@@ -160,6 +173,14 @@ SubtopicLinkList.propTypes = {
     learningResourcesHeading: PropTypes.string.isRequired,
     contentTypeResultsNoHit: PropTypes.string.isRequired,
   }).isRequired,
+
+  tabIndexStart: PropTypes.number,
+  tabIndexStep: PropTypes.number,
+};
+
+SubtopicLinkList.defaultProps = {
+  tabIndexStart: null,
+  tabIndexStep: null,
 };
 
 export default SubtopicLinkList;

@@ -35,6 +35,7 @@ class FilterList extends Component {
       defaultVisibleCount,
       showLabel,
       hideLabel,
+      tabIndexStart,
     } = this.props;
 
     const showAll =
@@ -62,9 +63,13 @@ class FilterList extends Component {
               itemModifiers.push('no-results');
             }
 
+            const tabIndex =
+              tabIndexStart !== null ? tabIndexStart + index : null;
+
             return (
               <li {...filterClasses('item', itemModifiers)} key={option.value}>
                 <input
+                  tabIndex={tabIndex}
                   {...filterClasses('input')}
                   type="checkbox"
                   id={option.value}
@@ -149,6 +154,7 @@ FilterList.propTypes = {
   defaultVisibleCount: PropTypes.number,
   showLabel: PropTypes.string,
   hideLabel: PropTypes.string,
+  tabIndexStart: PropTypes.number,
 };
 
 FilterList.defaultProps = {
@@ -156,6 +162,7 @@ FilterList.defaultProps = {
   modifiers: '',
   values: [],
   defaultVisibleCount: null,
+  tabIndexStart: null,
 };
 
 export default FilterList;

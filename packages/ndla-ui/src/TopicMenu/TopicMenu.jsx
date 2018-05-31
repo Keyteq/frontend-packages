@@ -7,7 +7,7 @@
  */
 
 // Can be removed when updating to jsx-a11y 6.x
-/* eslint jsx-a11y/no-noninteractive-element-to-interactive-role: 1 */
+/* eslint jsx-a11y/no-noninteractive-element-to-interactive-role: 1 jsx-a11y/tabindex-no-positive: 0 */
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -128,6 +128,10 @@ export default class TopicMenu extends Component {
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
+    const expandedTopicIndex = expandedTopic
+      ? topics.findIndex(topic => topic.id === expandedTopicId)
+      : null;
+
     let expandedSubtopic = null;
     let expandedSubtopicLevel2 = null;
 
@@ -148,6 +152,7 @@ export default class TopicMenu extends Component {
     if (!expandedSubtopic) {
       subTopicModifiers.push('no-border');
     }
+
     const disableMain = this.state.isNarrowScreen && expandedTopic;
     const disableSubTopic = disableMain && expandedSubtopic;
     const disableSubTopicLevel2 = disableSubTopic && expandedSubtopicLevel2;
@@ -162,11 +167,15 @@ export default class TopicMenu extends Component {
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
     };
+
     return (
       <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
         <div {...classes('masthead')}>
           <div {...classes('masthead-left')}>
-            <button {...classes('close-button')} onClick={closeMenu}>
+            <button
+              {...classes('close-button')}
+              onClick={closeMenu}
+              tabIndex={1}>
               <Cross />
               <span>{messages.closeButton}</span>
             </button>
@@ -179,12 +188,14 @@ export default class TopicMenu extends Component {
                 messages={{
                   buttonText: messages.search,
                 }}
+                tabIndex={2}
               />
             )}
             <Logo
               to="#"
               label="Nasjonal digital læringsarena"
               isBeta={this.props.isBeta}
+              tabIndex={3}
             />
           </div>
         </div>
@@ -193,7 +204,7 @@ export default class TopicMenu extends Component {
             <Fragment>
               {!disableHeaderNavigation && (
                 <div {...classes('back')}>
-                  <SafeLink {...classes('back-link')} to="/">
+                  <SafeLink {...classes('back-link')} to="/" tabIndex={4}>
                     <Home {...classes('home-icon', '', 'c-icon--20')} />
                     {messages.subjectOverview}
                   </SafeLink>
@@ -209,10 +220,13 @@ export default class TopicMenu extends Component {
                   })}>
                   <div {...classes('subject__header')}>
                     <h1>
-                      <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
+                      <SafeLink to={toSubject()} tabIndex={5}>
+                        {subjectTitle}
+                      </SafeLink>
                     </h1>
                     {competenceGoals && (
                       <Button
+                        tabIndex={6}
                         className={
                           classes('competence-toggle-button').className
                         }
@@ -238,6 +252,7 @@ export default class TopicMenu extends Component {
                     filterOptions &&
                     filterOptions.length > 0 && (
                       <FilterList
+                        tabIndexStart={7}
                         options={filterOptions}
                         values={filterValues}
                         onChange={onFilterClick}
@@ -250,6 +265,7 @@ export default class TopicMenu extends Component {
           {competenceGoalsOpen && (
             <div {...classes('competence')}>
               <button
+                tabIndex={20}
                 {...classes('competence-close-button')}
                 onClick={() =>
                   this.setState({
@@ -269,6 +285,7 @@ export default class TopicMenu extends Component {
                   <div {...classes('section', 'main')}>
                     <SafeLink
                       to={toSubject()}
+                      tabIndex={21}
                       className={classes('link', 'big').className}>
                       <span {...classes('link-label')}>{messages.goTo}:</span>
                       <span {...classes('link-target')}>
@@ -276,7 +293,7 @@ export default class TopicMenu extends Component {
                       </span>
                     </SafeLink>
                     <ul {...classes('list')}>
-                      {topics.map(topic => {
+                      {topics.map((topic, index) => {
                         const active = topic.id === expandedTopicId;
 
                         return (
@@ -284,6 +301,7 @@ export default class TopicMenu extends Component {
                             {...classes('topic-item', active && 'active')}
                             key={topic.id}>
                             <button
+                              tabIndex={(index + 1) * 10000}
                               {...classes('link')}
                               onClick={event =>
                                 this.handleClick(event, topic.id)
@@ -303,6 +321,12 @@ export default class TopicMenu extends Component {
               {expandedTopic &&
                 !disableSubTopic && (
                   <SubtopicLinkList
+                    tabIndexStart={
+                      expandedTopicIndex !== null
+                        ? (expandedTopicIndex + 1) * 10000 + 1
+                        : null
+                    }
+                    tabIndexStep={100}
                     classes={classes}
                     className={classes('section', subTopicModifiers).className}
                     closeMenu={closeMenu}

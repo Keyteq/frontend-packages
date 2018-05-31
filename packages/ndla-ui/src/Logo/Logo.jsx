@@ -27,6 +27,7 @@ export const Logo = ({
   color,
   large,
   label,
+  ...rest
 }) => {
   const beta = isBeta ? <Beta /> : null;
   const modifiers = { large };
@@ -40,7 +41,7 @@ export const Logo = ({
   }
 
   const logo = to ? (
-    <SafeLink to={to} aria-label={label}>
+    <SafeLink to={to} aria-label={label} {...rest}>
       <SvgLogo name={name} color={color} /> {beta}
     </SafeLink>
   ) : (

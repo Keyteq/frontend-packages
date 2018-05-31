@@ -13,7 +13,12 @@ const classes = BEMHelper({
   outputIsString: true,
 });
 
-export const OpenSearchButton = ({ messages, onOpen, searchPageUrl }) => {
+export const OpenSearchButton = ({
+  messages,
+  onOpen,
+  searchPageUrl,
+  ...rest
+}) => {
   const buttonContent = (
     <span className={classes('button-content')}>
       <span className={classes('button-text')}>{messages.buttonText}</span>
@@ -23,10 +28,13 @@ export const OpenSearchButton = ({ messages, onOpen, searchPageUrl }) => {
 
   return (
     <Fragment>
-      <SafeLink to={searchPageUrl} className={classes('button', 'narrow')}>
+      <SafeLink
+        to={searchPageUrl}
+        className={classes('button', 'narrow')}
+        {...rest}>
         {buttonContent}
       </SafeLink>
-      <Button onClick={onOpen} className={classes('button', 'wide')}>
+      <Button onClick={onOpen} className={classes('button', 'wide')} {...rest}>
         {buttonContent}
       </Button>
     </Fragment>
