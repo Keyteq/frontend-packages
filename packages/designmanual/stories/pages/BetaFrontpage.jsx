@@ -34,9 +34,10 @@ export default () => (
             Vil du hjelpe oss å teste de nye fagssidene?
           </ArticleTitle>
           <ArticleIntroduction>
-            Til nå har vi brukertestet over 100 elever og lærere og fått mange
-            gode tilbakemeldinger og forslag. Tusen takk for all hjelp så langt!
-            Nå vil vi gjerne ha din hjelp til å forbedre nettsidene enda mer.
+            Til nå har vi brukertestet sammen med over 100 elever og lærere og
+            fått mange gode tilbakemeldinger og forslag. Tusen takk for all
+            hjelp så langt! Nå vil vi gjerne ha din hjelp til å forbedre
+            nettsidene enda mer.
           </ArticleIntroduction>
         </ArticleHeaderWrapper>
       </LayoutItem>

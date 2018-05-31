@@ -42,8 +42,13 @@ const Resource = ({
       <a {...linkProps} {...classes('link o-flag o-flag--top')}>
         {linkContent}
       </a>
-      {resource.additional && <Additional className="c-icon--20 u-margin-left-tiny" />}
-      {!resource.additional && <Core className="c-icon--20 u-margin-left-tiny" />}
+      {resource.additional && (
+        <Additional className="c-icon--20 u-margin-left-tiny" />
+      )}
+      {!resource.additional &&
+        showAdditionalResources && (
+          <Core className="c-icon--20 u-margin-left-tiny" />
+        )}
     </Fragment>
   ) : (
     <Link
@@ -81,8 +86,8 @@ const ResourceList = ({
 }) => {
   const renderAdditionalResourceTrigger =
     !showAdditionalResources &&
-    resources.filter(res => (res.additional)).length > 0 &&
-    resources.filter(res => (!res.additional)).length === 0;
+    resources.filter(res => res.additional).length > 0 &&
+    resources.filter(res => !res.additional).length === 0;
 
   return (
     <div>

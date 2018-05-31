@@ -7,61 +7,75 @@ import SafeLink from '../common/SafeLink';
 
 import ResourceToggleFilter from '../ResourceGroup/ResourceToggleFilter';
 import ClickToggle from '../common/ClickToggle';
-import { Additional } from 'ndla-icons/common';
+import { HelpCircle } from 'ndla-icons/common';
 import Dialog from '../Dialog';
+import Tooltip from '../Tooltip';
 
 const classesButton = new BEMHelper({
   name: 'filter',
   prefix: 'c-',
 });
 
-const ResourcesTopicTitle = ({ messages, title, url, hasAdditionalResources, toggleAdditionalResources, showAdditionalResources, showAdditionalDialog, toggleAdditionalDialog }) => (
+const ResourcesTopicTitle = ({
+  messages,
+  title,
+  url,
+  headerId,
+  hasAdditionalResources,
+  toggleAdditionalResources,
+  showAdditionalResources,
+  showAdditionalDialog,
+  toggleAdditionalDialog,
+}) => (
   <header {...classes('topic-title-wrapper')}>
-    <div {...classes('topic-title-text')}>
+    <div>
       <p {...classes('topic-title-label')}>{messages.label}</p>
       <h1 {...classes('topic-title')}>
-        {url ? <SafeLink to={url} {...classes('topic-title-link')}>
-          {title}
-        </SafeLink> : title}
+        {url ? (
+          <SafeLink to={url} {...classes('topic-title-link')}>
+            {title}
+          </SafeLink>
+        ) : (
+          title
+        )}
       </h1>
-      {hasAdditionalResources && (
-        <Fragment>
-          <ResourceToggleFilter
-            checked={showAdditionalResources}
-            label={messages.toggleFilterLabel}
-            onClick={toggleAdditionalResources}
-          />
-          <div>
-            <button
-              {...classesButton('list', 'float-right')}
-              onClick={toggleAdditionalDialog}
-            >
-              <Additional
-                className={`c-icon--22 u-margin-left-tiny ${
-                  classes('icon').className
-                }`}
-              />
-            </button>
-            <Dialog
-              labelledby="show-additional-dialog-id"
-              hidden={!showAdditionalDialog}
-              onClose={toggleAdditionalDialog}
-              disablePortal
-              messages={{ close: 'lukk' }}
-              modifier={
-                showAdditionalDialog ? 'active' : ''
-              }>
-                <div>
-                  <h1 id="show-additional-dialog-id">{messages.additionalDialogLabel}</h1>
-                  <hr />
-                  <p>{messages.additionalDialogDescription1}</p>
-                  {messages.additionalDialogDescription2 && <p>{messages.additionalDialogDescription2}</p>}
-                </div>
-            </Dialog>
-          </div>
-        </Fragment>
-      )}
     </div>
+    {hasAdditionalResources && (
+      <div>
+        <ResourceToggleFilter
+          checked={showAdditionalResources}
+          label={messages.toggleFilterLabel}
+          onClick={toggleAdditionalResources}
+        />
+        <Tooltip tooltip={messages.additionalDialogTooptip} align="right">
+          <button
+            {...classes('topic-title-icon')}
+            onClick={toggleAdditionalDialog}>
+            <HelpCircle
+              className={`c-icon--22 u-margin-left-tiny ${
+                classes('icon').className
+              }`}
+            />
+          </button>
+        </Tooltip>
+        <Dialog
+          labelledby={headerId}
+          hidden={!showAdditionalDialog}
+          onClose={toggleAdditionalDialog}
+          disablePortal
+          messages={{ close: 'lukk' }}
+          modifier={showAdditionalDialog ? 'active' : ''}>
+          <div>
+            <h1 id={headerId}>{messages.additionalDialogLabel}</h1>
+            <hr />
+            <p>{messages.additionalDialogDescription1}</p>
+            {messages.additionalDialogDescription2 && (
+              <p>{messages.additionalDialogDescription2}</p>
+            )}
+          </div>
+        </Dialog>
+      </div>
+    )}
   </header>
 );
 
@@ -100,6 +114,7 @@ ResourcesTopicTitle.propTypes = {
       }
     },
     additionalDialogDescription2: PropTypes.string,
+    additionalDialogTooptip: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
   toggleAdditionalResources: PropTypes.func.isRequired,
@@ -107,7 +122,7 @@ ResourcesTopicTitle.propTypes = {
   toggleAdditionalDialog: (props, propName, componentName) => {
     if (typeof props[propName] !== 'function' && props.hasAdditionalResources) {
       console.warn(
-        `<${componentName} /> toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
+        `<${componentName} /> !toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
       );
       return new Error(
         'Invalid prop `' +
@@ -120,9 +135,24 @@ ResourcesTopicTitle.propTypes = {
     }
   },
   showAdditionalDialog: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'function' && props.hasAdditionalResources) {
+    if (typeof props[propName] !== 'boolean' && props.hasAdditionalResources) {
       console.warn(
-        `<${componentName} /> toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
+        `<${componentName} /> ?toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
+      );
+      return new Error(
+        'Invalid prop `' +
+          propName +
+          '` supplied to' +
+          ' `' +
+          componentName +
+          '`. Validation failed.',
+      );
+    }
+  },
+  headerId: (props, propName, componentName) => {
+    if (typeof props[propName] !== 'string' && props.hasAdditionalResources) {
+      console.warn(
+        `<${componentName} /> headerId prop must be a string if props[hasAdditionalResources] === true`,
       );
       return new Error(
         'Invalid prop `' +
@@ -139,6 +169,7 @@ ResourcesTopicTitle.propTypes = {
 
 ResourcesTopicTitle.defaultProps = {
   hasAdditionalResources: false,
+  showAdditionalDialog: false,
 };
 
 export default ResourcesTopicTitle;

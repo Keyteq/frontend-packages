@@ -83,6 +83,9 @@ storiesOf('Sammensatte moduler', module)
           toTopic={() => '#'}
           messages={{
             shortcutButtonText: 'Lærestoff',
+            tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
+            tooltipAdditionalTopic:
+              'Tilleggsstoff er fagstoff som er på pensum',
           }}
           topics={topicList}
         />

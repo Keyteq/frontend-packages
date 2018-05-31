@@ -16,9 +16,7 @@ import {
   constants,
   TopicIntroductionList,
 } from 'ndla-ui';
-import {
-  topicList,
-} from '../../dummydata/index';
+import { topicList } from '../../dummydata/index';
 
 class Topics extends Component {
   constructor(props) {
@@ -43,37 +41,47 @@ class Topics extends Component {
   render() {
     const { showAdditionalResources, showAdditionalDialog } = this.state;
     const { showTopicHeading } = this.props;
-    return (<ResourcesWrapper
-      header={
-        showTopicHeading && (
-          <ResourcesTopicTitle
-            messages={{
-              label: 'Havbunnsløsninger',
-              toggleFilterLabel: 'Vis tilleggsressurser',
-              additionalDialogLabel: 'hva er kjernestoff og tilleggstoff?',
-              additionalDialogDescription1: 'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-              additionalDialogDescription2: 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-            }}
-            title="Medieproduksjon"
-            toggleAdditionalResources={this.toggleAdditionalResources}
-            showAdditionalResources={showAdditionalResources}
-            hasAdditionalResources
-            toggleAdditionalDialog={this.toggleAdditionalDialog}
-            showAdditionalDialog={showAdditionalDialog}
-          />
-        )
-      }>
-      <TopicIntroductionList
-        toTopic={() => '#'}
-        topics={topicList}
-        subjectPage
-        messages={{
-          shortcutButtonText: 'Lærestoff',
-        }}
-      />
-    </ResourcesWrapper>);
+    return (
+      <ResourcesWrapper
+        header={
+          showTopicHeading && (
+            <ResourcesTopicTitle
+              messages={{
+                label: 'Emne',
+                toggleFilterLabel: 'Vis tilleggsressurser',
+                additionalDialogLabel: 'Hva er kjernestoff og tilleggstoff?',
+                additionalDialogDescription1:
+                  'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
+                additionalDialogDescription2:
+                  'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
+                additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
+              }}
+              headerId="subject-header-id"
+              title="Medieproduksjon"
+              toggleAdditionalResources={this.toggleAdditionalResources}
+              showAdditionalResources={showAdditionalResources}
+              hasAdditionalResources
+              toggleAdditionalDialog={this.toggleAdditionalDialog}
+              showAdditionalDialog={showAdditionalDialog}
+            />
+          )
+        }>
+        <TopicIntroductionList
+          toTopic={() => '#'}
+          topics={topicList}
+          subjectPage
+          showAdditional={showAdditionalResources}
+          messages={{
+            shortcutButtonText: 'Lærestoff',
+            tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
+            tooltipAdditionalTopic:
+              'Tilleggsstoff er fagstoff som er på pensum',
+          }}
+        />
+      </ResourcesWrapper>
+    );
   }
-};
+}
 
 Topics.propTypes = {
   showTopicHeading: PropTypes.bool,

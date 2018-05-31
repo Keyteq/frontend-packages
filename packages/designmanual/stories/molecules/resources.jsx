@@ -96,50 +96,57 @@ class Resources extends Component {
   render() {
     const { showAdditionalResources, showAdditionalDialog } = this.state;
     const { showTopicHeading } = this.props;
-    const hasAdditionalResources = resourceGroups.some(group => (
-      group.resources.some(resource => (resource.additional))
-    ));
-    return (<ResourcesWrapper
-      header={
-        showTopicHeading && (
-          <ResourcesTopicTitle
-            messages={{
-              label: 'Havbunnsløsninger',
-              toggleFilterLabel: 'Vis tilleggsressurser',
-              additionalDialogLabel: 'hva er kjernestoff og tilleggstoff?',
-              additionalDialogDescription1: 'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-              additionalDialogDescription2: 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-            }}
-            title="Medieproduksjon"
-            toggleAdditionalResources={this.toggleAdditionalResources}
+    const hasAdditionalResources = resourceGroups.some(group =>
+      group.resources.some(resource => resource.additional),
+    );
+    return (
+      <ResourcesWrapper
+        header={
+          showTopicHeading && (
+            <ResourcesTopicTitle
+              messages={{
+                label: 'Læringsressurser',
+                toggleFilterLabel: 'Vis tilleggsressurser',
+                additionalDialogLabel: 'Hva er kjernestoff og tilleggstoff?',
+                additionalDialogDescription1:
+                  'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
+                additionalDialogDescription2:
+                  'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
+                additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
+              }}
+              id="learning-resources-id"
+              title="Havbunnsløsninger"
+              toggleAdditionalResources={this.toggleAdditionalResources}
+              showAdditionalResources={showAdditionalResources}
+              hasAdditionalResources
+              toggleAdditionalDialog={this.toggleAdditionalDialog}
+              showAdditionalDialog={showAdditionalDialog}
+            />
+          )
+        }>
+        {resourceGroups.map(group => (
+          <ResourceGroup
+            key={group.id}
+            title={group.title}
+            resources={group.resources}
             showAdditionalResources={showAdditionalResources}
-            hasAdditionalResources
-            toggleAdditionalDialog={this.toggleAdditionalDialog}
-            showAdditionalDialog={showAdditionalDialog}
+            toggleAdditionalResources={this.toggleAdditionalResources}
+            contentType={group.contentType}
+            icon={<ContentTypeBadge type={group.contentType} />}
+            messages={{
+              noCoreResourcesAvailable:
+                'Det er ikke noe kjernestoff tilgjengelig.',
+              activateAdditionalResources: 'Vis tilleggsstoff',
+              toggleFilterLabel: 'Tilleggsstoff',
+            }}
+            resourceToLinkProps={toLink}
+            modifier={showAdditionalResources ? 'fakeloading' : ''}
           />
-        )
-      }>
-      {resourceGroups.map(group => (
-        <ResourceGroup
-          key={group.id}
-          title={group.title}
-          resources={group.resources}
-          showAdditionalResources={showAdditionalResources}
-          toggleAdditionalResources={this.toggleAdditionalResources}
-          contentType={group.contentType}
-          icon={<ContentTypeBadge type={group.contentType} />}
-          messages={{
-            noCoreResourcesAvailable: 'Det er ikke noe kjernestoff tilgjengelig.',
-            activateAdditionalResources: 'Vis tilleggsstoff',
-            toggleFilterLabel: 'Tilleggsstoff',
-          }}
-          resourceToLinkProps={toLink}
-          modifier={showAdditionalResources ? 'fakeloading' : ''}
-        />
-      ))}
-    </ResourcesWrapper>);
+        ))}
+      </ResourcesWrapper>
+    );
   }
-};
+}
 
 Resources.propTypes = {
   showTopicHeading: PropTypes.bool,

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { ContentTypeBadge } from 'ndla-ui';
 
@@ -41,8 +42,12 @@ class ShortcutItem extends Component {
           {...classes('item-link')}
           aria-label={tooltip}
           to={url}
-          onMouseEnter={this.handleShowTooltip}
-          onMouseLeave={this.handleHideTooltip}
+          onMouseEnter={
+            !this.props.disableToolTip ? this.handleShowTooltip : null
+          }
+          onMouseLeave={
+            !this.props.disableToolTip ? this.handleHideTooltip : null
+          }
           onFocus={this.handleShowTooltip}
           onBlur={this.handleHideTooltip}>
           <ContentTypeBadge type={contentType} size="x-small" background />
@@ -55,6 +60,11 @@ class ShortcutItem extends Component {
 
 ShortcutItem.propTypes = {
   shortcut: ShortcutShape.isRequired,
+  disableToolTip: PropTypes.bool,
+};
+
+ShortcutItem.defaultProps = {
+  disableToolTip: false,
 };
 
 export default ShortcutItem;

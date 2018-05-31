@@ -73,5 +73,8 @@
     "string-length": "^2.0.0",
     "style-loader": "^0.20.2",
     "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "ndla-icons": "^0.3.4"
   }
 }

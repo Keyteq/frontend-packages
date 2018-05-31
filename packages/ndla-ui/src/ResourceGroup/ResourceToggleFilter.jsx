@@ -16,7 +16,7 @@ const classes = new BEMHelper({
 });
 
 const ResourceToggleFilter = ({ checked, onClick, label }) => (
-  <div {...classes('list', 'float-right')}>
+  <div {...classes('list', '')}>
     <div {...classes('item')}>
       <input
         {...classes('input')}

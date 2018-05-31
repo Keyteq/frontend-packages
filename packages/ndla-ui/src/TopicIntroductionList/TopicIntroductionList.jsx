@@ -12,6 +12,8 @@ import BEMHelper from 'react-bem-helper';
 import SafeLink from '../common/SafeLink';
 import { TopicShape, ShortcutShape } from '../shapes';
 import TopicIntroductionShortcuts from './TopicIntroductionShortcuts';
+import { Additional, Core } from 'ndla-icons/common';
+import { Tooltip } from 'ndla-ui';
 
 const topicClasses = new BEMHelper({
   prefix: 'c-',
@@ -26,12 +28,32 @@ const TopicIntroduction = ({
   shortcuts,
   messages,
   shortcutAlwaysExpanded,
+  additional,
+  showAdditional,
 }) => (
-  <li className={topicClasses('item', { subjectPage })}>
+  <li
+    className={topicClasses('item', {
+      subjectPage,
+      additional,
+      showAdditional,
+    })}>
     <article className={topicClasses('body')}>
-      <h1 className={topicClasses('header')}>
-        <SafeLink to={toTopic(topic.id)}>{topic.name}</SafeLink>
-      </h1>
+      <div className={topicClasses('heading-wrapper')}>
+        <h1 className={topicClasses('header')}>
+          <SafeLink to={toTopic(topic.id)}>{topic.name}</SafeLink>
+        </h1>
+        {additional && (
+          <Tooltip tooltip={messages.tooltipAdditionalTopic} align="right">
+            <Additional className="c-icon--20 u-margin-left-tiny" />
+          </Tooltip>
+        )}
+        {!additional &&
+          showAdditional && (
+            <Tooltip tooltip={messages.tooltipCoreTopic} align="right">
+              <Core className="c-icon--20 u-margin-left-tiny" rightAlign />
+            </Tooltip>
+          )}
+      </div>
       {/* Since topic introduction is already escaped from the api
         we run into a double escaping issues as React escapes all strings.
         Use dangerouslySetInnerHTML to circumvent the issue */}
@@ -53,6 +75,8 @@ const TopicIntroduction = ({
 TopicIntroduction.propTypes = {
   messages: PropTypes.shape({
     shortcutButtonText: PropTypes.string.isRequired,
+    tooltipAdditionalTopic: PropTypes.string,
+    tooltipCoreTopic: PropTypes.string,
   }),
   topic: TopicShape.isRequired,
   toTopic: PropTypes.func.isRequired,
@@ -66,6 +90,7 @@ const TopicIntroductionList = ({
   topics,
   twoColumns,
   shortcutAlwaysExpanded,
+  showAdditional,
   ...rest
 }) => (
   <ul className={topicClasses('list', { twoColumns })}>
@@ -78,6 +103,7 @@ const TopicIntroductionList = ({
           topic={topic}
           shortcuts={shortcuts}
           additional={additional}
+          showAdditional={showAdditional}
           shortcutAlwaysExpanded={shortcutAlwaysExpanded}
         />
       );
@@ -90,11 +116,13 @@ TopicIntroductionList.propTypes = {
   topics: PropTypes.arrayOf(TopicShape).isRequired,
   twoColumns: PropTypes.bool,
   shortcutAlwaysExpanded: PropTypes.bool,
+  showAdditional: PropTypes.bool,
 };
 
 TopicIntroductionList.defaultProps = {
   twoColumns: false,
   shortcutAlwaysExpanded: false,
+  showAdditional: false,
 };
 
 export default TopicIntroductionList;
