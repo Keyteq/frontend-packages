@@ -22,13 +22,31 @@ class Tooltip extends Component {
     super(props);
     this.state = {
       showtooltip: false,
+      disabled: props.delay === 0 || props.disabled,
     };
     this.handleShowTooltip = this.handleShowTooltip.bind(this);
     this.handleHideTooltip = this.handleHideTooltip.bind(this);
+    this.delayTimer = null;
+  }
+
+  componentDidMount() {
+    if (this.props.delay && !this.props.disabled) {
+      this.delayTimer = setTimeout(() => {
+        this.setState({
+          disabled: !this.props.disabled,
+        });
+      }, this.props.delay);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.delayTimer);
   }
 
   handleShowTooltip() {
-    this.setState({ showtooltip: true });
+    if (!this.state.showTooltip && this.state.disabled) {
+      this.setState({ showtooltip: true });
+    }
   }
 
   handleHideTooltip() {
@@ -43,6 +61,7 @@ class Tooltip extends Component {
         </Fade>
         <div
           onMouseEnter={this.handleShowTooltip}
+          onMouseMove={this.handleShowTooltip}
           onMouseLeave={this.handleHideTooltip}
           onFocus={this.handleShowTooltip}
           onBlur={this.handleHideTooltip}>
@@ -56,11 +75,15 @@ class Tooltip extends Component {
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
   tooltip: PropTypes.string.isRequired,
+  delay: PropTypes.number,
+  disabled: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'right']),
 };
 
 Tooltip.defaultProps = {
   align: undefined,
+  disabled: false,
+  delay: 0,
 };
 
 export default Tooltip;

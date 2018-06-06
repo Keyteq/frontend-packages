@@ -35,6 +35,9 @@ import ArticleExercise from './ArticleExercise';
 import ArticleExternalLearningResource from './ArticleExternalLearningResource';
 import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
+import ArticleWithTopics from './ArticleWithTopics';
+import ArticleWithResources from './ArticleWithResources';
+import ArticleWithRelatedContent from './ArticleWithRelatedContent';
 import Breadcrumb from '../molecules/breadcrumbs';
 import Frontpage from './FrontpageExample';
 
@@ -210,6 +213,60 @@ storiesOf('Læringsressurser', module)
           </OneColumn>
         </SubjectMaterialHero>
         <ArticleAdditional />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('Artikkel med relatert innhold', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <SourceMaterialHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </SourceMaterialHero>
+        <ArticleWithRelatedContent />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('Artikkel med emner', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <SourceMaterialHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </SourceMaterialHero>
+        <ArticleWithTopics />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('Artikkel med læringsressurser', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <SourceMaterialHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </SourceMaterialHero>
+        <ArticleWithResources />
       </Content>
       <FooterExample />
     </PageContainer>

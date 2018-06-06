@@ -27,10 +27,9 @@ const ResourceGroup = ({
   showAdditionalResources,
   resourceToLinkProps,
   messages,
-  modifier,
   contentType,
 }) => (
-  <section {...classes('', [contentType, modifier])}>
+  <section {...classes('', [contentType, showAdditionalResources ? 'showall' : ''])}>
     <header {...classes('header')}>
       <ResourcesTitle>{title}</ResourcesTitle>
     </header>
@@ -50,7 +49,6 @@ const ResourceGroup = ({
 ResourceGroup.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
-  modifier: PropTypes.string,
   contentType: ContentTypeShape.isRequired,
   resources: PropTypes.arrayOf(ResourceShape).isRequired,
   toggleAdditionalResources: PropTypes.func.isRequired,
@@ -58,15 +56,14 @@ ResourceGroup.propTypes = {
   hideResourceToggleFilter: PropTypes.bool,
   empty: PropTypes.bool,
   messages: PropTypes.shape({
-    activateAdditionalResources: PropTypes.string.isRequired,
-    noCoreResourcesAvailable: PropTypes.string.isRequired,
+    noContentBoxLabel: PropTypes.string.isRequired,
+    noContentBoxButtonText: PropTypes.string.isRequired,
     toggleFilterLabel: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
 };
 
 ResourceGroup.defaultProps = {
   hideResourceToggleFilter: false,
-  modifier: '',
 };
 
 export default ResourceGroup;

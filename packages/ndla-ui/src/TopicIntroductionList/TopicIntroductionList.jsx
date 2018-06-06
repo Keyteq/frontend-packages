@@ -13,9 +13,7 @@ import SafeLink from '../common/SafeLink';
 import { TopicShape, ShortcutShape } from '../shapes';
 import TopicIntroductionShortcuts from './TopicIntroductionShortcuts';
 import { Additional, Core } from 'ndla-icons/common';
-import { Tooltip } from 'ndla-ui';
-
-import { OnlyAdditionalContent } from '../ResourceGroup/ResourceList';
+import { Tooltip, NoContentBox } from 'ndla-ui';
 
 const topicClasses = new BEMHelper({
   prefix: 'c-',
@@ -31,13 +29,13 @@ const TopicIntroduction = ({
   messages,
   shortcutAlwaysExpanded,
   additional,
-  showAdditional,
+  showAdditionalCores,
 }) => (
   <li
     className={topicClasses('item', {
       subjectPage,
       additional,
-      showAdditional,
+      showAdditionalCores,
     })}>
     <article className={topicClasses('body')}>
       <div className={topicClasses('heading-wrapper')}>
@@ -50,9 +48,9 @@ const TopicIntroduction = ({
           </Tooltip>
         )}
         {!additional &&
-          showAdditional && (
+          showAdditionalCores && (
             <Tooltip tooltip={messages.tooltipCoreTopic} align="right">
-              <Core className="c-icon--20 u-margin-left-tiny" rightAlign />
+              <Core className="c-icon--20 u-margin-left-tiny" />
             </Tooltip>
           )}
       </div>
@@ -92,39 +90,57 @@ const TopicIntroductionList = ({
   topics,
   twoColumns,
   shortcutAlwaysExpanded,
-  showAdditional,
+  showAdditionalCores,
+  toggleAdditionalCores,
+  messages,
   ...rest
-}) => (
-  <ul className={topicClasses('list', { twoColumns })}>
-    {topics.map(topic => {
-      const { shortcuts, additional } = topic;
-      return (
-        <TopicIntroduction
-          key={topic.id}
-          {...rest}
-          topic={topic}
-          shortcuts={shortcuts}
-          additional={additional}
-          showAdditional={showAdditional}
-          shortcutAlwaysExpanded={shortcutAlwaysExpanded}
-        />
-      );
-    })}
-  </ul>
-);
+}) => {
+  const renderAdditionalTopicsTrigger =
+    !showAdditionalCores &&
+    topics.filter(topic => topic.additional).length > 0 &&
+    topics.filter(topic => !topic.additional).length === 0;
+
+  return (
+    <ul className={topicClasses('list', { twoColumns })}>
+      {topics.map(topic => {
+        const { shortcuts, additional } = topic;
+        return (
+          <TopicIntroduction
+            key={topic.id}
+            {...rest}
+            topic={topic}
+            shortcuts={shortcuts}
+            additional={additional}
+            showAdditionalCores={showAdditionalCores}
+            shortcutAlwaysExpanded={shortcutAlwaysExpanded}
+            messages={messages}
+          />
+        );
+      })}
+      {renderAdditionalTopicsTrigger && (
+        <NoContentBox onClick={toggleAdditionalCores} text={messages.noContentBoxLabel} buttonText={messages.noContentBoxButtonText} />
+      )}
+    </ul>
+  );
+}
 
 TopicIntroductionList.propTypes = {
   toTopic: PropTypes.func.isRequired,
   topics: PropTypes.arrayOf(TopicShape).isRequired,
   twoColumns: PropTypes.bool,
   shortcutAlwaysExpanded: PropTypes.bool,
-  showAdditional: PropTypes.bool,
+  showAdditionalCores: PropTypes.bool,
+  toggleAdditionalCores: PropTypes.func.isRequired,
+  messages: PropTypes.shape({
+    noContentBoxLabel: PropTypes.string.isRequired,
+    noContentBoxButtonText: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 TopicIntroductionList.defaultProps = {
   twoColumns: false,
   shortcutAlwaysExpanded: false,
-  showAdditional: false,
+  showAdditionalCores: false,
 };
 
 export default TopicIntroductionList;

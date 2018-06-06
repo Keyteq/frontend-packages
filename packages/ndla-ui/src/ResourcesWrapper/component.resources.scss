@@ -4,8 +4,8 @@
 **/
 
 .c-resources {
-  padding-bottom: $spacing--large;
   padding-top: $spacing;
+  padding-bottom: $spacing;
 
   @include mq(tablet) {
     // padding-left: $spacing;
@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     padding-bottom: $spacing--small / 2;
-    margin-top: $spacing--large;
+    margin-top: $spacing--medium;
 
     .c-content-type-badge {
       display: none;
@@ -52,7 +52,7 @@
     align-items: center;
     margin-top: $spacing--large;
     border-bottom: 2px solid $brand-color--lighter;
-    padding-bottom: $spacing--small;
+    padding-bottom: $spacing--small / 2;
     width: 100%;
     justify-content: flex-start;
     flex-direction: column;
@@ -66,6 +66,10 @@
       display: flex;
       align-items: center;
     }
+  }
+
+  .c-resources__topic-title-icon {
+    padding-right: 0;
   }
 
   &__topic-title-label {

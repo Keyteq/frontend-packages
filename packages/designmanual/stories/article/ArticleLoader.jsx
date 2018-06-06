@@ -36,7 +36,9 @@ const ResourcesSubTopics = () => (
       messages={{
         shortcutButtonText: 'Lærestoff',
         tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
-        tooltipAdditionalTopic: 'Tilleggsstoff er fagstoff som er på pensum',
+        tooltipAdditionalTopic: 'Tilleggsstoff er ikke på pensum',
+        noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+        noContentBoxButtonText: 'Vis tilleggsstoff',
       }}
     />
   </ResourcesWrapper>

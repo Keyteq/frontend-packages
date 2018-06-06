@@ -10,10 +10,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import Link from 'react-router-dom/Link';
-import { Button } from 'ndla-ui';
+import { Button, NoContentBox, Tooltip } from 'ndla-ui';
 import { Additional, Core } from 'ndla-icons/common';
 import { ResourceShape } from '../shapes';
-import NoCoreContent from './NoCoreContent';
 
 const classes = new BEMHelper({
   name: 'topic-resource',
@@ -25,6 +24,7 @@ const Resource = ({
   icon,
   resourceToLinkProps,
   showAdditionalResources,
+  messages,
 }) => {
   const linkProps = resourceToLinkProps(resource);
   const hidden = resource.additional ? !showAdditionalResources : false;
@@ -44,11 +44,15 @@ const Resource = ({
         {linkContent}
       </a>
       {resource.additional && (
-        <Additional className="c-icon--20 u-margin-left-tiny" />
+        <Tooltip tooltip={messages.additionalTooltip} align="right">
+          <Additional className="c-icon--20 u-margin-left-tiny" />
+        </Tooltip>
       )}
       {!resource.additional &&
         showAdditionalResources && (
-          <Core className="c-icon--20 u-margin-left-tiny" />
+          <Tooltip tooltip={messages.coreTooptip} align="right">
+            <Core className="c-icon--20 u-margin-left-tiny" />
+          </Tooltip>
         )}
     </Fragment>
   ) : (
@@ -100,10 +104,11 @@ const ResourceList = ({
             showAdditionalResources={showAdditionalResources}
             {...rest}
             resource={resource}
+            messages={messages}
           />
         ))}
         {renderAdditionalResourceTrigger && (
-          <OnlyAdditionalContent onClick={onClick} messages={messages} />
+          <NoContentBox onClick={onClick} buttonText={messages.noContentBoxButtonText} text={messages.noContentBoxLabel} />
         )}
       </ul>
     </div>
@@ -118,10 +123,12 @@ ResourceList.propTypes = {
   resourceToLinkProps: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   messages: PropTypes.shape({
-    noCoreResourcesAvailable: PropTypes.string.isRequired,
-    activateAdditionalResources: PropTypes.string.isRequired,
+    noContentBoxLabel: PropTypes.string.isRequired,
+    noContentBoxButtonText: PropTypes.string.isRequired,
     toggleFilterLabel: PropTypes.string.isRequired,
-  }),
+    coreTooptip: PropTypes.string.isRequired,
+    additionalTooltip: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ResourceList;

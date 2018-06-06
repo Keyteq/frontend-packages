@@ -7,9 +7,6 @@
   0% {
     opacity: 0.25;
   }
-  50% {
-    opacity: 0.25;
-  }
   100% {
     opacity: 1;
   }
@@ -18,32 +15,9 @@
 @keyframes fadeInAdditionals {
   0% {
     opacity: 0;
-    height: 0;
-    overflow: hidden;
-    margin: 0;
-    border-width: 0;
-    transform: translate3d(-60px, 0px, 0px);
-  }
-  49% {
-    border-width: 0;
-  }
-  50% {
-    height: 0;
-    overflow: hidden;
-    margin: 0;
-    border-width: 1;
-  }
-  75% {
-    height: 65.44px;
-    opacity: 0;
-    transform: translate3d(-60px, 0px, 0px);
-    margin: $spacing--small / 2;
+    transform: translate3d(-10px, 0px, 0px);
   }
   100% {
-    opacity: 1;
-    height: 65.44px;
-    overflow: visible;
-    transform: translate3d(0px, 0px, 0px);
   }
 }
 
@@ -54,14 +28,14 @@
     clear: both;
   }
 
-  &--fakeloading {
+  &--showall {
     ul {
       animation-name: fakeLoadingAnimation;
-      animation-duration: 0.8s;
+      animation-duration: 0.4s;
     }
     .c-topic-resource__item--additional {
       animation-name: fadeInAdditionals;
-      animation-duration: 0.8s;
+      animation-duration: 0.4s;
     }
   }
 

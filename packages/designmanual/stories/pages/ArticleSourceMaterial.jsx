@@ -27,7 +27,6 @@ import { getLicenseByAbbreviation } from 'ndla-licenses';
 
 import FigureWithLicense from '../article/FigureWithLicense';
 import LicenseExample from '../article/LicenseExample';
-import RelatedArticleListExample from '../article/RelatedArticleListExample';
 
 import { CompentenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 import Resources from '../molecules/resources';
@@ -117,11 +116,6 @@ export default () => (
           tydeligere for både deg selv og dem du eventuelt jobber sammen med i
           klassen..
         </p>
-        <RelatedArticleListExample />
-      </LayoutItem>
-      <LayoutItem layout="extend">
-        <Topics showTopicHeading />
-        <Resources showTopicHeading />
       </LayoutItem>
     </ArticleWrapper>
   </OneColumn>

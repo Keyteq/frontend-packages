@@ -7,7 +7,6 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   ResourcesWrapper,
   ResourceGroup,
@@ -22,15 +21,15 @@ class Topics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAdditionalResources: false,
+      showAdditionalCores: false,
       showAdditionalDialog: false,
     };
-    this.toggleAdditionalResources = this.toggleAdditionalResources.bind(this);
+    this.toggleAdditionalCores = this.toggleAdditionalCores.bind(this);
     this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
   }
-  toggleAdditionalResources() {
+  toggleAdditionalCores() {
     this.setState({
-      showAdditionalResources: !this.state.showAdditionalResources,
+      showAdditionalCores: !this.state.showAdditionalCores,
     });
   }
   toggleAdditionalDialog() {
@@ -39,39 +38,39 @@ class Topics extends Component {
     });
   }
   render() {
-    const { showAdditionalResources, showAdditionalDialog } = this.state;
-    const { showTopicHeading } = this.props;
+    const { showAdditionalCores, showAdditionalDialog } = this.state;
     return (
       <ResourcesWrapper
         header={
-          showTopicHeading && (
-            <ResourcesTopicTitle
-              messages={{
-                label: 'Emne',
-                toggleFilterLabel: 'Vis tilleggsressurser',
-                additionalDialogLabel: 'Hva er kjernestoff og tilleggstoff?',
-                additionalDialogDescription1:
-                  'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-                additionalDialogDescription2:
-                  'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-                additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
-              }}
-              headerId="subject-header-id"
-              title="Medieproduksjon"
-              toggleAdditionalResources={this.toggleAdditionalResources}
-              showAdditionalResources={showAdditionalResources}
-              hasAdditionalResources
-              toggleAdditionalDialog={this.toggleAdditionalDialog}
-              showAdditionalDialog={showAdditionalDialog}
-            />
-          )
+          <ResourcesTopicTitle
+            messages={{
+              label: 'Emner',
+              toggleFilterLabel: 'Vis tilleggsressurser',
+              additionalDialogLabel: 'Hva er kjernestoff og tilleggstoff?',
+              additionalDialogDescription1:
+                'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
+              additionalDialogDescription2:
+                'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
+              additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
+            }}
+            headerId="subject-header-id"
+            title="Medieproduksjon"
+            hasAdditionalResources={topicList.some(topic => topic.additional)}
+            toggleAdditionalResources={this.toggleAdditionalCores}
+            showAdditionalResources={showAdditionalCores}
+            toggleAdditionalDialog={this.toggleAdditionalDialog}
+            showAdditionalDialog={showAdditionalDialog}
+          />
         }>
         <TopicIntroductionList
           toTopic={() => '#'}
           topics={topicList}
           subjectPage
-          showAdditional={showAdditionalResources}
+          showAdditionalCores={showAdditionalCores}
+          toggleAdditionalCores={this.toggleAdditionalCores}
           messages={{
+            noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+            noContentBoxButtonText: 'Vis tilleggsstoff',
             shortcutButtonText: 'Lærestoff',
             tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
             tooltipAdditionalTopic:
@@ -82,13 +81,5 @@ class Topics extends Component {
     );
   }
 }
-
-Topics.propTypes = {
-  showTopicHeading: PropTypes.bool,
-};
-
-Topics.defaultProps = {
-  showTopicHeading: false,
-};
 
 export default Topics;

@@ -59,7 +59,7 @@ export const topicList = [
     path: '/subject:100/topic:1:55163',
     connectionId: 'urn:subject-topic:3e9772e9-14f6-4439-a8d2-5d75b3e5d772',
     tags: ['VG2'],
-    additional: true,
+    additional: false,
     shortcuts: [
       {
         contentType: contentTypes.LEARNING_PATH,
@@ -102,7 +102,7 @@ export const topicList = [
     path: '/subject:100/topic:1:55212',
     connectionId: 'urn:subject-topic:a3c98195-098a-48e2-b612-6b2e0e83ec64',
     tags: ['VG3'],
-    additional: true,
+    additional: false,
     shortcuts: [
       {
         contentType: contentTypes.LEARNING_PATH,

@@ -82,10 +82,11 @@ storiesOf('Sammensatte moduler', module)
           shortcutAlwaysExpanded
           toTopic={() => '#'}
           messages={{
+            noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+            noContentBoxButtonText: 'Vis tilleggsstoff',
             shortcutButtonText: 'Lærestoff',
             tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
-            tooltipAdditionalTopic:
-              'Tilleggsstoff er fagstoff som er på pensum',
+            tooltipAdditionalTopic: 'Tilleggsstoff er ikke på pensum',
           }}
           topics={topicList}
         />
@@ -240,7 +241,7 @@ storiesOf('Sammensatte moduler', module)
         <p>Emneoverskriften viser hvilke emne man står i.</p>
       </StoryIntro>
       <LayoutItem layout="center">
-        <Resources showTopicHeading />
+        <Resources />
       </LayoutItem>
     </div>
   ))

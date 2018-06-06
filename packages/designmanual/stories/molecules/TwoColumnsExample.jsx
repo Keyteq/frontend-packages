@@ -51,6 +51,8 @@ class TopicListExample extends Component {
           topics={this.filterTopics()}
           twoColumns
           messages={{
+            noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+            noContentBoxButtonText: 'Vis tilleggsstoff',
             shortcutButtonText: 'Lærestoff',
             tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
             tooltipAdditionalTopic:
