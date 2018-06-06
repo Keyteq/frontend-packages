@@ -57,20 +57,11 @@ const resourceGroup4 = {
   resources: assessmentResources,
 };
 
-const resourceGroup5 = {
-  id: 'empty-resources',
-  title: 'Eksempel kun tilleggsressurser',
-  contentType: 'example-empty-resources-with-additionals',
-  resources: onlyAdditionalResources,
-};
-
 const resourceGroups = [
   resourceGroup1,
   resourceGroup2,
-  resourceGroup5,
   resourceGroup3,
   resourceGroup4,
-  resourceGroup5,
 ];
 
 class Resources extends Component {

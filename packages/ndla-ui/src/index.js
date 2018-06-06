@@ -114,6 +114,7 @@ export {
   ResourcesTopicTitle,
 } from './ResourcesWrapper';
 export { default as ResourceGroup } from './ResourceGroup';
+export { default as noContentAvailable } from './ResourceGroup';
 export { default as Concept } from './Concept';
 export { default as Breadcrumb, BreadcrumbBlock } from './Breadcrumb';
 export {

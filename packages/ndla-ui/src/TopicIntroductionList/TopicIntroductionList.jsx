@@ -15,6 +15,8 @@ import TopicIntroductionShortcuts from './TopicIntroductionShortcuts';
 import { Additional, Core } from 'ndla-icons/common';
 import { Tooltip } from 'ndla-ui';
 
+import { OnlyAdditionalContent } from '../ResourceGroup/ResourceList';
+
 const topicClasses = new BEMHelper({
   prefix: 'c-',
   name: 'topic-introduction',

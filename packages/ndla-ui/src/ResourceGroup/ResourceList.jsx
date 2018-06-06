@@ -13,6 +13,7 @@ import Link from 'react-router-dom/Link';
 import { Button } from 'ndla-ui';
 import { Additional, Core } from 'ndla-icons/common';
 import { ResourceShape } from '../shapes';
+import NoCoreContent from './NoCoreContent';
 
 const classes = new BEMHelper({
   name: 'topic-resource',
@@ -102,16 +103,7 @@ const ResourceList = ({
           />
         ))}
         {renderAdditionalResourceTrigger && (
-          <div {...classes('additional-resources-trigger')}>
-            <span>
-              <div>
-                <p>{messages.noCoreResourcesAvailable}</p>
-                <Button outline onClick={onClick}>
-                  {messages.activateAdditionalResources}
-                </Button>
-              </div>
-            </span>
-          </div>
+          <OnlyAdditionalContent onClick={onClick} messages={messages} />
         )}
       </ul>
     </div>

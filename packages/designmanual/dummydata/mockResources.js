@@ -10,7 +10,6 @@ export const articleResources = [
       'Det kan være vanskelig å begripe hva en idé er. Ideer er tett knyttet til tanker og hjernearbeid, de er nesten i slekt med drømmer. Det er vanskelig å sette ord på hva ideen handler om, og hvorfor den er god. ',
     tag: 'Illustrasjoner',
     type: 'Fagstoff',
-    additional: true,
   },
   {
     topicId: 'urn:topic:170363',
@@ -36,6 +35,7 @@ export const articleResources = [
     title: 'Kreativ kommunikasjon',
     tag: 'Film',
     type: 'Fagstoff',
+    additional: true,
   },
   {
     topicId: 'urn:topic:170363',
@@ -103,6 +103,7 @@ export const articleResources = [
     contentUri: 'urn:article:341',
     title: 'Hvordan oppstår ideer?',
     type: 'Fagstoff',
+    additional: true,
   },
   {
     topicId: 'urn:topic:170365',
@@ -220,20 +221,5 @@ export const assessmentResources = [
     id: 'urn:resource:116ce6b7-2abe-4977-9fa9-dce',
     name: 'Vurderingsressurs 2',
     title: 'Vurderingsressurs 2',
-  },
-];
-
-export const onlyAdditionalResources = [
-  {
-    id: 'test-only-additional-resources-1',
-    name: 'Test 1',
-    title: 'Test 1',
-    additional: true,
-  },
-  {
-    id: 'test-only-additional-resources-2',
-    name: 'Test 2',
-    title: 'Test 2',
-    additional: true,
   },
 ];
