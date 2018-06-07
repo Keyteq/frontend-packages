@@ -18,30 +18,31 @@ const classes = new BEMHelper({
 });
 
 export const NoContentBox = ({ buttonText, text, onClick }) => {
-  console.log('no text', text);
   return (
     <div {...classes('additional-resources-trigger')}>
       <span>
         <div>
           <p>{text}</p>
-          {onClick && <Button outline onClick={onClick}>
-            {buttonText}
-          </Button>}
+          {onClick && (
+            <Button outline onClick={onClick}>
+              {buttonText}
+            </Button>
+          )}
         </div>
       </span>
     </div>
   );
-}
+};
 
 NoContentBox.propTypes = {
   onClick: PropTypes.func,
   buttonText: PropTypes.string,
   text: PropTypes.string.isRequired,
-}
+};
 
 NoContentBox.defaultProps = {
   onClick: null,
   buttonText: undefined,
-}
+};
 
 export default NoContentBox;

@@ -20,7 +20,7 @@ const ResourcesTopicTitle = ({
   messages,
   title,
   url,
-  headerId,
+  explainationIconLabelledBy,
   hasAdditionalResources,
   toggleAdditionalResources,
   showAdditionalResources,
@@ -50,6 +50,7 @@ const ResourcesTopicTitle = ({
         <Tooltip tooltip={messages.additionalDialogTooptip} align="right">
           <button
             {...classes('topic-title-icon')}
+            aria-labelledby={explainationIconLabelledBy}
             onClick={toggleAdditionalDialog}>
             <HelpCircle
               className={`c-icon--22 u-margin-left-tiny ${
@@ -59,14 +60,16 @@ const ResourcesTopicTitle = ({
           </button>
         </Tooltip>
         <Dialog
-          labelledby={headerId}
+          labelledby={explainationIconLabelledBy}
           hidden={!showAdditionalDialog}
           onClose={toggleAdditionalDialog}
           disablePortal
           messages={{ close: 'lukk' }}
           modifier={showAdditionalDialog ? 'active' : ''}>
           <div>
-            <h1 id={headerId}>{messages.additionalDialogLabel}</h1>
+            <h1 id={explainationIconLabelledBy}>
+              {messages.additionalDialogLabel}
+            </h1>
             <hr />
             <p>{messages.additionalDialogDescription1}</p>
             {messages.additionalDialogDescription2 && (
@@ -149,10 +152,10 @@ ResourcesTopicTitle.propTypes = {
       );
     }
   },
-  headerId: (props, propName, componentName) => {
+  explainationIconLabelledBy: (props, propName, componentName) => {
     if (typeof props[propName] !== 'string' && props.hasAdditionalResources) {
       console.warn(
-        `<${componentName} /> headerId prop must be a string if props[hasAdditionalResources] === true`,
+        `<${componentName} /> explainationIconLabelledBy prop must be a string if props[hasAdditionalResources] === true`,
       );
       return new Error(
         'Invalid prop `' +

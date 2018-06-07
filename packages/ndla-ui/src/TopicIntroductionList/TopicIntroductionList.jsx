@@ -30,47 +30,59 @@ const TopicIntroduction = ({
   shortcutAlwaysExpanded,
   additional,
   showAdditionalCores,
-}) => (
-  <li
-    className={topicClasses('item', {
-      subjectPage,
-      additional,
-      showAdditionalCores,
-    })}>
-    <article className={topicClasses('body')}>
-      <div className={topicClasses('heading-wrapper')}>
-        <h1 className={topicClasses('header')}>
-          <SafeLink to={toTopic(topic.id)}>{topic.name}</SafeLink>
-        </h1>
-        {additional && (
-          <Tooltip tooltip={messages.tooltipAdditionalTopic} align="right">
-            <Additional className="c-icon--20 u-margin-left-tiny" />
-          </Tooltip>
-        )}
-        {!additional &&
-          showAdditionalCores && (
-            <Tooltip tooltip={messages.tooltipCoreTopic} align="right">
-              <Core className="c-icon--20 u-margin-left-tiny" />
+  id,
+}) => {
+  const contentTypeDescription = additional
+    ? messages.tooltipAdditionalTopic
+    : messages.tooltipCoreTopic;
+
+  return (
+    <li
+      className={topicClasses('item', {
+        subjectPage,
+        additional,
+        showAdditionalCores,
+      })}>
+      <article className={topicClasses('body')}>
+        <div className={topicClasses('heading-wrapper')}>
+          <h1 className={topicClasses('header')}>
+            <SafeLink to={toTopic(topic.id)} aria-describedby={id}>
+              {topic.name}
+            </SafeLink>
+          </h1>
+          <span id={id} hidden>
+            {contentTypeDescription}
+          </span>
+          {additional && (
+            <Tooltip tooltip={messages.tooltipAdditionalTopic} align="right">
+              <Additional className="c-icon--20 u-margin-left-tiny" />
             </Tooltip>
           )}
-      </div>
-      {/* Since topic introduction is already escaped from the api
-        we run into a double escaping issues as React escapes all strings.
-        Use dangerouslySetInnerHTML to circumvent the issue */}
-      <p dangerouslySetInnerHTML={{ __html: topic.introduction }} />
-      {shortcuts && (
-        <TopicIntroductionShortcuts
-          alwaysExpanded={shortcutAlwaysExpanded}
-          id={`${topic.id}_shortcuts`}
-          shortcuts={shortcuts}
-          messages={{
-            toggleButtonText: messages.shortcutButtonText,
-          }}
-        />
-      )}
-    </article>
-  </li>
-);
+          {!additional &&
+            showAdditionalCores && (
+              <Tooltip tooltip={messages.tooltipCoreTopic} align="right">
+                <Core className="c-icon--20 u-margin-left-tiny" />
+              </Tooltip>
+            )}
+        </div>
+        {/* Since topic introduction is already escaped from the api
+          we run into a double escaping issues as React escapes all strings.
+          Use dangerouslySetInnerHTML to circumvent the issue */}
+        <p dangerouslySetInnerHTML={{ __html: topic.introduction }} />
+        {shortcuts && (
+          <TopicIntroductionShortcuts
+            alwaysExpanded={shortcutAlwaysExpanded}
+            id={`${topic.id}_shortcuts`}
+            shortcuts={shortcuts}
+            messages={{
+              toggleButtonText: messages.shortcutButtonText,
+            }}
+          />
+        )}
+      </article>
+    </li>
+  );
+};
 
 TopicIntroduction.propTypes = {
   messages: PropTypes.shape({
@@ -84,6 +96,7 @@ TopicIntroduction.propTypes = {
   shortcuts: PropTypes.arrayOf(ShortcutShape),
   twoColumns: PropTypes.bool,
   shortcutAlwaysExpanded: PropTypes.bool,
+  id: PropTypes.string.isRequired,
 };
 
 const TopicIntroductionList = ({
@@ -102,7 +115,7 @@ const TopicIntroductionList = ({
 
   return (
     <ul className={topicClasses('list', { twoColumns })}>
-      {topics.map(topic => {
+      {topics.map((topic, index) => {
         const { shortcuts, additional } = topic;
         return (
           <TopicIntroduction
@@ -114,15 +127,22 @@ const TopicIntroductionList = ({
             showAdditionalCores={showAdditionalCores}
             shortcutAlwaysExpanded={shortcutAlwaysExpanded}
             messages={messages}
+            id={`${topic.id}_${index}`}
           />
         );
       })}
       {renderAdditionalTopicsTrigger && (
-        <NoContentBox onClick={toggleAdditionalCores} text={messages.noContentBoxLabel} buttonText={messages.noContentBoxButtonText} />
+        <li>
+          <NoContentBox
+            onClick={toggleAdditionalCores}
+            text={messages.noContentBoxLabel}
+            buttonText={messages.noContentBoxButtonText}
+          />
+        </li>
       )}
     </ul>
   );
-}
+};
 
 TopicIntroductionList.propTypes = {
   toTopic: PropTypes.func.isRequired,

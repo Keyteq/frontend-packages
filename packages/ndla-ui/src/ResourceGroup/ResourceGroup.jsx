@@ -29,7 +29,8 @@ const ResourceGroup = ({
   messages,
   contentType,
 }) => (
-  <section {...classes('', [contentType, showAdditionalResources ? 'showall' : ''])}>
+  <section
+    {...classes('', [contentType, showAdditionalResources ? 'showall' : ''])}>
     <header {...classes('header')}>
       <ResourcesTitle>{title}</ResourcesTitle>
     </header>

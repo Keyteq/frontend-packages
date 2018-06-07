@@ -25,6 +25,7 @@ const Resource = ({
   resourceToLinkProps,
   showAdditionalResources,
   messages,
+  id,
 }) => {
   const linkProps = resourceToLinkProps(resource);
   const hidden = resource.additional ? !showAdditionalResources : false;
@@ -38,19 +39,29 @@ const Resource = ({
     </Fragment>
   );
 
+  const contentTypeDescription = resource.additional
+    ? messages.additionalTooltip
+    : messages.coreTooptip;
+
   const link = linkProps.href ? (
     <Fragment>
-      <a {...linkProps} {...classes('link o-flag o-flag--top')}>
+      <a
+        {...linkProps}
+        {...classes('link o-flag o-flag--top')}
+        aria-describedby={id}>
         {linkContent}
       </a>
+      <span id={id} hidden>
+        {contentTypeDescription}
+      </span>
       {resource.additional && (
-        <Tooltip tooltip={messages.additionalTooltip} align="right">
+        <Tooltip tooltip={contentTypeDescription} align="right">
           <Additional className="c-icon--20 u-margin-left-tiny" />
         </Tooltip>
       )}
       {!resource.additional &&
         showAdditionalResources && (
-          <Tooltip tooltip={messages.coreTooptip} align="right">
+          <Tooltip tooltip={contentTypeDescription} align="right">
             <Core className="c-icon--20 u-margin-left-tiny" />
           </Tooltip>
         )}
@@ -79,6 +90,7 @@ Resource.propTypes = {
   icon: PropTypes.node.isRequired,
   resource: ResourceShape.isRequired,
   resourceToLinkProps: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const ResourceList = ({
@@ -97,7 +109,7 @@ const ResourceList = ({
   return (
     <div>
       <ul {...classes('list')}>
-        {resources.map(resource => (
+        {resources.map((resource, index) => (
           <Resource
             key={resource.id}
             type={type}
@@ -105,10 +117,17 @@ const ResourceList = ({
             {...rest}
             resource={resource}
             messages={messages}
+            id={`${resource.id}_${index}`}
           />
         ))}
         {renderAdditionalResourceTrigger && (
-          <NoContentBox onClick={onClick} buttonText={messages.noContentBoxButtonText} text={messages.noContentBoxLabel} />
+          <li>
+            <NoContentBox
+              onClick={onClick}
+              buttonText={messages.noContentBoxButtonText}
+              text={messages.noContentBoxLabel}
+            />
+          </li>
         )}
       </ul>
     </div>

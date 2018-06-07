@@ -45,7 +45,7 @@ class Topics extends Component {
           <ResourcesTopicTitle
             messages={{
               label: 'Emner',
-              toggleFilterLabel: 'Vis tilleggsressurser',
+              toggleFilterLabel: 'Vis tilleggsemner',
               additionalDialogLabel: 'Hva er kjernestoff og tilleggstoff?',
               additionalDialogDescription1:
                 'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
@@ -53,7 +53,7 @@ class Topics extends Component {
                 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
               additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
             }}
-            headerId="subject-header-id"
+            explainationIconLabelledBy="subject-header-id"
             title="Medieproduksjon"
             hasAdditionalResources={topicList.some(topic => topic.additional)}
             toggleAdditionalResources={this.toggleAdditionalCores}

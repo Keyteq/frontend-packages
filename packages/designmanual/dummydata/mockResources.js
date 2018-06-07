@@ -123,7 +123,7 @@ export const articleResources = [
 export const learningPathResources = [
   {
     topicId: 'urn:topic:170363',
-    id: 'urn:resource:883281e0-c5ec-42d8-8365-ceb12265ce9b',
+    id: 'urn:resource:883281e0-c5ec-42d8-8365-ceb12265we9b',
     name: 'Teknikker for idéutvikling',
     resourceTypes: [],
     contentUri: 'urn:learningpath:30',
@@ -153,7 +153,7 @@ export const learningPathResources = [
   },
   {
     topicId: 'urn:topic:170364',
-    id: 'urn:resource:',
+    id: 'urn:resource:883281e0-c5ec-42d8-8365-asd12265ce9b',
     name: 'Refleksjonsoppgave om ideer og idéutvikling',
     type: 'Læringsstier',
     resourceTypes: [
@@ -186,7 +186,7 @@ export const exerciseResources = [
   },
   {
     topicId: 'urn:topic:170363',
-    id: 'urn:resource:116ce6b7-2abe-4977-9fa9-11641bfc9b2b',
+    id: 'urn:resource:116ce6b7-2abe-4977-9fb9-11641bfc9b2b',
     name: 'Klar, ferdig, kreativ!',
     type: 'Oppgaver og aktiviteter',
     resourceTypes: [
@@ -202,7 +202,7 @@ export const exerciseResources = [
   },
   {
     topicId: 'urn:topic:170364',
-    id: 'urn:resource:',
+    id: 'urn:resource:116ce6b7-2abe-4977-9fa9-11641wtc9b2b',
     name: 'Refleksjonsoppgave om ideer og idéutvikling',
     type: 'Oppgaver og aktiviteter',
     resourceTypes: [

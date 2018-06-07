@@ -34,6 +34,7 @@ const resourceGroup1 = {
   title: 'Læringsstier',
   contentType: contentTypes.LEARNING_PATH,
   resources: learningPathResources,
+  noContentLabel: 'Det er ikke noe kjernestoff for læringsstier.',
 };
 
 const resourceGroup2 = {
@@ -41,6 +42,7 @@ const resourceGroup2 = {
   title: 'Fagstoff',
   contentType: contentTypes.SUBJECT_MATERIAL,
   resources: articleResources,
+  noContentLabel: 'Det er ikke noe kjernestoff for fagstoff.',
 };
 
 const resourceGroup3 = {
@@ -48,6 +50,7 @@ const resourceGroup3 = {
   title: 'Oppgaver og aktiviteter',
   contentType: contentTypes.TASKS_AND_ACTIVITIES,
   resources: exerciseResources,
+  noContentLabel: 'Det er ikke noe kjernestoff for oppgaver og aktiviteter.',
 };
 
 const resourceGroup4 = {
@@ -55,6 +58,7 @@ const resourceGroup4 = {
   title: 'Vurderingsressurser',
   contentType: contentTypes.ASSESSMENT_RESOURCES,
   resources: assessmentResources,
+  noContentLabel: 'Det er ikke noe kjernestoff for læringsstier.',
 };
 
 const resourceGroups = [
@@ -91,7 +95,7 @@ class Resources extends Component {
     );
     return (
       <ResourcesWrapper
-        header={(
+        header={
           <ResourcesTopicTitle
             messages={{
               label: 'Læringsressurser',
@@ -103,7 +107,7 @@ class Resources extends Component {
                 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
               additionalDialogTooptip: 'Hva er kjernestoff og tilleggstoff?',
             }}
-            headerId="learning-resources-info-header-id"
+            explainationIconLabelledBy="learning-resources-info-header-id"
             id="learning-resources-id"
             title="Havbunnsløsninger"
             toggleAdditionalResources={this.toggleAdditionalResources}
@@ -112,8 +116,7 @@ class Resources extends Component {
             toggleAdditionalDialog={this.toggleAdditionalDialog}
             showAdditionalDialog={showAdditionalDialog}
           />
-        )}
-      >
+        }>
         {resourceGroups.map(group => (
           <ResourceGroup
             key={group.id}
@@ -124,7 +127,7 @@ class Resources extends Component {
             contentType={group.contentType}
             icon={<ContentTypeBadge type={group.contentType} />}
             messages={{
-              noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+              noContentBoxLabel: group.noContentLabel,
               noContentBoxButtonText: 'Vis tilleggsstoff',
               toggleFilterLabel: 'Tilleggsressurser',
               coreTooptip: 'Kjernestoff er fagstoff som er på pensum',
