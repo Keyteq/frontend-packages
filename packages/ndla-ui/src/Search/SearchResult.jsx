@@ -16,11 +16,12 @@ export const SearchResult = ({
   searchString,
   currentTab,
   onTabChange,
+  author,
 }) => (
   <div {...resultClasses()}>
-    <h1>
+    {author || <h1>
       {messages.searchStringLabel} <span>{searchString}</span>
-    </h1>
+    </h1>}
     <h2>{messages.subHeading}</h2>
     <FilterTabs
       value={currentTab}
@@ -48,7 +49,13 @@ SearchResult.propTypes = {
   }).isRequired,
   searchString: PropTypes.string.isRequired,
   onTabChange: PropTypes.func.isRequired,
+  author: PropTypes.node,
 };
+
+SearchResult.defaultProps = {
+  author: null,
+};
+
 
 const searchResultItemClasses = BEMHelper('c-search-result-item');
 

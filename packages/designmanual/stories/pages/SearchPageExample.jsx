@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { Core, Additional } from 'ndla-icons/common';
 
 import {
@@ -6,6 +7,7 @@ import {
   SearchResult,
   SearchResultList,
   SearchFilter,
+  SearchResultAuthor,
   SearchPopoverFilter,
   SubjectBadge,
   SubjectMaterialBadge,
@@ -93,6 +95,19 @@ class SearchPageExample extends Component {
       default:
         currentResult = results;
     }
+
+    const author = this.props.showAuthor ?
+      <SearchResultAuthor
+        messages={{
+          authorName: 'Tobias Füke',
+          role: 'Actor',
+          phone: '+47 44 33 22 11',
+          email: 'tobias.fuke@arresteddevelopment.no',
+          readmoreLabel: 'Les mer om Tobias',
+        }}
+        url="#"
+        image="http://www.placehold.it/300x300"
+      /> : null;
 
     const contextFilter =
       this.state.currentTab !== 'all' &&
@@ -321,6 +336,7 @@ class SearchPageExample extends Component {
           </Fragment>
         }>
         <SearchResult
+          author={author}
           messages={{
             searchStringLabel: 'Du søkte på:',
             subHeading: '43 treff i Ndla',
@@ -369,5 +385,14 @@ class SearchPageExample extends Component {
     );
   }
 }
+
+SearchPageExample.propTypes = {
+  showAuthor: PropTypes.bool,
+};
+
+
+SearchPageExample.defaultProps = {
+  showAuthor: false,
+};
 
 export default SearchPageExample;
