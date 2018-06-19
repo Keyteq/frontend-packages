@@ -47,7 +47,14 @@ SearchResult.propTypes = {
     searchStringLabel: PropTypes.string.isRequired,
     subHeading: PropTypes.string.isRequired,
   }).isRequired,
-  searchString: PropTypes.string.isRequired,
+  searchString: (props, propName, componentName) => {
+    if (props.author === null && typeof props[propName] !== 'string') {
+      return new Error(
+        `Invalid prop 'searchString' in ${componentName}. Required unless props.author === PropTypes.node`,
+      );
+    }
+    return null;
+  },
   onTabChange: PropTypes.func.isRequired,
   author: PropTypes.node,
 };

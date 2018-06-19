@@ -76,6 +76,7 @@ export default class SearchPage extends Component {
       children,
       messages,
       closeUrl,
+      author,
     } = this.props;
 
     const filterModifiers = [];
@@ -103,6 +104,7 @@ export default class SearchPage extends Component {
             }}
           />
         </div>
+        {author}
         <div {...classes('filter-result-wrapper')}>
           <aside
             {...classes('filter-wrapper', filterModifiers)}
@@ -179,4 +181,9 @@ SearchPage.propTypes = {
     searchFieldTitle: PropTypes.string.isRequired,
   }).isRequired,
   closeUrl: PropTypes.string.isRequired,
+  author: PropTypes.node,
+};
+
+SearchPage.defaultProps = {
+  author: null,
 };

@@ -96,18 +96,21 @@ class SearchPageExample extends Component {
         currentResult = results;
     }
 
-    const author = this.props.showAuthor ?
-      <SearchResultAuthor
-        messages={{
-          authorName: 'Tobias Füke',
-          role: 'Actor',
-          phone: '+47 44 33 22 11',
-          email: 'tobias.fuke@arresteddevelopment.no',
-          readmoreLabel: 'Les mer om Tobias',
-        }}
-        url="#"
-        image="http://www.placehold.it/300x300"
-      /> : null;
+    const author = (modifier) => (
+      this.props.showAuthor ?
+        <SearchResultAuthor
+          modifier={modifier}
+          messages={{
+            authorName: 'Cecilie Isaksen Eftedal',
+            role: 'Stilling / rolle',
+            phone: '+47 123 45 678',
+            email: 'cecilie@ndla.no',
+            readmoreLabel: 'Les om Cecilie',
+          }}
+          url="#"
+          image="http://www.placehold.it/300x300"
+        /> : null
+    );
 
     const contextFilter =
       this.state.currentTab !== 'all' &&
@@ -145,21 +148,25 @@ class SearchPageExample extends Component {
     const onSearch = evt => {
       evt.preventDefault();
     };
+
+    const authorTablet = author('tablet');
+    const authorDesktop = author('desktop');
+    const hasAuthor = authorTablet !== null;
     return (
       <SearchPage
         closeUrl="#"
-        searchString=""
+        searchString={hasAuthor ? '«Cecilie Isaksen Eftedal»' : ''}
         onSearchFieldChange={() => {}}
         searchFieldPlaceholder="Søk i fagstoff, oppgaver og aktiviteter eller læringsstier"
         onSearchFieldFilterRemove={() => {}}
         onSearch={onSearch}
-        searchFieldFilters={[
+        searchFieldFilters={hasAuthor ? null : [
           {
             value: 'value',
             title: 'Medieuttrykk og mediesamfunn',
           },
         ]}
-        activeFilters={[
+        activeFilters={hasAuthor ? null : [
           {
             value: 'value',
             title: 'Medieuttrykk og mediesamfunn',
@@ -171,10 +178,11 @@ class SearchPageExample extends Component {
             filterName: 'content',
           },
         ]}
+        author={authorTablet}
         onActiveFilterRemove={() => {}}
         messages={{
           filterHeading: 'Filter',
-          resultHeading: '43 treff i Ndla',
+          resultHeading: hasAuthor ? '37 artikler skrevet av Cecilie' : '43 treff i Ndla',
           closeButton: 'Lukk',
           narrowScreenFilterHeading: '10 treff på «ideutvikling»',
           searchFieldTitle: 'Søk',
@@ -336,12 +344,12 @@ class SearchPageExample extends Component {
           </Fragment>
         }>
         <SearchResult
-          author={author}
+          author={authorDesktop}
           messages={{
             searchStringLabel: 'Du søkte på:',
             subHeading: '43 treff i Ndla',
           }}
-          searchString="Test"
+          searchString={hasAuthor ? null : 'Test'}
           tabOptions={[
             {
               title: 'Alle',

@@ -14,18 +14,18 @@ import { Portrait, SafeLink } from 'ndla-ui';
 
 const classes = new BEMHelper('c-search-result-author');
 
-const SearchResultAuthor = ({ messages, url, image }) => (
-  <div {...classes('')}>
+const SearchResultAuthor = ({ messages, url, image, modifier }) => (
+  <div {...classes('', modifier)}>
     <div>
-      <h1>{messages.authorName}</h1>
+      <h1 {...classes('heading')}>{messages.authorName}</h1>
       <p>{messages.role}</p>
-      {url && <SafeLink to={url}>{messages.readmoreLabel}</SafeLink>}
-      <SafeLink to={messages.email}>{messages.email}</SafeLink>
-      <SafeLink to={messages.phone}>{messages.phone}</SafeLink>
+      <p>{messages.phone}</p>
+      <div {...classes('links')}>
+        {messages.email && <SafeLink to={`mailto:${messages.email}`}>{messages.email}</SafeLink>}
+        {url && <SafeLink to={url} {...classes('url')}>{messages.readmoreLabel}</SafeLink>}
+      </div>
     </div>
-    <div>
-      <Portrait src={image} alt={messages.authorName}/>
-    </div>
+    <Portrait src={image} alt={messages.authorName} {...classes('portrait-image')}/>
   </div>
 );
 
@@ -46,6 +46,7 @@ SearchResultAuthor.propTypes = {
   }),
   image: PropTypes.string.isRequired,
   url: PropTypes.string,
+  modifier: PropTypes.oneOf(['desktop', 'tablet']).isRequired,
 };
 
 export default SearchResultAuthor;
