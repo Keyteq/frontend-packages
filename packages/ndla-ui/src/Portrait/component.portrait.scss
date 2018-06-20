@@ -13,17 +13,17 @@
 	&--small {
 		width: 4rem;
 		height: 4rem;
-		img {
+		span {
 			width: 4rem;
 			height: 4rem;
 		}
 	}
 	&--large {
-		width: 12rem;
-		height: 12rem;
-		img {
-			width: 12rem;
-			height: 12rem;
+		width: 10rem;
+		height: 10rem;
+		span {
+			width: 10rem;
+			height: 10rem;
 		}
 	}
 }
