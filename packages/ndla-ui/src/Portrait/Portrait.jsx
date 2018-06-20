@@ -17,7 +17,11 @@ const classes = new BEMHelper({
 
 const Portrait = ({ src, alt, modifier, className }) => (
   <div {...classes('', modifier, className)}>
-    <span role="img" aria-label={alt} style={{ backgroundImage: `url(${src})` }} />
+    <span
+      role="img"
+      aria-label={alt}
+      style={{ backgroundImage: `url(${src})` }}
+    />
   </div>
 );
 
@@ -28,7 +32,7 @@ Portrait.propTypes = {
   modifier: PropTypes.oneOf(['small', 'large']),
 };
 
-Portrait.defaultProps ={
+Portrait.defaultProps = {
   className: null,
   modifier: null,
 };

@@ -21,11 +21,21 @@ const SearchResultAuthor = ({ messages, url, image, modifier }) => (
       <p>{messages.role}</p>
       <p>{messages.phone}</p>
       <div {...classes('links')}>
-        {messages.email && <SafeLink to={`mailto:${messages.email}`}>{messages.email}</SafeLink>}
-        {url && <SafeLink to={url} {...classes('url')}>{messages.readmoreLabel}</SafeLink>}
+        {messages.email && (
+          <SafeLink to={`mailto:${messages.email}`}>{messages.email}</SafeLink>
+        )}
+        {url && (
+          <SafeLink to={url} {...classes('url')}>
+            {messages.readmoreLabel}
+          </SafeLink>
+        )}
       </div>
     </div>
-    <Portrait src={image} alt={messages.authorName} {...classes('portrait-image')}/>
+    <Portrait
+      src={image}
+      alt={messages.authorName}
+      {...classes('portrait-image')}
+    />
   </div>
 );
 
@@ -36,13 +46,16 @@ SearchResultAuthor.propTypes = {
     phone: PropTypes.string,
     email: PropTypes.string,
     readmoreLabel: (props, propName, componentName) => {
-      if (typeof props.url === 'string' && typeof props[propName] !== 'string') {
+      if (
+        typeof props.url === 'string' &&
+        typeof props[propName] !== 'string'
+      ) {
         return new Error(
           `${componentName} messages.readmoreLabel is required when propTypes.url`,
         );
       }
       return null;
-    }
+    },
   }),
   image: PropTypes.string.isRequired,
   url: PropTypes.string,

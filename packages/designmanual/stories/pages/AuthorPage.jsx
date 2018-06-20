@@ -59,7 +59,9 @@ export default () => (
         </p>
       </LayoutItem>
       <LayoutItem layout="center">
-        <Button outline className="c-author-info__readmore">Se hva Cecilie har bidratt med</Button>
+        <Button outline className="c-author-info__readmore">
+          Se hva Cecilie har bidratt med
+        </Button>
       </LayoutItem>
     </ArticleWrapper>
   </OneColumn>

@@ -96,8 +96,8 @@ class SearchPageExample extends Component {
         currentResult = results;
     }
 
-    const author = (modifier) => (
-      this.props.showAuthor ?
+    const author = modifier =>
+      this.props.showAuthor ? (
         <SearchResultAuthor
           modifier={modifier}
           messages={{
@@ -107,10 +107,10 @@ class SearchPageExample extends Component {
             email: 'cecilie@ndla.no',
             readmoreLabel: 'Les om Cecilie',
           }}
-          url="#"
+          url="/?selectedKind=Sidevisninger&selectedStory=Forfatter%20sidemal&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel"
           image="http://www.placehold.it/300x300"
-        /> : null
-    );
+        />
+      ) : null;
 
     const contextFilter =
       this.state.currentTab !== 'all' &&
@@ -160,29 +160,39 @@ class SearchPageExample extends Component {
         searchFieldPlaceholder="Søk i fagstoff, oppgaver og aktiviteter eller læringsstier"
         onSearchFieldFilterRemove={() => {}}
         onSearch={onSearch}
-        searchFieldFilters={hasAuthor ? null : [
-          {
-            value: 'value',
-            title: 'Medieuttrykk og mediesamfunn',
-          },
-        ]}
-        activeFilters={hasAuthor ? null : [
-          {
-            value: 'value',
-            title: 'Medieuttrykk og mediesamfunn',
-            filterName: 'subject',
-          },
-          {
-            value: 'value2',
-            title: 'Kjernestoff',
-            filterName: 'content',
-          },
-        ]}
+        searchFieldFilters={
+          hasAuthor
+            ? null
+            : [
+                {
+                  value: 'value',
+                  title: 'Medieuttrykk og mediesamfunn',
+                },
+              ]
+        }
+        activeFilters={
+          hasAuthor
+            ? null
+            : [
+                {
+                  value: 'value',
+                  title: 'Medieuttrykk og mediesamfunn',
+                  filterName: 'subject',
+                },
+                {
+                  value: 'value2',
+                  title: 'Kjernestoff',
+                  filterName: 'content',
+                },
+              ]
+        }
         author={authorTablet}
         onActiveFilterRemove={() => {}}
         messages={{
           filterHeading: 'Filter',
-          resultHeading: hasAuthor ? '37 artikler skrevet av Cecilie' : '43 treff i Ndla',
+          resultHeading: hasAuthor
+            ? '37 artikler skrevet av Cecilie'
+            : '43 treff i Ndla',
           closeButton: 'Lukk',
           narrowScreenFilterHeading: '10 treff på «ideutvikling»',
           searchFieldTitle: 'Søk',
@@ -397,7 +407,6 @@ class SearchPageExample extends Component {
 SearchPageExample.propTypes = {
   showAuthor: PropTypes.bool,
 };
-
 
 SearchPageExample.defaultProps = {
   showAuthor: false,
