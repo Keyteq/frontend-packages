@@ -18,6 +18,7 @@ import {
   Image,
   AudioPlayer,
   OneColumn,
+  Tooltip,
 } from 'ndla-ui';
 
 import { StoryIntro, IconList, StoryBody } from './wrappers';
@@ -756,6 +757,26 @@ storiesOf('Enkle komponenter', module)
       </StoryIntro>
       <StoryBody>
         <FootnotesExample />
+      </StoryBody>
+    </div>
+  ))
+  .add('Tooltip', () => (
+    <div>
+      <StoryIntro title="Tooltip">
+        Brukes som hjelpe tekst til ikoner og objecter som ikke er selvforklarende.
+      </StoryIntro>
+      <StoryBody>
+        <Tooltip tooltip="Tilleggsstoff">
+          <commonIcons.Additional />
+        </Tooltip>
+        <h2>Props</h2>
+        <dl>
+          <dt>children:</dt><dd>PropTypes.node.isRequired</dd>
+          <dt>tooltip:</dt><dd>PropTypes.string.isRequired</dd>
+          <dt>delay:</dt><dd>PropTypes.number</dd>
+          <dt>disabled:</dt><dd>PropTypes.bool</dd>
+          <dt>align:</dt><dd>PropTypes.oneOf([&apos;left&apos;, &apos;right&apos;])</dd>
+        </dl>
       </StoryBody>
     </div>
   ))
