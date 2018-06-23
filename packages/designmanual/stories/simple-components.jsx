@@ -764,12 +764,41 @@ storiesOf('Enkle komponenter', module)
   .add('Tooltip', () => (
     <div>
       <StoryIntro title="Tooltip">
-        Brukes som hjelpe tekst til ikoner og objecter som ikke er selvforklarende.
+        Brukes som hjelpe tekst til ikoner og objekter som ikke er selvforklarende.
       </StoryIntro>
       <StoryBody>
-        <Tooltip tooltip="Tilleggsstoff">
-          <commonIcons.Additional />
-        </Tooltip>
+        <LayoutItem layout="center">
+          <p>
+            Top (default)
+            <Tooltip tooltip="Tilleggsstoff">
+              <commonIcons.Additional className="c-icon--large" />
+            </Tooltip>
+          </p>
+          <p>
+            Left
+            <Tooltip tooltip="Tilleggsstoff" align="left">
+              <commonIcons.Additional className="c-icon--large" />
+            </Tooltip>
+          </p>
+          <p>
+            Right
+            <Tooltip tooltip="Tilleggsstoff" align="right">
+              <commonIcons.Additional className="c-icon--large" />
+            </Tooltip>
+          </p>
+          <p>
+            Bottom
+            <Tooltip tooltip="Tilleggsstoff" align="bottom">
+              <commonIcons.Additional className="c-icon--large" />
+            </Tooltip>
+          </p>
+          <p>
+            Lots of text in tooltip
+            <Tooltip tooltip="Eksempel på hvordan dette fungerer med mye tekst i en tooltip">
+              <commonIcons.Additional className="c-icon--large" />
+            </Tooltip>
+          </p>
+        </LayoutItem>
         <h2>Props</h2>
         <dl>
           <dt>children:</dt><dd>PropTypes.node.isRequired</dd>

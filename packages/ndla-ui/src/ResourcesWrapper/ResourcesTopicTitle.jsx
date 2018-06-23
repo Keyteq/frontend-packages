@@ -43,7 +43,7 @@ const ResourcesTopicTitle = ({
           />
           {messages.dialogTooltip && (
             <Fragment>
-              <Tooltip tooltip={messages.dialogTooltip} align="right">
+              <Tooltip tooltip={messages.dialogTooltip}>
                 <button
                   {...classes('topic-title-icon')}
                   aria-labelledby={explainationIconLabelledBy}
