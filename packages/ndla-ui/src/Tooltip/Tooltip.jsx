@@ -64,7 +64,8 @@ class Tooltip extends Component {
           onMouseMove={this.handleShowTooltip}
           onMouseLeave={this.handleHideTooltip}
           onFocus={this.handleShowTooltip}
-          onBlur={this.handleHideTooltip}>
+          onBlur={this.handleHideTooltip}
+          className={this.props.className}>
           {this.props.children}
         </div>
       </span>
@@ -78,12 +79,14 @@ Tooltip.propTypes = {
   delay: PropTypes.number,
   disabled: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'right']),
+  className: PropTypes.string,
 };
 
 Tooltip.defaultProps = {
   align: undefined,
   disabled: false,
   delay: 0,
+  className: undefined,
 };
 
 export default Tooltip;
