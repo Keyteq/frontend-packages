@@ -100,6 +100,7 @@ class MastheadWithTopicMenu extends Component {
                 filters={[
                   { value: 'Value', title: 'Medieuttrykk og mediesamfunn' },
                 ]}
+                onSearch={() => {}}
                 onFilterRemove={() => {}}
                 messages={{
                   contentTypeResultShowLessLabel: 'Se færre',
