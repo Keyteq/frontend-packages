@@ -94,6 +94,7 @@ class Tooltip extends Component {
           tabIndex={0}
           aria-describedby={this.uuid}
           ref={(r) => { this.contentRef = r; }}
+          onMouseMove={this.handleShowTooltip}
           onMouseEnter={this.handleShowTooltip}
           onMouseLeave={this.handleHideTooltip}
           onFocus={this.handleShowTooltip}

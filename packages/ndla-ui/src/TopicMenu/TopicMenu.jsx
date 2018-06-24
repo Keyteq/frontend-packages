@@ -15,10 +15,9 @@ import BEMHelper from 'react-bem-helper';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import debounce from 'lodash/debounce';
 
-import { Home, Back } from 'ndla-icons/common';
+import { Home, Back, Additional } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-import { Button } from 'ndla-ui';
-import SafeLink from '../common/SafeLink';
+import { Button, SafeLink } from 'ndla-ui';
 import SubtopicLinkList from './SubtopicLinkList';
 import { TopicShape } from '../shapes';
 
@@ -161,6 +160,7 @@ export default class TopicMenu extends Component {
       contentTypeResultsShowLess: messages.contentTypeResultsShowLess,
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
+      additionalFilterLabel: messages.additionalFilterLabel,
     };
     return (
       <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
@@ -292,6 +292,7 @@ export default class TopicMenu extends Component {
                                 this.handleBtnKeyPress(event, topic.id)
                               }>
                               {topic.name}
+                              {topic.additional && <Additional className="c-icon--20" />}
                             </button>
                           </li>
                         );

@@ -23,7 +23,9 @@
   }
 
   li {
+    display: flex;
     margin-bottom: $spacing--small;
+    align-items: center;
     @include font-size(18px, 23px);
 
     &:last-child {
@@ -32,6 +34,10 @@
 
     a {
       box-shadow: none;
+      padding-right: $spacing--small;
+    }
+    .c-icon {
+      transform: translateY(-2px);
     }
   }
 

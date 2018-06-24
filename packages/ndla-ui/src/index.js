@@ -79,6 +79,7 @@ export {
   SearchFilter,
   SearchPopoverFilter,
   SearchResultAuthor,
+  SearchToggleFilter,
 } from './Search';
 export {
   default as ContentTypeBadge,

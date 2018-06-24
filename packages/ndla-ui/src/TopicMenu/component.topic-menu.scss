@@ -170,7 +170,7 @@ $link-height: 52px;
 
   &--sub-topic {
     @include mq($until: desktop) {
-      background: $brand-color--light;
+      background: $brand-grey--lightest;
       padding-top: $spacing--large + $spacing;
 
       .c-topic-menu__link--big {
@@ -190,21 +190,34 @@ $link-height: 52px;
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
 
+  &--with-content-badges {
+    padding-left: $spacing--large;
+    .c-content-type-badge {
+      position: absolute;
+      transform: translateX(-$spacing--large);
+    }
+  }
+
   @include mq(wide) {
     background: transparent;
     min-height: 500px;
   }
 
-  & > h1 {
-    @include font-size(16px, 20px);
+  > div {
+    display: flex;
+    align-items: center;
     margin-bottom: $spacing;
     margin-top: $spacing--large;
-    text-transform: uppercase;
-
     @include mq(wide) {
-      margin-top: 0;
       min-height: 30px;
-      @include font-size(16px, $link-height);
+    }
+    h1 {
+      @include font-size(16px, 20px);
+      margin: 0;
+      text-transform: uppercase;
+      @include mq(wide) {
+        @include font-size(16px, $link-height);
+      }
     }
   }
 }
@@ -465,6 +478,7 @@ $link-height: 52px;
 .c-topic-menu__link {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   text-align: left;
   cursor: pointer;

@@ -50,6 +50,7 @@ const messages = {
   compentenceGoalsToggleButtonClose: 'Lukk kompetansemål',
   compentenceGoalsNarrowOpenButton: 'Vis kompetansemål',
   compentenceGoalsNarrowBackButton: 'Tilbake',
+  additionalFilterLabel: 'Vis tilleggsressurser',
 };
 
 class MastheadWithTopicMenu extends Component {

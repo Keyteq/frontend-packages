@@ -178,10 +178,12 @@ export const topicMenu = [
   {
     id: 'urn:topic:172416',
     name: 'Idéutvikling og mediedesign',
+    additional: true,
     subtopics: [
       {
         id: 'urn:topic:170363',
         name: 'Idéutvikling',
+        additional: true,
         contentUri: null,
         contentTypeResults,
       },
@@ -197,6 +199,7 @@ export const topicMenu = [
   {
     id: 'urn:topic:172405',
     name: 'Medieproduksjon',
+    additional: true,
     subtopics: [
       {
         id: 'urn:topic:111111',
@@ -206,6 +209,7 @@ export const topicMenu = [
           {
             id: 'urn:topic:162334',
             name: 'Html',
+            additional: true,
             contentUri: null,
             contentTypeResults,
           },

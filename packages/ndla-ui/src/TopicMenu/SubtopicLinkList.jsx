@@ -8,9 +8,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Back } from 'ndla-icons/common';
+import { Back, Additional } from 'ndla-icons/common';
 
-import SafeLink from '../common/SafeLink';
+import { SafeLink, SearchToggleFilter } from 'ndla-ui';
 import { TopicShape } from '../shapes';
 
 import { ContentTypeResult } from '../Search';
@@ -18,7 +18,7 @@ import { ContentTypeResult } from '../Search';
 const SubtopicLink = ({
   classes,
   to,
-  subtopic: { id, name },
+  subtopic: { id, name, additional },
   onSubtopicExpand,
   expandedSubtopicId,
 }) => {
@@ -34,6 +34,7 @@ const SubtopicLink = ({
         }}
         to={to}>
         {name}
+        {additional && <Additional className="c-icon--20" />}
       </SafeLink>
     </li>
   );
@@ -51,6 +52,10 @@ SubtopicLink.propTypes = {
 class SubtopicLinkList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showAdditionalResources: false,
+    };
+    this.toggleAdditionalResources = this.toggleAdditionalResources.bind(this);
     this.containerRef = null;
   }
 
@@ -68,6 +73,12 @@ class SubtopicLinkList extends Component {
     this.containerRef.querySelector('a').focus();
   }
 
+  toggleAdditionalResources() {
+    this.setState({
+      showAdditionalResources: !this.state.showAdditionalResources,
+    })
+  }
+
   render() {
     const {
       className,
@@ -82,10 +93,13 @@ class SubtopicLinkList extends Component {
       resourceToLinkProps,
     } = this.props;
 
+    const { showAdditionalResources } = this.state;
+
     const hasSubTopics = topic.subtopics && topic.subtopics.length > 0;
     const hasContentTypeResults =
       topic.contentTypeResults && topic.contentTypeResults.length > 0;
 
+    const hasContentTypeInfo = hasContentTypeResults && topic.contentTypeResults.some(result => (result.contentType));
     return (
       <div
         className={className}
@@ -119,8 +133,15 @@ class SubtopicLinkList extends Component {
           </ul>
         )}
         {hasContentTypeResults && (
-          <aside {...classes('content-type-results')}>
-            <h1>{messages.learningResourcesHeading}</h1>
+          <aside {...classes('content-type-results', hasContentTypeInfo ? 'with-content-badges' : '')}>
+            <div>
+              <h1>{messages.learningResourcesHeading}</h1>
+              {messages.additionalFilterLabel && <SearchToggleFilter
+                checked={showAdditionalResources}
+                label={messages.additionalFilterLabel}
+                onClick={this.toggleAdditionalResources}
+              />}
+            </div>
             {topic.contentTypeResults.map(result => (
               <ContentTypeResult
                 resourceToLinkProps={resourceToLinkProps}
@@ -133,6 +154,7 @@ class SubtopicLinkList extends Component {
                   noHit: messages.contentTypeResultsNoHit,
                 }}
                 iconOnRight
+                showAdditionalResources={showAdditionalResources || !messages.additionalFilterLabel }
               />
             ))}
           </aside>
@@ -159,6 +181,7 @@ SubtopicLinkList.propTypes = {
     contentTypeResultsShowLess: PropTypes.string.isRequired,
     learningResourcesHeading: PropTypes.string.isRequired,
     contentTypeResultsNoHit: PropTypes.string.isRequired,
+    additionalFilterLabel: PropTypes.string, // should be required
   }).isRequired,
 };
 

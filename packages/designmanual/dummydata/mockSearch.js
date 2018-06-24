@@ -1,3 +1,7 @@
+import { constants } from 'ndla-ui';
+
+const { contentTypes } = constants;
+
 export const searchTabOptions = [
   {
     title: 'Alle',
@@ -147,6 +151,7 @@ export const searchTabFilterOptions = {
 export const contentTypeResults = [
   {
     title: 'Læringsstier',
+    contentType: contentTypes.LEARNING_PATH,
     resources: [
       {
         path: '#1',
@@ -160,6 +165,7 @@ export const contentTypeResults = [
   },
   {
     title: 'Fagstoff',
+    contentType: contentTypes.SUBJECT_MATERIAL,
     resources: [
       {
         path: '#1',
@@ -176,6 +182,7 @@ export const contentTypeResults = [
       {
         path: '#4',
         name: 'Fagstoff 4',
+        additional: true,
       },
       {
         path: '#5',
@@ -189,6 +196,7 @@ export const contentTypeResults = [
   },
   {
     title: 'Oppgaver og aktiviteter',
+    contentType: contentTypes.TASKS_AND_ACTIVITIES,
     resources: [],
   },
 ];
