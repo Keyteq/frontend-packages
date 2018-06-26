@@ -152,6 +152,10 @@ export const contentTypeResults = [
   {
     title: 'Læringsstier',
     contentType: contentTypes.LEARNING_PATH,
+    messages: {
+      allResultLabel: 'Vis alle læringsstier',
+      showLessResultLabel: 'Vis færre læringsstier',
+    },
     resources: [
       {
         path: '#1',
@@ -166,6 +170,10 @@ export const contentTypeResults = [
   {
     title: 'Fagstoff',
     contentType: contentTypes.SUBJECT_MATERIAL,
+    messages: {
+      allResultLabel: 'Vis alt fagstoff',
+      showLessResultLabel: 'Vis færre fagstoff',
+    },
     resources: [
       {
         path: '#1',
@@ -197,6 +205,10 @@ export const contentTypeResults = [
   {
     title: 'Oppgaver og aktiviteter',
     contentType: contentTypes.TASKS_AND_ACTIVITIES,
+    messages: {
+      allResultLabel: 'Vis alle oppgaver og aktiviteter',
+      showLessResultLabel: 'Vis færre oppgaver og aktiviteter',
+    },
     resources: [],
   },
 ];

@@ -764,7 +764,8 @@ storiesOf('Enkle komponenter', module)
   .add('Tooltip', () => (
     <div>
       <StoryIntro title="Tooltip">
-        Brukes som hjelpe tekst til ikoner og objekter som ikke er selvforklarende.
+        Brukes som hjelpe tekst til ikoner og objekter som ikke er
+        selvforklarende.
       </StoryIntro>
       <StoryBody>
         <LayoutItem layout="center">
@@ -801,11 +802,16 @@ storiesOf('Enkle komponenter', module)
         </LayoutItem>
         <h2>Props</h2>
         <dl>
-          <dt>children:</dt><dd>PropTypes.node.isRequired</dd>
-          <dt>tooltip:</dt><dd>PropTypes.string.isRequired</dd>
-          <dt>delay:</dt><dd>PropTypes.number</dd>
-          <dt>disabled:</dt><dd>PropTypes.bool</dd>
-          <dt>align:</dt><dd>PropTypes.oneOf([&apos;left&apos;, &apos;right&apos;])</dd>
+          <dt>children:</dt>
+          <dd>PropTypes.node.isRequired</dd>
+          <dt>tooltip:</dt>
+          <dd>PropTypes.string.isRequired</dd>
+          <dt>delay:</dt>
+          <dd>PropTypes.number</dd>
+          <dt>disabled:</dt>
+          <dd>PropTypes.bool</dd>
+          <dt>align:</dt>
+          <dd>PropTypes.oneOf([&apos;left&apos;, &apos;right&apos;])</dd>
         </dl>
       </StoryBody>
     </div>

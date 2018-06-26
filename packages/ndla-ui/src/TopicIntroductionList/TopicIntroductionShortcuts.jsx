@@ -66,15 +66,15 @@ class TopicIntroductionShortcuts extends Component {
         onMouseLeave={onMouseLeave}
         {...classes()}>
         {buttonView}
-        {open && <ul className={classes('list', open ? 'visible' : '').className}>
-          {shortcuts.map((shortcut) => (
-            <li {...classes('item')} key={shortcut.id}>
-              <ShortcutItem
-                shortcut={shortcut}
-              />
-            </li>
-          ))}
-        </ul>}
+        {open && (
+          <ul className={classes('list', open ? 'visible' : '').className}>
+            {shortcuts.map(shortcut => (
+              <li {...classes('item')} key={shortcut.id}>
+                <ShortcutItem shortcut={shortcut} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }

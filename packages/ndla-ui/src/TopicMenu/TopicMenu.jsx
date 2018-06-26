@@ -17,7 +17,7 @@ import debounce from 'lodash/debounce';
 
 import { Home, Back, Additional } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-import { Button, SafeLink } from 'ndla-ui';
+import { Button, SafeLink, Tooltip } from 'ndla-ui';
 import SubtopicLinkList from './SubtopicLinkList';
 import { TopicShape } from '../shapes';
 
@@ -30,6 +30,21 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
+export const renderAdditionalIcon = (isAdditional, label) => {
+  if (isAdditional && label) {
+    return (
+      <Tooltip
+        tooltip={label}
+        tooltipContainerClass="c-topic-menu__tooltipContainer">
+        <Additional className="c-icon--20" />
+      </Tooltip>
+    );
+  } else if (isAdditional) {
+    return <Additional className="c-icon--20 c-topic-menu__tooltipContainer" />;
+  }
+  return null;
+};
+
 export default class TopicMenu extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +53,7 @@ export default class TopicMenu extends Component {
     this.handleSubtopicExpand = this.handleSubtopicExpand.bind(this);
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
-    this.setScreenSizeDebounced = debounce(
-      () => this.setScreenSize(false),
-      100,
-    );
+    this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
 
     this.state = {
       isNarrowScreen: false,
@@ -74,36 +86,25 @@ export default class TopicMenu extends Component {
   }
 
   handleClick(event, topicId) {
-    this.props.onNavigate(topicId, null, null);
+    this.props.onNavigate(topicId, null);
   }
 
-  handleSubtopicExpand(subtopicId, level2 = false) {
-    if (level2) {
-      this.props.onNavigate(
-        this.props.expandedTopicId,
-        this.props.expandedSubtopicId,
-        subtopicId,
-      );
-    } else {
-      this.props.onNavigate(this.props.expandedTopicId, subtopicId, null);
-    }
+  handleSubtopicExpand(subtopicId, index) {
+    this.props.onNavigate(this.props.expandedTopicId, subtopicId, index);
   }
 
   handleOnGoBack() {
-    if (this.props.expandedSubtopicLevel2Id) {
-      this.handleSubtopicExpand(this.props.expandedSubtopicId);
-    } else if (this.props.expandedSubtopicId) {
-      this.handleSubtopicExpand(null);
-    } else {
-      this.props.onNavigate(null, null, null);
-    }
+    this.props.onNavigate(
+      this.props.expandedSubtopicsId.length ? this.props.expandedTopicId : null,
+      null,
+    );
   }
 
   handleBtnKeyPress(event, topicId) {
     if (event.charCode === 32 || event.charCode === 13) {
       // space or enter
       event.preventDefault();
-      this.props.onNavigate(topicId, null, null);
+      this.props.onNavigate(topicId, null);
     }
   }
 
@@ -116,8 +117,7 @@ export default class TopicMenu extends Component {
       close: closeMenu,
       messages,
       expandedTopicId,
-      expandedSubtopicId,
-      expandedSubtopicLevel2Id,
+      expandedSubtopicsId,
       filterOptions,
       filterValues,
       onFilterClick,
@@ -127,29 +127,38 @@ export default class TopicMenu extends Component {
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
-    let expandedSubtopic = null;
-    let expandedSubtopicLevel2 = null;
 
-    if (expandedTopic && expandedSubtopicId) {
-      expandedSubtopic = expandedTopic.subtopics.find(
-        topic => topic.id === expandedSubtopicId,
-      );
+    const currentlyExpandedSubTopics = [];
+    if (expandedTopic) {
+      let currentSubtopic;
+      let foundMatch;
+      expandedSubtopicsId.forEach((id, index) => {
+        if (index === 0) {
+          currentSubtopic = expandedTopic.subtopics.find(
+            topic => topic.id === id,
+          );
+          foundMatch = currentSubtopic ? 0 : undefined;
+        } else {
+          currentSubtopic = currentSubtopic.subtopics.find(
+            topic => topic.id === id,
+          );
+          foundMatch += currentSubtopic ? 1 : 0;
+        }
+        if (foundMatch === index) {
+          currentlyExpandedSubTopics[index] = currentSubtopic;
+        }
+      });
     }
 
-    if (expandedSubtopic && expandedSubtopicLevel2Id) {
-      expandedSubtopicLevel2 = expandedSubtopic.subtopics.find(
-        topic => topic.id === expandedSubtopicLevel2Id,
-      );
-    }
-
+    const hasExpandedSubtopics = currentlyExpandedSubTopics.length > 0;
     const subTopicModifiers = ['sub-topic'];
 
-    if (!expandedSubtopic) {
+    if (!hasExpandedSubtopics) {
       subTopicModifiers.push('no-border');
     }
+
     const disableMain = this.state.isNarrowScreen && expandedTopic;
-    const disableSubTopic = disableMain && expandedSubtopic;
-    const disableSubTopicLevel2 = disableSubTopic && expandedSubtopicLevel2;
+    const disableSubTopic = disableMain && hasExpandedSubtopics;
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
@@ -161,7 +170,13 @@ export default class TopicMenu extends Component {
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
       additionalFilterLabel: messages.additionalFilterLabel,
+      additionalFilterTooltipLabel: messages.additionalFilterTooltipLabel,
+      additionalTooltipLabel: messages.additionalTooltipLabel,
+      coreAdditionalExplainationHeading:
+        messages.coreAdditionalExplainationHeading,
+      coreAdditionalExplainationTexts: messages.coreAdditionalExplainationTexts,
     };
+
     return (
       <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
         <div {...classes('masthead')}>
@@ -263,7 +278,11 @@ export default class TopicMenu extends Component {
             </div>
           )}
           {!competenceGoalsOpen && (
-            <div {...classes('subject-navigation')}>
+            <div
+              {...classes(
+                'subject-navigation',
+                `slide-${currentlyExpandedSubTopics.length}`,
+              )}>
               {!disableMain && (
                 <Fragment>
                   <div {...classes('section', 'main')}>
@@ -283,6 +302,10 @@ export default class TopicMenu extends Component {
                           <li
                             {...classes('topic-item', active && 'active')}
                             key={topic.id}>
+                            {renderAdditionalIcon(
+                              topic.additional,
+                              messages.additionalTooltipLabel,
+                            )}
                             <button
                               {...classes('link')}
                               onClick={event =>
@@ -292,7 +315,6 @@ export default class TopicMenu extends Component {
                                 this.handleBtnKeyPress(event, topic.id)
                               }>
                               {topic.name}
-                              {topic.additional && <Additional className="c-icon--20" />}
                             </button>
                           </li>
                         );
@@ -311,43 +333,39 @@ export default class TopicMenu extends Component {
                     messages={subTopicLinkListMessages}
                     goToTitle={messages.goTo}
                     toTopic={toTopic}
-                    expandedSubtopicId={expandedSubtopicId}
-                    onSubtopicExpand={this.handleSubtopicExpand}
-                    onGoBack={this.handleOnGoBack}
-                    resourceToLinkProps={resourceToLinkProps}
-                  />
-                )}
-              {expandedSubtopic &&
-                !disableSubTopicLevel2 && (
-                  <SubtopicLinkList
-                    classes={classes}
-                    className={
-                      classes('section', ['sub-topic', 'no-border']).className
+                    expandedSubtopicId={
+                      currentlyExpandedSubTopics[0] &&
+                      currentlyExpandedSubTopics[0].id
                     }
-                    closeMenu={closeMenu}
-                    topic={expandedSubtopic}
-                    messages={subTopicLinkListMessages}
-                    toTopic={toTopic}
-                    expandedSubtopicId={expandedSubtopicLevel2Id}
                     onSubtopicExpand={id => {
-                      this.handleSubtopicExpand(id, true);
+                      this.handleSubtopicExpand(id, 0);
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
                   />
                 )}
-              {expandedSubtopicLevel2 && (
+              {currentlyExpandedSubTopics.map((subTopic, index) => (
                 <SubtopicLinkList
                   classes={classes}
-                  className={classes('section', ['sub-topic']).className}
+                  className={
+                    classes('section', ['sub-topic', 'no-border']).className
+                  }
                   closeMenu={closeMenu}
-                  topic={expandedSubtopicLevel2}
+                  topic={subTopic}
                   messages={subTopicLinkListMessages}
                   toTopic={toTopic}
+                  expandedSubtopicId={
+                    currentlyExpandedSubTopics[index + 1]
+                      ? currentlyExpandedSubTopics[index + 1].id
+                      : 'no way'
+                  }
+                  onSubtopicExpand={id => {
+                    this.handleSubtopicExpand(id, index + 1);
+                  }}
                   onGoBack={this.handleOnGoBack}
                   resourceToLinkProps={resourceToLinkProps}
                 />
-              )}
+              ))}
               {!disableMain &&
                 competenceGoals && (
                   <button
@@ -388,6 +406,7 @@ TopicMenu.propTypes = {
     contentTypeResultsShowMore: PropTypes.string.isRequired,
     contentTypeResultsShowLess: PropTypes.string.isRequired,
     contentTypeResultsNoHit: PropTypes.string.isRequired,
+    additionalTooltipLabel: PropTypes.string,
   }).isRequired,
   filterOptions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -403,8 +422,9 @@ TopicMenu.propTypes = {
   resourceToLinkProps: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   expandedTopicId: PropTypes.string,
-  expandedSubtopicId: PropTypes.string,
-  expandedSubtopicLevel2Id: PropTypes.string,
+  // expandedSubtopicId: PropTypes.string,
+  // expandedSubtopicLevel2Id: PropTypes.string,
+  expandedSubtopicsId: PropTypes.arrayOf(PropTypes.string).isRequired,
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,

@@ -20,11 +20,14 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-export const ContentTypeBadge = ({ type, background, size }) => {
+export const ContentTypeBadge = ({ type, background, size, outline }) => {
   const modifiers = [type, size];
 
   if (background) {
     modifiers.push('background');
+  }
+  if (outline) {
+    modifiers.push('outline');
   }
 
   let icon = null;
@@ -60,10 +63,13 @@ ContentTypeBadge.propTypes = {
   size: PropTypes.oneOf(['x-small', 'small', 'large']),
   type: ContentTypeShape,
   background: PropTypes.bool,
+  outline: PropTypes.bool,
 };
 
 ContentTypeBadge.defaultProps = {
   size: 'small',
+  outline: false,
+  background: false,
 };
 
 export const SubjectMaterialBadge = props => (

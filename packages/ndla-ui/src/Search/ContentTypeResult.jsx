@@ -6,6 +6,19 @@ import { ContentTypeBadge, SafeLink, Tooltip } from 'ndla-ui';
 import { Additional } from 'ndla-icons/common';
 import { ContentTypeResultShape } from '../shapes';
 
+const renderAdditionalIcon = (isAdditional, label) => {
+  if (isAdditional && label) {
+    return (
+      <Tooltip tooltip={label} align="right">
+        <Additional className="c-icon--20" />
+      </Tooltip>
+    );
+  } else if (isAdditional) {
+    return <Additional className="c-icon--20" />;
+  }
+  return null;
+};
+
 const classes = BEMHelper({
   prefix: 'c-',
   name: 'content-type-result',
@@ -29,11 +42,12 @@ class ContentTypeResult extends Component {
     } = this.props;
     let view = null;
 
-    const results = showAdditionalResources || !contentTypeResult.resources ? contentTypeResult.resources : contentTypeResult.resources.filter(items => !items.additional);
+    const results =
+      showAdditionalResources || !contentTypeResult.resources
+        ? contentTypeResult.resources
+        : contentTypeResult.resources.filter(items => !items.additional);
 
-    const totalCount = results
-      ? results.length
-      : 0;
+    const totalCount = results ? results.length : 0;
 
     if (totalCount > 0) {
       const resources = this.state.showAll
@@ -63,11 +77,10 @@ class ContentTypeResult extends Component {
                   }}>
                   {item.name}
                 </SafeLink>
-                {item.additional && (
-                  <Tooltip tooltip="tilleggsstoff">
-                    <Additional className="c-icon--20" />
-                  </Tooltip>)
-                }
+                {renderAdditionalIcon(
+                  item.additional,
+                  messages.additionalTooltipLabel,
+                )}
               </li>
             );
           })}
@@ -95,7 +108,14 @@ class ContentTypeResult extends Component {
     return (
       <section {...classes()}>
         <header>
-          {contentTypeResult.contentType && <ContentTypeBadge type={contentTypeResult.contentType} size="small" background outline />}
+          {contentTypeResult.contentType && (
+            <ContentTypeBadge
+              type={contentTypeResult.contentType}
+              size="x-small"
+              background
+              outline
+            />
+          )}
           <h1>
             {contentTypeResult.title}{' '}
             <span {...classes('total-count')}>({totalCount})</span>
@@ -118,11 +138,12 @@ ContentTypeResult.propTypes = {
     showLessResultLabel: PropTypes.string.isRequired,
     noHit: PropTypes.string.isRequired,
     filterAdditionalLabel: PropTypes.string,
+    additionalTooltipLabel: PropTypes.string,
   }).isRequired,
 };
 
 ContentTypeResult.defaultProps = {
-  defaultCount: 5,
+  defaultCount: 2,
   showAdditionalResources: false,
 };
 

@@ -6,14 +6,17 @@
  *
  */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Back, Additional } from 'ndla-icons/common';
+import { Back, HelpCircle } from 'ndla-icons/common';
 
-import { SafeLink, SearchToggleFilter } from 'ndla-ui';
+import { SafeLink, SearchToggleFilter, Tooltip } from 'ndla-ui';
+import { uuid } from 'ndla-util';
 import { TopicShape } from '../shapes';
 
+import Dialog from '../Dialog';
 import { ContentTypeResult } from '../Search';
+import { renderAdditionalIcon } from './TopicMenu';
 
 const SubtopicLink = ({
   classes,
@@ -21,20 +24,22 @@ const SubtopicLink = ({
   subtopic: { id, name, additional },
   onSubtopicExpand,
   expandedSubtopicId,
+  subtopicId,
+  messages,
 }) => {
   const active = id === expandedSubtopicId;
 
   return (
     <li {...classes('subtopic-item', active && 'active')} key={id}>
+      {renderAdditionalIcon(additional, messages.additionalTooltipLabel)}
       <SafeLink
         {...classes('link')}
         onClick={event => {
           event.preventDefault();
-          onSubtopicExpand(id);
+          onSubtopicExpand(subtopicId);
         }}
         to={to}>
         {name}
-        {additional && <Additional className="c-icon--20" />}
       </SafeLink>
     </li>
   );
@@ -47,6 +52,10 @@ SubtopicLink.propTypes = {
   onSubtopicExpand: PropTypes.func,
   expandedSubtopicId: PropTypes.string,
   toTopic: PropTypes.func,
+  subtopicId: PropTypes.string,
+  messages: PropTypes.shape({
+    additionalTooltipLabel: PropTypes.string,
+  }),
 };
 
 class SubtopicLinkList extends Component {
@@ -54,8 +63,10 @@ class SubtopicLinkList extends Component {
     super(props);
     this.state = {
       showAdditionalResources: false,
+      showAdditionalDialog: false,
     };
     this.toggleAdditionalResources = this.toggleAdditionalResources.bind(this);
+    this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
     this.containerRef = null;
   }
 
@@ -73,10 +84,16 @@ class SubtopicLinkList extends Component {
     this.containerRef.querySelector('a').focus();
   }
 
+  toggleAdditionalDialog() {
+    this.setState({
+      showAdditionalDialog: !this.state.showAdditionalDialog,
+    });
+  }
+
   toggleAdditionalResources() {
     this.setState({
       showAdditionalResources: !this.state.showAdditionalResources,
-    })
+    });
   }
 
   render() {
@@ -99,7 +116,11 @@ class SubtopicLinkList extends Component {
     const hasContentTypeResults =
       topic.contentTypeResults && topic.contentTypeResults.length > 0;
 
-    const hasContentTypeInfo = hasContentTypeResults && topic.contentTypeResults.some(result => (result.contentType));
+    const hasContentTypeInfo =
+      hasContentTypeResults &&
+      topic.contentTypeResults.some(result => result.contentType);
+    const coreAdditionalLabelledBy = 'core_additional_labelled_by';
+
     return (
       <div
         className={className}
@@ -127,20 +148,66 @@ class SubtopicLinkList extends Component {
                 classes={classes}
                 key={subtopic.id}
                 to={toTopic(topic.id, subtopic.id)}
+                subtopicId={subtopic.id}
                 subtopic={subtopic}
+                messages={{
+                  additionalTooltipLabel: messages.additionalTooltipLabel,
+                }}
               />
             ))}
           </ul>
         )}
         {hasContentTypeResults && (
-          <aside {...classes('content-type-results', hasContentTypeInfo ? 'with-content-badges' : '')}>
+          <aside
+            {...classes(
+              'content-type-results',
+              hasContentTypeInfo ? 'with-content-badges' : '',
+            )}>
             <div>
               <h1>{messages.learningResourcesHeading}</h1>
-              {messages.additionalFilterLabel && <SearchToggleFilter
-                checked={showAdditionalResources}
-                label={messages.additionalFilterLabel}
-                onClick={this.toggleAdditionalResources}
-              />}
+              {messages.additionalFilterLabel && (
+                <SearchToggleFilter
+                  checked={showAdditionalResources}
+                  label={messages.additionalFilterLabel}
+                  onClick={this.toggleAdditionalResources}
+                />
+              )}
+              {messages.additionalFilterTooltipLabel &&
+                messages.coreAdditionalExplainationTexts &&
+                messages.coreAdditionalExplainationHeading && (
+                  <Fragment>
+                    <Tooltip tooltip={messages.additionalFilterTooltipLabel}>
+                      <button
+                        {...classes('topic-title-icon')}
+                        aria-labelledby={coreAdditionalLabelledBy}
+                        onClick={this.toggleAdditionalDialog}>
+                        <HelpCircle
+                          className={`c-icon--22 u-margin-left-tiny ${
+                            classes('icon').className
+                          }`}
+                        />
+                      </button>
+                    </Tooltip>
+                    <Dialog
+                      id="content-explaination-dialog-filter"
+                      labelledby={coreAdditionalLabelledBy}
+                      hidden={!this.state.showAdditionalDialog}
+                      onClose={this.toggleAdditionalDialog}
+                      disablePortal
+                      modifier={
+                        this.state.showAdditionalDialog ? 'active' : ''
+                      }>
+                      <Fragment>
+                        <h1 id={coreAdditionalLabelledBy}>
+                          {messages.coreAdditionalExplainationHeading}
+                        </h1>
+                        {messages.coreAdditionalExplainationTexts.map(text => (
+                          <p key={uuid()}>{text}</p>
+                        ))}
+                      </Fragment>
+                    </Dialog>
+                  </Fragment>
+                )}
             </div>
             {topic.contentTypeResults.map(result => (
               <ContentTypeResult
@@ -149,12 +216,21 @@ class SubtopicLinkList extends Component {
                 key={result.title}
                 contentTypeResult={result}
                 messages={{
-                  allResultLabel: messages.contentTypeResultsShowMore,
-                  showLessResultLabel: messages.contentTypeResultsShowLess,
+                  allResultLabel:
+                    result.messages && result.messages.allResultLabel
+                      ? result.messages.allResultLabel
+                      : messages.contentTypeResultsShowMore,
+                  showLessResultLabel:
+                    result.messages && result.messages.showLessResultLabel
+                      ? result.messages.showLessResultLabel
+                      : messages.contentTypeResultsShowLess,
                   noHit: messages.contentTypeResultsNoHit,
+                  additionalTooltipLabel: messages.additionalTooltipLabel,
                 }}
                 iconOnRight
-                showAdditionalResources={showAdditionalResources || !messages.additionalFilterLabel }
+                showAdditionalResources={
+                  showAdditionalResources || !messages.additionalFilterLabel
+                }
               />
             ))}
           </aside>
@@ -182,6 +258,9 @@ SubtopicLinkList.propTypes = {
     learningResourcesHeading: PropTypes.string.isRequired,
     contentTypeResultsNoHit: PropTypes.string.isRequired,
     additionalFilterLabel: PropTypes.string, // should be required
+    additionalTooltipLabel: PropTypes.string, // should be required
+    coreAdditionalExplainationHeading: PropTypes.string, // should be required
+    coreAdditionalExplainationTexts: PropTypes.arrayOf(PropTypes.string), // should be required
   }).isRequired,
 };
 

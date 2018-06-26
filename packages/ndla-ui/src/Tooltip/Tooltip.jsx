@@ -64,36 +64,48 @@ class Tooltip extends Component {
     let transform;
     switch (this.props.align) {
       case 'top':
-        transform = `translate3d(calc(-50% + ${this.widthRef / 2}px), calc(-100% - 0.25rem), 0)`;
+        transform = `translate3d(calc(-50% + ${this.widthRef /
+          2}px), calc(-100% - 0.25rem), 0)`;
         break;
       case 'left':
-        transform = `translate3d(calc(-100% - 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
+        transform = `translate3d(calc(-100% - 0.25rem), calc(-50% + ${this
+          .heightRef / 2}px), 0)`;
         break;
       case 'right':
-        transform = `translate3d(calc(${this.widthRef}px + 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
+        transform = `translate3d(calc(${
+          this.widthRef
+        }px + 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
         break;
       case 'bottom':
-        transform = `translate3d(calc(-50% + ${this.widthRef / 2}px), calc(${this.heightRef}px + 0.25rem), 0)`;
+        transform = `translate3d(calc(-50% + ${this.widthRef / 2}px), calc(${
+          this.heightRef
+        }px + 0.25rem), 0)`;
         break;
       default:
         break;
     }
 
     return (
-      <div {...classes('')}>
+      <div
+        className={`${classes('').className} ${
+          this.props.tooltipContainerClass
+        }`}>
         <Fade in={this.state.showtooltip}>
           <span
             role="tooltip"
             id={this.uuid}
             {...classes('tooltip')}
-            style={{ transform }}
-          >{this.props.tooltip}</span>
+            style={{ transform }}>
+            {this.props.tooltip}
+          </span>
         </Fade>
         <span
           role="button"
           tabIndex={0}
           aria-describedby={this.uuid}
-          ref={(r) => { this.contentRef = r; }}
+          ref={r => {
+            this.contentRef = r;
+          }}
           onMouseMove={this.handleShowTooltip}
           onMouseEnter={this.handleShowTooltip}
           onMouseLeave={this.handleHideTooltip}
@@ -114,13 +126,15 @@ Tooltip.propTypes = {
   disabled: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
   className: PropTypes.string,
+  tooltipContainerClass: PropTypes.string,
 };
 
 Tooltip.defaultProps = {
   align: 'top',
   disabled: false,
   delay: 0,
-  className: undefined,
+  className: '',
+  tooltipContainerClass: '',
 };
 
 export default Tooltip;

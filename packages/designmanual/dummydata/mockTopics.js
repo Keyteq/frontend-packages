@@ -211,7 +211,35 @@ export const topicMenu = [
             name: 'Html',
             additional: true,
             contentUri: null,
-            contentTypeResults,
+            subtopics: [
+              {
+                id: 'urn:topic:123463',
+                name: 'Html',
+                additional: true,
+                contentUri: null,
+                subtopics: [
+                  {
+                    id: 'urn:topic:223463',
+                    name: 'Html',
+                    additional: true,
+                    contentUri: null,
+                    contentTypeResults,
+                  },
+                  {
+                    id: 'urn:topic:399463',
+                    name: 'Css',
+                    contentUri: null,
+                    contentTypeResults,
+                  },
+                ],
+              },
+              {
+                id: 'urn:topic:199463',
+                name: 'Css',
+                contentUri: null,
+                contentTypeResults,
+              },
+            ],
           },
           {
             id: 'urn:topic:165354',
