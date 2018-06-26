@@ -130,11 +130,15 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $brand-color--light;
-    margin: 0 $spacing--medium;
+    margin: 0;
+    padding-bottom: $spacing;
 
     .c-content-type-result {
-      padding-right: $spacing--large;
-      flex: 0 0 33.3333333%;
+      flex: 0 0 30%;
+    }
+    @include mq($until: desktop) {
+      flex-direction: column;
+      padding-bottom: $spacing--small;
     }
   }
 

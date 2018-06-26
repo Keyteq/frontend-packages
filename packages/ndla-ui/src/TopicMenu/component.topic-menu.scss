@@ -132,6 +132,38 @@ $navigation-row-width: 980px / 3;
     min-height: 500px;
     flex-flow: row;
     transition: transform 200ms ease;
+    &--slide-1 {
+      transform: translate3d(-$navigation-row-width, 0, 0);
+    }
+    &--slide-2 {
+      transform: translate3d(-$navigation-row-width * 2, 0, 0);
+    }
+    &--slide-3 {
+      transform: translate3d(-$navigation-row-width * 3, 0, 0);
+    }
+    &--slide-4 {
+      transform: translate3d(-$navigation-row-width * 4, 0, 0);
+    }
+    &--slide-5 {
+      transform: translate3d(-$navigation-row-width * 5, 0, 0);
+    }
+    &--slide-6 {
+      transform: translate3d(-$navigation-row-width * 6, 0, 0);
+    }
+    &--slide-7 {
+      transform: translate3d(-$navigation-row-width * 7, 0, 0);
+    }
+    &--slide-8 {
+      transform: translate3d(-$navigation-row-width * 8, 0, 0);
+    }
+    &--slide-9 {
+      transform: translate3d(-$navigation-row-width * 9, 0, 0);
+    }
+  }
+  @include mq(wide) {
+    &--slide-1 {
+      transform: none;
+    }
     &--slide-2 {
       transform: translate3d(-$navigation-row-width, 0, 0);
     }
@@ -157,7 +189,10 @@ $navigation-row-width: 980px / 3;
       transform: translate3d(-$navigation-row-width * 8, 0, 0);
     }
   }
-  @include mq(wide) {
+  @include mq(ultraWide) {
+    &--slide-1 {
+      transform: none;
+    }
     &--slide-2 {
       transform: none;
     }
@@ -207,7 +242,6 @@ $navigation-row-width: 980px / 3;
   margin: 0;
   list-style: none;
   overflow-y: auto;
-  @include fadeInLeftItems(li, 30);
 }
 
 .c-topic-menu__section {
@@ -263,30 +297,82 @@ $navigation-row-width: 980px / 3;
     padding-left: $spacing--large;
     .c-content-type-badge {
       position: absolute;
-      transform: translate3d(-$spacing--large + $spacing--small, -3px, 0);
+      transform: translate3d(-$spacing--large + $spacing--small, 0, 0);
     }
   }
 
-  @include mq(wide) {
+  @include mq(desktop) {
     background: transparent;
     min-height: 500px;
+    width: $navigation-row-width * 2;
   }
 
-  width: 200%;
+  .c-content-type-result {
+    li {
+      margin: 0;
+      > a {
+        margin-left: -$spacing--small * 3;
+        padding: $spacing--small / 2 0 $spacing--small / 2 $spacing--small * 3;
+        flex-grow: 1;
+        max-width: $navigation-row-width;
+      }
+      > button {
+        padding: $spacing--small 0;
+      }
+    }
+    &__additional-icon {
+      position: absolute;
+      right: 0;
+    }
+    &--subject-material {
+      a:hover, a:focus {
+        background: $subject-material-light;
+      }
+    }
+    &--external-learning-resource {
+      a:hover, a:focus {
+        background: $external-learning-resource-light;
+      }
+    }
+    &--tasks-and-activities {
+      a:hover, a:focus {
+        background: $tasks-and-activities-light;
+      }
+    }
+    &--assessment-resource {
+      a:hover, a:focus {
+        background: $assessment-resource-light;
+      }
+    }
+    &--learning-path {
+      a:hover, a:focus {
+        background: $learning-path-light;
+      }
+    }
+  }
 
   > div {
     display: flex;
     align-items: center;
-    margin-bottom: $spacing;
-    margin-top: $spacing--large;
-    @include mq(wide) {
-      min-height: 30px;
+    min-height: $link-height;
+    margin-bottom: 22px;
+    margin-left: -$spacing--small * 3;
+    @include mq($until: tablet) {
+      display: inline-flex;
+	    flex-flow: row wrap;
+      margin-bottom: $spacing--medium;
+      .c-filter__list {
+        width: auto;
+        margin-left: -$spacing--small / 4;
+      }
+      > h1 {
+        flex: 0 0 100%;
+      }
     }
     > h1 {
-      @include font-size(20px, 26px);
+      @include font-size(16px, 26px);
       margin: 0;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
       padding-right: $spacing;
     }
   }
@@ -722,6 +808,8 @@ $navigation-row-width: 980px / 3;
   background: none;
   color: $brand-color;
   margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 .c-topic-menu__tooltipContainer {
   position: absolute;
@@ -729,7 +817,7 @@ $navigation-row-width: 980px / 3;
   padding-top: 10px;
   .c-tooltip__content {
     animation-name: delayShowTooltipIcon;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
   }
 }
 
@@ -737,7 +825,7 @@ $navigation-row-width: 980px / 3;
   0% {
     opacity: 0;
   }
-  75% {
+  50% {
     opacity: 0;
   }
   100% {

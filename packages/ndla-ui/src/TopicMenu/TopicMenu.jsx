@@ -74,7 +74,8 @@ export default class TopicMenu extends Component {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
       currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === breakpoints.tablet;
+      currentBreakpoint === breakpoints.tablet ||
+      currentBreakpoint === 'none';
 
     /* eslint react/no-did-mount-set-state: 0 */
     if ((initial && isNarrowScreen) || !initial) {

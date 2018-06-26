@@ -6,10 +6,18 @@ import { ContentTypeBadge, SafeLink, Tooltip } from 'ndla-ui';
 import { Additional } from 'ndla-icons/common';
 import { ContentTypeResultShape } from '../shapes';
 
+const classes = BEMHelper({
+  prefix: 'c-',
+  name: 'content-type-result',
+});
+
 const renderAdditionalIcon = (isAdditional, label) => {
   if (isAdditional && label) {
     return (
-      <Tooltip tooltip={label} align="right">
+      <Tooltip
+        tooltip={label}
+        align="right"
+        tooltipContainerClass={classes('additional-icon').className}>
         <Additional className="c-icon--20" />
       </Tooltip>
     );
@@ -18,11 +26,6 @@ const renderAdditionalIcon = (isAdditional, label) => {
   }
   return null;
 };
-
-const classes = BEMHelper({
-  prefix: 'c-',
-  name: 'content-type-result',
-});
 
 class ContentTypeResult extends Component {
   constructor(props) {
@@ -55,7 +58,7 @@ class ContentTypeResult extends Component {
         : results.slice(0, defaultCount);
 
       view = (
-        <ul>
+        <ul {...classes('', contentTypeResult.contentType)}>
           {resources.map(item => {
             const linkProps = resourceToLinkProps(item);
             if (linkProps && linkProps.href) {
@@ -143,7 +146,7 @@ ContentTypeResult.propTypes = {
 };
 
 ContentTypeResult.defaultProps = {
-  defaultCount: 2,
+  defaultCount: 3,
   showAdditionalResources: false,
 };
 
