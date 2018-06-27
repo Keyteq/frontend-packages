@@ -1,4 +1,5 @@
 $overlay-height: 150px;
+$overlay-height-mobile: 100px;
 
 @keyframes searchAnimation {
   0% {
@@ -49,6 +50,10 @@ $overlay-height: 150px;
   justify-content: space-between;
   align-items: center;
 
+  @include mq($until: desktop) {
+    height: $overlay-height-mobile;
+  }
+
   &-enter {
     opacity: 0.3;
     top: 13px;
@@ -61,6 +66,9 @@ $overlay-height: 150px;
     &-active {
       opacity: 1;
       height: $overlay-height;
+      @include mq($until: desktop) {
+        height: $overlay-height-mobile;
+      }
       top: 0;
       left: 0;
       right: 0;

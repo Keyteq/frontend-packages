@@ -97,6 +97,7 @@ class MastheadWithTopicMenu extends Component {
           {(onClose, isOpen) => (
             <SearchOverlay close={onClose} isOpen={isOpen}>
               <SearchField
+                searchIsOverlay
                 placeholder="Søk i fagstoff, oppgaver og aktiviteter eller læringsstier"
                 value={this.state.value}
                 onChange={event => {

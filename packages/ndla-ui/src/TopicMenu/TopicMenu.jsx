@@ -192,6 +192,7 @@ export default class TopicMenu extends Component {
               <OpenSearchButton
                 onOpen={this.props.onOpenSearch}
                 searchPageUrl={this.props.searchPageUrl}
+                narrow
                 messages={{
                   buttonText: messages.search,
                 }}
@@ -259,6 +260,11 @@ export default class TopicMenu extends Component {
                         onChange={onFilterClick}
                       />
                     )}
+                  <div {...classes('back-button-slide-wrapper')}>
+                    <button {...classes('back-button-slides', `slide-${currentlyExpandedSubTopics.length}`)} onClick={this.handleOnGoBack}>
+                      <Back /> <span>{messages.back}</span>
+                    </button>
+                  </div>
                 </div>
               )}
             </Fragment>

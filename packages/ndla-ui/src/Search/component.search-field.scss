@@ -5,6 +5,77 @@
   text-align: left;
   flex-flow: row-reverse;
 
+  &--search-is-overlay {
+    @include mq(desktop) {
+      max-width: calc(100vw - 140px);
+      margin-left: auto;
+      margin-right: auto;
+      + .c-search-overlay__close-button {
+        position: fixed;
+        top: 58px;
+      }
+    }
+    @include mq($from: desktop, $until: wide) {
+      + .c-search-overlay__close-button {
+        right: $spacing--small;
+      }
+    }
+    @include mq($from: wide) {
+      + .c-search-overlay__close-button {
+        right: $spacing--large;
+      }
+    }
+    @include mq($until: desktop) {
+      flex-flow: row;
+      .c-search-field__input {
+        padding-left: $spacing;
+        margin-left: $spacing;
+        margin-right: 0;
+        border-right: 0;
+        border-left: 1px solid $brand-grey--light;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        &:focus {
+          border: 1px solid $brand-color;
+          border-right: 0;
+          & + .c-search-field__filters {
+            border: 1px solid $brand-color;
+            border-left: 0;
+            border-right: 0;
+            & + .c-search-field__button {
+              border: 1px solid $brand-color;
+              border-left: 0;
+            }
+          }
+        }
+      }
+      .c-search-field__filters {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        margin-right: 0;
+      }
+      .c-search-field__button {
+        position: static;
+        margin-right: $spacing;
+        background: #fff;
+        height: 48px;
+        border: 1px solid $brand-grey--light;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-left: 0;
+        padding-right: $spacing--small;
+      }
+      &.c-search-field--has-search-result {
+        .c-search-field__input {
+          border-bottom-left-radius: 4px;
+        }
+      }
+    }
+  }
+
   &--has-search-result {
     .c-search-field {
       &__input {
@@ -119,6 +190,15 @@
     padding: $spacing--medium $spacing--large 0 $spacing--large;
     animation: expand 0.2s;
     transform-origin: top;
+    @include mq($until: desktop) {
+      top: 70px;
+      width: calc(100% + 20px);
+      height: calc(100vh - 90px);
+      padding: $spacing--large $spacing--medium;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   &__search-result-heading {
