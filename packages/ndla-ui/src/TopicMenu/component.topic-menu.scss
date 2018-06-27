@@ -270,12 +270,16 @@ $navigation-row-width: 980px / 3;
         display: none;
       }
     }
+    @include mq($until: mobileWide) {
+      padding-left: $spacing--small + 4px;
+    }
   }
 
   &--sub-topic {
     @include mq($until: desktop) {
       background: $brand-grey--lightest;
       padding-top: $spacing--large + $spacing;
+      padding-left: $spacing--large - 4px;
 
       .c-topic-menu__link--big {
         margin-bottom: 0;
@@ -284,6 +288,9 @@ $navigation-row-width: 980px / 3;
           display: none;
         }
       }
+    }
+    @include mq($until: mobileWide) {
+      padding-left: 18px;
     }
   }
 }
@@ -441,6 +448,10 @@ $navigation-row-width: 980px / 3;
     border: 0;
     margin: 0 $spacing $spacing--large $padding-left-narrow;
     padding: 0 $spacing--small;
+    @include mq($until: mobileWide) {
+      margin: 0 $spacing $spacing--large $spacing--small;
+      padding: 0 $spacing--small + 4px;
+    }
     height: $link-height;
     color: $brand-color;
     font-weight: $font-weight-semibold;
@@ -464,6 +475,10 @@ $navigation-row-width: 980px / 3;
 
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
+
+  @include mq($until: mobileWide) {
+    padding-left: 29px;
+  }
 
   @include mq(desktop) {
     animation-name: none;
@@ -659,7 +674,9 @@ $navigation-row-width: 980px / 3;
 
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
-
+  @include mq($until: mobileWide) {
+    padding-left: 28px;
+  }
   @include mq(desktop) {
     animation-name: none;
     margin-left: $spacing--medium;

@@ -179,7 +179,7 @@ export default class TopicMenu extends Component {
     };
 
     return (
-      <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
+      <nav {...classes('', '', 'o-wrapper u-1/1')}>
         <div {...classes('masthead')}>
           <div {...classes('masthead-left')}>
             <button {...classes('close-button')} onClick={closeMenu}>
@@ -205,188 +205,190 @@ export default class TopicMenu extends Component {
             />
           </div>
         </div>
-        <div {...classes('content')}>
-          {!disableMain && (
-            <Fragment>
-              {!disableHeaderNavigation && (
-                <div {...classes('back')}>
-                  <SafeLink {...classes('back-link')} to="/">
-                    <Home {...classes('home-icon', '', 'c-icon--20')} />
-                    {messages.subjectOverview}
-                  </SafeLink>
-                </div>
-              )}
-              {!disableHeaderNavigation && (
-                <div
-                  {...classes('subject', {
-                    hasFilter:
-                      filterOptions &&
-                      filterOptions.length > 0 &&
-                      !competenceGoalsOpen,
-                  })}>
-                  <div {...classes('subject__header')}>
-                    <h1>
-                      <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
-                    </h1>
-                    {competenceGoals && (
-                      <Button
-                        className={
-                          classes('competence-toggle-button').className
-                        }
-                        stripped
-                        onClick={() =>
-                          this.setState({
-                            competenceGoalsOpen: !competenceGoalsOpen,
-                          })
-                        }>
-                        {competenceGoalsOpen ? (
-                          <span>
-                            {messages.compentenceGoalsToggleButtonClose}{' '}
-                            <Cross />
-                          </span>
-                        ) : (
-                          messages.compentenceGoalsToggleButtonOpen
-                        )}
-                      </Button>
-                    )}
-                  </div>
-
-                  {!competenceGoalsOpen &&
-                    filterOptions &&
-                    filterOptions.length > 0 && (
-                      <FilterList
-                        options={filterOptions}
-                        values={filterValues}
-                        onChange={onFilterClick}
-                      />
-                    )}
-                  <div {...classes('back-button-slide-wrapper')}>
-                    <button {...classes('back-button-slides', `slide-${currentlyExpandedSubTopics.length}`)} onClick={this.handleOnGoBack}>
-                      <Back /> <span>{messages.back}</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </Fragment>
-          )}
-          {competenceGoalsOpen && (
-            <div {...classes('competence')}>
-              <button
-                {...classes('competence-close-button')}
-                onClick={() =>
-                  this.setState({
-                    competenceGoalsOpen: false,
-                  })
-                }>
-                <Back />
-                {messages.compentenceGoalsNarrowBackButton}
-              </button>
-              {competenceGoals}
-            </div>
-          )}
-          {!competenceGoalsOpen && (
-            <div
-              {...classes(
-                'subject-navigation',
-                `slide-${currentlyExpandedSubTopics.length}`,
-              )}>
-              {!disableMain && (
-                <Fragment>
-                  <div {...classes('section', 'main')}>
-                    <SafeLink
-                      to={toSubject()}
-                      className={classes('link', 'big').className}>
-                      <span {...classes('link-label')}>{messages.goTo}:</span>
-                      <span {...classes('link-target')}>
-                        {messages.subjectPage} ›
-                      </span>
+        <div {...classes('dropdown')}>
+          <div {...classes('content')}>
+            {!disableMain && (
+              <Fragment>
+                {!disableHeaderNavigation && (
+                  <div {...classes('back')}>
+                    <SafeLink {...classes('back-link')} to="/">
+                      <Home {...classes('home-icon', '', 'c-icon--20')} />
+                      {messages.subjectOverview}
                     </SafeLink>
-                    <ul {...classes('list')}>
-                      {topics.map(topic => {
-                        const active = topic.id === expandedTopicId;
-
-                        return (
-                          <li
-                            {...classes('topic-item', active && 'active')}
-                            key={topic.id}>
-                            {renderAdditionalIcon(
-                              topic.additional,
-                              messages.additionalTooltipLabel,
-                            )}
-                            <button
-                              {...classes('link')}
-                              onClick={event =>
-                                this.handleClick(event, topic.id)
-                              }
-                              onKeyPress={event =>
-                                this.handleBtnKeyPress(event, topic.id)
-                              }>
-                              {topic.name}
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
                   </div>
-                </Fragment>
-              )}
-              {expandedTopic &&
-                !disableSubTopic && (
+                )}
+                {!disableHeaderNavigation && (
+                  <div
+                    {...classes('subject', {
+                      hasFilter:
+                        filterOptions &&
+                        filterOptions.length > 0 &&
+                        !competenceGoalsOpen,
+                    })}>
+                    <div {...classes('subject__header')}>
+                      <h1>
+                        <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
+                      </h1>
+                      {competenceGoals && (
+                        <Button
+                          className={
+                            classes('competence-toggle-button').className
+                          }
+                          stripped
+                          onClick={() =>
+                            this.setState({
+                              competenceGoalsOpen: !competenceGoalsOpen,
+                            })
+                          }>
+                          {competenceGoalsOpen ? (
+                            <span>
+                              {messages.compentenceGoalsToggleButtonClose}{' '}
+                              <Cross />
+                            </span>
+                          ) : (
+                            messages.compentenceGoalsToggleButtonOpen
+                          )}
+                        </Button>
+                      )}
+                    </div>
+
+                    {!competenceGoalsOpen &&
+                      filterOptions &&
+                      filterOptions.length > 0 && (
+                        <FilterList
+                          options={filterOptions}
+                          values={filterValues}
+                          onChange={onFilterClick}
+                        />
+                      )}
+                    <div {...classes('back-button-slide-wrapper')}>
+                      <button {...classes('back-button-slides', `slide-${currentlyExpandedSubTopics.length}`)} onClick={this.handleOnGoBack}>
+                        <Back /> <span>{messages.back}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </Fragment>
+            )}
+            {competenceGoalsOpen && (
+              <div {...classes('competence')}>
+                <button
+                  {...classes('competence-close-button')}
+                  onClick={() =>
+                    this.setState({
+                      competenceGoalsOpen: false,
+                    })
+                  }>
+                  <Back />
+                  {messages.compentenceGoalsNarrowBackButton}
+                </button>
+                {competenceGoals}
+              </div>
+            )}
+            {!competenceGoalsOpen && (
+              <div
+                {...classes(
+                  'subject-navigation',
+                  `slide-${currentlyExpandedSubTopics.length}`,
+                )}>
+                {!disableMain && (
+                  <Fragment>
+                    <div {...classes('section', 'main')}>
+                      <SafeLink
+                        to={toSubject()}
+                        className={classes('link', 'big').className}>
+                        <span {...classes('link-label')}>{messages.goTo}:</span>
+                        <span {...classes('link-target')}>
+                          {messages.subjectPage} ›
+                        </span>
+                      </SafeLink>
+                      <ul {...classes('list')}>
+                        {topics.map(topic => {
+                          const active = topic.id === expandedTopicId;
+
+                          return (
+                            <li
+                              {...classes('topic-item', active && 'active')}
+                              key={topic.id}>
+                              {renderAdditionalIcon(
+                                topic.additional,
+                                messages.additionalTooltipLabel,
+                              )}
+                              <button
+                                {...classes('link')}
+                                onClick={event =>
+                                  this.handleClick(event, topic.id)
+                                }
+                                onKeyPress={event =>
+                                  this.handleBtnKeyPress(event, topic.id)
+                                }>
+                                {topic.name}
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </Fragment>
+                )}
+                {expandedTopic &&
+                  !disableSubTopic && (
+                    <SubtopicLinkList
+                      classes={classes}
+                      className={classes('section', subTopicModifiers).className}
+                      closeMenu={closeMenu}
+                      topic={expandedTopic}
+                      messages={subTopicLinkListMessages}
+                      goToTitle={messages.goTo}
+                      toTopic={toTopic}
+                      expandedSubtopicId={
+                        currentlyExpandedSubTopics[0] &&
+                        currentlyExpandedSubTopics[0].id
+                      }
+                      onSubtopicExpand={id => {
+                        this.handleSubtopicExpand(id, 0);
+                      }}
+                      onGoBack={this.handleOnGoBack}
+                      resourceToLinkProps={resourceToLinkProps}
+                    />
+                  )}
+                {currentlyExpandedSubTopics.map((subTopic, index) => (
                   <SubtopicLinkList
                     classes={classes}
-                    className={classes('section', subTopicModifiers).className}
+                    className={
+                      classes('section', ['sub-topic', 'no-border']).className
+                    }
                     closeMenu={closeMenu}
-                    topic={expandedTopic}
+                    topic={subTopic}
                     messages={subTopicLinkListMessages}
-                    goToTitle={messages.goTo}
                     toTopic={toTopic}
                     expandedSubtopicId={
-                      currentlyExpandedSubTopics[0] &&
-                      currentlyExpandedSubTopics[0].id
+                      currentlyExpandedSubTopics[index + 1]
+                        ? currentlyExpandedSubTopics[index + 1].id
+                        : 'no way'
                     }
                     onSubtopicExpand={id => {
-                      this.handleSubtopicExpand(id, 0);
+                      this.handleSubtopicExpand(id, index + 1);
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
                   />
-                )}
-              {currentlyExpandedSubTopics.map((subTopic, index) => (
-                <SubtopicLinkList
-                  classes={classes}
-                  className={
-                    classes('section', ['sub-topic', 'no-border']).className
-                  }
-                  closeMenu={closeMenu}
-                  topic={subTopic}
-                  messages={subTopicLinkListMessages}
-                  toTopic={toTopic}
-                  expandedSubtopicId={
-                    currentlyExpandedSubTopics[index + 1]
-                      ? currentlyExpandedSubTopics[index + 1].id
-                      : 'no way'
-                  }
-                  onSubtopicExpand={id => {
-                    this.handleSubtopicExpand(id, index + 1);
-                  }}
-                  onGoBack={this.handleOnGoBack}
-                  resourceToLinkProps={resourceToLinkProps}
-                />
-              ))}
-              {!disableMain &&
-                competenceGoals && (
-                  <button
-                    {...classes('competence-open-button')}
-                    onClick={() =>
-                      this.setState({
-                        competenceGoalsOpen: true,
-                      })
-                    }>
-                    {messages.compentenceGoalsNarrowOpenButton}
-                  </button>
-                )}
-            </div>
-          )}
+                ))}
+                {!disableMain &&
+                  competenceGoals && (
+                    <button
+                      {...classes('competence-open-button')}
+                      onClick={() =>
+                        this.setState({
+                          competenceGoalsOpen: true,
+                        })
+                      }>
+                      {messages.compentenceGoalsNarrowOpenButton}
+                    </button>
+                  )}
+              </div>
+            )}
+          </div>
         </div>
       </nav>
     );

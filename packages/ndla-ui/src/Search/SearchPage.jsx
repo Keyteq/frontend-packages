@@ -33,6 +33,7 @@ export default class SearchPage extends Component {
         this.setState({
           filterExpanded: true,
         });
+        console.log('no scroll!');
         noScroll(true);
       },
       onDeactivate: () => {
@@ -41,6 +42,7 @@ export default class SearchPage extends Component {
             filterExpanded: false,
           });
         }
+        console.log('scroll!');
         noScroll(false);
       },
       clickOutsideDeactivates: true,
@@ -106,21 +108,21 @@ export default class SearchPage extends Component {
         </div>
         {author}
         <div {...classes('filter-result-wrapper')}>
+          <button
+            onClick={() => {
+              this.handleToggleFilter(false);
+            }}
+            {...classes('filter-close-button', filterModifiers)}
+            ref={ref => {
+              this.filterCloseButton = ref;
+            }}>
+            <Back /> <span>{messages.narrowScreenFilterHeading}</span>
+          </button>
           <aside
             {...classes('filter-wrapper', filterModifiers)}
             ref={ref => {
               this.filterContainerRef = ref;
             }}>
-            <button
-              onClick={() => {
-                this.handleToggleFilter(false);
-              }}
-              {...classes('filter-close-button')}
-              ref={ref => {
-                this.filterCloseButton = ref;
-              }}>
-              <Back /> <span>{messages.narrowScreenFilterHeading}</span>
-            </button>
             <h1 {...classes('filter-heading')}>{messages.filterHeading}</h1>
             <div {...classes('filters')}>{filters}</div>
           </aside>
