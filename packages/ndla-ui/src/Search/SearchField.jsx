@@ -76,6 +76,10 @@ class SearchField extends Component {
     this.handleOnFilterRemove = this.handleOnFilterRemove.bind(this);
   }
 
+  componentDidRecieveProps() {
+    this.inputRef.focus();
+  }
+
   handleOnFilterRemove(value, filterName) {
     this.props.onFilterRemove(value, filterName);
     this.inputRef.focus();
@@ -92,6 +96,7 @@ class SearchField extends Component {
       allResultUrl,
       onSearch,
       resourceToLinkProps,
+      searchIsOverlay,
     } = this.props;
 
     const modifiers = [];
@@ -116,6 +121,10 @@ class SearchField extends Component {
 
     if (filters && filters.length > 0) {
       modifiers.push('has-filter');
+    }
+
+    if (searchIsOverlay) {
+      modifiers.push('search-is-overlay');
     }
 
     return (
@@ -169,6 +178,7 @@ SearchField.propTypes = {
     }),
   ),
   messages: messagesShape,
+  searchIsOverlay: PropTypes.bool,
   searchResult: PropTypes.arrayOf(ContentTypeResultShape),
   allResultUrl: PropTypes.string,
   resourceToLinkProps: PropTypes.func,
