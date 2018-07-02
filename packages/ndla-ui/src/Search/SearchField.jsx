@@ -141,6 +141,7 @@ class SearchField extends Component {
           id="search"
           name="search"
           placeholder={placeholder}
+          aria-label={placeholder}
           value={value}
           onChange={onChange}
         />

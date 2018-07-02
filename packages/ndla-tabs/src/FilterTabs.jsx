@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import BEMHelper from 'react-bem-helper';
 import PropTypes from 'prop-types';
 import { ArrowDropDown } from 'ndla-icons/common';
+import debounce from 'lodash/debounce';
+import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 
 const classes = BEMHelper('c-tabs');
 
@@ -10,6 +12,14 @@ const rightKeys = ['ArrowRight', 'Right', 'ArrowDown', 'Down'];
 const tabKeys = ['Tab'];
 const escKeys = ['Escape'];
 
+const isWideScreen = () => {
+  const currentBreakpoint = getCurrentBreakpoint();
+  return (
+    currentBreakpoint === breakpoints.mobile ||
+    currentBreakpoint === breakpoints.tablet ||
+    currentBreakpoint === 'none'
+  );
+}
 class FilterTabs extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +28,7 @@ class FilterTabs extends Component {
       focusOnSelected: false,
     };
     this.checkTabSizes = this.checkTabSizes.bind(this);
+    this.checkTabSizesDebounce = debounce(() => this.checkTabSizes(), 50);
     this.liRefs = {};
     this.tabWidths = null;
     this.dropdownTabWidth = null;
@@ -27,7 +38,7 @@ class FilterTabs extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.checkTabSizes);
+    window.addEventListener('resize', this.checkTabSizesDebounce);
     this.updateTabSizes();
     this.checkTabSizes();
   }
@@ -50,11 +61,11 @@ class FilterTabs extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.checkTabSizes);
+    window.removeEventListener('resize', this.checkTabSizesDebounce);
   }
 
   updateTabSizes() {
-    if (!this.tabWidths) {
+    if (!this.tabWidths && isWideScreen()) {
       // Get all tabs widths
       this.tabWidths = [];
       let widestNode = 0;

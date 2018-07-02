@@ -19,6 +19,8 @@ export {
   default as Article,
 } from './Article';
 
+export { default as AuthorInfo } from './AuthorInfo';
+
 export {
   FrontpageHeader,
   FrontpageSubjectsWrapper,
@@ -73,10 +75,10 @@ export {
   SearchField,
   SearchPage,
   SearchResult,
+  SearchResultAuthor,
   SearchResultList,
   SearchFilter,
   SearchPopoverFilter,
-  SearchResultAuthor,
   SearchToggleFilter,
 } from './Search';
 export {
