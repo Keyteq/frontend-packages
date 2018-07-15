@@ -2,34 +2,6 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Core, Additional } from 'ndla-icons/common';
 
-/*
-export const SubjectMaterialBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.SUBJECT_MATERIAL} />
-);
-export const TasksAndActivitiesBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.TASKS_AND_ACTIVITIES} />
-);
-export const AssessmentResourcesBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.ASSESSMENT_RESOURCES} />
-);
-export const SubjectBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.SUBJECT} />
-);
-export const ExternalLearningResourcesBadge = props => (
-  <ContentTypeBadge
-    {...props}
-    type={contentTypes.EXTERNAL_LEARNING_RESOURCES}
-  />
-);
-export const SourceMaterialBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.SOURCE_MATERIAL} />
-);
-
-export const LearningPathBadge = props => (
-  <ContentTypeBadge {...props} type={contentTypes.LEARNING_PATH} />
-);
-*/
-
 import {
   SearchPage,
   SearchResult,
