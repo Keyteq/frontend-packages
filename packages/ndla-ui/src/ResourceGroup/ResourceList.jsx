@@ -53,18 +53,16 @@ const Resource = ({
         <div>
           {resource.additional && (
             <Tooltip
-              id="resource-additional-tooltip"
               tooltip={contentTypeDescription}
-              align="right">
+              align="left">
               <Additional className="c-icon--20 u-margin-left-tiny c-topic-resource__list__additional-icons" />
             </Tooltip>
           )}
           {!resource.additional &&
             showAdditionalResources && (
               <Tooltip
-                id="resource-core-tooltip"
                 tooltip={contentTypeDescription}
-                align="right">
+                align="left">
                 <Core className="c-icon--20 u-margin-left-tiny c-topic-resource__list__additional-icons" />
               </Tooltip>
             )}

@@ -91,7 +91,6 @@ class Tooltip extends Component {
         <Fade in={this.state.showtooltip}>
           <span
             role="tooltip"
-            id={this.props.id}
             {...classes('tooltip')}
             style={{ transform }}>
             {this.props.tooltip}
@@ -100,7 +99,7 @@ class Tooltip extends Component {
         <span
           role="button"
           tabIndex={0}
-          aria-describedby={this.props.id}
+          aria-label={this.props.tooltip}
           ref={r => {
             this.contentRef = r;
           }}
@@ -118,7 +117,6 @@ class Tooltip extends Component {
 }
 
 Tooltip.propTypes = {
-  id: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   tooltip: PropTypes.string.isRequired,
   delay: PropTypes.number,

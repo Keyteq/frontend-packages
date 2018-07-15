@@ -62,7 +62,7 @@ export default class ClickToggle extends React.Component {
   }
 
   handleFocustrap(isActive) {
-    this.focusTrap = createFocusTrap(this.containerRef, {
+    this.focusTrap = createFocusTrap(this.props.disablePortal ? this.containerRef : document.querySelectorAll(`[data-dialog-id='${this.props.id}']`)[0], {
       onActivate: () => {
         if (!this.props.noScrollDisabled) {
           noScroll(true);
@@ -119,6 +119,7 @@ export default class ClickToggle extends React.Component {
       containerClass: Component,
       renderAsLink,
       renderAsLightButton,
+      stripped,
       disablePortal,
       dialogModifier,
       isOpen,
@@ -131,6 +132,7 @@ export default class ClickToggle extends React.Component {
     return (
       <Component {...rest}>
         <Button
+          stripped={stripped}
           link={renderAsLink}
           lighter={renderAsLightButton}
           className={`${showDialog ? 'active ' : ''}${buttonClassName}`}
@@ -147,7 +149,7 @@ export default class ClickToggle extends React.Component {
               labelledby={labelledby}
               hidden={!showDialog}
               onClose={this.handleClick}
-              disablePortal
+              disablePortal={disablePortal}
               messages={{ close: openTitle || 'lukk' }}
               modifier={
                 showDialog ? ['active', dialogModifier] : dialogModifier
@@ -209,6 +211,7 @@ ClickToggle.propTypes = {
   disablePortal: PropTypes.bool,
   renderAsLink: PropTypes.bool,
   renderAsLightButton: PropTypes.bool,
+  stripped: PropTypes.bool,
   dialogModifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   alwaysRenderChildren: PropTypes.bool,
   useDialog: (props, propName, componentName) => {
@@ -230,9 +233,11 @@ ClickToggle.defaultProps = {
   containerClass: 'div',
   renderAsLink: false,
   renderAsLightButton: false,
+  stripped: false,
   isOpen: null,
   onToggle: null,
   useDialog: false,
   id: undefined,
   alwaysRenderChildren: false,
+  disablePortal: true,
 };

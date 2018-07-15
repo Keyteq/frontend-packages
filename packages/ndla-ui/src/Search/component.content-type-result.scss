@@ -1,19 +1,50 @@
 .c-content-type-result {
   padding-bottom: $spacing--medium;
 
-  h1 {
-    margin: 0;
-    @include font-size(18px, 30px);
-  }
-
   header {
     margin-bottom: $spacing--small;
+    display: flex;
+    align-items: center;
+    > div {
+      margin-right: $spacing--small;
+    }
+    h1 {
+      margin: 0;
+      text-transform: uppercase;
+      @include font-size(14px, 16px);
+    }
   }
 
   &__no-hit {
     color: $text-light-color;
     margin: 0;
     font-style: italic;
+  }
+
+  &--subject-material {
+    a:hover, a:focus {
+      background: $subject-material-light;
+    }
+  }
+  &--external-learning-resource {
+    a:hover, a:focus {
+      background: $external-learning-resource-light;
+    }
+  }
+  &--tasks-and-activities {
+    a:hover, a:focus {
+      background: $tasks-and-activities-light;
+    }
+  }
+  &--assessment-resource {
+    a:hover, a:focus {
+      background: $assessment-resource-light;
+    }
+  }
+  &--learning-path {
+    a:hover, a:focus {
+      background: $learning-path-light;
+    }
   }
 
   ul {
@@ -23,7 +54,9 @@
   }
 
   li {
+    display: flex;
     margin-bottom: $spacing--small;
+    align-items: center;
     @include font-size(18px, 23px);
 
     &:last-child {
@@ -32,6 +65,11 @@
 
     a {
       box-shadow: none;
+      padding-right: $spacing--small;
+      flex-grow: 1;
+    }
+    .c-icon {
+      transform: translateY(-2px);
     }
   }
 

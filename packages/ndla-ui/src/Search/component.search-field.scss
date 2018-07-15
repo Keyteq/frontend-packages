@@ -1,9 +1,84 @@
+$overlay-height-mobile: 100px;
+
 .c-search-field {
   position: relative;
   display: flex;
   align-items: center;
   text-align: left;
   flex-flow: row-reverse;
+  justify-content: center;
+
+  &--search-is-overlay {
+    @include mq(desktop) {
+      max-width: calc(100vw - 140px);
+      margin-left: auto;
+      margin-right: auto;
+      + .c-search-overlay__close-button {
+        position: fixed;
+        top: 58px;
+      }
+    }
+    @include mq($from: desktop, $until: wide) {
+      + .c-search-overlay__close-button {
+        right: $spacing--small;
+      }
+    }
+    @include mq($from: wide) {
+      + .c-search-overlay__close-button {
+        right: $spacing--large;
+      }
+    }
+    @include mq($until: desktop) {
+      flex-flow: row;
+      .c-search-field__input {
+        padding-left: $spacing;
+        padding-right: $spacing--small;
+        margin-left: $spacing;
+        margin-right: 0;
+        border-right: 0;
+        border-left: 1px solid $brand-grey--light;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        + .c-search-field__filters {
+          display: none;
+        }
+        &:focus {
+          border: 1px solid $brand-color;
+          border-right: 0;
+          & + .c-search-field__filters {
+            & + .c-search-field__button {
+              border: 1px solid $brand-color;
+              border-left: 0;
+            }
+          }
+        }
+      }
+      .c-search-field__filters {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        margin-right: 0;
+      }
+      .c-search-field__button {
+        position: static;
+        margin-right: $spacing;
+        background: #fff;
+        height: 48px;
+        border: 1px solid $brand-grey--light;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-left: 0;
+        padding-right: $spacing;
+      }
+      &.c-search-field--has-search-result {
+        .c-search-field__input {
+          border-bottom-left-radius: 4px;
+        }
+      }
+    }
+  }
 
   &--has-search-result {
     .c-search-field {
@@ -89,12 +164,10 @@
 
   &__button {
     position: absolute;
-    top: 5px;
-    right: 10px;
     cursor: pointer;
     background: none;
     border: 0;
-    padding: $spacing--small/2;
+    padding: $spacing--small;
 
     @include mq(desktop) {
       padding: $spacing--small;
@@ -107,10 +180,27 @@
     }
   }
 
+  &__input-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: left;
+    flex-flow: row-reverse;
+    @include mq($until: desktop) {
+      padding: $spacing;
+      margin-right: $spacing;
+    }
+    @include mq($from: desktop, $until: wide) {
+      max-width: calc(100% - 100px);
+    }
+  }
+
   &__search-result {
     position: absolute;
     width: 100%;
     top: 58px;
+    overflow-y: auto;
+    max-height: calc(100vh - 120px);
     background: $white;
     border: 1px solid $brand-grey--light;
     border-top: 0;
@@ -119,6 +209,19 @@
     padding: $spacing--medium $spacing--large 0 $spacing--large;
     animation: expand 0.2s;
     transform-origin: top;
+    @include mq($until: desktop) {
+      top: $overlay-height-mobile;
+      width: 100%;
+      height: calc(100vh - 100px);
+      max-height: calc(100vh - 100px);
+      padding: $spacing $spacing--medium;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    @include mq($from: desktop, $until: wide) {
+      max-width: calc(100% - 100px);
+    }
   }
 
   &__search-result-heading {
@@ -130,11 +233,15 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $brand-color--light;
-    margin: 0 $spacing--medium;
+    margin: 0;
+    padding-bottom: $spacing;
 
     .c-content-type-result {
-      padding-right: $spacing--large;
-      flex: 0 0 33.3333333%;
+      flex: 0 0 30%;
+    }
+    @include mq($until: desktop) {
+      flex-direction: column;
+      padding-bottom: $spacing--small;
     }
   }
 

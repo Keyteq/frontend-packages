@@ -54,7 +54,6 @@ const TopicIntroduction = ({
           </span>
           {additional && (
             <Tooltip
-              id="topic-additional-tooltip"
               tooltip={messages.tooltipAdditionalTopic}
               align="left">
               <Additional className="c-icon--20 u-margin-left-tiny" />
@@ -63,7 +62,6 @@ const TopicIntroduction = ({
           {!additional &&
             showAdditionalCores && (
               <Tooltip
-                id="topic-additional-tooltip"
                 tooltip={messages.tooltipCoreTopic}
                 align="left">
                 <Core className="c-icon--20 u-margin-left-tiny" />

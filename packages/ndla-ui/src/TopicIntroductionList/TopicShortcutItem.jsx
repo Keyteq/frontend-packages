@@ -13,10 +13,9 @@ const classes = new BEMHelper({
 });
 
 const ShortcutItem = ({
-  shortcut: { id, tooltip, contentType, url, count },
+  shortcut: { tooltip, contentType, url, count },
 }) => (
   <Tooltip
-    id={`shortcut-tooltip-${id}`}
     tooltip={tooltip}
     delay={100}
     align="bottom">

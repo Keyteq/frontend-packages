@@ -46,7 +46,7 @@ const ResourcesTopicTitle = ({
               <Tooltip
                 id="resource-title-tooltip"
                 tooltip={messages.dialogTooltip}
-                align="right">
+                align="top">
                 <button
                   {...classes('topic-title-icon')}
                   aria-labelledby={explainationIconLabelledBy}
@@ -63,7 +63,6 @@ const ResourcesTopicTitle = ({
                 labelledby={explainationIconLabelledBy}
                 hidden={!showAdditionalDialog}
                 onClose={toggleAdditionalDialog}
-                disablePortal
                 modifier={showAdditionalDialog ? 'active' : ''}>
                 <Fragment>
                   <h1 id={explainationIconLabelledBy}>
