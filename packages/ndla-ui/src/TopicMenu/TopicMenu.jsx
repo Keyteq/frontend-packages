@@ -263,13 +263,18 @@ export default class TopicMenu extends Component {
                           onChange={onFilterClick}
                         />
                       )}
-                    {!competenceGoalsOpen &&
+                    {!competenceGoalsOpen && (
                       <div {...classes('back-button-slide-wrapper')}>
-                        <button {...classes('back-button-slides', `slide-${currentlyExpandedSubTopics.length}`)} onClick={this.handleOnGoBack}>
+                        <button
+                          {...classes(
+                            'back-button-slides',
+                            `slide-${currentlyExpandedSubTopics.length}`,
+                          )}
+                          onClick={this.handleOnGoBack}>
                           <Back /> <span>{messages.back}</span>
                         </button>
                       </div>
-                    }
+                    )}
                   </div>
                 )}
               </Fragment>
@@ -339,7 +344,9 @@ export default class TopicMenu extends Component {
                   !disableSubTopic && (
                     <SubtopicLinkList
                       classes={classes}
-                      className={classes('section', subTopicModifiers).className}
+                      className={
+                        classes('section', subTopicModifiers).className
+                      }
                       closeMenu={closeMenu}
                       topic={expandedTopic}
                       messages={subTopicLinkListMessages}
@@ -358,6 +365,7 @@ export default class TopicMenu extends Component {
                   )}
                 {currentlyExpandedSubTopics.map((subTopic, index) => (
                   <SubtopicLinkList
+                    key={subTopic.id}
                     classes={classes}
                     className={
                       classes('section', ['sub-topic', 'no-border']).className

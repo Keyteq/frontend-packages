@@ -24,7 +24,7 @@ export default class ClickToggle extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
     this.focusActive = null;
-    this.containerRef = null;
+    this.containerRef = React.createRef();
     this.focusTrap = null;
   }
 
@@ -38,18 +38,20 @@ export default class ClickToggle extends React.Component {
     if (this.focusTrap === null) {
       this.handleFocustrap();
     }
-    const useProps = nextProps.isOpen !== null;
-    if (
-      ((useProps && nextProps.isOpen !== this.props.isOpen) ||
-        this.state.isOpen) &&
-      !this.focusActive
-    ) {
-      this.focusTrap.activate();
-    } else if (
-      nextProps.isOpen !== this.props.isOpen ||
-      (!this.state.isOpen && nextProps.isOpen === null && this.focusActive)
-    ) {
-      this.focusTrap.deactivate();
+    if (this.focusTrap !== null) {
+      const useProps = nextProps.isOpen !== null;
+      if (
+        ((useProps && nextProps.isOpen !== this.props.isOpen) ||
+          this.state.isOpen) &&
+        !this.focusActive
+      ) {
+        this.focusTrap.activate();
+      } else if (
+        nextProps.isOpen !== this.props.isOpen ||
+        (!this.state.isOpen && nextProps.isOpen === null && this.focusActive)
+      ) {
+        this.focusTrap.deactivate();
+      }
     }
   }
 
@@ -62,32 +64,37 @@ export default class ClickToggle extends React.Component {
   }
 
   handleFocustrap(isActive) {
-    this.focusTrap = createFocusTrap(this.props.disablePortal ? this.containerRef : document.querySelectorAll(`[data-dialog-id='${this.props.id}']`)[0], {
-      onActivate: () => {
-        if (!this.props.noScrollDisabled) {
-          noScroll(true);
-        }
-        this.focusActive = true;
-      },
-      onDeactivate: () => {
-        if (!this.props.noScrollDisabled) {
-          noScroll(false);
-        }
+    const target =
+      typeof this.props.children === 'function'
+        ? this.containerRef.current
+        : document.querySelector(`[data-dialog-id='${this.props.id}']`);
+    if (target) {
+      this.focusTrap = createFocusTrap(target, {
+        onActivate: () => {
+          if (!this.props.noScrollDisabled) {
+            noScroll(true, target);
+          }
+          this.focusActive = true;
+        },
+        onDeactivate: () => {
+          if (!this.props.noScrollDisabled) {
+            noScroll(false, target);
+          }
 
-        if (this.props.isOpen) {
-          this.props.onToggle(false);
-        } else if (this.state.isOpen) {
-          this.setState({
-            isOpen: false,
-          });
-        }
-        this.focusActive = false;
-      },
-      clickOutsideDeactivates: true,
-    });
-
-    if (isActive) {
-      this.focusTrap.activate();
+          if (this.props.isOpen) {
+            this.props.onToggle(false);
+          } else if (this.state.isOpen) {
+            this.setState({
+              isOpen: false,
+            });
+          }
+          this.focusActive = false;
+        },
+        clickOutsideDeactivates: true,
+      });
+      if (isActive) {
+        this.focusTrap.activate();
+      }
     }
   }
 
@@ -120,15 +127,14 @@ export default class ClickToggle extends React.Component {
       renderAsLink,
       renderAsLightButton,
       stripped,
-      disablePortal,
       dialogModifier,
       isOpen,
-      useDialog,
       alwaysRenderChildren,
       children,
       ...rest
     } = this.props;
     const showDialog = isOpen === null ? this.state.isOpen : isOpen;
+    const useDialog = typeof children !== 'function';
     return (
       <Component {...rest}>
         <Button
@@ -139,17 +145,13 @@ export default class ClickToggle extends React.Component {
           onClick={this.handleClick}>
           {title}
         </Button>
-        <div
-          ref={ref => {
-            this.containerRef = ref;
-          }}>
+        <div ref={this.containerRef}>
           {useDialog && (
             <Dialog
               id={id}
               labelledby={labelledby}
               hidden={!showDialog}
               onClose={this.handleClick}
-              disablePortal={disablePortal}
               messages={{ close: openTitle || 'lukk' }}
               modifier={
                 showDialog ? ['active', dialogModifier] : dialogModifier
@@ -208,25 +210,11 @@ ClickToggle.propTypes = {
     }
     return null;
   },
-  disablePortal: PropTypes.bool,
   renderAsLink: PropTypes.bool,
   renderAsLightButton: PropTypes.bool,
   stripped: PropTypes.bool,
   dialogModifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   alwaysRenderChildren: PropTypes.bool,
-  useDialog: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'boolean') {
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. useDialog prop type must be a boolean.`,
-      );
-    }
-    if (typeof props.children === 'function' && props[propName]) {
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. When children prop is a function, useDialog prop can not be true.`,
-      );
-    }
-    return null;
-  },
 };
 
 ClickToggle.defaultProps = {
@@ -236,8 +224,6 @@ ClickToggle.defaultProps = {
   stripped: false,
   isOpen: null,
   onToggle: null,
-  useDialog: false,
   id: undefined,
   alwaysRenderChildren: false,
-  disablePortal: true,
 };

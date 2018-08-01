@@ -118,7 +118,7 @@ class SearchField extends Component {
       modifiers.push('has-filter');
     }
     return (
-      <form {...classes('', modifiers)} onSubmit={onSearch}>
+      <form action="/search/" {...classes('', modifiers)} onSubmit={onSearch}>
         <div {...classes('input-wrapper')}>
           <input
             ref={ref => {

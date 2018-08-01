@@ -72,23 +72,16 @@ class Resources extends Component {
     super(props);
     this.state = {
       showAdditionalResources: false,
-      showAdditionalDialog: false,
     };
     this.toggleAdditionalResources = this.toggleAdditionalResources.bind(this);
-    this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
   }
   toggleAdditionalResources() {
     this.setState({
       showAdditionalResources: !this.state.showAdditionalResources,
     });
   }
-  toggleAdditionalDialog() {
-    this.setState({
-      showAdditionalDialog: !this.state.showAdditionalDialog,
-    });
-  }
   render() {
-    const { showAdditionalResources, showAdditionalDialog } = this.state;
+    const { showAdditionalResources } = this.state;
     const hasAdditionalResources = resourceGroups.some(group =>
       group.resources.some(resource => resource.additional),
     );
@@ -112,8 +105,6 @@ class Resources extends Component {
             toggleAdditionalResources={this.toggleAdditionalResources}
             showAdditionalResources={showAdditionalResources}
             hasAdditionalResources={hasAdditionalResources}
-            toggleAdditionalDialog={this.toggleAdditionalDialog}
-            showAdditionalDialog={showAdditionalDialog}
           />
         }>
         {resourceGroups.map(group => (

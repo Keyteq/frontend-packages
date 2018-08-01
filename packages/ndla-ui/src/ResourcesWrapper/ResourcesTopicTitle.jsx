@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 
 import { HelpCircle } from 'ndla-icons/common';
 import { uuid } from 'ndla-util';
+import { ClickToggle, Tooltip } from 'ndla-ui';
 
 import { classes } from './ResourcesWrapper';
 
 import ResourceToggleFilter from '../ResourceGroup/ResourceToggleFilter';
-
-import Dialog from '../Dialog';
-import Tooltip from '../Tooltip';
 
 const ResourcesTopicTitle = ({
   title,
@@ -17,7 +15,6 @@ const ResourcesTopicTitle = ({
   hasAdditionalResources,
   toggleAdditionalResources,
   showAdditionalResources,
-  showAdditionalDialog,
   toggleAdditionalDialog,
   messages,
 }) => {
@@ -42,36 +39,34 @@ const ResourcesTopicTitle = ({
             onClick={toggleAdditionalResources}
           />
           {messages.dialogTooltip && (
-            <Fragment>
-              <Tooltip
-                id="resource-title-tooltip"
-                tooltip={messages.dialogTooltip}
-                align="top">
-                <button
-                  {...classes('topic-title-icon')}
-                  aria-labelledby={explainationIconLabelledBy}
-                  onClick={toggleAdditionalDialog}>
-                  <HelpCircle
-                    className={`c-icon--22 u-margin-left-tiny ${
-                      classes('icon').className
-                    }`}
-                  />
-                </button>
-              </Tooltip>
-              <Dialog
-                id="content-explaination-dialog"
-                labelledby={explainationIconLabelledBy}
-                hidden={!showAdditionalDialog}
-                onClose={toggleAdditionalDialog}
-                modifier={showAdditionalDialog ? 'active' : ''}>
-                <Fragment>
-                  <h1 id={explainationIconLabelledBy}>
-                    {messages.dialogHeading}
-                  </h1>
-                  {messages.dialogTexts.map(text => <p key={uuid()}>{text}</p>)}
-                </Fragment>
-              </Dialog>
-            </Fragment>
+            <ClickToggle
+              id="resource-title-tooltip"
+              stripped
+              labelledBy={explainationIconLabelledBy}
+              title={
+                <Tooltip
+                  id="resource-title-tooltip"
+                  tooltip={messages.dialogTooltip}
+                  align="top">
+                  <button
+                    {...classes('topic-title-icon')}
+                    aria-labelledby={explainationIconLabelledBy}>
+                    <HelpCircle
+                      className={`c-icon--22 u-margin-left-tiny ${
+                        classes('icon').className
+                      }`}
+                    />
+                  </button>
+                </Tooltip>
+              }
+              openTitle={messages.closeLabel}>
+              <Fragment>
+                <h1 id={explainationIconLabelledBy}>
+                  {messages.dialogHeading}
+                </h1>
+                {messages.dialogTexts.map(text => <p key={uuid()}>{text}</p>)}
+              </Fragment>
+            </ClickToggle>
           )}
         </div>
       )}
@@ -84,28 +79,6 @@ ResourcesTopicTitle.propTypes = {
   title: PropTypes.string, // Should be required
   toggleAdditionalResources: PropTypes.func.isRequired,
   hasAdditionalResources: PropTypes.bool.isRequired,
-  toggleAdditionalDialog: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'function' && props.hasAdditionalResources) {
-      console.warn(
-        `<${componentName} /> !toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
-      );
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`,
-      );
-    }
-    return null;
-  },
-  showAdditionalDialog: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'boolean' && props.hasAdditionalResources) {
-      console.warn(
-        `<${componentName} /> ?toggleAdditionalDialog prop must be a function if props[hasAdditionalResources] === true`,
-      );
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`,
-      );
-    }
-    return null;
-  },
   explainationIconLabelledBy: (props, propName, componentName) => {
     if (typeof props[propName] !== 'string' && props.hasAdditionalResources) {
       console.warn(
@@ -125,10 +98,6 @@ ResourcesTopicTitle.propTypes = {
     dialogTexts: PropTypes.arrayOf(PropTypes.string), // should be required
     additionalFilterLabel: PropTypes.string.isRequired,
   }).isRequired,
-};
-
-ResourcesTopicTitle.defaultProps = {
-  showAdditionalDialog: false,
 };
 
 export default ResourcesTopicTitle;

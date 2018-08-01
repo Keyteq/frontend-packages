@@ -104,9 +104,12 @@ class MastheadWithTopicMenu extends Component {
                     value: event.currentTarget.value,
                   });
                 }}
-                onSearch={(e) => {
+                onSearch={e => {
                   /* eslint-disable no-console */
-                  console.log('search for:', e.target.getElementsByTagName('input')[0].value);
+                  console.log(
+                    'search for:',
+                    e.target.getElementsByTagName('input')[0].value,
+                  );
                   e.preventDefault();
                 }}
                 filters={[
@@ -138,6 +141,7 @@ class MastheadWithTopicMenu extends Component {
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
           <ClickToggle
+            id="mastheadSearchId"
             isOpen={this.state.menuIsOpen}
             onToggle={isOpen => {
               this.setState({
@@ -152,6 +156,7 @@ class MastheadWithTopicMenu extends Component {
             buttonClassName="c-btn c-button--outline c-topic-menu-toggle-button">
             {onClose => (
               <TopicMenu
+                id="mastheadSearchId"
                 close={onClose}
                 isBeta={this.props.beta}
                 subjectTitle="Mediefag"

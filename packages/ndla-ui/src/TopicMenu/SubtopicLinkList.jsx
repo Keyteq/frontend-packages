@@ -168,18 +168,18 @@ class SubtopicLinkList extends Component {
                 messages.coreAdditionalExplainationHeading && (
                   <ClickToggle
                     noScrollDisabled
-                    useDialog
                     id={coreAdditionalLabelledBy}
                     stripped
-                    disablePortal={false}
-                    title={(<Tooltip tooltip={messages.additionalFilterTooltipLabel}>
-                      <HelpCircle
-                        id="helpCircleIcon"
-                        className={`c-icon--22 u-margin-left-tiny ${
-                          classes('icon').className
-                        }`}
-                      />
-                    </Tooltip>)}
+                    title={
+                      <Tooltip tooltip={messages.additionalFilterTooltipLabel}>
+                        <HelpCircle
+                          id="helpCircleIcon"
+                          className={`c-icon--22 u-margin-left-tiny ${
+                            classes('icon').className
+                          }`}
+                        />
+                      </Tooltip>
+                    }
                     openTitle={messages.closeLabel}>
                     <Fragment>
                       <h1 id={coreAdditionalLabelledBy}>

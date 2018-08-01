@@ -89,10 +89,7 @@ class Tooltip extends Component {
           this.props.tooltipContainerClass
         }`}>
         <Fade in={this.state.showtooltip}>
-          <span
-            role="tooltip"
-            {...classes('tooltip')}
-            style={{ transform }}>
+          <span role="tooltip" {...classes('tooltip')} style={{ transform }}>
             {this.props.tooltip}
           </span>
         </Fade>

@@ -78,11 +78,11 @@ class ContentTypeResult extends Component {
                     }
                   }}>
                   {item.name}
+                  {renderAdditionalIcon(
+                    item.additional,
+                    messages.additionalTooltipLabel,
+                  )}
                 </SafeLink>
-                {renderAdditionalIcon(
-                  item.additional,
-                  messages.additionalTooltipLabel,
-                )}
               </li>
             );
           })}

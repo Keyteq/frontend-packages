@@ -9,7 +9,7 @@
 
 /* 1. */
 
-$padding-left-narrow: 47px;
+$padding-left-narrow: 32px;
 $link-height: 52px;
 $navigation-row-width: 980px / 3;
 
@@ -318,19 +318,17 @@ $navigation-row-width: 980px / 3;
   .c-content-type-result {
     li {
       margin: 0;
+      display: flex;
+      align-items: center;
       > a {
         margin-left: -$spacing--small * 3;
         padding: $spacing--small / 2 0 $spacing--small / 2 $spacing--small * 3;
         flex-grow: 1;
-        max-width: $navigation-row-width;
+        max-width: $navigation-row-width * 1.6;
       }
       > button {
         padding: $spacing--small 0;
       }
-    }
-    &__additional-icon {
-      position: absolute;
-      right: 0;
     }
     &--subject-material {
       a:hover, a:focus {
@@ -426,7 +424,6 @@ $navigation-row-width: 980px / 3;
     @include mq(desktop) {
       display: none;
     }
-
     display: flex;
     align-items: center;
     border: 0;
@@ -435,7 +432,9 @@ $navigation-row-width: 980px / 3;
     background: none;
     @include font-size(16px, 20px);
     margin-bottom: $spacing;
-
+    @include mq($from: mobileWide) {
+      padding-left: $spacing--small;
+    }
     .c-icon {
       width: 24px;
       height: 24px;
@@ -623,6 +622,10 @@ $navigation-row-width: 980px / 3;
   padding: $spacing--small;
   cursor: pointer;
 
+  @include mq($until: mobileWide) {
+    padding-left: 0;
+  }
+
   .c-icon {
     height: 24px;
     width: 24px;
@@ -800,7 +803,7 @@ $navigation-row-width: 980px / 3;
   align-items: center;
   justify-content: space-between;
   height: $masthead-height;
-  padding: 0 $spacing--small;
+  padding: 0 $spacing;
   position: fixed;
   top: 0;
   left: 0;

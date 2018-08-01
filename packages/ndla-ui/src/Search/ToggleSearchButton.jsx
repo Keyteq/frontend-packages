@@ -21,7 +21,9 @@ export const OpenSearchButton = ({ messages, onOpen, narrow }) => {
   );
 
   return (
-    <Button onClick={onOpen} className={classes('button', narrow ? 'narrow' : '')}>
+    <Button
+      onClick={onOpen}
+      className={classes('button', narrow ? 'narrow' : '')}>
       {buttonContent}
     </Button>
   );
@@ -47,7 +49,6 @@ const ToggleSearchButton = ({ messages, children, isOpen, onToggle }) => {
       <Search />
     </span>
   );
-
   return (
     <ClickToggle
       isOpen={isOpen}
