@@ -194,12 +194,14 @@ $overlay-height-mobile: 100px;
       margin-right: $spacing;
     }
     @include mq($from: desktop, $until: wide) {
-      max-width: calc(100% - 100px);
+      // max-width: calc(100% - 100px);
     }
   }
 
   &__search-result {
     position: absolute;
+    left: 0;
+    right: 0;
     width: 100%;
     top: 58px;
     overflow-y: auto;
@@ -226,7 +228,7 @@ $overlay-height-mobile: 100px;
       padding: $spacing;
     }
     @include mq($from: desktop, $until: wide) {
-      max-width: calc(100% - 100px);
+      // max-width: calc(100% - 100px);
     }
   }
 

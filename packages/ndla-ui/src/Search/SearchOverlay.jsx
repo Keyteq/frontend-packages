@@ -24,10 +24,10 @@ const SearchOverlay = ({ close, isOpen, children }) => (
       <div {...classes()}>
         <div {...classes('container o-wrapper')}>
           {children}
-          <button {...classes('close-button')} onClick={close}>
-            <Cross />
-          </button>
         </div>
+        <button {...classes('close-button')} onClick={close}>
+          <Cross />
+        </button>
       </div>
     </CSSTransition>
   </Fragment>

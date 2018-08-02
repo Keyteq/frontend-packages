@@ -68,7 +68,7 @@
     @include mq(tablet) {
       width: 90%;
       max-height: 85vh;
-      margin: 0 auto;
+      // margin: 0 auto;
       padding: $spacing--medium;
       max-width: 613px;
       min-width: 613px;

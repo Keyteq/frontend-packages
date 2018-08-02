@@ -90,12 +90,15 @@ $overlay-height-mobile: 100px;
   &__container {
     padding: 0;
     position: relative;
+    @include mq($from: desktop, $until: wide) {
+      max-width: 900px;
+    }
   }
 
   &__close-button {
     position: absolute;
-    top: $spacing--small;
-    right: 0;
+    // top: $spacing--small;
+    right: 1%;
     width: 36px;
     height: 36px;
     color: $brand-color--dark;
@@ -112,7 +115,11 @@ $overlay-height-mobile: 100px;
     }
 
     @include mq(wide) {
-      right: -($spacing--large + 36px);
+      right: 4%;
+    }
+
+    @include mq(ultraWide) {
+      right: 8%;
     }
 
     animation: closeButton 0.7s;
