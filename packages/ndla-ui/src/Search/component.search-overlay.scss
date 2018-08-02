@@ -97,7 +97,6 @@ $overlay-height-mobile: 100px;
 
   &__close-button {
     position: absolute;
-    // top: $spacing--small;
     right: 1%;
     width: 36px;
     height: 36px;
@@ -114,12 +113,20 @@ $overlay-height-mobile: 100px;
       height: 24px;
     }
 
+    @include mq(1024px) {
+      right: 1%;
+    }
+
+    @include mq(1100px) {
+      right: 3%;
+    }
+
     @include mq(wide) {
-      right: 4%;
+      right: 5%;
     }
 
     @include mq(ultraWide) {
-      right: 8%;
+      right: 10%;
     }
 
     animation: closeButton 0.7s;

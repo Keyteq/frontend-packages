@@ -43,12 +43,6 @@ $overlay-height-mobile: 100px;
         &:focus {
           border: 1px solid $brand-color;
           border-right: 0;
-          & + .c-search-field__filters {
-            & + .c-search-field__button {
-              border: 1px solid $brand-color;
-              border-left: 0;
-            }
-          }
         }
       }
       .c-search-field__filters {
@@ -56,17 +50,6 @@ $overlay-height-mobile: 100px;
         border-left: 0;
         border-right: 0;
         margin-right: 0;
-      }
-      .c-search-field__button {
-        position: static;
-        margin-right: $spacing;
-        background: #fff;
-        height: 48px;
-        border: 1px solid $brand-grey--light;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        border-left: 0;
-        padding-right: $spacing;
       }
       &.c-search-field--has-search-result {
         .c-search-field__input {
@@ -193,9 +176,6 @@ $overlay-height-mobile: 100px;
       padding: $spacing--small $spacing--small*3 $spacing--small $spacing;
       margin-right: $spacing;
     }
-    @include mq($from: desktop, $until: wide) {
-      // max-width: calc(100% - 100px);
-    }
   }
 
   &__search-result {
@@ -227,9 +207,6 @@ $overlay-height-mobile: 100px;
     @include mq($until: mobileWide) {
       padding: $spacing;
     }
-    @include mq($from: desktop, $until: wide) {
-      // max-width: calc(100% - 100px);
-    }
   }
 
   &__search-result-heading {
@@ -245,7 +222,9 @@ $overlay-height-mobile: 100px;
     padding-bottom: $spacing;
 
     .c-content-type-result {
-      flex: 0 0 30%;
+      @include mq(desktop) {
+        flex: 0 0 30%;
+      }
     }
     @include mq($until: desktop) {
       flex-direction: column;
