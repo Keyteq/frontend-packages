@@ -15,7 +15,6 @@ const ResourcesTopicTitle = ({
   hasAdditionalResources,
   toggleAdditionalResources,
   showAdditionalResources,
-  toggleAdditionalDialog,
   messages,
 }) => {
   // Fix for heading while title not required when ready.
@@ -42,21 +41,19 @@ const ResourcesTopicTitle = ({
             <ClickToggle
               id="resource-title-tooltip"
               stripped
-              labelledBy={explainationIconLabelledBy}
+              labelledby={explainationIconLabelledBy}
               title={
                 <Tooltip
                   id="resource-title-tooltip"
                   tooltip={messages.dialogTooltip}
                   align="top">
-                  <button
-                    {...classes('topic-title-icon')}
-                    aria-labelledby={explainationIconLabelledBy}>
+                  <div {...classes('topic-title-icon')}>
                     <HelpCircle
                       className={`c-icon--22 u-margin-left-tiny ${
                         classes('icon').className
                       }`}
                     />
-                  </button>
+                  </div>
                 </Tooltip>
               }
               openTitle={messages.closeLabel}>

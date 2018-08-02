@@ -240,7 +240,7 @@ $navigation-row-width: 980px / 3;
 
 .c-topic-menu__list {
   padding: 0;
-  margin: 0;
+  margin: 0 0 $spacing--large;
   list-style: none;
   overflow-y: auto;
 }
@@ -297,6 +297,7 @@ $navigation-row-width: 980px / 3;
 
 .c-topic-menu__content-type-results {
   margin-top: $spacing;
+  margin-bottom: $spacing--large;
   padding-left: $spacing--small;
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
