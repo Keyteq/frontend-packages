@@ -145,7 +145,13 @@ class SearchField extends Component {
                 />
               )}
           </div>
-          <button tabIndex="-1" type="submit" style={{ display: 'none' }} />
+          <button
+            tabIndex="-1"
+            {...classes('button')}
+            type="submit"
+            value="Search">
+            <SearchIcon />
+          </button>
         </div>
         {searchResultView}
       </form>

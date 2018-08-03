@@ -29,6 +29,10 @@
     &--narrow {
       display: flex;
       margin-right: $spacing--small;
+      box-shadow: none;
+      @include mq(desktop) {
+        display: none;
+      }
     }
   }
 

@@ -127,6 +127,8 @@ export default class TopicMenu extends Component {
       resourceToLinkProps,
       hideSearch,
       competenceGoals,
+      searchPageUrl,
+      onOpenSearch,
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
@@ -192,8 +194,8 @@ export default class TopicMenu extends Component {
           <div {...classes('masthead-right')}>
             {!hideSearch && (
               <OpenSearchButton
-                onOpen={this.props.onOpenSearch}
-                searchPageUrl={this.props.searchPageUrl}
+                onOpen={onOpenSearch}
+                searchPageUrl={searchPageUrl}
                 narrow
                 messages={{
                   buttonText: messages.search,
