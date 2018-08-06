@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isIE } from 'react-device-detect';
 
 import { Fade } from '../Animation';
 
@@ -57,46 +57,55 @@ class Tooltip extends Component {
       const elementRect = this.contentRef.current.getBoundingClientRect();
       this.leftRef = elementRect.left;
       this.setState({ showtooltip: true }, () => {
-        const centeredLeft = this.leftRef + this.widthRef / 2;
-        let moveHorizontal = Math.max(
-          centeredLeft + this.state.tooltipWidth + 20 - window.innerWidth,
-          0,
-        );
-        if (moveHorizontal === 0) {
-          moveHorizontal = Math.min(
-            -(this.state.tooltipWidth - centeredLeft + 20),
+        this.currentStyles = {};
+        if (isIE) {
+          // IE is bad with transform % + px..
+          this.currentStyles.left = `-${(this.tooltipRef.current.offsetWidth -
+            this.widthRef) /
+            2}px`;
+          this.currentStyles.top = `-${this.tooltipRef.current.offsetHeight +
+            10}px`;
+        } else if (
+          this.props.align === 'top' ||
+          this.props.align === 'bottom' ||
+          (this.props.align === 'left' &&
+            this.leftRef - this.state.tooltipWidth < 20) ||
+          (this.props.align === 'right' &&
+            this.leftRef + this.widthRef + this.state.tooltipWidth >
+              window.innerWidth - 40)
+        ) {
+          const centeredLeft = this.leftRef + this.widthRef / 2;
+          let moveHorizontal = Math.max(
+            centeredLeft + this.state.tooltipWidth / 2 + 20 - window.innerWidth,
             0,
           );
-        }
-
-        this.currentStyles = {};
-        switch (this.props.align) {
-          case 'top':
-            this.currentStyles.transform = `translate3d(calc(-50% + ${this
-              .widthRef /
-              2 -
-              moveHorizontal}px), calc(-100% - 0.25rem), 0)`;
-            break;
-          case 'left':
-            this.currentStyles.transform = `translate3d(calc(-100% - 0.25rem), calc(-50% + ${this
-              .heightRef / 2}px), 0)`;
-            break;
-          case 'right':
-            this.currentStyles.transform = `translate3d(calc(${
-              this.widthRef
-            }px + 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
-            break;
-          case 'bottom':
+          if (moveHorizontal === 0) {
+            moveHorizontal = Math.min(
+              -(this.state.tooltipWidth - centeredLeft + 20),
+              0,
+            );
+          }
+          if (this.props.align === 'bottom') {
             this.currentStyles.transform = `translate3d(calc(-50% + ${this
               .widthRef /
               2 -
               moveHorizontal}px), calc(${this.heightRef}px + 0.25rem), 0)`;
-            break;
-          default:
-            break;
+          } else {
+            this.currentStyles.transform = `translate3d(calc(-50% + ${this
+              .widthRef /
+              2 -
+              moveHorizontal}px), calc(-100% - 0.25rem), 0)`;
+          }
+        } else if (this.props.align === 'left') {
+          this.currentStyles.transform = `translate3d(calc(-100% - 0.25rem), calc(-50% + ${this
+            .heightRef / 2}px), 0)`;
+        } else {
+          this.currentStyles.transform = `translate3d(calc(${
+            this.widthRef
+          }px + 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
         }
         this.setState({
-          tooltipWidth: this.tooltipRef.current.offsetWidth / 2,
+          tooltipWidth: this.tooltipRef.current.offsetWidth,
         });
       });
     }

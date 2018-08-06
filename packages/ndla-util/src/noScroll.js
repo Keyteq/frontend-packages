@@ -49,6 +49,9 @@ const noScroll = enable => {
     htmlElement.style.position = isIosDevice ? 'fixed' : 'static'; // iOS scrolling fix
     htmlElement.style.left = 0;
     htmlElement.style.right = 0;
+    if (isIosDevice) {
+      htmlElement.classList.add('scrollFix');
+    }
   } else {
     htmlElement.style.overflow = null;
     htmlElement.style.paddingRight = null;
@@ -56,6 +59,7 @@ const noScroll = enable => {
     htmlElement.style.left = 'auto';
     htmlElement.style.right = 'auto';
     if (isIosDevice) {
+      htmlElement.classList.remove('scrollFix');
       setBodyScrollTop(currentScrollPosition);
     }
   }
