@@ -102,6 +102,19 @@ $navigation-row-width: 980px / 3;
 
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+
+  // Add background to prevent scrolling glitches on phones
+  &:after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: -200px;
+    background-color: $brand-grey--lighter;
+    z-index: -1;
+  }
 }
 
 .c-topic-menu__content {
