@@ -27,7 +27,6 @@ export { default as FileDownloadOutline } from './FileDownloadOutline';
 export { default as Forward } from './Forward';
 export { default as Fullscreen } from './Fullscreen';
 export { default as Grid } from './Grid';
-export { default as H5P } from './H5P';
 export { default as HelpCircle } from './HelpCircle';
 export { default as Home } from './Home';
 export { default as Link } from './Link';
