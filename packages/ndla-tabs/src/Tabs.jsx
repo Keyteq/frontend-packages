@@ -24,6 +24,11 @@ class Tabs extends Component {
     this.state = {
       index: props.selectedIndex || 0,
     };
+    this.tabRef = React.createRef();
+  }
+
+  componentDidMount() {
+    console.log('ref', this.tabRef.current);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,7 +53,7 @@ class Tabs extends Component {
   }
 
   render() {
-    const { tabs, forceRenderTabPanel, modifier } = this.props;
+    const { tabs, forceRenderTabPanel, modifier, singleLine } = this.props;
     const { index } = this.state;
 
     return (
@@ -56,8 +61,14 @@ class Tabs extends Component {
         {...classes({ modifier })}
         onSelect={this.handleSelect}
         selectedIndex={this.state.index}
-        forceRenderTabPanel={forceRenderTabPanel}>
-        <TabList {...classes('list', modifier)}>
+        forceRenderTabPanel={forceRenderTabPanel}
+        ref={this.tabRef}>
+        <TabList
+          {...classes('list', {
+            [modifier]: modifier,
+            singleLine,
+          })}
+        >
           {tabs.map((tab, i) => (
             <Tab
               {...classes('tab', {
@@ -90,6 +101,7 @@ Tabs.propTypes = {
       disabled: PropTypes.string.bool,
     }),
   ),
+  singleLine: PropTypes.bool,
   onSelect: PropTypes.func,
   modifier: PropTypes.string,
   forceRenderTabPanel: PropTypes.bool,

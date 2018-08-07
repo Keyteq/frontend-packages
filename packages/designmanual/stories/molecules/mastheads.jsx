@@ -38,7 +38,7 @@ export const MastheadWithLogo = () => (
 const messages = {
   closeButton: 'Lukk',
   goTo: 'Gå til',
-  subjectOverview: 'Fagoversikt',
+  subjectOverview: 'Alle fag',
   search: 'Søk',
   subjectPage: 'Fagforside',
   learningResourcesHeading: 'Læringsressurser',

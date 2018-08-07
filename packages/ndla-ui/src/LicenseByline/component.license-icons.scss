@@ -15,10 +15,11 @@
 }
 
 .c-license-icons__item {
-  display: inline-block;
+  display: flex;
   padding-bottom: 5px;
   margin-bottom: 0;
   margin-right: 0.2em;
+  line-height: 1.3rem;
 }
 
 .c-license-icons__hover {
@@ -46,6 +47,7 @@
 .c-license-icons__icon {
   width: $spacing / 1.1;
   height: $spacing / 1.1;
+  min-width: 24px;
 }
 
 .c-license-icons__modelpermission {

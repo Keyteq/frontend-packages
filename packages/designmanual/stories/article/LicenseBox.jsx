@@ -6,7 +6,7 @@
  *
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'ndla-tabs';
 import { uuid } from 'ndla-util';
@@ -19,9 +19,11 @@ import {
   MediaListItemImage,
   MediaListItemMeta,
 } from 'ndla-ui';
-import { Document, Audio } from 'ndla-icons/common';
+import { FileDocumentOutline, FileDownloadOutline, AudioDocument } from 'ndla-icons/common';
 
 import { COPYRIGHTED, metaTypes } from 'ndla-licenses';
+
+import H5PExamples from '../../images/h5p-contenttype';
 
 const byncndLicenseAbbreviation = 'by-nc-nd';
 const bysaLicenseAbbreviation = 'by-sa';
@@ -35,55 +37,33 @@ const VideoContent = () => (
       </p>
     </div>
     <MediaList>
-      <MediaListItem>
-        <MediaListItemImage>
-          <a href="https://example.com">
-            <img
-              src="https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=500&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
-              width="260"
-              alt="alt"
-            />
-          </a>
-        </MediaListItemImage>
-        <MediaListItemBody
-          license={byncndLicenseAbbreviation}
-          title="Regler for bruk av videoen:"
-          resourceUrl="https://www.youtube.com/embed/f9VriNNRn0U?feature=oembed"
-          resourceType="video">
-          <MediaListItemActions>
-            <div className="c-medialist__ref">
-              <MediaListItemMeta
-                items={[
-                  {
-                    label: 'Opphavsmann',
-                    description: 'Fotograf Ola N',
-                    metaType: metaTypes.author,
-                  },
-                  {
-                    label: 'Rettighetshaver',
-                    description: 'Leverandør NTB scanpix',
-                    metaType: metaTypes.copyrightHolder,
-                  },
-                  {
-                    label: 'Korrektur',
-                    description: 'Kari N',
-                    metaType: metaTypes.contributor,
-                  },
-                ]}
-              />
-              <button className="c-button c-button--outline" type="button">
-                Kopier referanse
-              </button>
-              <button className="c-button c-button--outline" type="button">
-                Last ned
-              </button>
-              <button className="c-button c-button--outline" type="button">
-                Bygg inn
-              </button>
+      {['1', '2'].map(key => (
+        <Fragment key={key}>
+          Høna og egget
+          <MediaListItem>
+            <MediaListItemImage>
+              <a href="https://example.com">
+                <img
+                  src="https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=500&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+                  width="260"
+                  alt="Høna og egget"
+                />
+              </a>
+            </MediaListItemImage>
+            <div className="o-media__body c-medialist__body">
+              <h3 className="c-medialist__title">Regler for bruk av interaktiv video:</h3>
+              <p>Oppsøk innholdsobjektet for å finne regler for gjenbruk.</p>
+              <a
+                className="c-figure-license__link"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.youtube.com/yt/about/copyright/fair-use/#yt-copyright-protection">
+                Les forklaring til hvordan du finner frem til reglene for gjenbruk
+              </a>
             </div>
-          </MediaListItemActions>
-        </MediaListItemBody>
-      </MediaListItem>
+          </MediaListItem>
+        </Fragment>
+      ))}
     </MediaList>
   </div>
 );
@@ -93,8 +73,7 @@ const TextContent = () => (
     <div className="u-introduction">
       <h2>Slik bruker du tekst fra artikkelen</h2>
       <p>
-        Artikkelen kan være satt sammen av flere ulike tekster, som listes opp
-        her.
+        Artikkelen kan være satt sammen av flere ulike tekster, som listes opp her.
       </p>
     </div>
     <MediaList>
@@ -102,7 +81,7 @@ const TextContent = () => (
         <MediaListItem key={key}>
           <MediaListItemImage>
             <a href="https://example.com">
-              <Document className="c-medialist__icon" />
+              <FileDocumentOutline className="c-medialist__icon" />
             </a>
           </MediaListItemImage>
           <MediaListItemBody
@@ -159,7 +138,7 @@ const AudioContent = () => (
         <MediaListItem key={key}>
           <MediaListItemImage>
             <a href="https://example.com">
-              <Audio className="c-medialist__icon" />
+              <AudioDocument className="c-medialist__icon" />
             </a>
           </MediaListItemImage>
           <MediaListItemBody
@@ -315,7 +294,7 @@ const ImageContent = () => (
   </div>
 );
 
-const H5PContent = () => (
+const OtherContent = () => (
   <div>
     <div className="u-introduction">
       <h2>Slik bruker du H5P-innhold fra artikkelen</h2>
@@ -324,62 +303,53 @@ const H5PContent = () => (
       </p>
     </div>
     <MediaList>
-      {['1', '2'].map(key => (
-        <MediaListItem key={key}>
-          <MediaListItemImage>
-            <a href="https://example.com">
-              <iframe
-                title="H5P"
-                src="http://ndla.no/nb/h5p/embed/146132?fag=127756"
-                className="c-medialist__h5p"
-                width="260"
-                height="373"
-                frameBorder="0"
-                allowFullScreen="allowfullscreen"
-              />
-              <script
-                src="http://ndla.no/sites/all/modules/h5p/library/js/h5p-resizer.js?fag=127756"
-                charSet="UTF-8"
-              />
-            </a>
-          </MediaListItemImage>
-          <MediaListItemBody
-            license={byncndLicenseAbbreviation}
-            title="Regler for bruk av H5P-innholdet:"
-            resourceUrl="http://ndla.no/nb/h5p/embed/146132?fag=127756"
-            resourceType="h5p">
-            <MediaListItemActions>
-              <div className="c-medialist__ref">
-                <MediaListItemMeta
-                  items={[
-                    {
-                      label: 'Opphavsmann',
-                      description: 'Fotograf Ola N',
-                      metaType: metaTypes.author,
-                    },
-                    {
-                      label: 'Rettighetshaver',
-                      description: 'Leverandør NTB scanpix',
-                      metaType: metaTypes.copyrightHolder,
-                    },
-                  ]}
-                />
-                <button className="c-button c-button--outline" type="button">
-                  Kopier referanse
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Last ned bilde
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Bygg inn
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Se del-elementer
-                </button>
-              </div>
-            </MediaListItemActions>
-          </MediaListItemBody>
-        </MediaListItem>
+      {H5PExamples.map(example => (
+        <Fragment>
+          {example.title}
+          <MediaListItem key={example.name.replace(' ', '')}>
+            <MediaListItemImage>
+              <a href="https://example.com">
+                <img src={example.image} alt={example.name} className="c-medialist__icon" />
+              </a>
+            </MediaListItemImage>
+            <MediaListItemBody
+              license={byncndLicenseAbbreviation}
+              title={`Regler for bruk av ${example.name}:`}
+              resourceUrl="http://ndla.no/nb/h5p/embed/146132?fag=127756"
+              resourceType="h5p">
+              <MediaListItemActions>
+                <div className="c-medialist__ref">
+                  <MediaListItemMeta
+                    items={[
+                      {
+                        label: 'Opphavsmann',
+                        description: 'Fotograf Ola N',
+                        metaType: metaTypes.author,
+                      },
+                      {
+                        label: 'Rettighetshaver',
+                        description: 'Leverandør NTB scanpix',
+                        metaType: metaTypes.copyrightHolder,
+                      },
+                    ]}
+                  />
+                  <button className="c-button c-button--outline" type="button">
+                    Kopier referanse
+                  </button>
+                  <button className="c-button c-button--outline" type="button">
+                    Last ned bilde
+                  </button>
+                  <button className="c-button c-button--outline" type="button">
+                    Bygg inn
+                  </button>
+                  <button className="c-button c-button--outline" type="button">
+                    Se del-elementer
+                  </button>
+                </div>
+              </MediaListItemActions>
+            </MediaListItemBody>
+          </MediaListItem>
+        </Fragment>
       ))}
     </MediaList>
   </div>
@@ -398,7 +368,7 @@ const Files = () => (
         <MediaListItem key={key}>
           <MediaListItemImage>
             <a href="https://example.com">
-              <Document className="c-medialist__icon" />
+              <FileDownloadOutline className="c-medialist__icon" />
             </a>
           </MediaListItemImage>
           <MediaListItemBody
@@ -441,15 +411,15 @@ export const LicenseBox = ({ headingId }) => (
     <h1 className="license__heading" id={headingId}>
       Slik gjenbruker du innhold
     </h1>
-
     <Tabs
+      singleLine
       tabs={[
-        { title: 'Bilder', content: <ImageContent /> },
         { title: 'Tekst', content: <TextContent /> },
+        { title: 'Bilder', content: <ImageContent /> },
         { title: 'Video', content: <VideoContent /> },
         { title: 'Lyd', content: <AudioContent /> },
-        { title: 'H5P', content: <H5PContent /> },
         { title: 'Filer', content: <Files /> },
+        { title: 'Annet innhold', content: <OtherContent /> },
       ]}
     />
   </div>

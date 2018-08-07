@@ -26,24 +26,27 @@
 
 .c-medialist__body {
   @include inuit-font-size(14px, 24px);
-  min-width: 50%;
+  @include mq(tablet) {
+    max-width: 70% !important;
+  }
 }
 
 .c-medialist__img {
-  float:none;
+  float: none;
   margin: 0 0 $spacing--small;
   @include mq(tablet) {
-    width: 30%;
-    margin-right: $spacing;
+    width: 30% !important;
   }
   img {
     max-width: 100%;
     width: 100%;
-    margin:0;
   }
-
   a {
     box-shadow: none;
+    display: block;
+    @include mq(tablet) {
+      padding-right: $spacing;
+    }
   }
 }
 
@@ -51,6 +54,7 @@
   margin-top: $spacing--small;
   margin-bottom: $spacing--small;
   margin-left: 0;
+  padding-left: 0;
   list-style: none;
   width: 100%;
   button, a {
@@ -76,9 +80,15 @@
 }
 .c-medialist__icon {
   color: $brand-color;
-  width: 150px !important;
+  width: 100% !important;
+  max-width: 240px;
   height: auto !important;
-  padding: 0 $spacing--small $spacing--small;
+  @include mq($until: tablet) {
+    display: none;
+  }
+}
+svg.c-medialist__icon {
+  max-width: 150px;
 }
 .c-medialist__h5p {
   height: 185px;

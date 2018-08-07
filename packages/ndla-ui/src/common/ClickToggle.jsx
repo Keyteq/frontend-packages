@@ -141,7 +141,7 @@ export default class ClickToggle extends React.Component {
           ref={ref => {
             this.containerRef = ref;
           }}>
-          {useDialog && (
+          {useDialog && (alwaysRenderChildren || showDialog) && (
             <Dialog
               id={id}
               labelledby={labelledby}
