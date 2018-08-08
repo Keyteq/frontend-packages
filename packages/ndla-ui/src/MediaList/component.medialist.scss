@@ -29,6 +29,9 @@
   @include mq(tablet) {
     max-width: 70% !important;
   }
+  @include mq(970px) {
+    max-width: 75% !important;
+  }
 }
 
 .c-medialist__img {
@@ -36,6 +39,9 @@
   margin: 0 0 $spacing--small;
   @include mq(tablet) {
     width: 30% !important;
+  }
+  @include mq(970px) {
+    width: 25% !important;
   }
   img {
     max-width: 100%;

@@ -141,20 +141,21 @@ export default class ClickToggle extends React.Component {
           ref={ref => {
             this.containerRef = ref;
           }}>
-          {useDialog && (alwaysRenderChildren || showDialog) && (
-            <Dialog
-              id={id}
-              labelledby={labelledby}
-              hidden={!showDialog}
-              onClose={this.handleClick}
-              disablePortal
-              messages={{ close: openTitle || 'lukk' }}
-              modifier={
-                showDialog ? ['active', dialogModifier] : dialogModifier
-              }>
-              {children}
-            </Dialog>
-          )}
+          {useDialog &&
+            (alwaysRenderChildren || showDialog) && (
+              <Dialog
+                id={id}
+                labelledby={labelledby}
+                hidden={!showDialog}
+                onClose={this.handleClick}
+                disablePortal
+                messages={{ close: openTitle || 'lukk' }}
+                modifier={
+                  showDialog ? ['active', dialogModifier] : dialogModifier
+                }>
+                {children}
+              </Dialog>
+            )}
           {!useDialog &&
             (isOpen || alwaysRenderChildren) &&
             children(this.handleOnClose, isOpen)}

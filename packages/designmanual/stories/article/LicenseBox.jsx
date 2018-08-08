@@ -18,8 +18,13 @@ import {
   MediaListItemActions,
   MediaListItemImage,
   MediaListItemMeta,
+  CopyButton,
 } from 'ndla-ui';
-import { FileDocumentOutline, FileDownloadOutline, AudioDocument } from 'ndla-icons/common';
+import {
+  FileDocumentOutline,
+  FileDownloadOutline,
+  AudioDocument,
+} from 'ndla-icons/common';
 
 import { COPYRIGHTED, metaTypes } from 'ndla-licenses';
 
@@ -37,10 +42,10 @@ const VideoContent = () => (
       </p>
     </div>
     <MediaList>
-      {['1', '2'].map(key => (
-        <Fragment key={key}>
-          Høna og egget
-          <MediaListItem>
+      {[{ id: 'video-1', title: 'Søvn og hvile' }, { id: 'video-2', title: 'Betydning og behov' }].map(el => (
+        <Fragment>
+          {el.title && `"${el.title}:"`}
+          <MediaListItem key={el.id}>
             <MediaListItemImage>
               <a href="https://example.com">
                 <img
@@ -51,14 +56,17 @@ const VideoContent = () => (
               </a>
             </MediaListItemImage>
             <div className="o-media__body c-medialist__body">
-              <h3 className="c-medialist__title">Regler for bruk av interaktiv video:</h3>
+              <h3 className="c-medialist__title">
+                Regler for bruk av interaktiv video:
+              </h3>
               <p>Oppsøk innholdsobjektet for å finne regler for gjenbruk.</p>
               <a
                 className="c-figure-license__link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.youtube.com/yt/about/copyright/fair-use/#yt-copyright-protection">
-                Les forklaring til hvordan du finner frem til reglene for gjenbruk
+                Les forklaring til hvordan du finner frem til reglene for
+                gjenbruk
               </a>
             </div>
           </MediaListItem>
@@ -73,53 +81,57 @@ const TextContent = () => (
     <div className="u-introduction">
       <h2>Slik bruker du tekst fra artikkelen</h2>
       <p>
-        Artikkelen kan være satt sammen av flere ulike tekster, som listes opp her.
+        Artikkelen kan være satt sammen av flere ulike tekster, som listes opp
+        her.
       </p>
     </div>
     <MediaList>
-      {['1', '2'].map(key => (
-        <MediaListItem key={key}>
-          <MediaListItemImage>
-            <a href="https://example.com">
-              <FileDocumentOutline className="c-medialist__icon" />
-            </a>
-          </MediaListItemImage>
-          <MediaListItemBody
-            license={bysaLicenseAbbreviation}
-            title="Regler for bruk av teksten:"
-            resourceUrl=""
-            resourceType="text">
-            <MediaListItemActions>
-              <div className="c-medialist__ref">
-                <MediaListItemMeta
-                  items={[
-                    {
-                      label: 'Opphavsmann',
-                      description: 'Fotograf Ola N',
-                      metaType: metaTypes.author,
-                    },
-                    {
-                      label: 'Rettighetshaver',
-                      description: 'Leverandør NTB scanpix',
-                      metaType: metaTypes.copyrightHolder,
-                    },
-                    {
-                      label: 'Publiseringsdato',
-                      description: '12.05.13',
-                      metaType: metaTypes.other,
-                    },
-                  ]}
-                />
-                <button className="c-button c-button--outline" type="button">
-                  Kopier referanse
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Last ned
-                </button>
-              </div>
-            </MediaListItemActions>
-          </MediaListItemBody>
-        </MediaListItem>
+      {[{ id: 'text-1', title: 'Søvn og hvile' }, { id: 'text-2', title: 'Betydning og behov' }].map(el => (
+        <Fragment>
+          {el.title && `"${el.title}:"`}
+          <MediaListItem key={el.id}>
+            <MediaListItemImage>
+              <a href="https://example.com">
+                <FileDocumentOutline className="c-medialist__icon" />
+              </a>
+            </MediaListItemImage>
+            <MediaListItemBody
+              license={bysaLicenseAbbreviation}
+              title="Regler for bruk av teksten:"
+              resourceUrl=""
+              resourceType="text">
+              <MediaListItemActions>
+                <div className="c-medialist__ref">
+                  <MediaListItemMeta
+                    items={[
+                      {
+                        label: 'Opphavsmann',
+                        description: 'Fotograf Ola N',
+                        metaType: metaTypes.author,
+                      },
+                      {
+                        label: 'Rettighetshaver',
+                        description: 'Leverandør NTB scanpix',
+                        metaType: metaTypes.copyrightHolder,
+                      },
+                      {
+                        label: 'Publiseringsdato',
+                        description: '12.05.13',
+                        metaType: metaTypes.other,
+                      },
+                    ]}
+                  />
+                  <CopyButton outline copyNode="Kopiert!">
+                    Kopier referanse
+                  </CopyButton>
+                  <button className="c-button c-button--outline" type="button">
+                    Last ned
+                  </button>
+                </div>
+              </MediaListItemActions>
+            </MediaListItemBody>
+          </MediaListItem>
+        </Fragment>
       ))}
     </MediaList>
   </div>
@@ -134,44 +146,47 @@ const AudioContent = () => (
       </p>
     </div>
     <MediaList>
-      {['1', '2'].map(key => (
-        <MediaListItem key={key}>
-          <MediaListItemImage>
-            <a href="https://example.com">
-              <AudioDocument className="c-medialist__icon" />
-            </a>
-          </MediaListItemImage>
-          <MediaListItemBody
-            license={bysaLicenseAbbreviation}
-            title="Regler for bruk av lydfilen:"
-            resourceUrl=""
-            resourceType="audio">
-            <MediaListItemActions>
-              <div className="c-medialist__ref">
-                <MediaListItemMeta
-                  items={[
-                    {
-                      label: 'Opphavsmann',
-                      description: 'Fotograf Ola N',
-                      metaType: metaTypes.author,
-                    },
-                    {
-                      label: 'Rettighetshaver',
-                      description: 'Leverandør NTB scanpix',
-                      metaType: metaTypes.copyrightHolder,
-                    },
-                  ]}
-                />
-                <button className="c-button c-button--outline" type="button">
-                  Kopier referanse
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Last ned
-                </button>
-              </div>
-            </MediaListItemActions>
-          </MediaListItemBody>
-        </MediaListItem>
+      {[{ id: 'audio-1', title: 'Søvn og hvile' }, { id: 'audio-2', title: 'Betydning og behov' }].map(el => (
+        <Fragment>
+          {el.title && `"${el.title}:"`}
+          <MediaListItem key={el.id}>
+            <MediaListItemImage>
+              <a href="https://example.com">
+                <AudioDocument className="c-medialist__icon" />
+              </a>
+            </MediaListItemImage>
+            <MediaListItemBody
+              license={bysaLicenseAbbreviation}
+              title="Regler for bruk av lydfilen:"
+              resourceUrl=""
+              resourceType="audio">
+              <MediaListItemActions>
+                <div className="c-medialist__ref">
+                  <MediaListItemMeta
+                    items={[
+                      {
+                        label: 'Opphavsmann',
+                        description: 'Fotograf Ola N',
+                        metaType: metaTypes.author,
+                      },
+                      {
+                        label: 'Rettighetshaver',
+                        description: 'Leverandør NTB scanpix',
+                        metaType: metaTypes.copyrightHolder,
+                      },
+                    ]}
+                  />
+                  <CopyButton outline copyNode="Kopiert!">
+                    Kopier referanse
+                  </CopyButton>
+                  <button className="c-button c-button--outline" type="button">
+                    Last ned
+                  </button>
+                </div>
+              </MediaListItemActions>
+            </MediaListItemBody>
+          </MediaListItem>
+        </Fragment>
       ))}
     </MediaList>
   </div>
@@ -232,9 +247,9 @@ const ImageContent = () => (
                     },
                   ]}
                 />
-                <button className="c-button c-button--outline" type="button">
+                <CopyButton outline copyNode="Kopiert!">
                   Kopier referanse
-                </button>
+                </CopyButton>
                 <button className="c-button c-button--outline" type="button">
                   Last ned bilde
                 </button>
@@ -277,9 +292,9 @@ const ImageContent = () => (
                   },
                 ]}
               />
-              <button className="c-button c-button--outline" type="button">
+              <CopyButton outline copyNode="Kopiert!">
                 Kopier referanse
-              </button>
+              </CopyButton>
               <button className="c-button c-button--outline" type="button">
                 Last ned bilde
               </button>
@@ -305,11 +320,15 @@ const OtherContent = () => (
     <MediaList>
       {H5PExamples.map(example => (
         <Fragment>
-          {example.title}
+          <h3>{example.title && `"${example.title}:"`}</h3>
           <MediaListItem key={example.name.replace(' ', '')}>
             <MediaListItemImage>
               <a href="https://example.com">
-                <img src={example.image} alt={example.name} className="c-medialist__icon" />
+                <img
+                  src={example.image}
+                  alt={example.name}
+                  className="c-medialist__icon"
+                />
               </a>
             </MediaListItemImage>
             <MediaListItemBody
@@ -333,9 +352,9 @@ const OtherContent = () => (
                       },
                     ]}
                   />
-                  <button className="c-button c-button--outline" type="button">
+                  <CopyButton outline copyNode="Kopiert!">
                     Kopier referanse
-                  </button>
+                  </CopyButton>
                   <button className="c-button c-button--outline" type="button">
                     Last ned bilde
                   </button>
@@ -364,43 +383,46 @@ const Files = () => (
       </p>
     </div>
     <MediaList>
-      {['1', '2'].map(key => (
-        <MediaListItem key={key}>
-          <MediaListItemImage>
-            <a href="https://example.com">
-              <FileDownloadOutline className="c-medialist__icon" />
-            </a>
-          </MediaListItemImage>
-          <MediaListItemBody
-            license={COPYRIGHTED}
-            title="Regler for bruk av filen:"
-            resourceUrl="">
-            <MediaListItemActions>
-              <div className="c-medialist__ref">
-                <MediaListItemMeta
-                  items={[
-                    {
-                      label: 'Opphavsmann',
-                      description: 'Fotograf Ola N',
-                      metaType: metaTypes.author,
-                    },
-                    {
-                      label: 'Rettighetshaver',
-                      description: 'Leverandør NTB scanpix',
-                      metaType: metaTypes.copyrightHolder,
-                    },
-                  ]}
-                />
-                <button className="c-button c-button--outline" type="button">
-                  Kopier referanse
-                </button>
-                <button className="c-button c-button--outline" type="button">
-                  Last ned
-                </button>
-              </div>
-            </MediaListItemActions>
-          </MediaListItemBody>
-        </MediaListItem>
+      {[{ id: 'files-1', title: 'Søvn og hvile' }, { id: 'files-2', title: 'Betydning og behov' }].map(el => (
+        <Fragment>
+          {el.title && `"${el.title}:"`}
+          <MediaListItem key={el.id}>
+            <MediaListItemImage>
+              <a href="https://example.com">
+                <FileDownloadOutline className="c-medialist__icon" />
+              </a>
+            </MediaListItemImage>
+            <MediaListItemBody
+              license={COPYRIGHTED}
+              title="Regler for bruk av filen:"
+              resourceUrl="">
+              <MediaListItemActions>
+                <div className="c-medialist__ref">
+                  <MediaListItemMeta
+                    items={[
+                      {
+                        label: 'Opphavsmann',
+                        description: 'Fotograf Ola N',
+                        metaType: metaTypes.author,
+                      },
+                      {
+                        label: 'Rettighetshaver',
+                        description: 'Leverandør NTB scanpix',
+                        metaType: metaTypes.copyrightHolder,
+                      },
+                    ]}
+                  />
+                  <CopyButton outline copyNode="Kopiert!">
+                    Kopier referanse
+                  </CopyButton>
+                  <button className="c-button c-button--outline" type="button">
+                    Last ned
+                  </button>
+                </div>
+              </MediaListItemActions>
+            </MediaListItemBody>
+          </MediaListItem>
+        </Fragment>
       ))}
     </MediaList>
   </div>

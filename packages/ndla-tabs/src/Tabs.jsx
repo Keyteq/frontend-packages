@@ -39,7 +39,7 @@ class Tabs extends Component {
       });
       if (childrensWidthsTotal > widthTotal) {
         this.setState({
-          singleLineState: true
+          singleLineState: true,
         });
       }
     }
@@ -76,14 +76,12 @@ class Tabs extends Component {
           {...classes({ modifier })}
           onSelect={this.handleSelect}
           selectedIndex={this.state.index}
-          forceRenderTabPanel={forceRenderTabPanel}
-        >
+          forceRenderTabPanel={forceRenderTabPanel}>
           <TabList
             {...classes('list', {
               [modifier]: modifier,
               singleLine: this.state.singleLineState,
-            })}
-          >
+            })}>
             {tabs.map((tab, i) => (
               <Tab
                 {...classes('tab', {
@@ -98,7 +96,9 @@ class Tabs extends Component {
             ))}
           </TabList>
           {tabs.map((tab, i) => (
-            <TabPanel {...classes('panel', modifier)} key={tab.key ? tab.key : i}>
+            <TabPanel
+              {...classes('panel', modifier)}
+              key={tab.key ? tab.key : i}>
               {isFunction(tab.content) ? tab.content() : tab.content}
             </TabPanel>
           ))}
