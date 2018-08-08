@@ -43,11 +43,14 @@ class CopyButton extends Component {
   handleCopy(e) {
     this.props.onClick(e);
     if (!this.state.showCopyState) {
-      this.setState({
-        showCopyState: true,
-      }, () => {
-        this.timer = setTimeout(this.exitCopyState, this.props.showCopyTimer);
-      });
+      this.setState(
+        {
+          showCopyState: true,
+        },
+        () => {
+          this.timer = setTimeout(this.exitCopyState, this.props.showCopyTimer);
+        },
+      );
     }
   }
 
@@ -92,7 +95,7 @@ class CopyButton extends Component {
       </button>
     );
   }
-};
+}
 
 CopyButton.propTypes = {
   children: PropTypes.node,
@@ -128,7 +131,9 @@ CopyButton.propTypes = {
 
 CopyButton.defaultProps = {
   showCopyTimer: 4000,
-  onClick: () => { console.log('Clicked CopyButton'); },
+  onClick: () => {
+    console.log('Clicked CopyButton');
+  },
 };
 
 export default CopyButton;

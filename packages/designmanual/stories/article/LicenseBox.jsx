@@ -42,7 +42,10 @@ const VideoContent = () => (
       </p>
     </div>
     <MediaList>
-      {[{ id: 'video-1', title: 'Søvn og hvile' }, { id: 'video-2', title: 'Betydning og behov' }].map(el => (
+      {[
+        { id: 'video-1', title: 'Søvn og hvile' },
+        { id: 'video-2', title: 'Betydning og behov' },
+      ].map(el => (
         <Fragment>
           <h3>{el.title && `"${el.title}:"`}</h3>
           <MediaListItem key={el.id}>
@@ -86,7 +89,10 @@ const TextContent = () => (
       </p>
     </div>
     <MediaList>
-      {[{ id: 'text-1', title: 'Søvn og hvile' }, { id: 'text-2', title: 'Betydning og behov' }].map(el => (
+      {[
+        { id: 'text-1', title: 'Søvn og hvile' },
+        { id: 'text-2', title: 'Betydning og behov' },
+      ].map(el => (
         <Fragment>
           <h3>{el.title && `"${el.title}:"`}</h3>
           <MediaListItem key={el.id}>
@@ -146,7 +152,10 @@ const AudioContent = () => (
       </p>
     </div>
     <MediaList>
-      {[{ id: 'audio-1', title: 'Søvn og hvile' }, { id: 'audio-2', title: 'Betydning og behov' }].map(el => (
+      {[
+        { id: 'audio-1', title: 'Søvn og hvile' },
+        { id: 'audio-2', title: 'Betydning og behov' },
+      ].map(el => (
         <Fragment>
           <h3>{el.title && `"${el.title}:"`}</h3>
           <MediaListItem key={el.id}>
@@ -383,7 +392,10 @@ const Files = () => (
       </p>
     </div>
     <MediaList>
-      {[{ id: 'files-1', title: 'Søvn og hvile' }, { id: 'files-2', title: 'Betydning og behov' }].map(el => (
+      {[
+        { id: 'files-1', title: 'Søvn og hvile' },
+        { id: 'files-2', title: 'Betydning og behov' },
+      ].map(el => (
         <Fragment>
           <h3>{el.title && `"${el.title}:"`}</h3>
           <MediaListItem key={el.id}>
