@@ -46,9 +46,9 @@ const VideoContent = () => (
         { id: 'video-1', title: 'Søvn og hvile' },
         { id: 'video-2', title: 'Betydning og behov' },
       ].map(el => (
-        <Fragment>
+        <Fragment key={el.id}>
           <h3>{el.title && `"${el.title}:"`}</h3>
-          <MediaListItem key={el.id}>
+          <MediaListItem>
             <MediaListItemImage>
               <a href="https://example.com">
                 <img
@@ -93,9 +93,9 @@ const TextContent = () => (
         { id: 'text-1', title: 'Søvn og hvile' },
         { id: 'text-2', title: 'Betydning og behov' },
       ].map(el => (
-        <Fragment>
+        <Fragment key={el.id}>
           <h3>{el.title && `"${el.title}:"`}</h3>
-          <MediaListItem key={el.id}>
+          <MediaListItem>
             <MediaListItemImage>
               <a href="https://example.com">
                 <FileDocumentOutline className="c-medialist__icon" />
@@ -156,9 +156,9 @@ const AudioContent = () => (
         { id: 'audio-1', title: 'Søvn og hvile' },
         { id: 'audio-2', title: 'Betydning og behov' },
       ].map(el => (
-        <Fragment>
+        <Fragment key={el.id}>
           <h3>{el.title && `"${el.title}:"`}</h3>
-          <MediaListItem key={el.id}>
+          <MediaListItem>
             <MediaListItemImage>
               <a href="https://example.com">
                 <AudioDocument className="c-medialist__icon" />
@@ -328,9 +328,9 @@ const OtherContent = () => (
     </div>
     <MediaList>
       {H5PExamples.map(example => (
-        <Fragment>
+        <Fragment key={example.name.replace(' ', '')}>
           <h3>{example.title && `"${example.title}:"`}</h3>
-          <MediaListItem key={example.name.replace(' ', '')}>
+          <MediaListItem>
             <MediaListItemImage>
               <a href="https://example.com">
                 <img
@@ -396,9 +396,9 @@ const Files = () => (
         { id: 'files-1', title: 'Søvn og hvile' },
         { id: 'files-2', title: 'Betydning og behov' },
       ].map(el => (
-        <Fragment>
+        <Fragment key={el.id}>
           <h3>{el.title && `"${el.title}:"`}</h3>
-          <MediaListItem key={el.id}>
+          <MediaListItem>
             <MediaListItemImage>
               <a href="https://example.com">
                 <FileDownloadOutline className="c-medialist__icon" />

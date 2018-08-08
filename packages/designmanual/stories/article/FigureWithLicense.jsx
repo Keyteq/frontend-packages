@@ -131,7 +131,9 @@ class FigureWithLicense extends Component {
               origin="https://www.wikimedia.com"
               title="Mann med lupe"
               messages={messages}>
-              <CopyButton outline copyNode="Kopiert!">Kopier referanse</CopyButton>
+              <CopyButton outline copyNode="Kopiert!">
+                Kopier referanse
+              </CopyButton>
               <Button outline>Last ned bilde</Button>
             </FigureLicenseDialog>
           </FigureCaption>

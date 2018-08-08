@@ -118,7 +118,7 @@ CopyButton.propTypes = {
    * @defaultValue 'button'
    */
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  copyNode: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
+  copyNode: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   showCopyTimer: (props, propName, componentName) => {
     if (typeof props[propName] !== 'number' || props[propName] < 100) {
       return new Error(
