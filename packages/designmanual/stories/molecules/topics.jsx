@@ -19,10 +19,8 @@ class Topics extends Component {
     super(props);
     this.state = {
       showAdditionalCores: false,
-      showAdditionalDialog: false,
     };
     this.toggleAdditionalCores = this.toggleAdditionalCores.bind(this);
-    this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
   }
 
   toggleAdditionalCores() {
@@ -30,15 +28,9 @@ class Topics extends Component {
       showAdditionalCores: !prevState.showAdditionalCores,
     }));
   }
-
-  toggleAdditionalDialog() {
-    this.setState(prevState => ({
-      showAdditionalDialog: !prevState.showAdditionalDialog,
-    }));
-  }
-
+  
   render() {
-    const { showAdditionalCores, showAdditionalDialog } = this.state;
+    const { showAdditionalCores } = this.state;
     return (
       <ResourcesWrapper
         header={
@@ -58,8 +50,6 @@ class Topics extends Component {
             hasAdditionalResources={topicList.some(topic => topic.additional)}
             toggleAdditionalResources={this.toggleAdditionalCores}
             showAdditionalResources={showAdditionalCores}
-            toggleAdditionalDialog={this.toggleAdditionalDialog}
-            showAdditionalDialog={showAdditionalDialog}
           />
         }>
         <TopicIntroductionList

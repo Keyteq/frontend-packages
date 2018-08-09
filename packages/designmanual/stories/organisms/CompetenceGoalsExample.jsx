@@ -101,8 +101,7 @@ export default CompetenceGoalsExample;
 
 export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
   <ClickToggle
-    useDialog
-    id="useArticleId"
+    id={`competenceGoalsExampleId${wide ? 'Wide' : 'Narrow'}`}
     labelledby={headingId}
     dialogModifier="large small-heading"
     buttonClassName={classes('toggle-button', { wide, narrow }).className}
