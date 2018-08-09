@@ -60,6 +60,7 @@
     overflow: auto;
     height: 100vh;
     width: 100vw;
+    -webkit-overflow-scrolling: touch;
 
     .c-tabs {
       margin-left: 0;
@@ -68,7 +69,7 @@
     @include mq(tablet) {
       width: 90%;
       max-height: 85vh;
-      margin: 0 auto;
+      // margin: 0 auto;
       padding: $spacing--medium;
       max-width: 613px;
       min-width: 613px;
@@ -123,4 +124,12 @@
       }
     }
   }
+}
+/*
+  Hack for fixing top padding on devices
+  where had to add position fixed to <html />
+  to prevent scrolling on background
+*/
+html.scrollFix .c-dialog--active .c-dialog__content {
+  padding-top: $spacing--large;
 }
