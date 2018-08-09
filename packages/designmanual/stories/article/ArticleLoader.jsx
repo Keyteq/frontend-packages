@@ -23,6 +23,7 @@ import { fetchArticle } from './articleApi';
 import LicenseBox from './LicenseBox';
 import SimpleSubmitForm from './SimpleSubmitForm';
 import { topicList } from '../../dummydata/index';
+import { topicListMessages } from '../../messages/index';
 
 import { CompetenceGoalsDialogExample } from '../organisms/CompetenceGoalsExample';
 
@@ -34,7 +35,11 @@ const ResourcesSubTopics = () => (
       toTopic={() => '#'}
       topics={topicList}
       messages={{
-        shortcutButtonText: 'Lærestoff',
+        noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+        noContentBoxButtonText: 'Vis tilleggsstoff',
+        shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
+        tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
+        tooltipAdditionalTopic: topicListMessages.tooltipAdditionalTopic.text.nb,
       }}
     />
   </ResourcesWrapper>

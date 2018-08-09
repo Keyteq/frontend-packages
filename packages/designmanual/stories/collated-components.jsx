@@ -41,6 +41,8 @@ import TranslationBoxExample from './organisms/TranslationBoxExample';
 
 import Oops from '../images/oops.gif';
 
+import { topicListMessages } from '../messages/topicListMessages';
+
 const toggle = () => {
   document
     .querySelector('.c-collate__panel')
@@ -186,7 +188,11 @@ storiesOf('Sammensatte moduler', module)
           shortcutAlwaysExpanded
           toTopic={() => '#'}
           messages={{
-            shortcutButtonText: 'Lærestoff',
+            noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
+            noContentBoxButtonText: 'Vis tilleggsstoff',
+            shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
+            tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
+            tooltipAdditionalTopic: topicListMessages.tooltipAdditionalTopic.text.nb,
           }}
           topics={topicList}
         />

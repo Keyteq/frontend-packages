@@ -13,6 +13,9 @@ import {
   TopicIntroductionList,
 } from 'ndla-ui';
 import { topicList } from '../../dummydata/index';
+import {
+  topicListMessages,
+} from '../../messages/index';
 
 class Topics extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Topics extends Component {
       showAdditionalCores: !prevState.showAdditionalCores,
     }));
   }
-  
+
   render() {
     const { showAdditionalCores } = this.state;
     return (
@@ -61,10 +64,9 @@ class Topics extends Component {
           messages={{
             noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
             noContentBoxButtonText: 'Vis tilleggsstoff',
-            shortcutButtonText: 'Lærestoff',
-            tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
-            tooltipAdditionalTopic:
-              'Tilleggsstoff er fagstoff som er på pensum',
+            shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
+            tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
+            tooltipAdditionalTopic: topicListMessages.tooltipAdditionalTopic.text.nb,
           }}
         />
       </ResourcesWrapper>
