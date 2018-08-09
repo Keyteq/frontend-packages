@@ -1,6 +1,4 @@
-import {
-  STATUS_TYPES
-} from './statusTypes';
+import { STATUS_TYPES } from './statusTypes';
 
 export const launchpadMessages = {
   additionalIconTooltip: {
@@ -19,6 +17,6 @@ export const launchpadMessages = {
     },
     status: {
       nb: STATUS_TYPES.dummyText,
-    }
+    },
   },
 };

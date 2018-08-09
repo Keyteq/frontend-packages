@@ -13,9 +13,7 @@ import {
   TopicIntroductionList,
 } from 'ndla-ui';
 import { topicList } from '../../dummydata/index';
-import {
-  topicListMessages,
-} from '../../messages/index';
+import { topicListMessages } from '../../messages/index';
 
 class Topics extends Component {
   constructor(props) {
@@ -66,7 +64,8 @@ class Topics extends Component {
             noContentBoxButtonText: 'Vis tilleggsstoff',
             shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
             tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
-            tooltipAdditionalTopic: topicListMessages.tooltipAdditionalTopic.text.nb,
+            tooltipAdditionalTopic:
+              topicListMessages.tooltipAdditionalTopic.text.nb,
           }}
         />
       </ResourcesWrapper>

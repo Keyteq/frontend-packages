@@ -65,8 +65,7 @@ const VideoContent = () => (
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.youtube.com/yt/about/copyright/fair-use/#yt-copyright-protection">
-              Les forklaring til hvordan du finner frem til reglene for
-              gjenbruk
+              Les forklaring til hvordan du finner frem til reglene for gjenbruk
             </a>
             <MediaListItemActions>
               <div className="c-medialist__ref">
@@ -334,9 +333,7 @@ const OtherContent = () => (
   <div>
     <div className="u-introduction">
       <h2>Slik bruker du annet innhold fra artikkelen</h2>
-      <p>
-        Du finner retningslinjene for bruk av innholdet i innholdselementet
-      </p>
+      <p>Du finner retningslinjene for bruk av innholdet i innholdselementet</p>
     </div>
     <MediaList>
       {H5PExamples.map(example => (
@@ -368,7 +365,7 @@ const OtherContent = () => (
                       label: 'Opphavsmann',
                       description: 'Fotograf Ola N',
                       metaType: metaTypes.author,
-                    }
+                    },
                   ]}
                 />
               </div>
@@ -384,9 +381,7 @@ const Files = () => (
   <div>
     <div className="u-introduction">
       <h2>Slik bruker du filer fra artikkelen</h2>
-      <p>
-        Husk å kopier teksten som skal legges ved filen der du bruker den.
-      </p>
+      <p>Husk å kopier teksten som skal legges ved filen der du bruker den.</p>
     </div>
     <MediaList>
       {[

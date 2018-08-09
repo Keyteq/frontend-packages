@@ -12,8 +12,4 @@ const allMessages = [
   },
 ];
 
-export {
-  launchpadMessages,
-  topicListMessages,
-  allMessages,
-};
+export { launchpadMessages, topicListMessages, allMessages };

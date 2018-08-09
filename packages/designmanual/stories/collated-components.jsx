@@ -192,7 +192,8 @@ storiesOf('Sammensatte moduler', module)
             noContentBoxButtonText: 'Vis tilleggsstoff',
             shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
             tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
-            tooltipAdditionalTopic: topicListMessages.tooltipAdditionalTopic.text.nb,
+            tooltipAdditionalTopic:
+              topicListMessages.tooltipAdditionalTopic.text.nb,
           }}
           topics={topicList}
         />

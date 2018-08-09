@@ -6,9 +6,7 @@ import { Logo, PageContainer } from 'ndla-ui';
 import { uuid } from 'ndla-util';
 import { StoryBody } from './wrappers';
 import { Center } from './helpers';
-import {
-  allMessages,
-} from '../messages/index';
+import { allMessages } from '../messages/index';
 
 const classes = BEMHelper('c-table');
 
@@ -33,11 +31,14 @@ class Messages extends Component {
       return Object.keys(filterArray);
     }
 
-    return Object.keys(filterArray).filter((t) => (
-      filterArray[t].text[lang] && filterArray[t].text[lang].search(new RegExp(searchText, 'i')) !== -1 ||
-      filterArray[t].description.search(new RegExp(searchText, 'i')) !== -1 ||
-      t.search(searchText, 'i') !== -1
-    ));
+    return Object.keys(filterArray).filter(
+      t =>
+        (filterArray[t].text[lang] &&
+          filterArray[t].text[lang].search(new RegExp(searchText, 'i')) !==
+            -1) ||
+        filterArray[t].description.search(new RegExp(searchText, 'i')) !== -1 ||
+        t.search(searchText, 'i') !== -1,
+    );
   }
 
   render() {
@@ -61,13 +62,14 @@ class Messages extends Component {
               value={this.state.searchString}
               onChange={this.onSearchChange}
             />
-            {allMessages.map((messageElement) => {
-              const filteredSearch = this.filterSearch(messageElement.messages, this.props.lang);
+            {allMessages.map(messageElement => {
+              const filteredSearch = this.filterSearch(
+                messageElement.messages,
+                this.props.lang,
+              );
               return filteredSearch.length ? (
                 <Fragment key={uuid()}>
-                  <h3 className="u-heading">
-                    {messageElement.heading}
-                  </h3>
+                  <h3 className="u-heading">{messageElement.heading}</h3>
                   <table {...classes({ extra: ['o-table'] })}>
                     <thead>
                       <tr>
@@ -78,25 +80,30 @@ class Messages extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredSearch.map((key) => (
+                      {filteredSearch.map(key => (
                         <tr key={key}>
                           <td>{key}</td>
                           <td>{messageElement.messages[key].description}</td>
-                          <td>{messageElement.messages[key].text[lang] || '[MANGLER]'}</td>
-                          <td>{messageElement.messages[key].status[lang] || '?'}</td>
+                          <td>
+                            {messageElement.messages[key].text[lang] ||
+                              '[MANGLER]'}
+                          </td>
+                          <td>
+                            {messageElement.messages[key].status[lang] || '?'}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </Fragment>
-              ) : null
+              ) : null;
             })}
           </StoryBody>
         </div>
       </PageContainer>
-    )
+    );
   }
-};
+}
 
 Messages.propTypes = {
   lang: PropTypes.string.isRequired,

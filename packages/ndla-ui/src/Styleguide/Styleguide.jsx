@@ -27,7 +27,13 @@ const copyToClipboard = str => {
   document.body.removeChild(el);
 };
 
-const Styleguide = ({ reactCode, messages, status, usesPropTypes, children }) => {
+const Styleguide = ({
+  reactCode,
+  messages,
+  status,
+  usesPropTypes,
+  children,
+}) => {
   const tabContent = [
     {
       title: 'Kode eksempel',
@@ -95,7 +101,7 @@ const Styleguide = ({ reactCode, messages, status, usesPropTypes, children }) =>
       <Tabs tabs={tabContent} />
     </div>
   );
-}
+};
 
 Styleguide.propTypes = {
   reactCode: PropTypes.string,

@@ -1,6 +1,4 @@
-import {
-  STATUS_TYPES
-} from './statusTypes';
+import { STATUS_TYPES } from './statusTypes';
 
 export const topicListMessages = {
   tooltipAdditionalTopic: {
@@ -20,7 +18,7 @@ export const topicListMessages = {
     },
     status: {
       nb: STATUS_TYPES.dummyText,
-    }
+    },
   },
   shortcutButtonText: {
     description: 'Hjelpetekst for relatert innhold under et emne i emnelisten',
@@ -29,6 +27,6 @@ export const topicListMessages = {
     },
     status: {
       nb: STATUS_TYPES.dummyText,
-    }
-  }
+    },
+  },
 };

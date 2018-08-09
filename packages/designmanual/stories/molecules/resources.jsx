@@ -21,9 +21,7 @@ import {
   exerciseResources,
   assessmentResources,
 } from '../../dummydata/index';
-import {
-  launchpadMessages,
-} from '../../messages/index';
+import { launchpadMessages } from '../../messages/index';
 
 const { contentTypes } = constants;
 
@@ -126,7 +124,8 @@ class Resources extends Component {
               noContentBoxButtonText: 'Vis tilleggsstoff',
               toggleFilterLabel: 'Tilleggsressurser',
               coreTooltip: launchpadMessages.coreIconTooltip.text.nb,
-              additionalTooltip: launchpadMessages.additionalIconTooltip.text.nb,
+              additionalTooltip:
+                launchpadMessages.additionalIconTooltip.text.nb,
             }}
             resourceToLinkProps={toLink}
           />

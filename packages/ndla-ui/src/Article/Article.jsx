@@ -45,11 +45,9 @@ export class ArticleHeaderWrapper extends Component {
   }
 
   render() {
-    return (
-      <div {...classes('header')}>{this.props.children}</div>
-    )
+    return <div {...classes('header')}>{this.props.children}</div>;
   }
-};
+}
 
 ArticleHeaderWrapper.propTypes = {
   children: PropTypes.node.isRequired,
