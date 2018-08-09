@@ -123,7 +123,7 @@ class ArticleByline extends Component {
               labelledby={licenseBox.headingId}
               renderAsLink
               buttonClassName={classes('toggle-use-article').className}
-              dialogModifier="large"
+              dialogModifier="medium"
               title={messages.useContent}
               openTitle={messages.closeLabel}>
               {licenseBox}

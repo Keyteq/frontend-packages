@@ -108,6 +108,19 @@
   &--large &__content {
     max-width: 970px;
     width: 970px;
+    @include mq($until: 970px) {
+      max-height: 100vh;
+      min-height: 100vh;
+    }
+  }
+
+  &--medium &__content {
+    max-width: 790px;
+    width: 790px;
+    @include mq($until: 790px) {
+      max-height: 100vh;
+      min-height: 100vh;
+    }
   }
 
 
