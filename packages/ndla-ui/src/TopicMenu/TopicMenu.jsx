@@ -329,6 +329,7 @@ export default class TopicMenu extends Component {
                                 messages.additionalTooltipLabel,
                               )}
                               <button
+                                type="button"
                                 {...classes('link')}
                                 onClick={event =>
                                   this.handleClick(event, topic.id)

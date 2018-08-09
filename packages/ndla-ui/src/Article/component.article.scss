@@ -22,7 +22,7 @@
   margin-left: auto;
   overflow-wrap: break-word;
   @include font-size(18px, 28px);
-  position: relative; // Why is this here?
+  position: relative;
 
   p {
     @include chinese() {

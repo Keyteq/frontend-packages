@@ -82,9 +82,9 @@ class SubtopicLinkList extends Component {
   }
 
   toggleAdditionalResources() {
-    this.setState({
-      showAdditionalResources: !this.state.showAdditionalResources,
-    });
+    this.setState(prevState => ({
+      showAdditionalResources: !prevState.showAdditionalResources,
+    }));
   }
 
   render() {
@@ -168,6 +168,7 @@ class SubtopicLinkList extends Component {
                 messages.coreAdditionalExplainationHeading && (
                   <ClickToggle
                     noScrollDisabled
+                    disablePortal={false}
                     id={coreAdditionalLabelledBy}
                     stripped
                     title={

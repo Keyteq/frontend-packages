@@ -130,6 +130,7 @@ export default class ClickToggle extends React.Component {
       dialogModifier,
       isOpen,
       alwaysRenderChildren,
+      disablePortal,
       children,
       ...rest
     } = this.props;
@@ -156,7 +157,7 @@ export default class ClickToggle extends React.Component {
                 labelledby={labelledby}
                 hidden={!showDialog}
                 onClose={this.handleClick}
-                disablePortal
+                disablePortal={disablePortal}
                 messages={{ close: openTitle || 'lukk' }}
                 modifier={
                   showDialog ? ['active', dialogModifier] : dialogModifier
@@ -220,6 +221,7 @@ ClickToggle.propTypes = {
   stripped: PropTypes.bool,
   dialogModifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   alwaysRenderChildren: PropTypes.bool,
+  disablePortal: PropTypes.bool,
 };
 
 ClickToggle.defaultProps = {
@@ -231,4 +233,5 @@ ClickToggle.defaultProps = {
   onToggle: null,
   id: undefined,
   alwaysRenderChildren: false,
+  disablePortal: true,
 };

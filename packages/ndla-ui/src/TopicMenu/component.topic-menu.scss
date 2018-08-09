@@ -326,7 +326,7 @@ $navigation-row-width: 980px / 3;
   @include mq(desktop) {
     background: transparent;
     min-height: 500px;
-    width: $navigation-row-width * 2;
+    width: $navigation-row-width * 2 - $spacing--large;
   }
 
   .c-content-type-result {
