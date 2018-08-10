@@ -103,13 +103,7 @@ storiesOf('Enkle komponenter', module)
         </p>
         <FigureWithLicense
           caption="Du har en kjempegod idé til en kortfilm. Men det koster mange penger å produsere filmen."
-          runScripts
-          figureCaptionLink={{
-            text: 'Lage kortfilm',
-            url: '#1',
-            description: '(Lenken tar deg til et annet nettsted)',
-            external: true,
-          }}>
+          runScripts>
           <Image
             alt="Forstørrelsesglass"
             src="https://staging.api.ndla.no/image-api/raw/42-45210905.jpg"

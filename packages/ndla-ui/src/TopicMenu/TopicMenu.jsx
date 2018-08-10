@@ -12,12 +12,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { getCurrentBreakpoint, breakpoints, noScroll } from 'ndla-util';
+import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import debounce from 'lodash/debounce';
 
-import { Home, Back, Additional } from 'ndla-icons/common';
+import { Home, Back } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-import { Button, SafeLink, Tooltip } from 'ndla-ui';
+import { Button } from 'ndla-ui';
+import SafeLink from '../common/SafeLink';
 import SubtopicLinkList from './SubtopicLinkList';
 import { TopicShape } from '../shapes';
 
@@ -30,21 +31,6 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-export const renderAdditionalIcon = (isAdditional, label) => {
-  if (isAdditional && label) {
-    return (
-      <Tooltip
-        tooltip={label}
-        tooltipContainerClass="c-topic-menu__tooltipContainer">
-        <Additional className="c-icon--20" />
-      </Tooltip>
-    );
-  } else if (isAdditional) {
-    return <Additional className="c-icon--20 c-topic-menu__tooltipContainer" />;
-  }
-  return null;
-};
-
 export default class TopicMenu extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +39,10 @@ export default class TopicMenu extends Component {
     this.handleSubtopicExpand = this.handleSubtopicExpand.bind(this);
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
-    this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
+    this.setScreenSizeDebounced = debounce(
+      () => this.setScreenSize(false),
+      100,
+    );
 
     this.state = {
       isNarrowScreen: false,
@@ -62,13 +51,11 @@ export default class TopicMenu extends Component {
   }
 
   componentDidMount() {
-    noScroll(true);
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
   }
 
   componentWillUnmount() {
-    noScroll(false);
     window.removeEventListener('resize', this.setScreenSizeDebounced);
   }
 
@@ -76,8 +63,7 @@ export default class TopicMenu extends Component {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
       currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === breakpoints.tablet ||
-      currentBreakpoint === 'none';
+      currentBreakpoint === breakpoints.tablet;
 
     /* eslint react/no-did-mount-set-state: 0 */
     if ((initial && isNarrowScreen) || !initial) {
@@ -89,25 +75,36 @@ export default class TopicMenu extends Component {
   }
 
   handleClick(event, topicId) {
-    this.props.onNavigate(topicId, null);
+    this.props.onNavigate(topicId, null, null);
   }
 
-  handleSubtopicExpand(subtopicId, index) {
-    this.props.onNavigate(this.props.expandedTopicId, subtopicId, index);
+  handleSubtopicExpand(subtopicId, level2 = false) {
+    if (level2) {
+      this.props.onNavigate(
+        this.props.expandedTopicId,
+        this.props.expandedSubtopicId,
+        subtopicId,
+      );
+    } else {
+      this.props.onNavigate(this.props.expandedTopicId, subtopicId, null);
+    }
   }
 
   handleOnGoBack() {
-    this.props.onNavigate(
-      this.props.expandedSubtopicsId.length ? this.props.expandedTopicId : null,
-      null,
-    );
+    if (this.props.expandedSubtopicLevel2Id) {
+      this.handleSubtopicExpand(this.props.expandedSubtopicId);
+    } else if (this.props.expandedSubtopicId) {
+      this.handleSubtopicExpand(null);
+    } else {
+      this.props.onNavigate(null, null, null);
+    }
   }
 
   handleBtnKeyPress(event, topicId) {
     if (event.charCode === 32 || event.charCode === 13) {
       // space or enter
       event.preventDefault();
-      this.props.onNavigate(topicId, null);
+      this.props.onNavigate(topicId, null, null);
     }
   }
 
@@ -120,50 +117,40 @@ export default class TopicMenu extends Component {
       close: closeMenu,
       messages,
       expandedTopicId,
-      expandedSubtopicsId,
+      expandedSubtopicId,
+      expandedSubtopicLevel2Id,
       filterOptions,
       filterValues,
       onFilterClick,
       resourceToLinkProps,
       hideSearch,
       competenceGoals,
-      searchPageUrl,
-      onOpenSearch,
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
+    let expandedSubtopic = null;
+    let expandedSubtopicLevel2 = null;
 
-    const currentlyExpandedSubTopics = [];
-    if (expandedTopic) {
-      let currentSubtopic;
-      let foundMatch;
-      expandedSubtopicsId.forEach((id, index) => {
-        if (index === 0) {
-          currentSubtopic = expandedTopic.subtopics.find(
-            topic => topic.id === id,
-          );
-          foundMatch = currentSubtopic ? 0 : undefined;
-        } else {
-          currentSubtopic = currentSubtopic.subtopics.find(
-            topic => topic.id === id,
-          );
-          foundMatch += currentSubtopic ? 1 : 0;
-        }
-        if (foundMatch === index) {
-          currentlyExpandedSubTopics[index] = currentSubtopic;
-        }
-      });
+    if (expandedTopic && expandedSubtopicId) {
+      expandedSubtopic = expandedTopic.subtopics.find(
+        topic => topic.id === expandedSubtopicId,
+      );
     }
 
-    const hasExpandedSubtopics = currentlyExpandedSubTopics.length > 0;
+    if (expandedSubtopic && expandedSubtopicLevel2Id) {
+      expandedSubtopicLevel2 = expandedSubtopic.subtopics.find(
+        topic => topic.id === expandedSubtopicLevel2Id,
+      );
+    }
+
     const subTopicModifiers = ['sub-topic'];
 
-    if (!hasExpandedSubtopics) {
+    if (!expandedSubtopic) {
       subTopicModifiers.push('no-border');
     }
-
     const disableMain = this.state.isNarrowScreen && expandedTopic;
-    const disableSubTopic = disableMain && hasExpandedSubtopics;
+    const disableSubTopic = disableMain && expandedSubtopic;
+    const disableSubTopicLevel2 = disableSubTopic && expandedSubtopicLevel2;
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
@@ -174,16 +161,9 @@ export default class TopicMenu extends Component {
       contentTypeResultsShowLess: messages.contentTypeResultsShowLess,
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
-      additionalFilterLabel: messages.additionalFilterLabel,
-      additionalFilterTooltipLabel: messages.additionalFilterTooltipLabel,
-      additionalTooltipLabel: messages.additionalTooltipLabel,
-      coreAdditionalExplainationHeading:
-        messages.coreAdditionalExplainationHeading,
-      coreAdditionalExplainationTexts: messages.coreAdditionalExplainationTexts,
     };
-
     return (
-      <nav {...classes('', '', 'o-wrapper u-1/1')}>
+      <nav {...classes('dropdown', null, 'o-wrapper u-1/1')}>
         <div {...classes('masthead')}>
           <div {...classes('masthead-left')}>
             <button
@@ -197,9 +177,8 @@ export default class TopicMenu extends Component {
           <div {...classes('masthead-right')}>
             {!hideSearch && (
               <OpenSearchButton
-                onOpen={onOpenSearch}
-                searchPageUrl={searchPageUrl}
-                narrow
+                onOpen={this.props.onOpenSearch}
+                searchPageUrl={this.props.searchPageUrl}
                 messages={{
                   buttonText: messages.search,
                 }}
@@ -212,201 +191,182 @@ export default class TopicMenu extends Component {
             />
           </div>
         </div>
-        <div {...classes('dropdown')}>
-          <div {...classes('content')}>
-            {!disableMain && (
-              <Fragment>
-                {!disableHeaderNavigation && (
-                  <div {...classes('back')}>
-                    <SafeLink {...classes('back-link')} to="/">
-                      <Home {...classes('home-icon', '', 'c-icon--20')} />
-                      {messages.subjectOverview}
-                    </SafeLink>
-                  </div>
-                )}
-                {!disableHeaderNavigation && (
-                  <div
-                    {...classes('subject', {
-                      hasFilter:
-                        filterOptions &&
-                        filterOptions.length > 0 &&
-                        !competenceGoalsOpen,
-                    })}>
-                    <div {...classes('subject__header')}>
-                      <h1>
-                        <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
-                      </h1>
-                      {competenceGoals && (
-                        <Button
-                          className={
-                            classes('competence-toggle-button').className
-                          }
-                          stripped
-                          onClick={() =>
-                            this.setState({
-                              competenceGoalsOpen: !competenceGoalsOpen,
-                            })
-                          }>
-                          {competenceGoalsOpen ? (
-                            <span>
-                              {messages.competenceGoalsToggleButtonClose}{' '}
-                              <Cross />
-                            </span>
-                          ) : (
-                            messages.competenceGoalsToggleButtonOpen
-                          )}
-                        </Button>
-                      )}
-                    </div>
-
-                    {!competenceGoalsOpen &&
+        <div {...classes('content')}>
+          {!disableMain && (
+            <Fragment>
+              {!disableHeaderNavigation && (
+                <div {...classes('back')}>
+                  <SafeLink {...classes('back-link')} to="/">
+                    <Home {...classes('home-icon', '', 'c-icon--20')} />
+                    {messages.subjectOverview}
+                  </SafeLink>
+                </div>
+              )}
+              {!disableHeaderNavigation && (
+                <div
+                  {...classes('subject', {
+                    hasFilter:
                       filterOptions &&
-                      filterOptions.length > 0 && (
-                        <FilterList
-                          options={filterOptions}
-                          values={filterValues}
-                          onChange={onFilterClick}
-                        />
-                      )}
-                    {!competenceGoalsOpen && (
-                      <div {...classes('back-button-slide-wrapper')}>
-                        <button
-                          {...classes(
-                            'back-button-slides',
-                            `slide-${currentlyExpandedSubTopics.length}`,
-                          )}
-                          onClick={this.handleOnGoBack}>
-                          <Back /> <span>{messages.back}</span>
-                        </button>
-                      </div>
+                      filterOptions.length > 0 &&
+                      !competenceGoalsOpen,
+                  })}>
+                  <div {...classes('subject__header')}>
+                    <h1>
+                      <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
+                    </h1>
+                    {competenceGoals && (
+                      <Button
+                        className={
+                          classes('competence-toggle-button').className
+                        }
+                        stripped
+                        onClick={() =>
+                          this.setState({
+                            competenceGoalsOpen: !competenceGoalsOpen,
+                          })
+                        }>
+                        {competenceGoalsOpen ? (
+                          <span>
+                            {messages.competenceGoalsToggleButtonClose}{' '}
+                            <Cross />
+                          </span>
+                        ) : (
+                          messages.competenceGoalsToggleButtonOpen
+                        )}
+                      </Button>
                     )}
                   </div>
-                )}
-              </Fragment>
-            )}
-            {competenceGoalsOpen && (
-              <div {...classes('competence')}>
-                <button
-                  {...classes('competence-close-button')}
-                  onClick={() =>
-                    this.setState({
-                      competenceGoalsOpen: false,
-                    })
-                  }>
-                  <Back />
-                  {messages.competenceGoalsNarrowBackButton}
-                </button>
-                {competenceGoals}
-              </div>
-            )}
-            {!competenceGoalsOpen && (
-              <div
-                {...classes(
-                  'subject-navigation',
-                  `slide-${currentlyExpandedSubTopics.length}`,
-                )}>
-                {!disableMain && (
-                  <Fragment>
-                    <div {...classes('section', 'main')}>
-                      <SafeLink
-                        to={toSubject()}
-                        className={classes('link', 'big').className}>
-                        <span {...classes('link-label')}>{messages.goTo}:</span>
-                        <span {...classes('link-target')}>
-                          {messages.subjectPage} ›
-                        </span>
-                      </SafeLink>
-                      <ul {...classes('list')}>
-                        {topics.map(topic => {
-                          const active = topic.id === expandedTopicId;
 
-                          return (
-                            <li
-                              {...classes('topic-item', active && 'active')}
-                              key={topic.id}>
-                              {renderAdditionalIcon(
-                                topic.additional,
-                                messages.additionalTooltipLabel,
-                              )}
-                              <button
-                                type="button"
-                                {...classes('link')}
-                                onClick={event =>
-                                  this.handleClick(event, topic.id)
-                                }
-                                onKeyPress={event =>
-                                  this.handleBtnKeyPress(event, topic.id)
-                                }>
-                                {topic.name}
-                              </button>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </Fragment>
-                )}
-                {expandedTopic &&
-                  !disableSubTopic && (
-                    <SubtopicLinkList
-                      classes={classes}
-                      className={
-                        classes('section', subTopicModifiers).className
-                      }
-                      closeMenu={closeMenu}
-                      topic={expandedTopic}
-                      messages={subTopicLinkListMessages}
-                      goToTitle={messages.goTo}
-                      toTopic={toTopic}
-                      expandedSubtopicId={
-                        currentlyExpandedSubTopics[0] &&
-                        currentlyExpandedSubTopics[0].id
-                      }
-                      onSubtopicExpand={id => {
-                        this.handleSubtopicExpand(id, 0);
-                      }}
-                      onGoBack={this.handleOnGoBack}
-                      resourceToLinkProps={resourceToLinkProps}
-                    />
-                  )}
-                {currentlyExpandedSubTopics.map((subTopic, index) => (
+                  {!competenceGoalsOpen &&
+                    filterOptions &&
+                    filterOptions.length > 0 && (
+                      <FilterList
+                        options={filterOptions}
+                        values={filterValues}
+                        onChange={onFilterClick}
+                      />
+                    )}
+                </div>
+              )}
+            </Fragment>
+          )}
+          {competenceGoalsOpen && (
+            <div {...classes('competence')}>
+              <button
+                type="button"
+                {...classes('competence-close-button')}
+                onClick={() =>
+                  this.setState({
+                    competenceGoalsOpen: false,
+                  })
+                }>
+                <Back />
+                {messages.competenceGoalsNarrowBackButton}
+              </button>
+              {competenceGoals}
+            </div>
+          )}
+          {!competenceGoalsOpen && (
+            <div {...classes('subject-navigation')}>
+              {!disableMain && (
+                <Fragment>
+                  <div {...classes('section', 'main')}>
+                    <SafeLink
+                      to={toSubject()}
+                      className={classes('link', 'big').className}>
+                      <span {...classes('link-label')}>{messages.goTo}:</span>
+                      <span {...classes('link-target')}>
+                        {messages.subjectPage} ›
+                      </span>
+                    </SafeLink>
+                    <ul {...classes('list')}>
+                      {topics.map(topic => {
+                        const active = topic.id === expandedTopicId;
+
+                        return (
+                          <li
+                            {...classes('topic-item', active && 'active')}
+                            key={topic.id}>
+                            <button
+                              {...classes('link')}
+                              type="button"
+                              onClick={event =>
+                                this.handleClick(event, topic.id)
+                              }
+                              onKeyPress={event =>
+                                this.handleBtnKeyPress(event, topic.id)
+                              }>
+                              {topic.name}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </Fragment>
+              )}
+              {expandedTopic &&
+                !disableSubTopic && (
                   <SubtopicLinkList
-                    key={subTopic.id}
+                    classes={classes}
+                    className={classes('section', subTopicModifiers).className}
+                    closeMenu={closeMenu}
+                    topic={expandedTopic}
+                    messages={subTopicLinkListMessages}
+                    goToTitle={messages.goTo}
+                    toTopic={toTopic}
+                    expandedSubtopicId={expandedSubtopicId}
+                    onSubtopicExpand={this.handleSubtopicExpand}
+                    onGoBack={this.handleOnGoBack}
+                    resourceToLinkProps={resourceToLinkProps}
+                  />
+                )}
+              {expandedSubtopic &&
+                !disableSubTopicLevel2 && (
+                  <SubtopicLinkList
                     classes={classes}
                     className={
                       classes('section', ['sub-topic', 'no-border']).className
                     }
                     closeMenu={closeMenu}
-                    topic={subTopic}
+                    topic={expandedSubtopic}
                     messages={subTopicLinkListMessages}
                     toTopic={toTopic}
-                    expandedSubtopicId={
-                      currentlyExpandedSubTopics[index + 1]
-                        ? currentlyExpandedSubTopics[index + 1].id
-                        : 'no way'
-                    }
+                    expandedSubtopicId={expandedSubtopicLevel2Id}
                     onSubtopicExpand={id => {
-                      this.handleSubtopicExpand(id, index + 1);
+                      this.handleSubtopicExpand(id, true);
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
                   />
-                ))}
-                {!disableMain &&
-                  competenceGoals && (
-                    <button
-                      {...classes('competence-open-button')}
-                      onClick={() =>
-                        this.setState({
-                          competenceGoalsOpen: true,
-                        })
-                      }>
-                      {messages.competenceGoalsNarrowOpenButton}
-                    </button>
-                  )}
-              </div>
-            )}
-          </div>
+                )}
+              {expandedSubtopicLevel2 && (
+                <SubtopicLinkList
+                  classes={classes}
+                  className={classes('section', ['sub-topic']).className}
+                  closeMenu={closeMenu}
+                  topic={expandedSubtopicLevel2}
+                  messages={subTopicLinkListMessages}
+                  toTopic={toTopic}
+                  onGoBack={this.handleOnGoBack}
+                  resourceToLinkProps={resourceToLinkProps}
+                />
+              )}
+              {!disableMain &&
+                competenceGoals && (
+                  <button
+                    {...classes('competence-open-button')}
+                    type="button"
+                    onClick={() =>
+                      this.setState({
+                        competenceGoalsOpen: true,
+                      })
+                    }>
+                    {messages.competenceGoalsNarrowOpenButton}
+                  </button>
+                )}
+            </div>
+          )}
         </div>
       </nav>
     );
@@ -433,7 +393,6 @@ TopicMenu.propTypes = {
     contentTypeResultsShowMore: PropTypes.string.isRequired,
     contentTypeResultsShowLess: PropTypes.string.isRequired,
     contentTypeResultsNoHit: PropTypes.string.isRequired,
-    additionalTooltipLabel: PropTypes.string,
   }).isRequired,
   filterOptions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -449,9 +408,8 @@ TopicMenu.propTypes = {
   resourceToLinkProps: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   expandedTopicId: PropTypes.string,
-  // expandedSubtopicId: PropTypes.string,
-  // expandedSubtopicLevel2Id: PropTypes.string,
-  expandedSubtopicsId: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expandedSubtopicId: PropTypes.string,
+  expandedSubtopicLevel2Id: PropTypes.string,
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,

@@ -11,9 +11,11 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-const renderItem = item => {
+const renderItem = (item, expanded = true) => {
   const content = item.url ? (
-    <SafeLink to={item.url}>{item.text}</SafeLink>
+    <SafeLink to={item.url} tabIndex={!expanded ? -1 : null}>
+      {item.text}
+    </SafeLink>
   ) : (
     item.text
   );
@@ -113,7 +115,9 @@ class CompetenceGoals extends Component {
                   id={id}
                   aria-hidden={this.state.expanded !== topic.heading}
                   {...classes('topic-list')}>
-                  {topic.items.map(item => renderItem(item))}
+                  {topic.items.map(item =>
+                    renderItem(item, this.state.expanded === topic.heading),
+                  )}
                 </ul>
               </div>
             ))}

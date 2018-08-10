@@ -9,4 +9,3 @@ require('./licenses');
 require('./produksjonssystem');
 require('./beta');
 require('./experimental');
-require('./messages');

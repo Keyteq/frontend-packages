@@ -2,30 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
-import { ContentTypeBadge, SafeLink, Tooltip } from 'ndla-ui';
-import { Additional } from 'ndla-icons/common';
+import SafeLink from '../common/SafeLink';
 import { ContentTypeResultShape } from '../shapes';
 
 const classes = BEMHelper({
   prefix: 'c-',
   name: 'content-type-result',
 });
-
-const renderAdditionalIcon = (isAdditional, label) => {
-  if (isAdditional && label) {
-    return (
-      <Tooltip
-        tooltip={label}
-        align="top"
-        tooltipContainerClass={classes('additional-icon').className}>
-        <Additional className="c-icon--20" />
-      </Tooltip>
-    );
-  } else if (isAdditional) {
-    return <Additional className="c-icon--20" />;
-  }
-  return null;
-};
 
 class ContentTypeResult extends Component {
   constructor(props) {
@@ -42,24 +25,20 @@ class ContentTypeResult extends Component {
       onNavigate,
       defaultCount,
       resourceToLinkProps,
-      showAdditionalResources,
     } = this.props;
     let view = null;
 
-    const results =
-      showAdditionalResources || !contentTypeResult.resources
-        ? contentTypeResult.resources
-        : contentTypeResult.resources.filter(items => !items.additional);
-
-    const totalCount = results ? results.length : 0;
+    const totalCount = contentTypeResult.resources
+      ? contentTypeResult.resources.length
+      : 0;
 
     if (totalCount > 0) {
       const resources = this.state.showAll
-        ? results
-        : results.slice(0, defaultCount);
+        ? contentTypeResult.resources
+        : contentTypeResult.resources.slice(0, defaultCount);
 
       view = (
-        <ul {...classes('', contentTypeResult.contentType)}>
+        <ul>
           {resources.map(item => {
             const linkProps = resourceToLinkProps(item);
             if (linkProps && linkProps.href) {
@@ -69,6 +48,7 @@ class ContentTypeResult extends Component {
                 </li>
               );
             }
+
             return (
               <li key={item.path}>
                 <SafeLink
@@ -79,10 +59,6 @@ class ContentTypeResult extends Component {
                     }
                   }}>
                   {item.name}
-                  {renderAdditionalIcon(
-                    item.additional,
-                    messages.additionalTooltipLabel,
-                  )}
                 </SafeLink>
               </li>
             );
@@ -111,14 +87,6 @@ class ContentTypeResult extends Component {
     return (
       <section {...classes()}>
         <header>
-          {contentTypeResult.contentType && (
-            <ContentTypeBadge
-              type={contentTypeResult.contentType}
-              size="x-small"
-              background
-              outline
-            />
-          )}
           <h1>
             {contentTypeResult.title}{' '}
             <span {...classes('total-count')}>({totalCount})</span>
@@ -135,19 +103,15 @@ ContentTypeResult.propTypes = {
   onNavigate: PropTypes.func,
   contentTypeResult: ContentTypeResultShape.isRequired,
   resourceToLinkProps: PropTypes.func.isRequired,
-  showAdditionalResources: PropTypes.bool,
   messages: PropTypes.shape({
     allResultLabel: PropTypes.string.isRequired,
     showLessResultLabel: PropTypes.string.isRequired,
     noHit: PropTypes.string.isRequired,
-    filterAdditionalLabel: PropTypes.string,
-    additionalTooltipLabel: PropTypes.string,
   }).isRequired,
 };
 
 ContentTypeResult.defaultProps = {
-  defaultCount: 3,
-  showAdditionalResources: false,
+  defaultCount: 5,
 };
 
 export default ContentTypeResult;

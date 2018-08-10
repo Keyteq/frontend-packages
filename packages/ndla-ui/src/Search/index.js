@@ -17,7 +17,6 @@ import SearchFilter from './SearchFilter';
 import SearchPopoverFilter from './SearchPopoverFilter';
 import ContentTypeResult from './ContentTypeResult';
 import SearchResultAuthor from './SearchResultAuthor';
-import SearchToggleFilter from './SearchToggleFilter';
 
 export {
   SearchField,
@@ -31,5 +30,4 @@ export {
   SearchPopoverFilter,
   ContentTypeResult,
   SearchResultAuthor,
-  SearchToggleFilter,
 };

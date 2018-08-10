@@ -38,7 +38,7 @@ export const MastheadWithLogo = () => (
 const messages = {
   closeButton: 'Lukk',
   goTo: 'Gå til',
-  subjectOverview: 'Alle fag',
+  subjectOverview: 'Fagoversikt',
   search: 'Søk',
   subjectPage: 'Fagforside',
   learningResourcesHeading: 'Læringsressurser',
@@ -50,14 +50,6 @@ const messages = {
   competenceGoalsToggleButtonClose: 'Lukk kompetansemål',
   competenceGoalsNarrowOpenButton: 'Vis kompetansemål',
   competenceGoalsNarrowBackButton: 'Tilbake',
-  additionalTooltipLabel: 'Tilleggsstoff',
-  additionalFilterLabel: 'Vis tilleggsressurser',
-  additionalFilterTooltipLabel: 'Hva er kjernestoff og tilleggsstoff?',
-  coreAdditionalExplainationHeading: 'Kjernestoff og tilleggsstoff',
-  coreAdditionalExplainationTexts: [
-    'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-    'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-  ],
 };
 
 class MastheadWithTopicMenu extends Component {
@@ -68,7 +60,8 @@ class MastheadWithTopicMenu extends Component {
       menuIsOpen: false,
       searchIsOpen: this.props.searchFieldExpanded,
       expandedTopicId: null,
-      expandedSubtopicsId: [],
+      expandedSubtopicId: null,
+      expandedSubtopicLevel2Id: null,
     };
   }
 
@@ -104,14 +97,6 @@ class MastheadWithTopicMenu extends Component {
                     value: event.currentTarget.value,
                   });
                 }}
-                onSearch={e => {
-                  /* eslint-disable no-console */
-                  console.log(
-                    'search for:',
-                    e.target.getElementsByTagName('input')[0].value,
-                  );
-                  e.preventDefault();
-                }}
                 filters={[
                   { value: 'Value', title: 'Medieuttrykk og mediesamfunn' },
                 ]}
@@ -141,13 +126,12 @@ class MastheadWithTopicMenu extends Component {
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
           <ClickToggle
-            id="mastheadSearchId"
             isOpen={this.state.menuIsOpen}
             onToggle={isOpen => {
               this.setState({
                 menuIsOpen: isOpen,
                 expandedTopicId: null,
-                expandedSubtopicsId: [],
+                expandedSubtopicId: null,
               });
             }}
             title="Meny"
@@ -156,7 +140,6 @@ class MastheadWithTopicMenu extends Component {
             buttonClassName="c-btn c-button--outline c-topic-menu-toggle-button">
             {onClose => (
               <TopicMenu
-                id="mastheadSearchId"
                 close={onClose}
                 isBeta={this.props.beta}
                 subjectTitle="Mediefag"
@@ -187,23 +170,17 @@ class MastheadWithTopicMenu extends Component {
                 searchPageUrl="#"
                 resourceToLinkProps={() => {}}
                 expandedTopicId={this.state.expandedTopicId}
-                expandedSubtopicsId={this.state.expandedSubtopicsId}
-                onNavigate={(expandedTopicId, subtopicId, currentIndex) => {
-                  let { expandedSubtopicsId } = this.state;
-                  if (expandedSubtopicsId.length > currentIndex) {
-                    expandedSubtopicsId = expandedSubtopicsId.slice(
-                      0,
-                      currentIndex,
-                    );
-                  }
-                  if (subtopicId) {
-                    expandedSubtopicsId.push(subtopicId);
-                  } else {
-                    expandedSubtopicsId.pop();
-                  }
+                expandedSubtopicId={this.state.expandedSubtopicId}
+                expandedSubtopicLevel2Id={this.state.expandedSubtopicLevel2Id}
+                onNavigate={(
+                  expandedTopicId,
+                  expandedSubtopicId,
+                  expandedSubtopicLevel2Id,
+                ) => {
                   this.setState({
                     expandedTopicId,
-                    expandedSubtopicsId,
+                    expandedSubtopicId,
+                    expandedSubtopicLevel2Id,
                   });
                 }}
               />

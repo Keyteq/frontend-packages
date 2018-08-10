@@ -21,7 +21,6 @@ import {
   exerciseResources,
   assessmentResources,
 } from '../../dummydata/index';
-import { launchpadMessages } from '../../messages/index';
 
 const { contentTypes } = constants;
 
@@ -73,8 +72,10 @@ class Resources extends Component {
     super(props);
     this.state = {
       showAdditionalResources: false,
+      showAdditionalDialog: false,
     };
     this.toggleAdditionalResources = this.toggleAdditionalResources.bind(this);
+    this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
   }
 
   toggleAdditionalResources() {
@@ -83,8 +84,14 @@ class Resources extends Component {
     }));
   }
 
+  toggleAdditionalDialog() {
+    this.setState(prevState => ({
+      showAdditionalDialog: !prevState.showAdditionalDialog,
+    }));
+  }
+
   render() {
-    const { showAdditionalResources } = this.state;
+    const { showAdditionalResources, showAdditionalDialog } = this.state;
     const hasAdditionalResources = resourceGroups.some(group =>
       group.resources.some(resource => resource.additional),
     );
@@ -108,6 +115,8 @@ class Resources extends Component {
             toggleAdditionalResources={this.toggleAdditionalResources}
             showAdditionalResources={showAdditionalResources}
             hasAdditionalResources={hasAdditionalResources}
+            toggleAdditionalDialog={this.toggleAdditionalDialog}
+            showAdditionalDialog={showAdditionalDialog}
           />
         }>
         {resourceGroups.map(group => (
@@ -123,9 +132,8 @@ class Resources extends Component {
               noContentBoxLabel: group.noContentLabel,
               noContentBoxButtonText: 'Vis tilleggsstoff',
               toggleFilterLabel: 'Tilleggsressurser',
-              coreTooltip: launchpadMessages.coreIconTooltip.text.nb,
-              additionalTooltip:
-                launchpadMessages.additionalIconTooltip.text.nb,
+              coreTooltip: 'Kjernestoff er fagstoff som er på pensum',
+              additionalTooltip: 'Tilleggsstoff er ikke på pensum',
             }}
             resourceToLinkProps={toLink}
           />

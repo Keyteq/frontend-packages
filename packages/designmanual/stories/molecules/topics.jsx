@@ -13,15 +13,16 @@ import {
   TopicIntroductionList,
 } from 'ndla-ui';
 import { topicList } from '../../dummydata/index';
-import { topicListMessages } from '../../messages/index';
 
 class Topics extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showAdditionalCores: false,
+      showAdditionalDialog: false,
     };
     this.toggleAdditionalCores = this.toggleAdditionalCores.bind(this);
+    this.toggleAdditionalDialog = this.toggleAdditionalDialog.bind(this);
   }
 
   toggleAdditionalCores() {
@@ -30,8 +31,14 @@ class Topics extends Component {
     }));
   }
 
+  toggleAdditionalDialog() {
+    this.setState(prevState => ({
+      showAdditionalDialog: !prevState.showAdditionalDialog,
+    }));
+  }
+
   render() {
-    const { showAdditionalCores } = this.state;
+    const { showAdditionalCores, showAdditionalDialog } = this.state;
     return (
       <ResourcesWrapper
         header={
@@ -51,6 +58,8 @@ class Topics extends Component {
             hasAdditionalResources={topicList.some(topic => topic.additional)}
             toggleAdditionalResources={this.toggleAdditionalCores}
             showAdditionalResources={showAdditionalCores}
+            toggleAdditionalDialog={this.toggleAdditionalDialog}
+            showAdditionalDialog={showAdditionalDialog}
           />
         }>
         <TopicIntroductionList
@@ -62,10 +71,10 @@ class Topics extends Component {
           messages={{
             noContentBoxLabel: 'Det er ikke noe kjernestoff tilgjengelig.',
             noContentBoxButtonText: 'Vis tilleggsstoff',
-            shortcutButtonText: topicListMessages.shortcutButtonText.text.nb,
-            tooltipCoreTopic: topicListMessages.tooltipCoreTopic.text.nb,
+            shortcutButtonText: 'Lærestoff',
+            tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
             tooltipAdditionalTopic:
-              topicListMessages.tooltipAdditionalTopic.text.nb,
+              'Tilleggsstoff er fagstoff som er på pensum',
           }}
         />
       </ResourcesWrapper>

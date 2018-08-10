@@ -23,8 +23,8 @@ class FilterTabs extends Component {
     this.liRefs = {};
     this.tabWidths = null;
     this.dropdownTabWidth = null;
-    this.dropdownTabRef = React.createRef();
-    this.containerRef = React.createRef();
+    this.dropdownTabRef = null;
+    this.containerRef = null;
     this.showSelectedTab = false;
   }
 
@@ -57,10 +57,7 @@ class FilterTabs extends Component {
   }
 
   updateTabSizes() {
-    if (
-      !this.tabWidths &&
-      this.liRefs[Object.keys(this.liRefs)[0]].parentNode.offsetWidth !== 0
-    ) {
+    if (!this.tabWidths) {
       // Get all tabs widths
       this.tabWidths = [];
       let widestNode = 0;
@@ -70,19 +67,16 @@ class FilterTabs extends Component {
         this.tabWidths[counter] = nodeWidth;
       });
       this.dropdownTabWidth = Math.max(
-        this.dropdownTabRef.current.parentNode.offsetWidth,
+        this.dropdownTabRef.parentNode.offsetWidth,
         widestNode,
       );
     }
   }
 
   checkTabSizes() {
-    if (!this.tabWidths) {
-      this.updateTabSizes();
-    }
     if (this.tabWidths) {
       const containerWidth =
-        this.containerRef.current.offsetWidth - this.dropdownTabWidth;
+        this.containerRef.offsetWidth - this.dropdownTabWidth;
       let visibleTabsTotalWidth = 0;
       let visibleTabsCounter = -1;
       for (
@@ -180,7 +174,7 @@ class FilterTabs extends Component {
     this.showSelectedTab = false;
     if (
       this.state.visibleTabsCounter === this.props.options.length &&
-      this.dropdownTabRef.current
+      this.dropdownTabRef
     ) {
       // No need for dropdown as every tab is showing.
       return null;
@@ -288,7 +282,9 @@ class FilterTabs extends Component {
               });
             }
           }}
-          ref={this.dropdownTabRef}>
+          ref={ref => {
+            this.dropdownTabRef = ref;
+          }}>
           {moreLabel} <ArrowDropDown />
         </button>
         <div
@@ -304,7 +300,12 @@ class FilterTabs extends Component {
     const { contentId, value, children } = this.props;
     return (
       <div {...classes('')}>
-        <ul {...classes('list')} role="tablist" ref={this.containerRef}>
+        <ul
+          {...classes('list')}
+          role="tablist"
+          ref={ref => {
+            this.containerRef = ref;
+          }}>
           {this.renderVisibleTabs()}
           {this.renderDropdownTabs()}
         </ul>
