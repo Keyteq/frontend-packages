@@ -72,11 +72,12 @@
 
   &__content {
     display: flex;
-    padding: $spacing--medium $spacing--small $spacing--small $spacing--small;
+    padding: $spacing--medium $spacing--small $spacing--small;
     justify-content: space-between;
 
     @include mq(tablet) {
-      padding-top: 0;
+      padding-top: $spacing--small;
+      padding-left: $spacing;
       align-items: center;
     }
 
@@ -84,6 +85,14 @@
       flex: 1 0 auto;
       margin-left: $spacing--large;
       display: none;
+
+      .c-search-field__input-wrapper {
+        padding-right: 0;
+      }
+
+      .c-search-field__button {
+        right: 0;
+      }
 
       @include mq(tablet) {
         display: flex;
@@ -94,7 +103,7 @@
   &__navigation {
     display: none;
     justify-content: flex-end;
-    padding: $spacing 0 $spacing--small 0;
+    padding: $spacing $spacing--large $spacing--small 0;
 
     @include mq(tablet) {
       display: flex;

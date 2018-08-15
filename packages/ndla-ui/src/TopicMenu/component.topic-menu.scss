@@ -21,7 +21,7 @@ $navigation-row-width: 980px / 3;
   padding-left: $spacing*2;
   font-weight: $font-weight-normal;
   color: $brand-color;
-  border: 3px solid $brand-color;
+  border: 2px solid $brand-color;
 
   &:before {
     content: '';
@@ -42,7 +42,7 @@ $navigation-row-width: 980px / 3;
   }
   &:active,
   &:focus {
-    border: 3px solid $brand-color--lighter;
+    border: 2px solid $brand-color--lighter;
     background: $white;
     color: $brand-color;
     &:hover:before {
@@ -59,7 +59,7 @@ $navigation-row-width: 980px / 3;
 }
 .c-topic-menu-container .active {
   background: transparent;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   box-shadow: none;
   color: $brand-color;
   &:hover,

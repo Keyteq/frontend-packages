@@ -23,8 +23,7 @@ export { default as AuthorInfo } from './AuthorInfo';
 
 export {
   FrontpageHeader,
-  FrontpageSubjectsWrapper,
-  FrontpageSubjectsSection,
+  FrontpageSubjects,
   FrontpageHighlighted,
   FrontpageInfo,
   FrontpageSearchSection,

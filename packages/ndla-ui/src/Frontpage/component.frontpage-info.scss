@@ -1,7 +1,7 @@
 .c-frontpage-info {
   display: flex;
   flex-flow: column;
-  margin-top: $spacing--large;
+  margin-top: $spacing;
 
   @include mq(tablet) {
     flex-flow: row;
@@ -9,9 +9,10 @@
   }
 
   & > * {
-    margin-top: $spacing--large;
+    margin-top: $spacing;
 
     @include mq(tablet) {
+      margin-top: $spacing--large;
       flex-basis: 33.3333333%;
       flex-grow: 0;
       margin-top: 0;

@@ -78,6 +78,11 @@
 
     @include mq(tablet) {
       padding: 0;
+      column-count: 2;
+    }
+
+    @include mq(desktop) {
+      padding: 0;
       column-count: 3;
     }
 
@@ -99,6 +104,16 @@
   &__item {
     margin-bottom: $spacing--small;
     display: block;
+
+
+    @include mq($until: tablet) {
+      a {
+        padding-top: $spacing--small;
+        padding-bottom: $spacing--small;
+        display: inline-flex;
+      }
+      margin-bottom: 0;
+    }
 
     &:last-child {
       @include mq($until: tablet) {

@@ -68,6 +68,10 @@ export default class ClickToggle extends React.Component {
       typeof this.props.children === 'function'
         ? this.containerRef.current
         : document.querySelector(`[data-dialog-id='${this.props.id}']`);
+    console.log('target', target);
+    console.log(typeof this.props.children === 'function', this.containerRef.current);
+    console.log('this.containerRef', this.containerRef);
+    console.log('this.containerRef.current', this.containerRef.current);
     if (target) {
       this.focusTrap = createFocusTrap(target, {
         onActivate: () => {
@@ -147,9 +151,7 @@ export default class ClickToggle extends React.Component {
           {title}
         </Button>
         <div
-          ref={ref => {
-            this.containerRef = ref;
-          }}>
+          ref={this.containerRef}>
           {useDialog &&
             (alwaysRenderChildren || showDialog) && (
               <Dialog
