@@ -81,6 +81,7 @@ class MastheadWithTopicMenu extends Component {
     if (!this.props.hideSearchButton) {
       searchButtonView = (
         <ToggleSearchButton
+          id="ToggleSearchButtonId"
           isOpen={this.state.searchIsOpen}
           onToggle={isOpen => {
             const newState = {
@@ -92,7 +93,6 @@ class MastheadWithTopicMenu extends Component {
             }
             this.setState(newState);
           }}
-          searchPageUrl="#"
           messages={{ buttonText: 'Søk' }}>
           {(onClose, isOpen) => (
             <SearchOverlay close={onClose} isOpen={isOpen}>
@@ -143,6 +143,7 @@ class MastheadWithTopicMenu extends Component {
           <ClickToggle
             id="mastheadSearchId"
             isOpen={this.state.menuIsOpen}
+            pauseFocusTrap={this.state.menuIsOpen && this.state.searchIsOpen}
             onToggle={isOpen => {
               this.setState({
                 menuIsOpen: isOpen,
@@ -167,7 +168,6 @@ class MastheadWithTopicMenu extends Component {
                 messages={messages}
                 onOpenSearch={() => {
                   this.setState({
-                    menuIsOpen: false,
                     searchIsOpen: true,
                   });
                 }}
@@ -183,8 +183,7 @@ class MastheadWithTopicMenu extends Component {
                 ]}
                 filterValues={['Medieuttrykk']}
                 competenceGoals={<CompetenceGoalsExample menu />}
-                onFilterClick={() => {}}
-                searchPageUrl="#"
+                onFilterClick={(values, val) => { console.log(values, val); }}
                 resourceToLinkProps={() => {}}
                 expandedTopicId={this.state.expandedTopicId}
                 expandedSubtopicsId={this.state.expandedSubtopicsId}

@@ -14,7 +14,7 @@ const classes = BEMHelper({
 const SearchOverlay = ({ close, isOpen, children }) => (
   <Fragment>
     <Fade in={isOpen}>
-      <div className="o-backdrop" />
+      <div className="o-backdrop o-backdrop--second-level" onClick={close} role="button" aria-hidden />
     </Fade>
     <CSSTransition
       timeout={300}

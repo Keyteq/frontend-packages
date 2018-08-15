@@ -6,4 +6,8 @@
   bottom: 0;
 
   background: rgba(1, 1, 1, 0.3);
+
+  &--second-level {
+    z-index: 999;
+  }
 }

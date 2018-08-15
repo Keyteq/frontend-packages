@@ -49,16 +49,19 @@
   &__menu-button {
     color: white;
     background: none;
-    border: 1px solid white;
+    border: 2px solid white;
     padding: 0 $spacing--small;
     border-radius: 4px;
     font-weight: 600;
-    @include font-size(16px, 45px);
+    @include font-size(16px, 24px);
     height: 45px;
     min-width: 80px;
 
     @include mq(tablet) {
       display: none;
+    }
+    &:focus, &:hover {
+      border: 2px solid white;
     }
   }
 

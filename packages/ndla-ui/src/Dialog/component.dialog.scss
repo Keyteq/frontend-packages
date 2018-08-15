@@ -138,6 +138,13 @@
       }
     }
   }
+
+  &--slide-up &__content {
+    width: 100vh;
+    height: 100vh;
+    max-width: 100vh;
+    max-height: 100vh;
+  }
 }
 /*
   Hack for fixing top padding on devices

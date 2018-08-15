@@ -828,6 +828,7 @@ $navigation-row-width: 980px / 3;
   }
 
   .c-toggle-search-button__button {
+    display: flex;
     @include mq(desktop) {
       margin-right: $spacing--medium;
     }

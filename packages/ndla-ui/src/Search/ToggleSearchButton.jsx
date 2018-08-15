@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Search } from 'ndla-icons/common';
 import BEMHelper from 'react-bem-helper';
 
 import ClickToggle from '../common/ClickToggle';
-import SafeLink from '../common/SafeLink';
 import Button from '../Button';
 
 const classes = BEMHelper({
@@ -13,7 +12,7 @@ const classes = BEMHelper({
   outputIsString: true,
 });
 
-export const OpenSearchButton = ({ messages, onOpen, searchPageUrl }) => {
+export const OpenSearchButton = ({ messages, onOpen }) => {
   const buttonContent = (
     <span className={classes('button-content')}>
       <span className={classes('button-text')}>{messages.buttonText}</span>
@@ -22,14 +21,9 @@ export const OpenSearchButton = ({ messages, onOpen, searchPageUrl }) => {
   );
 
   return (
-    <Fragment>
-      <SafeLink to={searchPageUrl} className={classes('button', 'narrow')}>
-        {buttonContent}
-      </SafeLink>
-      <Button onClick={onOpen} className={classes('button', 'wide')}>
-        {buttonContent}
-      </Button>
-    </Fragment>
+    <Button onClick={onOpen} className={classes('button', 'wide')}>
+      {buttonContent}
+    </Button>
   );
 };
 
@@ -37,13 +31,7 @@ OpenSearchButton.propTypes = {
   messages: PropTypes.shape({
     buttonText: PropTypes.string.isRequired,
   }).isRequired,
-  searchPageUrl: PropTypes.string.isRequired,
   onOpen: PropTypes.func.isRequired,
-  narrow: PropTypes.bool,
-};
-
-OpenSearchButton.defaultProps = {
-  narrow: true,
 };
 
 const ToggleSearchButton = ({ messages, children, isOpen, onToggle }) => {
@@ -58,7 +46,8 @@ const ToggleSearchButton = ({ messages, children, isOpen, onToggle }) => {
       isOpen={isOpen}
       onToggle={onToggle}
       title={buttonContent}
-      alwaysRenderChildren
+      returnFocusOnDeactivate={false}
+      escapeDeactivates={false}
       className={classes()}
       buttonClassName={classes('button', 'wide')}>
       {children}

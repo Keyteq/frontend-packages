@@ -23,7 +23,7 @@ import { TopicShape } from '../shapes';
 
 import { OpenSearchButton } from '../Search';
 import Logo from '../Logo';
-import { FilterList } from '../Filter';
+import { FilterListPhone } from '../Filter';
 
 const classes = new BEMHelper({
   name: 'topic-menu',
@@ -128,7 +128,6 @@ export default class TopicMenu extends Component {
       resourceToLinkProps,
       hideSearch,
       competenceGoals,
-      searchPageUrl,
       onOpenSearch,
     } = this.props;
     const { competenceGoalsOpen } = this.state;
@@ -199,7 +198,6 @@ export default class TopicMenu extends Component {
             {!hideSearch && (
               <OpenSearchButton
                 onOpen={onOpenSearch}
-                searchPageUrl={searchPageUrl}
                 narrow
                 messages={{
                   buttonText: messages.search,
@@ -263,11 +261,13 @@ export default class TopicMenu extends Component {
                     {!competenceGoalsOpen &&
                       filterOptions &&
                       filterOptions.length > 0 && (
-                        <FilterList
-                          options={filterOptions}
-                          values={filterValues}
-                          onChange={onFilterClick}
-                        />
+                        <Fragment>
+                          <FilterListPhone
+                            options={filterOptions}
+                            values={filterValues}
+                            onChange={onFilterClick}
+                          />
+                        </Fragment>
                       )}
                     {!competenceGoalsOpen && (
                       <div {...classes('back-button-slide-wrapper')}>
@@ -449,12 +449,9 @@ TopicMenu.propTypes = {
   filterValues: PropTypes.arrayOf(PropTypes.string),
   subjectTitle: PropTypes.string.isRequired,
   onOpenSearch: PropTypes.func.isRequired,
-  searchPageUrl: PropTypes.string.isRequired,
   resourceToLinkProps: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   expandedTopicId: PropTypes.string,
-  // expandedSubtopicId: PropTypes.string,
-  // expandedSubtopicLevel2Id: PropTypes.string,
   expandedSubtopicsId: PropTypes.arrayOf(PropTypes.string).isRequired,
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,

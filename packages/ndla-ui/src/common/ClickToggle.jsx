@@ -52,6 +52,11 @@ export default class ClickToggle extends React.Component {
       ) {
         this.focusTrap.deactivate();
       }
+      if (nextProps.pauseFocusTrap && !this.props.pauseFocusTrap) {
+        this.focusTrap.unpause();
+      } else if (nextProps.pauseFocusTrap && !this.props.pauseFocusTrap) {
+        this.focusTrap.pause();
+      }
     }
   }
 
@@ -68,10 +73,7 @@ export default class ClickToggle extends React.Component {
       typeof this.props.children === 'function'
         ? this.containerRef.current
         : document.querySelector(`[data-dialog-id='${this.props.id}']`);
-    console.log('target', target);
-    console.log(typeof this.props.children === 'function', this.containerRef.current);
-    console.log('this.containerRef', this.containerRef);
-    console.log('this.containerRef.current', this.containerRef.current);
+
     if (target) {
       this.focusTrap = createFocusTrap(target, {
         onActivate: () => {
@@ -95,6 +97,7 @@ export default class ClickToggle extends React.Component {
           this.focusActive = false;
         },
         clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: this.props.returnFocusOnDeactivate,
       });
       if (isActive) {
         this.focusTrap.activate();
@@ -224,6 +227,8 @@ ClickToggle.propTypes = {
   dialogModifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   alwaysRenderChildren: PropTypes.bool,
   disablePortal: PropTypes.bool,
+  returnFocusOnDeactivate: PropTypes.bool,
+  pauseFocusTrap: PropTypes.bool,
 };
 
 ClickToggle.defaultProps = {
@@ -236,4 +241,6 @@ ClickToggle.defaultProps = {
   id: undefined,
   alwaysRenderChildren: false,
   disablePortal: true,
+  returnFocusOnDeactivate: null,
+  pauseFocusTrap: null,
 };
