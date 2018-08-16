@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noScroll } from 'ndla-util';
+import { noScroll, uuid } from 'ndla-util';
 import elementType from 'react-prop-types/lib/elementType';
 import createFocusTrap from 'focus-trap';
 
@@ -26,6 +26,7 @@ export default class ClickToggle extends React.Component {
     this.focusActive = null;
     this.containerRef = React.createRef();
     this.focusTrap = null;
+    this.uuid = uuid();
   }
 
   componentDidMount() {
@@ -54,7 +55,7 @@ export default class ClickToggle extends React.Component {
       }
       if (nextProps.pauseFocusTrap && !this.props.pauseFocusTrap) {
         this.focusTrap.unpause();
-      } else if (nextProps.pauseFocusTrap && !this.props.pauseFocusTrap) {
+      } else if (!nextProps.pauseFocusTrap && this.props.pauseFocusTrap) {
         this.focusTrap.pause();
       }
     }
@@ -78,13 +79,13 @@ export default class ClickToggle extends React.Component {
       this.focusTrap = createFocusTrap(target, {
         onActivate: () => {
           if (!this.props.noScrollDisabled) {
-            noScroll(true, target);
+            noScroll(true, this.uuid);
           }
           this.focusActive = true;
         },
         onDeactivate: () => {
           if (!this.props.noScrollDisabled) {
-            noScroll(false, target);
+            noScroll(false, this.uuid);
           }
 
           if (this.props.isOpen) {
@@ -96,7 +97,7 @@ export default class ClickToggle extends React.Component {
           }
           this.focusActive = false;
         },
-        clickOutsideDeactivates: true,
+        clickOutsideDeactivates: this.props.clickOutsideDeactivates,
         returnFocusOnDeactivate: this.props.returnFocusOnDeactivate,
       });
       if (isActive) {
@@ -138,6 +139,10 @@ export default class ClickToggle extends React.Component {
       isOpen,
       alwaysRenderChildren,
       disablePortal,
+      returnFocusOnDeactivate,
+      clickOutsideDeactivates,
+      pauseFocusTrap,
+      disableBackdrop,
       children,
       ...rest
     } = this.props;
@@ -163,6 +168,7 @@ export default class ClickToggle extends React.Component {
                 hidden={!showDialog}
                 onClose={this.handleClick}
                 disablePortal={disablePortal}
+                disableBackdrop={disableBackdrop}
                 messages={{ close: openTitle || 'lukk' }}
                 modifier={
                   showDialog ? ['active', dialogModifier] : dialogModifier
@@ -229,6 +235,8 @@ ClickToggle.propTypes = {
   disablePortal: PropTypes.bool,
   returnFocusOnDeactivate: PropTypes.bool,
   pauseFocusTrap: PropTypes.bool,
+  clickOutsideDeactivates: PropTypes.bool,
+  disableBackdrop: PropTypes.bool,
 };
 
 ClickToggle.defaultProps = {
@@ -243,4 +251,6 @@ ClickToggle.defaultProps = {
   disablePortal: true,
   returnFocusOnDeactivate: null,
   pauseFocusTrap: null,
+  clickOutsideDeactivates: true,
+  disableBackdrop: false,
 };

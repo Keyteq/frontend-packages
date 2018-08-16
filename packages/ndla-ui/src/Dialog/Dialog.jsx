@@ -29,6 +29,7 @@ export const Dialog = ({
   disablePortal,
   hidden,
   onClose,
+  disableBackdrop,
   ...rest
 }) => {
   const content = (
@@ -41,19 +42,23 @@ export const Dialog = ({
       aria-label={label}
       {...rest}>
       <div {...classes('content')}>
-        <button
-          {...classes('close')}
-          type="button"
-          onClick={() => {
-            if (onClose) {
-              onClose();
-            }
-          }}>
-          {messages.close}
-        </button>
-        {children}
+        <div {...classes('close-wrapper')}>
+          <button
+            {...classes('close')}
+            type="button"
+            onClick={() => {
+              if (onClose) {
+                onClose();
+              }
+            }}>
+            {messages.close}
+          </button>
+        </div>
+        <div {...classes('content-wrapper')}>
+          {children}
+        </div>
       </div>
-      <div className="o-backdrop" />
+      {!disableBackdrop && <div className="o-backdrop" />}
     </div>
   );
 
@@ -76,6 +81,7 @@ Dialog.propTypes = {
   modifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   disablePortal: PropTypes.bool,
   onClose: PropTypes.func,
+  disableBackdrop: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
@@ -84,6 +90,7 @@ Dialog.defaultProps = {
   label: null,
   hidden: true,
   onClose: null,
+  disableBackdrop: false,
   messages: {
     close: 'Lukk',
   },

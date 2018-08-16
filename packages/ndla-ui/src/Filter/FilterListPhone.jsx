@@ -11,11 +11,16 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
-import { Button, ClickToggle } from 'ndla-ui';
+import { Button, ClickToggle, ActiveFilters } from 'ndla-ui';
 import debounce from 'lodash/debounce';
 
 const filterClasses = new BEMHelper({
   name: 'filter',
+  prefix: 'c-',
+});
+
+const topicMenuClasses = new BEMHelper({
+  name: 'topic-menu',
   prefix: 'c-',
 });
 
@@ -65,6 +70,9 @@ class FilterListPhone extends Component {
       defaultVisibleCount,
       showLabel,
       hideLabel,
+      onToggle,
+      isOpen,
+      messages,
     } = this.props;
 
     const showAll =
@@ -76,38 +84,75 @@ class FilterListPhone extends Component {
     }
 
     if (this.state.isNarrowScreen) {
+      const currentlyActiveFilters = options.filter(option => values.some(value => value === option.value));
       return (
-        <Fragment>
-          {options
-            .filter(option => values.some(value => value === option.value))
-            .map((option) => (
-              <Button key={option.value}
-                onClick={() => {
-                  console.log(values);
-                  const newValues = values.splice(values.indexOf(option.value), 1);
-                  console.log(newValues);
-                  onChange(newValues, option.value);
-                }}
-              >
-                {option.title}
-              </Button>
-            ))}
+        <div {...topicMenuClasses('filter-phone-wrapper')}>
+          {currentlyActiveFilters.length > 0 &&
+            <ActiveFilters
+              filters={currentlyActiveFilters}
+              onFilterRemove={(value) => {
+                onChange(values.filter(option => option !== value), value);
+              }}
+            />
+          }
           <ClickToggle
+            id="FilterListPhoneId"
+            isOpen={isOpen}
             disablePortal={false}
             dialogModifier="slide-up"
             alwaysRenderChildren
-            onToggle={(open) => {
-              if (!open) {
-                console.log('did close it..');
-              }
-            }}
-            title="Filter">
-            <h1>Hello filters!</h1>
-            <Button outline>
-              Bruk filter
-            </Button>
+            returnFocusOnDeactivate={false}
+            clickOutsideDeactivates={false}
+            disableBackdrop
+            buttonClassName="c-button--outline"
+            onToggle={onToggle}
+            title="Filter"
+            openTitle="Lukk filter">
+            <h1>{label}</h1>
+            <ul {...filterClasses('item-wrapper')}>
+              {options.map((option) => (
+                <li {...filterClasses('item')} key={option.value}>
+                  <input
+                    {...filterClasses('input')}
+                    type="checkbox"
+                    id={option.value}
+                    value={option.value}
+                    checked={values.some(value => value === option.value)}
+                    onChange={event => {
+                      let newValues = null;
+                      if (event.currentTarget.checked) {
+                        newValues = [...values, option.value];
+                      } else {
+                        newValues = values.filter(
+                          value => value !== option.value,
+                        );
+                      }
+                      if (onChange) {
+                        onChange(newValues, option.value);
+                      }
+                    }}
+                  />
+                  <label htmlFor={option.value}>
+                    <span {...filterClasses('item-checkbox')} />
+                    <span {...filterClasses('text')}>{option.title}</span>
+                    {option.icon
+                      ? createElement(option.icon, {
+                          className: `c-icon--22 u-margin-left-small ${
+                            filterClasses('icon').className
+                          }`,
+                        })
+                      : null}
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <div {...filterClasses('usefilter-wrapper')}>
+              <Button outline onClick={() => { onToggle(false); }}>
+                {messages.useFilter}
+              </Button>
+            </div>
           </ClickToggle>
-        </Fragment>
+        </div>
       );
     }
 
@@ -202,7 +247,7 @@ const valueShape = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
 
 FilterListPhone.propTypes = {
   children: PropTypes.node,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   labelNotVisible: PropTypes.bool,
   modifiers: PropTypes.string,
   onChange: PropTypes.func, // isRequired
@@ -218,13 +263,21 @@ FilterListPhone.propTypes = {
   defaultVisibleCount: PropTypes.number,
   showLabel: PropTypes.string,
   hideLabel: PropTypes.string,
+  onToggle: PropTypes.func,
+  isOpen: PropTypes.bool.isRequired,
+  messages: PropTypes.shape({
+    useFilter: PropTypes.string,
+  }),
 };
 
 FilterListPhone.defaultProps = {
-  label: 'FILTER:',
   modifiers: '',
   values: [],
   defaultVisibleCount: null,
+  onToggle: null,
+  messages: {
+    useFilter: 'Bruk filter',
+  },
 };
 
 export default FilterListPhone;

@@ -6,12 +6,11 @@
  *
  */
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Back, HelpCircle } from 'ndla-icons/common';
+import { Back, Forward } from 'ndla-icons/common';
 
-import { SafeLink, Tooltip, ClickToggle } from 'ndla-ui';
-import { uuid } from 'ndla-util';
+import { SafeLink } from 'ndla-ui';
 import { TopicShape } from '../shapes';
 
 import { ContentTypeResult, SearchToggleFilter } from '../Search';
@@ -30,7 +29,6 @@ const SubtopicLink = ({
 
   return (
     <li {...classes('subtopic-item', active && 'active')} key={id}>
-      {renderAdditionalIcon(additional, messages.additionalTooltipLabel)}
       <SafeLink
         {...classes('link')}
         onClick={event => {
@@ -38,7 +36,11 @@ const SubtopicLink = ({
           onSubtopicExpand(subtopicId);
         }}
         to={to}>
-        {name}
+          <span>
+            {name}
+            {renderAdditionalIcon(additional, messages.additionalTooltipLabel)}
+          </span>
+          <Forward />
       </SafeLink>
     </li>
   );
@@ -110,7 +112,6 @@ class SubtopicLinkList extends Component {
     const hasContentTypeInfo =
       hasContentTypeResults &&
       topic.contentTypeResults.some(result => result.contentType);
-    const coreAdditionalLabelledBy = 'core_additional_labelled_by';
 
     return (
       <div
@@ -129,6 +130,7 @@ class SubtopicLinkList extends Component {
           <span {...classes('link-target')}>
             {topic.name} <span {...classes('arrow')}>›</span>
           </span>
+          <Forward />
         </SafeLink>
         {hasSubTopics && (
           <ul {...classes('list')}>
@@ -148,6 +150,7 @@ class SubtopicLinkList extends Component {
             ))}
           </ul>
         )}
+        {this.props.competenceButton}
         {hasContentTypeResults && (
           <aside
             {...classes(
@@ -163,35 +166,6 @@ class SubtopicLinkList extends Component {
                   onClick={this.toggleAdditionalResources}
                 />
               )}
-              {messages.additionalFilterTooltipLabel &&
-                messages.coreAdditionalExplainationTexts &&
-                messages.coreAdditionalExplainationHeading && (
-                  <ClickToggle
-                    noScrollDisabled
-                    disablePortal={false}
-                    id={coreAdditionalLabelledBy}
-                    stripped
-                    title={
-                      <Tooltip tooltip={messages.additionalFilterTooltipLabel}>
-                        <HelpCircle
-                          id="helpCircleIcon"
-                          className={`c-icon--22 u-margin-left-tiny ${
-                            classes('icon').className
-                          }`}
-                        />
-                      </Tooltip>
-                    }
-                    openTitle={messages.closeLabel}>
-                    <Fragment>
-                      <h1 id={coreAdditionalLabelledBy}>
-                        {messages.coreAdditionalExplainationHeading}
-                      </h1>
-                      {messages.coreAdditionalExplainationTexts.map(text => (
-                        <p key={uuid()}>{text}</p>
-                      ))}
-                    </Fragment>
-                  </ClickToggle>
-                )}
             </div>
             {topic.contentTypeResults.map(result => (
               <ContentTypeResult
@@ -243,9 +217,8 @@ SubtopicLinkList.propTypes = {
     contentTypeResultsNoHit: PropTypes.string.isRequired,
     additionalFilterLabel: PropTypes.string, // should be required
     additionalTooltipLabel: PropTypes.string, // should be required
-    coreAdditionalExplainationHeading: PropTypes.string, // should be required
-    coreAdditionalExplainationTexts: PropTypes.arrayOf(PropTypes.string), // should be required
   }).isRequired,
+  competenceButton: PropTypes.node,
 };
 
 export default SubtopicLinkList;

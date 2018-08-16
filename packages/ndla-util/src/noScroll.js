@@ -39,9 +39,14 @@ const setBodyScrollTop = top => {
 
 let currentScrollPosition;
 
-const noScroll = enable => {
+const scrollTargets = [];
+
+const noScroll = (enable, uuid) => {
   const htmlElement = document.querySelector('html');
   if (enable) {
+    if (!scrollTargets.includes(uuid)) {
+      scrollTargets.push(uuid);
+    }
     const scrollWidth = getScrollbarWidth();
     currentScrollPosition = getBodyScrollTop();
     htmlElement.style.overflow = 'hidden';
@@ -53,14 +58,19 @@ const noScroll = enable => {
       htmlElement.classList.add('scrollFix');
     }
   } else {
-    htmlElement.style.overflow = null;
-    htmlElement.style.paddingRight = null;
-    htmlElement.style.position = 'static';
-    htmlElement.style.left = 'auto';
-    htmlElement.style.right = 'auto';
-    if (isIosDevice) {
-      htmlElement.classList.remove('scrollFix');
-      setBodyScrollTop(currentScrollPosition);
+    if (scrollTargets.indexOf(uuid) !== -1) {
+      scrollTargets.splice(scrollTargets.indexOf(uuid), 1);
+    }
+    if (scrollTargets.length === 0) {
+      htmlElement.style.overflow = null;
+      htmlElement.style.paddingRight = null;
+      htmlElement.style.position = 'static';
+      htmlElement.style.left = 'auto';
+      htmlElement.style.right = 'auto';
+      if (isIosDevice) {
+        htmlElement.classList.remove('scrollFix');
+        setBodyScrollTop(currentScrollPosition);
+      }
     }
   }
 };

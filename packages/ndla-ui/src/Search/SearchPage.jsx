@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Back } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 import createFocusTrap from 'focus-trap';
-import { noScroll } from 'ndla-util';
+import { noScroll, uuid } from 'ndla-util';
 import Button from '../Button';
 
 import SafeLink from '../common/SafeLink';
@@ -23,17 +23,19 @@ export default class SearchPage extends Component {
     this.filterContainerRef = null;
     this.filterCloseButton = null;
     this.focusTrap = null;
+    this.uuid = uuid();
 
     this.handleToggleFilter = this.handleToggleFilter.bind(this);
   }
 
   componentDidMount() {
+    console.log('uiid', this.uuid);
     this.focusTrap = createFocusTrap(this.filterContainerRef, {
       onActivate: () => {
         this.setState({
           filterExpanded: true,
         });
-        noScroll(true);
+        noScroll(true, this.uuid);
       },
       onDeactivate: () => {
         if (this.state.filterExpanded) {
@@ -41,7 +43,7 @@ export default class SearchPage extends Component {
             filterExpanded: false,
           });
         }
-        noScroll(false);
+        noScroll(false, this.uuid);
       },
       clickOutsideDeactivates: true,
       initialFocus: this.filterCloseButton,

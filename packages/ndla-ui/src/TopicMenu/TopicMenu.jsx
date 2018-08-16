@@ -12,10 +12,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { getCurrentBreakpoint, breakpoints, noScroll } from 'ndla-util';
+import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import debounce from 'lodash/debounce';
 
-import { Home, Back, Additional } from 'ndla-icons/common';
+import { Home, Back, Additional, Forward } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 import { Button, SafeLink, Tooltip } from 'ndla-ui';
 import SubtopicLinkList from './SubtopicLinkList';
@@ -63,13 +63,11 @@ export default class TopicMenu extends Component {
   }
 
   componentDidMount() {
-    noScroll(true);
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
   }
 
   componentWillUnmount() {
-    noScroll(false);
     window.removeEventListener('resize', this.setScreenSizeDebounced);
   }
 
@@ -112,6 +110,26 @@ export default class TopicMenu extends Component {
     }
   }
 
+  renderCompentenceGoals(competenceGoalsOpen) {
+    return (<Button
+      className={this.state.isNarrowScreen ? 'c-button c-button--lighter c-topic-menu__competence-open-button' : 'c-topic-menu__competence-toggle-button'}
+      stripped={!this.state.isNarrowScreen}
+      onClick={() =>
+        this.setState({
+          competenceGoalsOpen: !competenceGoalsOpen,
+        })
+      }>
+      {competenceGoalsOpen ? (
+        <span>
+          {this.props.messages.competenceGoalsToggleButtonClose}{' '}
+          <Cross />
+        </span>
+      ) : (
+        this.props.messages.competenceGoalsToggleButtonOpen
+      )}
+    </Button>);
+  }
+
   render() {
     const {
       topics,
@@ -124,6 +142,8 @@ export default class TopicMenu extends Component {
       expandedSubtopicsId,
       filterOptions,
       filterValues,
+      filterIsOpen,
+      onToggleFilterOptions,
       onFilterClick,
       resourceToLinkProps,
       hideSearch,
@@ -167,6 +187,8 @@ export default class TopicMenu extends Component {
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
+    const sliderCounter = (expandedTopic ? 1 : 0) + (hasExpandedSubtopics ? 1 : 0) + currentlyExpandedSubTopics.length - 1;
+
     const subTopicLinkListMessages = {
       backButton: messages.back,
       goToLabel: messages.goTo,
@@ -175,15 +197,17 @@ export default class TopicMenu extends Component {
       learningResourcesHeading: messages.learningResourcesHeading,
       contentTypeResultsNoHit: messages.contentTypeResultsNoHit,
       additionalFilterLabel: messages.additionalFilterLabel,
-      additionalFilterTooltipLabel: messages.additionalFilterTooltipLabel,
       additionalTooltipLabel: messages.additionalTooltipLabel,
-      coreAdditionalExplainationHeading:
-        messages.coreAdditionalExplainationHeading,
-      coreAdditionalExplainationTexts: messages.coreAdditionalExplainationTexts,
     };
 
     return (
       <nav {...classes('', '', 'o-wrapper u-1/1')}>
+        <div {...classes('back', 'narrow')}>
+          <SafeLink {...classes('back-link')} to="/">
+            <Home {...classes('home-icon', '', 'c-icon--20')} />
+            {messages.subjectOverview}
+          </SafeLink>
+        </div>
         <div {...classes('masthead')}>
           <div {...classes('masthead-left')}>
             <button
@@ -213,16 +237,14 @@ export default class TopicMenu extends Component {
         </div>
         <div {...classes('dropdown')}>
           <div {...classes('content')}>
+            <div {...classes('back', 'wide')}>
+              <SafeLink {...classes('back-link')} to="/">
+                <Home {...classes('home-icon', '', 'c-icon--20')} />
+                {messages.subjectOverview}
+              </SafeLink>
+            </div>
             {!disableMain && (
               <Fragment>
-                {!disableHeaderNavigation && (
-                  <div {...classes('back')}>
-                    <SafeLink {...classes('back-link')} to="/">
-                      <Home {...classes('home-icon', '', 'c-icon--20')} />
-                      {messages.subjectOverview}
-                    </SafeLink>
-                  </div>
-                )}
                 {!disableHeaderNavigation && (
                   <div
                     {...classes('subject', {
@@ -233,28 +255,10 @@ export default class TopicMenu extends Component {
                     })}>
                     <div {...classes('subject__header')}>
                       <h1>
-                        <SafeLink to={toSubject()}>{subjectTitle}</SafeLink>
+                        <SafeLink to={toSubject()}>{subjectTitle}<Forward /></SafeLink>
                       </h1>
-                      {competenceGoals && (
-                        <Button
-                          className={
-                            classes('competence-toggle-button').className
-                          }
-                          stripped
-                          onClick={() =>
-                            this.setState({
-                              competenceGoalsOpen: !competenceGoalsOpen,
-                            })
-                          }>
-                          {competenceGoalsOpen ? (
-                            <span>
-                              {messages.competenceGoalsToggleButtonClose}{' '}
-                              <Cross />
-                            </span>
-                          ) : (
-                            messages.competenceGoalsToggleButtonOpen
-                          )}
-                        </Button>
+                      {competenceGoals && !this.state.isNarrowScreen && (
+                        this.renderCompentenceGoals(competenceGoalsOpen)
                       )}
                     </div>
 
@@ -266,6 +270,9 @@ export default class TopicMenu extends Component {
                             options={filterOptions}
                             values={filterValues}
                             onChange={onFilterClick}
+                            onToggle={onToggleFilterOptions}
+                            isOpen={filterIsOpen}
+                            label={`${subjectTitle}:`}
                           />
                         </Fragment>
                       )}
@@ -275,7 +282,7 @@ export default class TopicMenu extends Component {
                           type="button"
                           {...classes(
                             'back-button-slides',
-                            `slide-${currentlyExpandedSubTopics.length}`,
+                            `slide-${sliderCounter}`,
                           )}
                           onClick={this.handleOnGoBack}>
                           <Back /> <span>{messages.back}</span>
@@ -290,7 +297,7 @@ export default class TopicMenu extends Component {
               <div {...classes('competence')}>
                 <button
                   type="button"
-                  {...classes('competence-close-button')}
+                  {...classes(this.state.isNarrowScreen ? 'competence-close-button' : 'competence-close-button')}
                   onClick={() =>
                     this.setState({
                       competenceGoalsOpen: false,
@@ -306,7 +313,7 @@ export default class TopicMenu extends Component {
               <div
                 {...classes(
                   'subject-navigation',
-                  `slide-${currentlyExpandedSubTopics.length}`,
+                  `slide-${sliderCounter}`,
                 )}>
                 {!disableMain && (
                   <Fragment>
@@ -327,10 +334,6 @@ export default class TopicMenu extends Component {
                             <li
                               {...classes('topic-item', active && 'active')}
                               key={topic.id}>
-                              {renderAdditionalIcon(
-                                topic.additional,
-                                messages.additionalTooltipLabel,
-                              )}
                               <button
                                 type="button"
                                 {...classes('link')}
@@ -340,12 +343,22 @@ export default class TopicMenu extends Component {
                                 onKeyPress={event =>
                                   this.handleBtnKeyPress(event, topic.id)
                                 }>
-                                {topic.name}
+                                <span>
+                                  {topic.name}
+                                  {renderAdditionalIcon(
+                                    topic.additional,
+                                    messages.additionalTooltipLabel,
+                                  )}
+                                </span>
+                                <Forward />
                               </button>
                             </li>
                           );
                         })}
                       </ul>
+                      {competenceGoals && this.state.isNarrowScreen && (
+                        this.renderCompentenceGoals(false)
+                      )}
                     </div>
                   </Fragment>
                 )}
@@ -370,6 +383,7 @@ export default class TopicMenu extends Component {
                       }}
                       onGoBack={this.handleOnGoBack}
                       resourceToLinkProps={resourceToLinkProps}
+                      competenceButton={this.state.isNarrowScreen && this.renderCompentenceGoals(false)}
                     />
                   )}
                 {currentlyExpandedSubTopics.map((subTopic, index) => (
@@ -393,21 +407,9 @@ export default class TopicMenu extends Component {
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
+                    competenceButton={this.state.isNarrowScreen && this.renderCompentenceGoals(false)}
                   />
                 ))}
-                {!disableMain &&
-                  competenceGoals && (
-                    <button
-                      type="button"
-                      {...classes('competence-open-button')}
-                      onClick={() =>
-                        this.setState({
-                          competenceGoalsOpen: true,
-                        })
-                      }>
-                      {messages.competenceGoalsNarrowOpenButton}
-                    </button>
-                  )}
               </div>
             )}
           </div>
@@ -456,4 +458,6 @@ TopicMenu.propTypes = {
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,
+  onToggleFilterOptions: PropTypes.func.isRequired,
+  filterIsOpen: PropTypes.bool.isRequired,
 };

@@ -47,7 +47,6 @@ const ToggleSearchButton = ({ messages, children, isOpen, onToggle }) => {
       onToggle={onToggle}
       title={buttonContent}
       returnFocusOnDeactivate={false}
-      escapeDeactivates={false}
       className={classes()}
       buttonClassName={classes('button', 'wide')}>
       {children}

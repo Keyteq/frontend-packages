@@ -46,18 +46,12 @@ const messages = {
   contentTypeResultsShowMore: 'Vis mer',
   contentTypeResultsShowLess: 'Vis mindre',
   contentTypeResultsNoHit: 'Ingen ressurser',
-  competenceGoalsToggleButtonOpen: 'Kompetansemål',
+  competenceGoalsToggleButtonOpen: 'Vis kompetansemål',
   competenceGoalsToggleButtonClose: 'Lukk kompetansemål',
   competenceGoalsNarrowOpenButton: 'Vis kompetansemål',
   competenceGoalsNarrowBackButton: 'Tilbake',
   additionalTooltipLabel: 'Tilleggsstoff',
   additionalFilterLabel: 'Vis tilleggsressurser',
-  additionalFilterTooltipLabel: 'Hva er kjernestoff og tilleggsstoff?',
-  coreAdditionalExplainationHeading: 'Kjernestoff og tilleggsstoff',
-  coreAdditionalExplainationTexts: [
-    'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-    'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-  ],
 };
 
 class MastheadWithTopicMenu extends Component {
@@ -66,9 +60,11 @@ class MastheadWithTopicMenu extends Component {
     this.state = {
       value: '',
       menuIsOpen: false,
+      filterIsOpen: false,
       searchIsOpen: this.props.searchFieldExpanded,
       expandedTopicId: null,
       expandedSubtopicsId: [],
+      filterMenuValues: ['Medieuttrykk'],
     };
   }
 
@@ -142,8 +138,9 @@ class MastheadWithTopicMenu extends Component {
         <MastheadItem left>
           <ClickToggle
             id="mastheadSearchId"
+            clickOutsideDeactivates={false}
             isOpen={this.state.menuIsOpen}
-            pauseFocusTrap={this.state.menuIsOpen && this.state.searchIsOpen}
+            pauseFocusTrap={this.state.menuIsOpen && (this.state.searchIsOpen || this.state.filterIsOpen)}
             onToggle={isOpen => {
               this.setState({
                 menuIsOpen: isOpen,
@@ -158,6 +155,7 @@ class MastheadWithTopicMenu extends Component {
             {onClose => (
               <TopicMenu
                 id="mastheadSearchId"
+                clickOutsideDeactivates={false}
                 close={onClose}
                 isBeta={this.props.beta}
                 subjectTitle="Mediefag"
@@ -171,6 +169,11 @@ class MastheadWithTopicMenu extends Component {
                     searchIsOpen: true,
                   });
                 }}
+                onToggleFilterOptions={(filterIsOpen) => {
+                  this.setState({
+                    filterIsOpen,
+                  });
+                }}
                 filterOptions={[
                   {
                     title: 'Medieuttrykk',
@@ -181,9 +184,15 @@ class MastheadWithTopicMenu extends Component {
                     value: 'Mediesamfunnet',
                   },
                 ]}
-                filterValues={['Medieuttrykk']}
+                filterValues={this.state.filterMenuValues}
+                filterIsOpen={this.state.filterIsOpen}
                 competenceGoals={<CompetenceGoalsExample menu />}
-                onFilterClick={(values, val) => { console.log(values, val); }}
+                onFilterClick={(values) => {
+                  console.log('filtered', values);
+                  this.setState({
+                    filterMenuValues: values,
+                  });
+                }}
                 resourceToLinkProps={() => {}}
                 expandedTopicId={this.state.expandedTopicId}
                 expandedSubtopicsId={this.state.expandedSubtopicsId}

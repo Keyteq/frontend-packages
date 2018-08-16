@@ -317,4 +317,10 @@
       }
     }
   }
+  &__usefilter-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: $spacing--large 0 $spacing--large;
+  }
 }
