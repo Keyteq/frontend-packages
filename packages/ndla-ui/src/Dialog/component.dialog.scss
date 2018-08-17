@@ -162,12 +162,23 @@
       .c-dialog__close-wrapper {
         background: #fff;
         padding: $spacing;
+        min-height: 84px;
+        display: flex;
+        align-items: center;
         @include mq($until: tablet) {
           padding: 20px;
         }
       }
       .c-dialog__close {
+        @include inuit-font-size(18px, 18px);
         float: none;
+        display: flex;
+        align-items: center;
+        box-shadow: none;
+        padding: $spacing--small;
+        svg {
+          margin-right: $spacing--small / 2;
+        }
       }
       .c-dialog__content-wrapper {
         padding: 0 $spacing $spacing $spacing;
@@ -177,6 +188,9 @@
         @include mq($until: tablet) {
           padding-left: 20px;
           padding-right: 20px;
+        }
+        > h1 {
+          @include inuit-font-size(16px, 20px);
         }
       }
     }

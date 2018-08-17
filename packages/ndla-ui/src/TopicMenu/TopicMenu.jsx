@@ -75,7 +75,6 @@ export default class TopicMenu extends Component {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
       currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === breakpoints.tablet ||
       currentBreakpoint === 'none';
 
     /* eslint react/no-did-mount-set-state: 0 */
@@ -371,6 +370,7 @@ export default class TopicMenu extends Component {
                       }
                       closeMenu={closeMenu}
                       topic={expandedTopic}
+                      backLabel={!hasExpandedSubtopics ? subjectTitle : currentlyExpandedSubTopics[currentlyExpandedSubTopics.length - 1].name}
                       messages={subTopicLinkListMessages}
                       goToTitle={messages.goTo}
                       toTopic={toTopic}
@@ -395,6 +395,7 @@ export default class TopicMenu extends Component {
                     }
                     closeMenu={closeMenu}
                     topic={subTopic}
+                    backLabel={currentlyExpandedSubTopics[currentlyExpandedSubTopics.length - 1].name}
                     messages={subTopicLinkListMessages}
                     toTopic={toTopic}
                     expandedSubtopicId={

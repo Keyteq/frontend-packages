@@ -54,7 +54,7 @@ $navigation-row-width: 980px / 3;
 
 /* 2. */
 .c-topic-menu-container {
-  @include mq(desktop) {
+  @include mq(tablet) {
     display: inline-block;
   }
 }
@@ -97,11 +97,12 @@ $navigation-row-width: 980px / 3;
   text-transform: none;
   animation-name: fadeIn;
   animation-duration: 0.4s;
-  @include mq(desktop) {
+  @include mq(tablet) {
     display: flex;
   }
 
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 
   // Add background to prevent scrolling glitches on phones
@@ -113,7 +114,7 @@ $navigation-row-width: 980px / 3;
     left: 0;
     right: 0;
     bottom: -200px;
-    background-color: $brand-grey--lighter;
+    background-color: $brand-grey--lightest;
     z-index: -1;
   }
 }
@@ -128,7 +129,7 @@ $navigation-row-width: 980px / 3;
 
   padding: $masthead-height 0;
 
-  @include mq(desktop) {
+  @include mq(tablet) {
     min-height: auto;
     margin-top: $masthead-height;
     padding: 0 0 $spacing--large 0;
@@ -142,11 +143,18 @@ $navigation-row-width: 980px / 3;
   display: flex;
   flex-flow: column;
   flex-flow: row;
-
-  @include mq(desktop) {
+  @include mq(tablet) {
     transition: transform 400ms ease;
     padding-bottom: $spacing--large;
     min-height: 500px;
+    &--slide-0, &--slide-1 {
+      transform: none;
+    }
+    &--slide-2 {
+      transform: translate3d(-$navigation-row-width, 0, 0);
+    }
+  }
+  @include mq(desktop) {
     &--slide-0, &--slide-1 {
       transform: none;
     }
@@ -236,25 +244,6 @@ $navigation-row-width: 980px / 3;
       transform: translate3d(-$navigation-row-width * 7, 0, 0);
     }
   }
-  /*
-  @include mq($until: desktop) {
-    &--slide-3,
-    &--slide-4,
-    &--slide-5,
-    &--slide-6,
-    &--slide-7,
-    &--slide-8,
-    &--slide-9,
-    &--slide-10 {
-      > div {
-        display: none;
-        &:last-child {
-          display: block;
-        }
-      }
-    }
-  }
-  */
 }
 
 .c-topic-menu__list {
@@ -277,12 +266,15 @@ $navigation-row-width: 980px / 3;
 
   width: 100%;
 
-  @include mq(desktop) {
+  @include mq(tablet) {
     margin-top: $spacing;
-    padding: 0 $spacing 0 ($spacing--medium - $spacing--small);
+    padding: 0 $spacing--small;
     border-left: 1px solid $brand-color--light;
     width: $navigation-row-width;
     flex-grow: 0;
+  }
+  @include mq(desktop) {
+    padding: 0 $spacing;
   }
 
   &--main {
@@ -290,14 +282,14 @@ $navigation-row-width: 980px / 3;
     flex-grow: 0;
     border-left: 0;
     .c-topic-menu__link--big {
-      @include mq($until: desktop) {
+      @include mq($until: tablet) {
         display: none;
       }
     }
   }
 
   &--sub-topic {
-    @include mq($until: desktop) {
+    @include mq($until: tablet) {
       @include font-size(16px, 20px);
       padding-top: $spacing--large + $spacing;
       padding-left: $spacing--large - 4px;
@@ -347,13 +339,22 @@ $navigation-row-width: 980px / 3;
     padding-right: $left-margin-narrow-screen;
   }
 
+  &--show-all {
+    .c-content-type-result {
+      ul {
+        animation-name: fadeInLeft;
+        animation-duration: 0.5s;
+      }
+    }
+  }
+
   &--with-content-badges {
-    @include mq($until: tablet) {
+    @include mq($until: desktop) {
       .c-content-type-badge {
         display: none;
       }
     }
-    @include mq(tablet) {
+    @include mq(desktop) {
       padding-left: $spacing--large;
       .c-content-type-badge {
         position: absolute;
@@ -384,6 +385,10 @@ $navigation-row-width: 980px / 3;
         }
         @include mq($until: tablet) {
           background: none !important;
+        }
+        @include mq($until: desktop) {
+          padding-left: $spacing--small;
+          margin-left: -$spacing--small;
         }
         @include mq(tablet) {
           flex-grow: 1;
@@ -423,10 +428,11 @@ $navigation-row-width: 980px / 3;
 
   > div {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     min-height: $link-height;
     margin-bottom: 22px;
-    @include mq(tablet) {
+    @include mq(desktop) {
       margin-left: -$spacing--small * 3;
     }
     .c-filter__list {
@@ -537,24 +543,22 @@ $navigation-row-width: 980px / 3;
   flex-shrink: 0;
   margin-top: 0;
   margin-bottom: $spacing;
-  padding: 0 $spacing 0 ($padding-left-narrow + $spacing--small);
-
-  animation-name: fadeInLeft;
-  animation-duration: 0.5s;
+  padding: 0 $spacing;
 
   @include mq($until: tablet) {
+    animation-name: fadeInLeft;
+    animation-duration: 0.5s;
     padding-left: 0;
     padding-right: 0;
   }
 
   @include mq(desktop) {
-    animation-name: none;
     margin-bottom: $spacing--small;
-    padding-left: $spacing--medium;
+    padding-left: $spacing + $spacing--small;
   }
 
   a {
-    @include mq(desktop) {
+    @include mq(tablet) {
       box-shadow: none;
     }
   }
@@ -566,7 +570,7 @@ $navigation-row-width: 980px / 3;
     justify-content: space-between;
     align-items: flex-end;
 
-    @include mq(desktop) {
+    @include mq(tablet) {
       border-bottom: 1px solid rgba($brand-color, 0.3);
       padding-bottom: $spacing--small;
     }
@@ -584,7 +588,7 @@ $navigation-row-width: 980px / 3;
       font-weight: $font-weight-semibold;
       margin: 0;
 
-      @include mq(desktop) {
+      @include mq(tablet) {
         @include inuit-font-size(26px);
       }
 
@@ -618,7 +622,7 @@ $navigation-row-width: 980px / 3;
     & > h1 {
       margin: 0 0 $spacing--medium 0;
 
-      @include mq(desktop) {
+      @include mq(tablet) {
         margin: 0 0 $spacing 0;
       }
     }
@@ -638,7 +642,7 @@ $navigation-row-width: 980px / 3;
     &__label {
       margin-left: 0;
       font-weight: 600;
-      @include mq($until: desktop) {
+      @include mq($until: tablet) {
         @include visually-hidden();
       }
     }
@@ -660,7 +664,7 @@ $navigation-row-width: 980px / 3;
   }
   top: $spacing;
 
-  @include mq(desktop) {
+  @include mq(tablet) {
     display: none;
   }
   .c-icon {
@@ -671,7 +675,7 @@ $navigation-row-width: 980px / 3;
 }
 
 .c-topic-menu__back-button-slide-wrapper {
-  @include mq($until: desktop) {
+  @include mq($until: tablet) {
     display: none;
   }
   height: $spacing;
@@ -696,6 +700,15 @@ $navigation-row-width: 980px / 3;
     &--slide-0, &--slide-1, &--slide-2, &--slide-3, &--slide-4, &--slide-5, &--slide-6, &--slide-7, &--slide-8, &--slide-9, &--slide-10 {
       display: flex;
       // animation-name: fadeIn;
+    }
+    @include mq(tablet) {
+      &--slide-1, &--slide-2, &--slide-3, &--slide-4, &--slide-5, &--slide-6, &--slide-7, &--slide-8, &--slide-9, &--slide-10 {
+        display: flex;
+        animation-name: fadeIn;
+      }
+      &--slide-0 {
+        display: none;
+      }
     }
     @include mq(desktop) {
       &--slide-2, &--slide-3, &--slide-4, &--slide-5, &--slide-6, &--slide-7, &--slide-8, &--slide-9, &--slide-10 {
@@ -836,7 +849,7 @@ $navigation-row-width: 980px / 3;
       padding-left: $left-margin-narrow-screen;
     }
   }
-  @include mq(desktop) {
+  @include mq(tablet) {
     animation-name: none;
     margin-left: $spacing--medium;
     padding: $spacing--small 0;
@@ -888,7 +901,7 @@ $navigation-row-width: 980px / 3;
     padding-right: $left-margin-narrow-screen;
   }
 
-  @include mq(desktop) {
+  @include mq(tablet) {
     font-weight: $font-weight-semibold;
     &--big .c-icon {
       display: none;

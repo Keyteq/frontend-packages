@@ -10,6 +10,7 @@ import React, { Component, createElement, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
+import { Cross } from 'ndla-icons/action';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import { Button, ClickToggle, ActiveFilters } from 'ndla-ui';
 import debounce from 'lodash/debounce';
@@ -47,7 +48,6 @@ class FilterListPhone extends Component {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
       currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === breakpoints.tablet ||
       currentBreakpoint === 'none';
 
     /* eslint react/no-did-mount-set-state: 0 */
@@ -107,7 +107,7 @@ class FilterListPhone extends Component {
             buttonClassName="c-button--outline"
             onToggle={onToggle}
             title="Filter"
-            openTitle="Lukk filter">
+            openTitle={<span><Cross /> Lukk filter</span>}>
             <h1>{label}</h1>
             <ul {...filterClasses('item-wrapper')}>
               {options.map((option) => (

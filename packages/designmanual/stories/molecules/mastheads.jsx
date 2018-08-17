@@ -155,13 +155,11 @@ class MastheadWithTopicMenu extends Component {
             {onClose => (
               <TopicMenu
                 id="mastheadSearchId"
-                clickOutsideDeactivates={false}
                 close={onClose}
                 isBeta={this.props.beta}
                 subjectTitle="Mediefag"
                 toSubject={() => '#'}
                 toTopic={() => '#'}
-                withSearchAndFilter
                 topics={topicMenu}
                 messages={messages}
                 onOpenSearch={() => {
@@ -188,7 +186,6 @@ class MastheadWithTopicMenu extends Component {
                 filterIsOpen={this.state.filterIsOpen}
                 competenceGoals={<CompetenceGoalsExample menu />}
                 onFilterClick={(values) => {
-                  console.log('filtered', values);
                   this.setState({
                     filterMenuValues: values,
                   });

@@ -99,6 +99,7 @@ class SubtopicLinkList extends Component {
       expandedSubtopicId,
       onSubtopicExpand,
       onGoBack,
+      backLabel,
       messages,
       resourceToLinkProps,
     } = this.props;
@@ -120,7 +121,7 @@ class SubtopicLinkList extends Component {
           this.containerRef = ref;
         }}>
         <button type="button" {...classes('back-button')} onClick={onGoBack}>
-          <Back /> <span>{messages.backButton}</span>
+          <Back /> <span>{backLabel}</span>
         </button>
         <SafeLink
           {...classes('link', ['big'])}
@@ -154,8 +155,10 @@ class SubtopicLinkList extends Component {
         {hasContentTypeResults && (
           <aside
             {...classes(
-              'content-type-results',
-              hasContentTypeInfo ? 'with-content-badges' : '',
+              'content-type-results', [
+                hasContentTypeInfo ? 'with-content-badges' : '',
+                this.state.showAdditionalResources ? 'show-all' : '',
+              ]
             )}>
             <div>
               <h1>{messages.learningResourcesHeading}</h1>
@@ -208,8 +211,8 @@ SubtopicLinkList.propTypes = {
   topic: TopicShape.isRequired,
   toTopic: PropTypes.func.isRequired,
   onGoBack: PropTypes.func.isRequired,
+  backLabel: PropTypes.string.isRequired,
   messages: PropTypes.shape({
-    goToLabel: PropTypes.string.isRequired,
     backButton: PropTypes.string.isRequired,
     contentTypeResultsShowMore: PropTypes.string.isRequired,
     contentTypeResultsShowLess: PropTypes.string.isRequired,
