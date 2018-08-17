@@ -6,5 +6,6 @@
  *
  */
 
-export { default as Styleguide } from './Styleguide';
-export { default as LanguageSelector } from './LanguageSelector';
+import MessagesWrapper, { MessagesContext } from './MessagesProvider';
+
+export { MessagesWrapper, MessagesContext };

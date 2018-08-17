@@ -7,8 +7,8 @@ import {
   FilterList,
   OneColumn,
   LayoutItem,
+  messages,
 } from 'ndla-ui';
-import { phrases } from 'ndla-i18n';
 import { Center } from './helpers';
 
 const classes = BEMHelper('c-table');
@@ -33,12 +33,12 @@ class Messages extends Component {
     super(props);
     this.state = {
       searchText: '',
-      findNotApprovedLabels: false,
+      findNotApprovedLabels: 0,
     };
     this.onSearchChange = this.onSearchChange.bind(this);
-    this.flattenedNb = flatten(phrases.nb);
-    this.flattenedNn = flatten(phrases.nn);
-    this.flattenedEn = flatten(phrases.en);
+    this.flattenedNb = flatten(messages.nb);
+    this.flattenedNn = flatten(messages.nn);
+    this.flattenedEn = flatten(messages.en);
   }
 
   onSearchChange(e) {
@@ -86,8 +86,8 @@ class Messages extends Component {
     );
   }
 
-  renderAllPhrases() {
-    // 1. Loop through all phrases with lang "nb"
+  renderAllMessages() {
+    // 1. Loop through all messages with lang "nb"
     // 2. Show other all languages next to it
     return Object.keys(this.filterSearch()).map(key => (
       <tr key={key}>
@@ -145,8 +145,8 @@ class Messages extends Component {
                 <div className="c-filter u-margin-top">
                   <FilterList
                     options={[
-                      { title: 'Vis alle', value: false },
-                      { title: 'Vis ikke godkjente', value: true },
+                      { title: 'Vis alle', value: 0 },
+                      { title: 'Vis ikke godkjente', value: 1 },
                     ]}
                     values={[this.state.findNotApprovedLabels]}
                     onChange={e => {
@@ -166,7 +166,7 @@ class Messages extends Component {
                         <th>Engelsk</th>
                       </tr>
                     </thead>
-                    <tbody>{this.renderAllPhrases()}</tbody>
+                    <tbody>{this.renderAllMessages()}</tbody>
                   </table>
                 </div>
               </article>

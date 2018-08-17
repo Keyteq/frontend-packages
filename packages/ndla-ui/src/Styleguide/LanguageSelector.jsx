@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { LanguageContext } from 'ndla-ui';
+import { MessagesContext } from 'ndla-ui';
 import { FilterList } from '../Filter';
 
 const LANGUAGES = [
@@ -18,7 +18,7 @@ const LANGUAGES = [
 ];
 
 const LanguageSelector = () => (
-  <LanguageContext.Consumer value="en">
+  <MessagesContext.Consumer>
     {context => (
       <Fragment>
         <h2 className="u-heading">Velg språk for labels</h2>
@@ -34,7 +34,7 @@ const LanguageSelector = () => (
         </div>
       </Fragment>
     )}
-  </LanguageContext.Consumer>
+  </MessagesContext.Consumer>
 );
 
 export default LanguageSelector;

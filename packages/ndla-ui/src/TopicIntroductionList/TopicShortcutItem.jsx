@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { ContentTypeBadge, Tooltip } from 'ndla-ui';
-import { injectT } from 'ndla-i18n';
+import { ContentTypeBadge, Tooltip, MessagesContext } from 'ndla-ui';
 
 import SafeLink from '../common/SafeLink';
 
@@ -14,29 +13,31 @@ const classes = new BEMHelper({
 });
 
 const ShortcutItem = ({
-  t,
   shortcut: { id, tooltip, contentType, url, count },
 }) => (
-  <Tooltip
-    id={`shortcut-tooltip-${id}`}
-    tooltip={t('resource.shortcutsTooltip', { count })}
-    delay={100}
-    align="bottom">
-    <SafeLink {...classes('item-link')} aria-label={tooltip} to={url}>
-      <ContentTypeBadge type={contentType} size="x-small" background />
-      <span {...classes('count')}>{count}</span>
-    </SafeLink>
-  </Tooltip>
+  <MessagesContext.Consumer>
+    {context => (
+      <Tooltip
+        id={`shortcut-tooltip-${id}`}
+        tooltip={context.getMessage('resource.shortcutsTooltip', { count })}
+        delay={100}
+        align="bottom">
+        <SafeLink {...classes('item-link')} aria-label={tooltip} to={url}>
+          <ContentTypeBadge type={contentType} size="x-small" background />
+          <span {...classes('count')}>{count}</span>
+        </SafeLink>
+      </Tooltip>
+    )}
+  </MessagesContext.Consumer>
 );
 
 ShortcutItem.propTypes = {
   shortcut: ShortcutShape.isRequired,
   disableToolTip: PropTypes.bool,
-  t: PropTypes.func.isRequired,
 };
 
 ShortcutItem.defaultProps = {
   disableToolTip: false,
 };
 
-export default injectT(ShortcutItem);
+export default ShortcutItem;

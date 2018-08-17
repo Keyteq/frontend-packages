@@ -8,7 +8,7 @@
 
 const titleTemplate = ' - NDLA';
 
-const phrases = {
+const messages = {
   htmlTitles: {
     titleTemplate,
     welcomePage: `Frontpage${titleTemplate}`,
@@ -216,7 +216,7 @@ const phrases = {
     tooltipAdditionalTopic:
       'Additional content is a subject that is not on the curriculum',
     additionalTooltip: 'Additional content is not on the curriculum',
-    shortcutsTooltip: 'Show {count} articles in this subject',
+    shortcutsTooltip: 'Show {count, plural, =1 {one article} other {# articles}} in this subject',
     dialogTooltip: 'What is core content and additional content?',
     dialogHeading: 'Core content and additional content',
     dialogText1:
@@ -348,4 +348,4 @@ const phrases = {
   },
 };
 
-export default phrases;
+export default messages;

@@ -8,7 +8,7 @@
 
 const titleTemplate = ' - NDLA';
 
-const phrases = {
+const messages = {
   htmlTitles: {
     titleTemplate,
     welcomePage: `Framsida${titleTemplate}`,
@@ -216,7 +216,7 @@ const phrases = {
     tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
     tooltipAdditionalTopic: 'Tilleggsstoff er fagstoff som ikkje er på pensum',
     additionalTooltip: 'Tilleggsstoff er ikkje på pensum',
-    shortcutsTooltip: 'Vis {count} artikler i dette emnet',
+    shortcutsTooltip: 'Vis {count, plural, =1 {en artikkel} other {# artikler}} i dette emnet',
     dialogTooltip: 'Kva er kjernestoff og tilleggsstoff?',
     dialogHeading: 'Kjernestoff og tilleggsstoff',
     dialogText1:
@@ -345,4 +345,4 @@ const phrases = {
   },
 };
 
-export default phrases;
+export default messages;

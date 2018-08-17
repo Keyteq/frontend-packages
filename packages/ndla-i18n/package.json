@@ -31,6 +31,7 @@
     "react": "^15.6.0 || ^16.0.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "hoist-non-react-statics": "^2.5.0",
     "intl-format-cache": "^2.1.0",
     "intl-messageformat": "^2.2.0",

@@ -1,7 +1,7 @@
 import { addDecorator } from '@storybook/react';
-import { LanguageWrapper } from 'ndla-ui';
+import { MessagesWrapper } from 'ndla-ui';
 
-addDecorator(LanguageWrapper);
+addDecorator(MessagesWrapper);
 
 require('./welcome');
 require('./concepts');

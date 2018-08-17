@@ -6,27 +6,8 @@
  *
  */
 
-import IntlProvider from './IntlProvider';
-import injectT from './injectT';
-import formatMessage from './formatMessage';
-import phrasesEn from './phrases/phrases-en';
-import phrasesNb from './phrases/phrases-nb';
-import phrasesNn from './phrases/phrases-nn';
-
-const phrases = {
-  en: phrasesEn,
-  nb: phrasesNb,
-  nn: phrasesNn,
-};
+import { formatNestedMessages } from './formatMessages';
 
 export {
-  IntlProvider,
-  injectT,
-  formatMessage,
-  phrases,
-  phrasesEn,
-  phrasesNb,
-  phrasesNn,
+  formatNestedMessages
 };
-
-export default IntlProvider;

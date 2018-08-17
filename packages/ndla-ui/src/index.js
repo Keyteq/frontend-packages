@@ -158,9 +158,18 @@ export { DisplayOnPageYOffset } from './Animation';
 export { default as InfoWidget } from './InfoWidget';
 
 export {
+  default as messages,
+  messagesNb,
+  messagesNn,
+  messagesEn,
+} from './locale';
+
+export {
+  MessagesWrapper,
+  MessagesContext,
+} from './MessagesContext';
+
+export {
   Styleguide,
   LanguageSelector,
-  LanguageSummary,
-  LanguageWrapper,
-  LanguageContext,
 } from './Styleguide';
