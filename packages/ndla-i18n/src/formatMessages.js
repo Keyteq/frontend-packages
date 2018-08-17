@@ -1,4 +1,4 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 
 function* entries(obj) {
   // eslint-disable-next-line

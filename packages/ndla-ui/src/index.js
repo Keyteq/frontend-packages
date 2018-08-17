@@ -164,12 +164,6 @@ export {
   messagesEn,
 } from './locale';
 
-export {
-  MessagesWrapper,
-  MessagesContext,
-} from './MessagesContext';
+export { MessagesWrapper, MessagesContext } from './MessagesContext';
 
-export {
-  Styleguide,
-  LanguageSelector,
-} from './Styleguide';
+export { Styleguide, LanguageSelector } from './Styleguide';

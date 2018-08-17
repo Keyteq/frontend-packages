@@ -215,7 +215,8 @@ const messages = {
     tooltipCoreTopic: 'Kjernestoff er fagstoff som er på pensum',
     tooltipAdditionalTopic: 'Tilleggsstoff er fagstoff som ikke er på pensum',
     additionalTooltip: 'Tilleggsstoff er ikke på pensum',
-    shortcutsTooltip: 'Vis {count, plural, =1 {en artikkel} other {# artikler}} i dette emnet',
+    shortcutsTooltip:
+      'Vis {count, plural, =1 {en artikkel} other {# artikler}} i dette emnet',
     dialogTooltip: 'Hva er kjernestoff og tilleggsstoff?',
     dialogHeading: 'Kjernestoff og tilleggsstoff',
     dialogText1:

@@ -8,10 +8,6 @@ const messages = {
   nn: messagesNn,
 };
 
-export {
-  messagesEn,
-  messagesNb,
-  messagesNn,
-};
+export { messagesEn, messagesNb, messagesNn };
 
 export default messages;

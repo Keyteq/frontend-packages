@@ -141,8 +141,12 @@ const TopicIntroductionList = ({
                 shortcutAlwaysExpanded={shortcutAlwaysExpanded}
                 messages={{
                   shortcutButtonText: context.getMessage('resource.label'),
-                  tooltipAdditionalTopic: context.getMessage('resource.tooltipAdditionalTopic'),
-                  tooltipCoreTopic: context.getMessage('resource.tooltipCoreTopic'),
+                  tooltipAdditionalTopic: context.getMessage(
+                    'resource.tooltipAdditionalTopic',
+                  ),
+                  tooltipCoreTopic: context.getMessage(
+                    'resource.tooltipCoreTopic',
+                  ),
                 }}
                 id={`${topic.id}_${index}`}
               />
@@ -152,10 +156,15 @@ const TopicIntroductionList = ({
             <li>
               <NoContentBox
                 onClick={toggleAdditionalCores}
-                text={context.getMessage('resouce.noCoreResourcesAvailableUnspecific', {
-                  name: 'Test',
-                })}
-                buttonText={context.getMessage('resouce.activateAdditionalResources')}
+                text={context.getMessage(
+                  'resouce.noCoreResourcesAvailableUnspecific',
+                  {
+                    name: 'Test',
+                  },
+                )}
+                buttonText={context.getMessage(
+                  'resouce.activateAdditionalResources',
+                )}
               />
             </li>
           )}

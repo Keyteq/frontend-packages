@@ -48,7 +48,9 @@ class MessagesContextProvider extends Component {
     if (!values) {
       return appLocales[this.state.langIndex].messages[txt];
     }
-    const msg = new IntlMessageFormat(appLocales[this.state.langIndex].messages[txt]);
+    const msg = new IntlMessageFormat(
+      appLocales[this.state.langIndex].messages[txt],
+    );
     return msg.format(values);
   }
 
@@ -81,9 +83,7 @@ MessagesContextProvider.propTypes = {
 };
 
 const MessagesWrapper = storyFn => (
-  <MessagesContextProvider>
-    {storyFn()}
-  </MessagesContextProvider>
+  <MessagesContextProvider>{storyFn()}</MessagesContextProvider>
 );
 
 export default MessagesWrapper;

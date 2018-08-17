@@ -8,6 +8,4 @@
 
 import { formatNestedMessages } from './formatMessages';
 
-export {
-  formatNestedMessages
-};
+export { formatNestedMessages };
