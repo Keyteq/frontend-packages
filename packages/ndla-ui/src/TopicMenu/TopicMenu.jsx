@@ -53,22 +53,27 @@ export default class TopicMenu extends Component {
     this.handleBtnKeyPress = this.handleBtnKeyPress.bind(this);
     this.handleSubtopicExpand = this.handleSubtopicExpand.bind(this);
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
     this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
+    this.contentRef = React.createRef();
 
     this.state = {
       isNarrowScreen: false,
       competenceGoalsOpen: false,
+      scrollHeader: 0,
     };
   }
 
   componentDidMount() {
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
+    this.contentRef.current.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setScreenSizeDebounced);
+    this.contentRef.current.removeEventListener('scroll', this.handleScroll);
   }
 
   setScreenSize(initial = false) {
@@ -88,6 +93,12 @@ export default class TopicMenu extends Component {
 
   handleClick(event, topicId) {
     this.props.onNavigate(topicId, null);
+  }
+
+  handleScroll(e) {
+    this.setState({
+      scrollHeader: -Math.min(e.target.scrollTop, 84),
+    });
   }
 
   handleSubtopicExpand(subtopicId, index) {
@@ -198,7 +209,7 @@ export default class TopicMenu extends Component {
       additionalFilterLabel: messages.additionalFilterLabel,
       additionalTooltipLabel: messages.additionalTooltipLabel,
     };
-
+    console.log(this.state.scrollHeader);
     return (
       <nav {...classes('', '', 'o-wrapper u-1/1')}>
         <div {...classes('back', 'narrow')}>
@@ -207,7 +218,7 @@ export default class TopicMenu extends Component {
             {messages.subjectOverview}
           </SafeLink>
         </div>
-        <div {...classes('masthead')}>
+        <div {...classes('masthead')} style={{ transform: `translateY(${this.state.scrollHeader}px)`}}>
           <div {...classes('masthead-left')}>
             <button
               type="button"
@@ -234,7 +245,7 @@ export default class TopicMenu extends Component {
             />
           </div>
         </div>
-        <div {...classes('dropdown')}>
+        <div {...classes('dropdown')} ref={this.contentRef}>
           <div {...classes('content')}>
             <div {...classes('back', 'wide')}>
               <SafeLink {...classes('back-link')} to="/">

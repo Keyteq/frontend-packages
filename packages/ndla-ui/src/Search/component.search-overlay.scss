@@ -50,6 +50,9 @@ $overlay-height-mobile: 100px;
   justify-content: space-between;
   align-items: center;
 
+  animation-name: fadeInTop;
+  animation-duration: 500ms;
+
   @include mq($until: desktop) {
     height: auto;
   }
@@ -107,7 +110,7 @@ $overlay-height-mobile: 100px;
     cursor: pointer;
 
     @include mq($until: desktop) {
-      top: $spacing;
+      top: 30px;
       right: $spacing--small;
       width: 24px;
       height: 24px;

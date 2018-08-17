@@ -126,6 +126,7 @@ $navigation-row-width: 980px / 3;
   display: flex;
   flex-flow: column;
   overflow-x: hidden;
+  min-height: 100vh;
 
   padding: $masthead-height 0;
 
@@ -143,18 +144,11 @@ $navigation-row-width: 980px / 3;
   display: flex;
   flex-flow: column;
   flex-flow: row;
+
   @include mq(tablet) {
     transition: transform 400ms ease;
     padding-bottom: $spacing--large;
     min-height: 500px;
-    &--slide-0, &--slide-1 {
-      transform: none;
-    }
-    &--slide-2 {
-      transform: translate3d(-$navigation-row-width, 0, 0);
-    }
-  }
-  @include mq(desktop) {
     &--slide-0, &--slide-1 {
       transform: none;
     }
@@ -761,34 +755,6 @@ $navigation-row-width: 980px / 3;
   }
 }
 
-.c-topic-menu__home {
-  border-right: 1px solid rgba($brand-color, 0.3);
-  padding-right: $spacing--small/1.5;
-  margin-right: $spacing--small/1.5;
-  width: 30px;
-  height: 30px;
-  color: $brand-color;
-  transition: width 0.2s ease-out;
-  &:after {
-    display: inline-block;
-    transition: width 0.2s ease-out;
-  }
-
-  &:hover {
-    width: auto;
-    &:after {
-      transition: all 0.1s ease-in-out;
-      animation-name: fadeInLeft;
-      animation-duration: 0.5s;
-      content: 'Hjem';
-      display: inline-block;
-      color: $brand-color;
-      @include inuit-font-size(15px, 15px);
-      padding-left: $spacing--small/2;
-      padding-right: $spacing--small/2;
-    }
-  }
-}
 .c-topic-menu__home-icon {
   margin-top: -5px;
   margin-right: $spacing--small/2;
@@ -835,7 +801,6 @@ $navigation-row-width: 980px / 3;
       padding-left: $spacing;
       &:hover, &:focus {
         box-shadow: none;
-        transform: translateY(1px) translateX(1px);
       }
     }
     animation-name: fadeInBottomFixed;
