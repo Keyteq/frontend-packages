@@ -6,11 +6,11 @@
  *
  */
 
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { Time, User, Additional } from 'ndla-icons/common';
-import ClickToggle from '../common/ClickToggle';
+import { ModalButton, ModalHeader, ModalBody, ModalCloseButton, Button } from 'ndla-ui';
 import ArticleAuthorContent from './ArticleAuthorContent';
 
 const classes = new BEMHelper({
@@ -18,119 +18,93 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-class ArticleByline extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showAuthor: null,
-      showAuthors: false,
-    };
-    this.onSelectAuthor = this.onSelectAuthor.bind(this);
-  }
+const ArticleByline = ({
+  authors,
+  license,
+  licenseBox,
+  messages,
+  updated,
+  additional,
+}) => {
+  const authorsLinkable =
+    messages.authorLabel &&
+    messages.authorDescription &&
+    !authors.some(author => !author.title || !author.role);
 
-  onSelectAuthor(showAuthor = null) {
-    this.setState({
-      showAuthor,
-    });
-  }
-
-  render() {
-    const {
-      authors,
-      license,
-      licenseBox,
-      messages,
-      updated,
-      additional,
-      id,
-    } = this.props;
-
-    const { showAuthor, showAuthors } = this.state;
-    const authorLabelledBy = `author-labelled-by_${id}`;
-
-    const authorsLinkable =
-      messages.authorLabel &&
-      messages.authorDescription &&
-      !authors.some(author => !author.title || !author.role);
-
-    return (
-      <div {...classes()}>
-        {authors.length && (
-          <span {...classes('flex')}>
-            <span {...classes('icon')}>
-              <User />
-            </span>
-            <span {...classes('authors')}>
-              {authorsLinkable ? (
-                <ClickToggle
-                  id={`dialog-authors-${id}`}
-                  labelledby={authorLabelledBy}
-                  isOpen={showAuthors}
-                  renderAsLink
-                  buttonClassName={classes('toggle-authors').className}
-                  onToggle={showAuthorsDialog => {
-                    this.setState({
-                      showAuthors: showAuthorsDialog,
-                      showAuthor: null,
-                    });
-                  }}
-                  title={
-                    authors.length === 1
-                      ? authors[0].name
-                      : messages.authorLabel
-                  }>
-                  <ArticleAuthorContent
-                    messages={messages}
-                    showAuthor={showAuthor}
-                    authors={authors}
-                    onSelectAuthor={this.onSelectAuthor}
-                    labelledBy={authorLabelledBy}
-                  />
-                </ClickToggle>
-              ) : (
-                `${authors.map(author => author.name).join(', ')} `
-              )}
-              ({license})
-            </span>
-          </span>
-        )}
+  return (
+    <div {...classes()}>
+      {authors.length && (
         <span {...classes('flex')}>
           <span {...classes('icon')}>
-            <Time />
+            <User />
           </span>
-          <span {...classes('date')}>
-            {messages.lastUpdated} {updated}
+          <span {...classes('authors')}>
+            {authorsLinkable ? (
+              <ModalButton
+                activateButton={<Button link>{messages.authorLabel}</Button>}
+                size="medium"
+              >
+                {(onClose) => (
+                  <Fragment>
+                    <ModalHeader>
+                      <ModalCloseButton onClick={onClose} title="lukk" />
+                    </ModalHeader>
+                    <ModalBody>
+                      <ArticleAuthorContent
+                        messages={messages}
+                        authors={authors}
+                      />
+                    </ModalBody>
+                  </Fragment>
+                )}
+              </ModalButton>
+            ) : (
+              `${authors.map(author => author.name).join(', ')} `
+            )}
+            ({license})
           </span>
         </span>
-        {additional && (
-          <span {...classes('flex')}>
-            <span {...classes('additional')}>
-              <Additional
-                key="additional"
-                className="c-icon--20 u-margin-right-tiny"
-              />
-              {messages.additionalLabel}
-            </span>
+      )}
+      <span {...classes('flex')}>
+        <span {...classes('icon')}>
+          <Time />
+        </span>
+        <span {...classes('date')}>
+          {messages.lastUpdated} {updated}
+        </span>
+      </span>
+      {additional && (
+        <span {...classes('flex')}>
+          <span {...classes('additional')}>
+            <Additional
+              key="additional"
+              className="c-icon--20 u-margin-right-tiny"
+            />
+            {messages.additionalLabel}
           </span>
-        )}
-        {licenseBox && (
-          <span {...classes('flex')}>
-            <ClickToggle
-              id="useArticleId"
-              labelledby={licenseBox.headingId}
-              renderAsLink
-              buttonClassName={classes('toggle-use-article').className}
-              dialogModifier="medium"
-              title={messages.useContent}
-              openTitle={messages.closeLabel}>
-              {licenseBox}
-            </ClickToggle>
-          </span>
-        )}
-      </div>
-    );
-  }
-}
+        </span>
+      )}
+      {licenseBox && (
+        <span {...classes('flex')}>
+          <ModalButton
+            activateButton={<Button link>{messages.useContent}</Button>}
+          >
+            {(onClose) => (
+              <Fragment>
+                <ModalHeader>
+                  <ModalCloseButton onClick={onClose} title="lukk" />
+                </ModalHeader>
+                <ModalBody>
+                  {licenseBox}
+                </ModalBody>
+              </Fragment>
+            )}
+          </ModalButton>
+        </span>
+      )}
+    </div>
+  );
+};
 
 ArticleByline.propTypes = {
   id: PropTypes.string,

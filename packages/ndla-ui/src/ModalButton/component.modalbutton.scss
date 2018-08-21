@@ -1,0 +1,143 @@
+/**
+** MODALBUTTON
+** Modal button with dialog classes.
+**/
+
+.c-modal-button {
+  position: fixed;
+  z-index: 9500;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__animation-container {
+    z-index: 9001;
+    position: fixed;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 100vh;
+    // 1. Animations
+    &--zoom-in {
+      animation-name: modal-zoomIn-exit;
+      &.c-modal-button__animation-container--animateIn {
+        animation-name: modal-zoomIn;
+      }
+    }
+    &--slide-up {
+      animation-name: modal-slideup-exit;
+      &.c-modal-button__animation-container--animateIn {
+        animation-name: modal-slideup;
+      }
+    }
+    &--subtle {
+      animation-name: fadeOut;
+      &.c-modal-button__animation-container--animateIn {
+        animation-name: fadeIn;
+      }
+    }
+    // 2. Modal size modifiers
+    &--fullscreen {
+      width: 100vw;
+      height: 100vh;
+    }
+    &--large {
+      max-width: 970px;
+      width: 970px;
+      max-height: 85vh;
+      box-shadow: 0 0 30px rgba($black, 0.2);
+      @include mq($until: 970px) {
+        box-shadow: none;
+        width: 100vw;
+        height: 100vw;
+        max-height: 100vh;
+        min-height: 100vh;
+      }
+    }
+    &--medium {
+      max-width: 790px;
+      width: 790px;
+      max-height: 85vh;
+      box-shadow: 0 0 30px rgba($black, 0.2);
+      @include mq($until: 790px) {
+        box-shadow: none;
+        height: 100vh;
+        width: 100vw;
+        min-height: 100vh;
+      }
+    }
+    &--regular {
+      @include mq($until: tablet) {
+        height: 100vh;
+        width: 100vw;
+      }
+      @include mq(tablet) {
+        box-shadow: 0 0 30px rgba($black, 0.2);
+        width: 90%;
+        max-height: 85vh;
+        max-width: 613px;
+        min-width: 613px;
+      }
+    }
+    // 3. background modifiers
+    &--white {
+      background: #fff;
+    }
+    &--gray {
+      background: $brand-grey--lightest;
+    }
+    &--blue {
+      background: $brand-color--lighter;
+    }
+  }
+  &__backdrop {
+    position: fixed;
+    z-index: 9000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(1, 1, 1, 0.3);
+    animation-name: fadeOut;
+    animation-duration: 400ms;
+    &--in {
+      animation-name: fadeIn;
+    }
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: $spacing;
+    + .c-modal-button__body {
+      padding-top: 0;
+    }
+    &--white {
+      background: #fff;
+      + .c-modal-button__body {
+        padding-top: $spacing;
+      }
+    }
+    &--gray {
+      background: $brand-grey--lightest;
+      + .c-modal-button__body {
+        padding-top: $spacing;
+      }
+    }
+    &--blue {
+      background: $brand-color--lighter;
+      + .c-modal-button__body {
+        padding-top: $spacing;
+      }
+    }
+  }
+  &__body {
+    padding: $spacing $spacing $spacing--large $spacing;
+    > h1 {
+      @include font-size(22px, 26px);
+      margin: 0 0 $spacing--small;
+    }
+  }
+}

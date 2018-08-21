@@ -54,8 +54,12 @@ export default class ClickToggle extends React.Component {
         this.focusTrap.deactivate();
       }
       if (nextProps.pauseFocusTrap && !this.props.pauseFocusTrap) {
+        // Add scroll lock on this element
+        noScroll(true, this.uuid, this.containerRef);
         this.focusTrap.unpause();
       } else if (!nextProps.pauseFocusTrap && this.props.pauseFocusTrap) {
+        // Remove scroll lock on this element
+        noScroll(false, this.uuid, this.containerRef);
         this.focusTrap.pause();
       }
     }
@@ -148,6 +152,7 @@ export default class ClickToggle extends React.Component {
     } = this.props;
     const showDialog = isOpen === null ? this.state.isOpen : isOpen;
     const useDialog = typeof children !== 'function';
+    console.log(useDialog);
     return (
       <Component {...rest}>
         <Button
@@ -251,6 +256,6 @@ ClickToggle.defaultProps = {
   disablePortal: true,
   returnFocusOnDeactivate: null,
   pauseFocusTrap: null,
-  clickOutsideDeactivates: true,
+  clickOutsideDeactivates: false,
   disableBackdrop: false,
 };

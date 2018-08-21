@@ -98,6 +98,12 @@ export {
 } from './Layout';
 export { default as LicenseByline } from './LicenseByline';
 export { default as ClickToggle } from './common/ClickToggle';
+export {
+  default as ModalButton,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+} from './ModalButton';
 export { default as SafeLink } from './common/SafeLink';
 export { default as TopicIntroductionList } from './TopicIntroductionList';
 export { default as TopicMenu } from './TopicMenu';

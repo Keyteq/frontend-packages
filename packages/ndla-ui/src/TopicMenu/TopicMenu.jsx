@@ -158,7 +158,6 @@ export default class TopicMenu extends Component {
       resourceToLinkProps,
       hideSearch,
       competenceGoals,
-      onOpenSearch,
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
@@ -209,7 +208,6 @@ export default class TopicMenu extends Component {
       additionalFilterLabel: messages.additionalFilterLabel,
       additionalTooltipLabel: messages.additionalTooltipLabel,
     };
-    console.log(this.state.scrollHeader);
     return (
       <nav {...classes('', '', 'o-wrapper u-1/1')}>
         <div {...classes('back', 'narrow')}>
@@ -231,7 +229,6 @@ export default class TopicMenu extends Component {
           <div {...classes('masthead-right')}>
             {!hideSearch && (
               <OpenSearchButton
-                onOpen={onOpenSearch}
                 narrow
                 messages={{
                   buttonText: messages.search,
@@ -462,7 +459,6 @@ TopicMenu.propTypes = {
   onFilterClick: PropTypes.func,
   filterValues: PropTypes.arrayOf(PropTypes.string),
   subjectTitle: PropTypes.string.isRequired,
-  onOpenSearch: PropTypes.func.isRequired,
   resourceToLinkProps: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   expandedTopicId: PropTypes.string,

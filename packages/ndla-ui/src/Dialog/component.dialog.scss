@@ -176,7 +176,10 @@
         align-items: center;
         box-shadow: none;
         padding: $spacing--small;
+        height: auto;
         svg {
+          height: 24px;
+          width: 24px;
           margin-right: $spacing--small / 2;
         }
       }
@@ -202,12 +205,4 @@
       transform: translate3d(0, 0%, 0);
     }
   }
-}
-/*
-  Hack for fixing top padding on devices
-  where had to add position fixed to <html />
-  to prevent scrolling on background
-*/
-html.scrollFix .c-dialog--active .c-dialog__content {
-  // padding-top: $spacing--large;
 }

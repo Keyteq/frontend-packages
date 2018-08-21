@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Search } from 'ndla-icons/common';
 import BEMHelper from 'react-bem-helper';
 
-import ClickToggle from '../common/ClickToggle';
-import Button from '../Button';
+import { ModalButton, Button } from 'ndla-ui';
 
 const classes = BEMHelper({
   prefix: 'c-',
@@ -12,18 +11,25 @@ const classes = BEMHelper({
   outputIsString: true,
 });
 
-export const OpenSearchButton = ({ messages, onOpen }) => {
+export const OpenSearchButton = ({ messages }) => {
   const buttonContent = (
-    <span className={classes('button-content')}>
-      <span className={classes('button-text')}>{messages.buttonText}</span>
+    <button type="button" className="c-button c-toggle-search-button__button c-toggle-search-button__button--wide">
+      <span className={classes('button-text')}>{messages.buttonText}???</span>
       <Search />
-    </span>
+    </button>
   );
 
   return (
-    <Button onClick={onOpen} className={classes('button', 'wide')}>
-      {buttonContent}
-    </Button>
+    <ModalButton
+      activateButton={buttonContent}
+    >
+      {(onClose) => (
+        <Fragment>
+          <Button outline onClick={onClose}>Lukk</Button>
+          {buttonContent}
+        </Fragment>
+      )}
+    </ModalButton>
   );
 };
 
@@ -34,23 +40,19 @@ OpenSearchButton.propTypes = {
   onOpen: PropTypes.func.isRequired,
 };
 
-const ToggleSearchButton = ({ messages, children, isOpen, onToggle }) => {
+const ToggleSearchButton = ({ messages, children }) => {
   const buttonContent = (
-    <span className={classes('button-content')}>
+    <button type="button" className="c-button c-toggle-search-button__button c-toggle-search-button__button--wide">
       <span className={classes('button-text')}>{messages.buttonText}</span>
       <Search />
-    </span>
+    </button>
   );
   return (
-    <ClickToggle
-      isOpen={isOpen}
-      onToggle={onToggle}
-      title={buttonContent}
-      returnFocusOnDeactivate={false}
-      className={classes()}
-      buttonClassName={classes('button', 'wide')}>
-      {children}
-    </ClickToggle>
+    <ModalButton
+      activateButton={buttonContent}
+    >
+      {(onClose) => (<div>Search content <button type="button" onClick={onClose}>close</button></div>)}
+    </ModalButton>
   );
 };
 
@@ -59,8 +61,6 @@ ToggleSearchButton.propTypes = {
     buttonText: PropTypes.string.isRequired,
   }).isRequired,
   children: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
 };
 
 export default ToggleSearchButton;

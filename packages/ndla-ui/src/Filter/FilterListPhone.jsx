@@ -12,7 +12,7 @@ import BEMHelper from 'react-bem-helper';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
-import { Button, ClickToggle, ActiveFilters } from 'ndla-ui';
+import { Button, ModalButton, ModalHeader, ModalBody, ModalCloseButton, ActiveFilters } from 'ndla-ui';
 import debounce from 'lodash/debounce';
 
 const filterClasses = new BEMHelper({
@@ -70,8 +70,6 @@ class FilterListPhone extends Component {
       defaultVisibleCount,
       showLabel,
       hideLabel,
-      onToggle,
-      isOpen,
       messages,
     } = this.props;
 
@@ -95,63 +93,64 @@ class FilterListPhone extends Component {
               }}
             />
           }
-          <ClickToggle
-            id="FilterListPhoneId"
-            isOpen={isOpen}
-            disablePortal={false}
-            dialogModifier="slide-up"
-            alwaysRenderChildren
-            returnFocusOnDeactivate={false}
-            clickOutsideDeactivates={false}
-            disableBackdrop
-            buttonClassName="c-button--outline"
-            onToggle={onToggle}
-            title="Filter"
-            openTitle={<span><Cross /> Lukk filter</span>}>
-            <h1>{label}</h1>
-            <ul {...filterClasses('item-wrapper')}>
-              {options.map((option) => (
-                <li {...filterClasses('item')} key={option.value}>
-                  <input
-                    {...filterClasses('input')}
-                    type="checkbox"
-                    id={option.value}
-                    value={option.value}
-                    checked={values.some(value => value === option.value)}
-                    onChange={event => {
-                      let newValues = null;
-                      if (event.currentTarget.checked) {
-                        newValues = [...values, option.value];
-                      } else {
-                        newValues = values.filter(
-                          value => value !== option.value,
-                        );
-                      }
-                      if (onChange) {
-                        onChange(newValues, option.value);
-                      }
-                    }}
-                  />
-                  <label htmlFor={option.value}>
-                    <span {...filterClasses('item-checkbox')} />
-                    <span {...filterClasses('text')}>{option.title}</span>
-                    {option.icon
-                      ? createElement(option.icon, {
-                          className: `c-icon--22 u-margin-left-small ${
-                            filterClasses('icon').className
-                          }`,
-                        })
-                      : null}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <div {...filterClasses('usefilter-wrapper')}>
-              <Button outline onClick={() => { onToggle(false); }}>
-                {messages.useFilter}
-              </Button>
-            </div>
-          </ClickToggle>
+          <ModalButton
+            size="fullscreen"
+            activateButton={
+              <Button outline>Filter</Button>
+            }>
+            {(onClose) => (
+              <Fragment>
+                <ModalHeader color="white">
+                  <ModalCloseButton title="Lukk" onClick={onClose} />
+                </ModalHeader>
+                <ModalBody>
+                  <h1>{label}</h1>
+                  <ul {...filterClasses('item-wrapper')}>
+                    {options.map((option) => (
+                      <li {...filterClasses('item')} key={option.value}>
+                        <input
+                          {...filterClasses('input')}
+                          type="checkbox"
+                          id={option.value}
+                          value={option.value}
+                          checked={values.some(value => value === option.value)}
+                          onChange={event => {
+                            let newValues = null;
+                            if (event.currentTarget.checked) {
+                              newValues = [...values, option.value];
+                            } else {
+                              newValues = values.filter(
+                                value => value !== option.value,
+                              );
+                            }
+                            if (onChange) {
+                              onChange(newValues, option.value);
+                            }
+                          }}
+                        />
+                        <label htmlFor={option.value}>
+                          <span {...filterClasses('item-checkbox')} />
+                          <span {...filterClasses('text')}>{option.title}</span>
+                          {option.icon
+                            ? createElement(option.icon, {
+                                className: `c-icon--22 u-margin-left-small ${
+                                  filterClasses('icon').className
+                                }`,
+                              })
+                            : null}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                  <div {...filterClasses('usefilter-wrapper')}>
+                    <Button outline onClick={onClose}>
+                      {messages.useFilter}
+                    </Button>
+                  </div>
+                </ModalBody>
+              </Fragment>
+            )}
+          </ModalButton>
         </div>
       );
     }

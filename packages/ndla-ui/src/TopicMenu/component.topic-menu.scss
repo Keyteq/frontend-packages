@@ -449,11 +449,8 @@ $navigation-row-width: 980px / 3;
       padding: $left-margin-narrow-screen;
     }
     .c-active-filters {
-      padding-bottom: $spacing--small / 2;
+      padding-bottom: 0;
       flex-direction: row;
-      li {
-        margin: 0;
-      }
       button {
         margin-right: $spacing--small / 2;
         width: auto;
@@ -465,12 +462,14 @@ $navigation-row-width: 980px / 3;
     flex-grow: 1;
     background: $brand-color--lighter;
 
-    padding: $spacing;
+    padding: $spacing $spacing $spacing--large + $spacing;
+    margin-bottom: -$spacing--medium;
 
-    @include mq(desktop) {
+    @include mq(tablet) {
       padding: $spacing--large;
       margin: -($spacing + $spacing--small) $spacing 0 $spacing--medium;
-      min-height: 70vh;
+      height: auto;
+      overflow: visible;
     }
 
     & > * {
@@ -546,7 +545,7 @@ $navigation-row-width: 980px / 3;
     padding-right: 0;
   }
 
-  @include mq(desktop) {
+  @include mq(tablet) {
     margin-bottom: $spacing--small;
     padding-left: $spacing + $spacing--small;
   }

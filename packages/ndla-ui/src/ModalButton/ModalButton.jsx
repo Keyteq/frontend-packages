@@ -1,0 +1,217 @@
+/**
+ * Copyright (c) 2016-present, NDLA.
+ *
+ * This source code is licensed under the GPLv3 license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import BEMHelper from 'react-bem-helper';
+import { noScroll, uuid } from 'ndla-util';
+import FocusTrapReact from 'focus-trap-react';
+import { createUniversalPortal } from '../utils/createUniversalPortal';
+
+import Button from '../Button';
+
+const classes = new BEMHelper({
+  name: 'modal-button',
+  prefix: 'c-',
+});
+
+const uuidList = [];
+
+const Portal = ({ animationDuration, animateIn, animation, size, backgroundColor, noBackdrop, closeOnBackdrop, children, closeModal, onAnimationEnd }) => {
+  const content = (
+    <FocusTrapReact>
+      <div {...classes('')}>
+        <div
+          style={{ animationDuration: `${animationDuration}ms` }}
+          onAnimationEnd={onAnimationEnd}
+          {...classes('animation-container', {
+            [animation]: true,
+            'animateIn': animateIn,
+            [size]: true,
+            [backgroundColor]: true,
+          })}
+        >
+          {children(closeModal)}
+        </div>
+        {!noBackdrop && (
+          <div
+            role="button"
+            tabIndex={-1}
+            onKeyDown={() => {}}
+            onClick={closeOnBackdrop && closeModal}
+            style={{ animationDuration: `${animationDuration}ms` }}
+            {...classes('backdrop', { 'in': animateIn })}
+          />
+        )}
+    </div>
+  </FocusTrapReact>);
+  return createUniversalPortal(content, 'body');
+}
+
+export default class ModalButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+      animateIn: false,
+    };
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.onAnimationEnd = this.onAnimationEnd.bind(this);
+    this.onKeypressed = this.onKeypressed.bind(this);
+    this.containerRef = React.createRef();
+    this.uuid = uuid();
+  }
+
+  componentWillUnmount() {
+    if (this.state.isOpen) {
+      // remove noScroll!
+      this.removedModal();
+    }
+  }
+
+  onAnimationEnd() {
+    if (!this.state.animateIn && this.state.isOpen) {
+      this.setState({
+        isOpen: false,
+      }, this.removedModal);
+    }
+  }
+
+  onKeypressed(e) {
+    if (e.key === 'Escape' && uuidList[uuidList.length - 1] === this.uuid) {
+      this.closeModal();
+    }
+  }
+
+  closeModal() {
+    console.log('close modal', this.state.isOpen);
+    if (this.state.isOpen) {
+      this.setState({
+        animateIn: false,
+      });
+    }
+  }
+
+  openModal() {
+    console.log('open modal', this.state.isOpen);
+    if (!this.state.isOpen) {
+      this.setState({
+        isOpen: true,
+        animateIn: true,
+      });
+      // add noScroll!
+      if (uuidList.indexOf(this.uuid) === -1) {
+        noScroll(true, this.uuid);
+        uuidList.push(this.uuid);
+        window.addEventListener('keyup', this.onKeypressed, true);
+      }
+    }
+  }
+
+  removedModal() {
+    if (uuidList.indexOf(this.uuid) !== -1) {
+      noScroll(false, this.uuid);
+      uuidList.splice(uuidList.indexOf(this.uuid), 1);
+      window.removeEventListener('keyup', this.onKeypressed, true);
+      if (this.props.willClose) {
+        this.props.willClose();
+      }
+    }
+  }
+
+  render() {
+    const {
+      activateButton,
+      wrapperFunctionForButton,
+      willClose,
+      containerClass: Component,
+      onClick: onClickEvent,
+      noBackdrop,
+      closeOnBackdrop,
+      animationDuration,
+      animation,
+      size,
+      backgroundColor,
+      children,
+      ...rest
+    } = this.props;
+
+    const {
+      isOpen,
+      animateIn,
+    } = this.state;
+
+    const clonedComponent = typeof activateButton === 'string' ?
+      <Button
+        outline
+        onClick={() => {
+          console.log('did click!');
+          this.openModal();
+          if (onClickEvent) {
+            onClickEvent();
+          }
+        }}>
+        {activateButton}
+      </Button> :
+      React.cloneElement(activateButton, {
+        onClick: () => {
+          console.log('did click!');
+          this.openModal();
+          if (onClickEvent) {
+            onClickEvent();
+          }
+        },
+      });
+
+    return (
+      <Component {...rest}>
+        {wrapperFunctionForButton ? wrapperFunctionForButton(clonedComponent) : clonedComponent}
+        <div ref={this.containerRef}>
+          {isOpen &&
+            <Portal
+              size={size}
+              backgroundColor={backgroundColor}
+              animationDuration={animationDuration}
+              animateIn={animateIn}
+              animation={animation}
+              noBackdrop={noBackdrop}
+              closeOnBackdrop={closeOnBackdrop}
+              closeModal={this.closeModal}
+              onAnimationEnd={this.onAnimationEnd}
+            >{children}</Portal>
+          }
+        </div>
+      </Component>
+    );
+  }
+}
+
+ModalButton.propTypes = {
+  children: PropTypes.func.isRequired,
+  containerClass: PropTypes.string,
+  onClick: PropTypes.func,
+  willClose: PropTypes.func,
+  animation: PropTypes.oneOf(['slide-up', 'slide-left', 'slide-right', 'slide-bottom', 'zoom-in', 'subtle']),
+  size: PropTypes.oneOf(['regular', 'medium', 'large', 'fullscreen', 'custom']),
+  backgroundColor: PropTypes.oneOf(['white', 'gray', 'blue']),
+  animationDuration: PropTypes.number,
+  activateButton: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  wrapperFunctionForButton: PropTypes.func,
+  noBackdrop: PropTypes.bool,
+  closeOnBackdrop: PropTypes.bool,
+};
+
+ModalButton.defaultProps = {
+  containerClass: 'div',
+  animation: 'zoom-in',
+  size: 'regular',
+  backgroundColor: 'blue',
+  animationDuration: 300,
+  closeOnBackdrop: true,
+};

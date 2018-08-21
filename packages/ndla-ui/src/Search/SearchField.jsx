@@ -71,9 +71,27 @@ SearchResult.propTypes = {
 class SearchField extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      inputHasFocus: false,
+    };
     this.inputRef = null;
     this.handleOnFilterRemove = this.handleOnFilterRemove.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
+    this.onInputFocus = this.onInputFocus.bind(this);
+  }
+
+  onInputBlur() {
+    console.log('blur');
+    this.setState({
+      inputHasFocus: false,
+    });
+  }
+
+  onInputFocus() {
+    console.log('focus');
+    this.setState({
+      inputHasFocus: true,
+    });
   }
 
   handleOnFilterRemove(value, filterName) {
@@ -117,6 +135,10 @@ class SearchField extends Component {
     if (filters && filters.length > 0) {
       modifiers.push('has-filter');
     }
+
+    if (this.state.inputHasFocus) {
+      modifiers.push('input-has-focus');
+    }
     return (
       <form action="/search/" {...classes('', modifiers)} onSubmit={onSearch}>
         <div {...classes('input-wrapper')}>
@@ -135,6 +157,8 @@ class SearchField extends Component {
             aria-label={placeholder}
             value={value}
             onChange={onChange}
+            onBlur={this.onInputBlur}
+            onFocus={this.onInputFocus}
           />
           <div {...classes('filters')}>
             {filters &&

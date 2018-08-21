@@ -30,7 +30,6 @@ class CompetenceGoals extends Component {
     super(props);
     this.state = {
       expanded: null,
-      filterIsOpen: false,
     };
   }
 
@@ -76,14 +75,6 @@ class CompetenceGoals extends Component {
                     options={filterOptions}
                     values={filterValues}
                     onChange={onFilterClick}
-                  />
-                  <FilterListPhone
-                    options={filterOptions}
-                    values={filterValues}
-                    onChange={onFilterClick}
-                    isOpen={this.state.filterIsOpen}
-                    onToggle={(open) => { this.setState({ filterIsOpen: open }); }}
-                    label="Filtrer:"
                   />
                 </Fragment>
               )}

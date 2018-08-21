@@ -74,6 +74,19 @@ $overlay-height-mobile: 100px;
     }
   }
 
+  @supports (-webkit-overflow-scrolling: touch) {
+    .c-search-field__search-result {
+      padding-bottom: $spacing--large + $spacing;
+    }
+    &--input-has-focus {
+      .c-search-field__search-result {
+        @supports (-webkit-overflow-scrolling: touch) {
+          padding-bottom: 300px;
+        }
+      }
+    }
+  }
+
   &--has-filter {
     .c-search-field__input {
       @include mq(desktop) {

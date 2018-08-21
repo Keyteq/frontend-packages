@@ -6,7 +6,7 @@
  *
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
@@ -17,27 +17,73 @@ const classes = new BEMHelper({
   prefix: 'c-',
 });
 
-const ArticleAuthorContent = ({
-  showAuthor,
-  authors,
-  messages: { authorLabel, authorDescription },
-  onSelectAuthor,
-  labelledBy,
-}) => {
-  if (
-    (showAuthor === null || showAuthor === undefined) &&
-    authors.length !== 1
-  ) {
-    // Render author list
+class ArticleAuthorContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAuthor: props.authors.length === 1 ? 0 : null,
+    };
+  }
+
+  onSelectAuthor(index) {
+    this.setState({
+      showAuthor: index,
+    });
+  }
+
+  renderAuthor() {
+    const {
+      title,
+      role,
+      name,
+      image,
+      phone,
+      email,
+      introduction,
+      urlContributions,
+      urlContributionsLabel,
+      urlAuthor,
+      urlAuthorLabel,
+    } = this.props.authors[this.state.showAuthor];
+
     return (
       <div {...classes()}>
-        <h1 {...classes('heading')} id={labelledBy}>
-          {authorLabel}
+        <div {...classes('author-info')}>
+          {image && <Portrait src={image} alt={name} {...classes('portrait')} />}
+          <section>
+            <h1 {...classes('heading')}>
+              {name}
+            </h1>
+            {title && <p>{`${title}${title ? ' / ' : ''}${role}`}</p>}
+            {phone && <p>{phone}</p>}
+            {email && <SafeLink to={`mailto:${email}`}>{email}</SafeLink>}
+            {introduction && <p {...classes('', 'ingress')}>{introduction}</p>}
+          </section>
+        </div>
+        <div {...classes('author-link-container')}>
+          {urlContributions && (
+            <SafeLink
+              className="c-button c-button--outline"
+              to={urlContributions}>
+              {urlContributionsLabel}
+            </SafeLink>
+          )}
+          {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
+        </div>
+      </div>
+    )
+  }
+
+  renderAuthorlist() {
+    return (
+      <div {...classes()}>
+        <h1 {...classes('heading')}>
+          authorLabel
         </h1>
-        <p>{authorDescription}</p>
+        <p>authorDescription</p>
         <hr />
         <ul {...classes('ul-list')}>
-          {authors.map((author, index) => (
+          {this.props.authors.map((author, index) => (
             <li key={author.name}>
               <span>{author.role}:</span>
               <span>
@@ -45,7 +91,7 @@ const ArticleAuthorContent = ({
                   type="button"
                   className="c-button--link"
                   onClick={() => {
-                    onSelectAuthor(index);
+                    this.onSelectAuthor(index);
                   }}>
                   {author.name}
                 </button>
@@ -55,49 +101,12 @@ const ArticleAuthorContent = ({
           ))}
         </ul>
       </div>
-    );
+    )
   }
-  // Show author
-  const {
-    image,
-    name,
-    title,
-    role,
-    phone,
-    email,
-    introduction,
-    urlContributions,
-    urlContributionsLabel,
-    urlAuthor,
-    urlAuthorLabel,
-  } = authors[showAuthor !== null && showAuthor !== undefined ? showAuthor : 0];
 
-  return (
-    <div {...classes()}>
-      <div {...classes('author-info')}>
-        {image && <Portrait src={image} alt={name} {...classes('portrait')} />}
-        <section>
-          <h1 {...classes('heading')} id={labelledBy}>
-            {name}
-          </h1>
-          {title && <p>{`${title}${title ? ' / ' : ''}${role}`}</p>}
-          {phone && <p>{phone}</p>}
-          {email && <SafeLink to={`mailto:${email}`}>{email}</SafeLink>}
-          {introduction && <p {...classes('', 'ingress')}>{introduction}</p>}
-        </section>
-      </div>
-      <div {...classes('author-link-container')}>
-        {urlContributions && (
-          <SafeLink
-            className="c-button c-button--outline"
-            to={urlContributions}>
-            {urlContributionsLabel}
-          </SafeLink>
-        )}
-        {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
-      </div>
-    </div>
-  );
+  render() {
+    return this.state.showAuthor !== null ? this.renderAuthor() : this.renderAuthorlist();
+  }
 };
 
 ArticleAuthorContent.propTypes = {

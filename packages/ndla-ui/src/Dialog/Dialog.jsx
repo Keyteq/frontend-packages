@@ -32,6 +32,7 @@ export const Dialog = ({
   disableBackdrop,
   ...rest
 }) => {
+
   const content = (
     <div
       {...classes('', modifier)}
@@ -76,7 +77,7 @@ Dialog.propTypes = {
   hidden: PropTypes.bool,
   children: PropTypes.node,
   messages: PropTypes.shape({
-    close: PropTypes.string.isRequired,
+    close: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   }),
   modifier: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   disablePortal: PropTypes.bool,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { HelpCircle } from 'ndla-icons/common';
 import { uuid } from 'ndla-util';
-import { ClickToggle, Tooltip } from 'ndla-ui';
+import { Button, ModalButton, ModalHeader, ModalBody, ModalCloseButton, Tooltip } from 'ndla-ui';
 
 import { classes } from './ResourcesWrapper';
 
@@ -38,32 +38,40 @@ const ResourcesTopicTitle = ({
             onClick={toggleAdditionalResources}
           />
           {messages.dialogTooltip && (
-            <ClickToggle
+            <ModalButton
               id="resource-title-tooltip"
               stripped
-              labelledby={explainationIconLabelledBy}
-              title={
+              wrapperFunctionForButton={(activateButton) => (
                 <Tooltip
                   id="resource-title-tooltip"
                   tooltip={messages.dialogTooltip}
                   align="top">
                   <div {...classes('topic-title-icon')}>
-                    <HelpCircle
-                      className={`c-icon--22 u-margin-left-tiny ${
-                        classes('icon').className
-                      }`}
-                    />
+                    {activateButton}
                   </div>
                 </Tooltip>
-              }
-              openTitle={messages.closeLabel}>
-              <Fragment>
-                <h1 id={explainationIconLabelledBy}>
-                  {messages.dialogHeading}
-                </h1>
-                {messages.dialogTexts.map(text => <p key={uuid()}>{text}</p>)}
-              </Fragment>
-            </ClickToggle>
+              )}
+              activateButton={
+                <HelpCircle
+                  className={`c-icon--22 u-margin-left-tiny ${
+                    classes('icon').className
+                  }`}
+                />
+              }>
+              {onClose => (
+                <Fragment>
+                  <ModalHeader>
+                    <ModalCloseButton title="lukk" onClick={onClose} />
+                  </ModalHeader>
+                  <ModalBody>
+                    <h1 id={explainationIconLabelledBy}>
+                      {messages.dialogHeading}
+                    </h1>
+                    {messages.dialogTexts.map(text => <p key={uuid()}>{text}</p>)}
+                  </ModalBody>
+                </Fragment>
+              )}
+            </ModalButton>
           )}
         </div>
       )}
