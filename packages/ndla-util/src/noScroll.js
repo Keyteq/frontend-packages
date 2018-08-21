@@ -42,20 +42,23 @@ let currentScrollPosition;
 const scrollTargets = [];
 
 const noScroll = (enable, uuid) => {
+  console.log('noScroll', enable, uuid);
   const htmlElement = document.querySelector('html');
   if (enable) {
     if (!scrollTargets.includes(uuid)) {
       scrollTargets.push(uuid);
-    }
-    const scrollWidth = getScrollbarWidth();
-    currentScrollPosition = getBodyScrollTop();
-    htmlElement.style.overflow = 'hidden';
-    htmlElement.style.paddingRight = `${scrollWidth}px`;
-    htmlElement.style.position = isIosDevice ? 'fixed' : 'static'; // iOS scrolling fix
-    htmlElement.style.left = 0;
-    htmlElement.style.right = 0;
-    if (isIosDevice) {
-      htmlElement.classList.add('scrollFix');
+      const scrollWidth = getScrollbarWidth();
+      currentScrollPosition = getBodyScrollTop();
+      htmlElement.style.overflow = 'hidden';
+      htmlElement.style.paddingRight = `${scrollWidth}px`;
+      htmlElement.style.position = isIosDevice ? 'fixed' : 'static'; // iOS scrolling fix
+      htmlElement.style.left = 0;
+      htmlElement.style.right = 0;
+      if (isIosDevice) {
+        htmlElement.classList.add('scrollFix');
+      }
+    } else {
+      console.log('ignored, was already open');
     }
   } else {
     if (scrollTargets.indexOf(uuid) !== -1) {
@@ -71,6 +74,8 @@ const noScroll = (enable, uuid) => {
         htmlElement.classList.remove('scrollFix');
         setBodyScrollTop(currentScrollPosition);
       }
+    } else {
+      console.log('did ignore it...');
     }
   }
 };

@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { BY, SA, NC, ND, PD, CC0, COPYRIGHTED } from 'ndla-licenses';
@@ -18,6 +18,11 @@ import {
   Translation,
   TranslationLine,
   ArticleByline,
+  Button,
+  ModalButton,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
 } from 'ndla-ui';
 
 import { StoryIntro, StoryBody } from './wrappers';
@@ -119,11 +124,11 @@ storiesOf('Sammensatte moduler', module)
           },
           {
             role: 'rolle',
-            name: 'Pål Frøsndal',
+            name: 'Pål Frønsdal',
             urlContributions: '#',
             urlContributionsLabel: 'Se hva Pål har bidratt med',
             urlAuthor: '#',
-            urlAuthorLabel: 'Les mer om Cecilie',
+            urlAuthorLabel: 'Les mer om Pål',
             title: 'Stilling',
             phone: '+47 123 45 678',
             email: 'paal.fronsdal@ndla.no',
@@ -621,6 +626,90 @@ storiesOf('Sammensatte moduler', module)
         </Translation>
         <h2 className="u-heading">Språkvelger</h2>
         <TranslationBoxExample />
+      </StoryBody>
+    </div>
+  ))
+
+  .add('Modal knapp', () => (
+    <div>
+      <StoryIntro title="Oversettelse">
+        <p>
+          Brukes til å håndtere modalbokser, inkludert fokus og tabs samt åpne/lukke states.
+        </p>
+      </StoryIntro>
+      <StoryBody>
+        <h2 className="u-heading">Modalknapp</h2>
+        <ModalButton
+          activateButton={<Button outline>Open Modal</Button>}
+        >
+          {(onClose) => (
+            <Fragment>
+              <ModalHeader modifier="white">
+                <ModalCloseButton onClick={onClose} title="Lukk modal" />
+              </ModalHeader>
+              <ModalBody>
+                <h1>Innhold i modalen..</h1>
+                <p>
+                  Lorem
+                </p>
+                <p>
+                  Lorem
+                </p>
+                <p>
+                  Lorem
+                </p>
+                <p>
+                  Lorem
+                </p>
+                <p>
+                  Lorem
+                </p>
+                <ModalButton
+                  activateButton="Åpne en til!"
+                >
+                  {(onClose2) => (
+                    <Fragment>
+                      <ModalHeader>
+                        <ModalCloseButton onClick={onClose2} title="Lukk modal" />
+                      </ModalHeader>
+                      <ModalBody>
+                        <h1>Another modal!</h1>
+                        <ModalButton
+                          activateButton="Slide it in"
+                          animation="slide-up"
+                        >
+                          {(onClose3) => (
+                            <div>
+                              <h1>SLiiiiiiide</h1>
+                                <p>
+                                  Lorem
+                                </p>
+                                <p>
+                                  Lorem
+                                </p>
+                                <p>
+                                  Lorem
+                                </p>
+                                <p>
+                                  Lorem
+                                </p>
+                                <p>
+                                  Lorem
+                                </p>
+                              <Button onClick={onClose3}>
+                                Lukke lukke
+                              </Button>
+                            </div>
+                          )}
+                        </ModalButton>
+                      </ModalBody>
+                    </Fragment>
+                  )}
+                </ModalButton>
+              </ModalBody>
+            </Fragment>
+          )}
+        </ModalButton>
       </StoryBody>
     </div>
   ));

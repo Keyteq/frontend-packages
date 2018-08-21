@@ -46,11 +46,11 @@ const authorRealText = [
   },
   {
     role: 'rolle',
-    name: 'Pål Frøsndal',
+    name: 'Pål Frønsdal',
     urlContributions: '#',
     urlContributionsLabel: 'Se hva Pål har bidratt med',
     urlAuthor: '#',
-    urlAuthorLabel: 'Les mer om Cecilie',
+    urlAuthorLabel: 'Les mer om Pål',
     title: 'Stilling',
     phone: '+47 123 45 678',
     email: 'paal.fronsdal@ndla.no',

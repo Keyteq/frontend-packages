@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
-import { CompetenceGoals, ClickToggle } from 'ndla-ui';
+import { CompetenceGoals, Button, ModalButton, ModalHeader, ModalCloseButton } from 'ndla-ui';
 
 const classes = BEMHelper('c-competence-goals-dialog');
 
@@ -15,7 +15,7 @@ class CompetenceGoalsExample extends Component {
   }
 
   render() {
-    const { headingId, menu, search } = this.props;
+    const { headingId, menu, search, subjectName } = this.props;
     const topics = [
       {
         heading: 'Emne',
@@ -81,7 +81,7 @@ class CompetenceGoalsExample extends Component {
       <CompetenceGoals
         menu={menu}
         search={search}
-        subjectName={menu ? 'Fag' : null}
+        subjectName={menu ? subjectName : null}
         id={menu ? 'competence-goals-menu' : 'competence-goals'}
         headingId={headingId}
         filterOptions={!search ? filterOptions : null}
@@ -101,22 +101,26 @@ class CompetenceGoalsExample extends Component {
 CompetenceGoalsExample.propTypes = {
   headingId: PropTypes.string,
   menu: PropTypes.bool,
+  subjectName: PropTypes.string,
   search: PropTypes.bool,
 };
 
 export default CompetenceGoalsExample;
 
 export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
-  <ClickToggle
-    id={`competenceGoalsExampleId${wide ? 'Wide' : 'Narrow'}`}
-    labelledby={headingId}
-    dialogModifier="medium small-heading"
-    buttonClassName={classes('toggle-button', { wide, narrow }).className}
-    title="Kompetansemål"
-    openTitle="Lukk boks"
-    renderAsLightButton>
-    <CompetenceGoalsExample headingId={headingId} />
-  </ClickToggle>
+  <ModalButton
+    activateButton={<Button lighter {...classes('toggle-button', { wide, narrow })}>Kompetansemål</Button>}
+    size="medium"
+  >
+    {(onClose) => (
+      <Fragment>
+        <ModalHeader>
+          <ModalCloseButton onClick={onClose} title="lukk" />
+        </ModalHeader>
+        <CompetenceGoalsExample headingId={headingId} />
+      </Fragment>
+    )}
+  </ModalButton>
 );
 
 CompetenceGoalsDialogExample.propTypes = {

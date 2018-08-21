@@ -13,13 +13,14 @@ import {
   Masthead,
   MastheadItem,
   Logo,
-  ClickToggle,
+  Button,
   TopicMenu,
   DisplayOnPageYOffset,
   ToggleSearchButton,
   SearchOverlay,
   SearchField,
   SafeLink,
+  ModalButton,
 } from 'ndla-ui';
 
 import { topicMenu, contentTypeResults } from '../../dummydata';
@@ -59,9 +60,7 @@ class MastheadWithTopicMenu extends Component {
     super(props);
     this.state = {
       value: '',
-      menuIsOpen: false,
       filterIsOpen: false,
-      searchIsOpen: this.props.searchFieldExpanded,
       expandedTopicId: null,
       expandedSubtopicsId: [],
       filterMenuValues: ['Medieuttrykk'],
@@ -78,17 +77,6 @@ class MastheadWithTopicMenu extends Component {
       searchButtonView = (
         <ToggleSearchButton
           id="ToggleSearchButtonId"
-          isOpen={this.state.searchIsOpen}
-          onToggle={isOpen => {
-            const newState = {
-              searchIsOpen: isOpen,
-            };
-
-            if (!isOpen) {
-              newState.value = '';
-            }
-            this.setState(newState);
-          }}
           messages={{ buttonText: 'Søk' }}>
           {(onClose, isOpen) => (
             <SearchOverlay close={onClose} isOpen={isOpen}>
@@ -136,23 +124,16 @@ class MastheadWithTopicMenu extends Component {
         hideOnNarrowScreen={this.props.hideOnNarrowScreen}
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
-          <ClickToggle
-            id="mastheadSearchId"
-            clickOutsideDeactivates={false}
-            isOpen={this.state.menuIsOpen}
-            pauseFocusTrap={this.state.menuIsOpen && (this.state.searchIsOpen || this.state.filterIsOpen)}
-            onToggle={isOpen => {
+          <ModalButton
+            activateButton={<Button outline className="c-topic-menu-toggle-button">Meny</Button>}
+            animation="subtle"
+            willClose={() => {
               this.setState({
-                menuIsOpen: isOpen,
                 expandedTopicId: null,
                 expandedSubtopicsId: [],
               });
-            }}
-            title="Meny"
-            openTitle="Lukk"
-            className="c-topic-menu-container"
-            buttonClassName="c-btn c-button--outline c-topic-menu-toggle-button">
-            {onClose => (
+            }}>
+            {(onClose) => (
               <TopicMenu
                 id="mastheadSearchId"
                 close={onClose}
@@ -162,11 +143,6 @@ class MastheadWithTopicMenu extends Component {
                 toTopic={() => '#'}
                 topics={topicMenu}
                 messages={messages}
-                onOpenSearch={() => {
-                  this.setState({
-                    searchIsOpen: true,
-                  });
-                }}
                 onToggleFilterOptions={(filterIsOpen) => {
                   this.setState({
                     filterIsOpen,
@@ -184,7 +160,7 @@ class MastheadWithTopicMenu extends Component {
                 ]}
                 filterValues={this.state.filterMenuValues}
                 filterIsOpen={this.state.filterIsOpen}
-                competenceGoals={<CompetenceGoalsExample menu />}
+                competenceGoals={<CompetenceGoalsExample menu subjectName="Mediefag" />}
                 onFilterClick={(values) => {
                   this.setState({
                     filterMenuValues: values,
@@ -213,7 +189,7 @@ class MastheadWithTopicMenu extends Component {
                 }}
               />
             )}
-          </ClickToggle>
+          </ModalButton>
           <DisplayOnPageYOffset yOffsetMin={150}>
             <BreadcrumbBlock />
           </DisplayOnPageYOffset>
