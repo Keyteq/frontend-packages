@@ -81,14 +81,12 @@ class SearchField extends Component {
   }
 
   onInputBlur() {
-    console.log('blur');
     this.setState({
       inputHasFocus: false,
     });
   }
 
   onInputFocus() {
-    console.log('focus');
     this.setState({
       inputHasFocus: true,
     });

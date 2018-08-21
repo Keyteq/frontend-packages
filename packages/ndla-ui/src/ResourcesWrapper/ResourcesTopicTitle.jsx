@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 import { HelpCircle } from 'ndla-icons/common';
 import { uuid } from 'ndla-util';
-import { Button, ModalButton, ModalHeader, ModalBody, ModalCloseButton, Tooltip } from 'ndla-ui';
+import {
+  ModalButton,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Tooltip,
+} from 'ndla-ui';
 
 import { classes } from './ResourcesWrapper';
 
@@ -40,15 +46,12 @@ const ResourcesTopicTitle = ({
           {messages.dialogTooltip && (
             <ModalButton
               id="resource-title-tooltip"
-              stripped
-              wrapperFunctionForButton={(activateButton) => (
+              wrapperFunctionForButton={activateButton => (
                 <Tooltip
                   id="resource-title-tooltip"
                   tooltip={messages.dialogTooltip}
                   align="top">
-                  <div {...classes('topic-title-icon')}>
-                    {activateButton}
-                  </div>
+                  <div {...classes('topic-title-icon')}>{activateButton}</div>
                 </Tooltip>
               )}
               activateButton={
@@ -67,7 +70,9 @@ const ResourcesTopicTitle = ({
                     <h1 id={explainationIconLabelledBy}>
                       {messages.dialogHeading}
                     </h1>
-                    {messages.dialogTexts.map(text => <p key={uuid()}>{text}</p>)}
+                    {messages.dialogTexts.map(text => (
+                      <p key={uuid()}>{text}</p>
+                    ))}
                   </ModalBody>
                 </Fragment>
               )}

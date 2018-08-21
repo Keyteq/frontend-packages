@@ -10,13 +10,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ModalClose = ({ title, onClick, className }) => (
-  <button type="button" onClick={onClick} className={`c-button c-button--link ${className}`}>
+  <button
+    type="button"
+    onClick={onClick}
+    className={`c-button c-button--link ${className}`}>
     {title}
   </button>
 );
 
 ModalClose.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   onClick: PropTypes.func.isRequired,
   className: PropTypes.string,
 };

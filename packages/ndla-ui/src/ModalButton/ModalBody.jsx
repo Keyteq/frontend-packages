@@ -16,9 +16,7 @@ const classes = new BEMHelper({
 });
 
 const ModalBody = ({ children, modifier }) => (
-  <div {...classes('body', modifier)}>
-    {children}
-  </div>
+  <div {...classes('body', modifier)}>{children}</div>
 );
 
 ModalBody.propTypes = {

@@ -49,11 +49,11 @@ class ArticleAuthorContent extends Component {
     return (
       <div {...classes()}>
         <div {...classes('author-info')}>
-          {image && <Portrait src={image} alt={name} {...classes('portrait')} />}
+          {image && (
+            <Portrait src={image} alt={name} {...classes('portrait')} />
+          )}
           <section>
-            <h1 {...classes('heading')}>
-              {name}
-            </h1>
+            <h1 {...classes('heading')}>{name}</h1>
             {title && <p>{`${title}${title ? ' / ' : ''}${role}`}</p>}
             {phone && <p>{phone}</p>}
             {email && <SafeLink to={`mailto:${email}`}>{email}</SafeLink>}
@@ -71,15 +71,13 @@ class ArticleAuthorContent extends Component {
           {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
         </div>
       </div>
-    )
+    );
   }
 
   renderAuthorlist() {
     return (
       <div {...classes()}>
-        <h1 {...classes('heading')}>
-          authorLabel
-        </h1>
+        <h1 {...classes('heading')}>authorLabel</h1>
         <p>authorDescription</p>
         <hr />
         <ul {...classes('ul-list')}>
@@ -101,13 +99,15 @@ class ArticleAuthorContent extends Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 
   render() {
-    return this.state.showAuthor !== null ? this.renderAuthor() : this.renderAuthorlist();
+    return this.state.showAuthor !== null
+      ? this.renderAuthor()
+      : this.renderAuthorlist();
   }
-};
+}
 
 ArticleAuthorContent.propTypes = {
   labelledBy: PropTypes.string.isRequired,

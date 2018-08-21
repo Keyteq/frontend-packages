@@ -10,7 +10,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { Time, User, Additional } from 'ndla-icons/common';
-import { ModalButton, ModalHeader, ModalBody, ModalCloseButton, Button } from 'ndla-ui';
+import {
+  ModalButton,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+} from 'ndla-ui';
 import ArticleAuthorContent from './ArticleAuthorContent';
 
 const classes = new BEMHelper({
@@ -42,9 +48,8 @@ const ArticleByline = ({
             {authorsLinkable ? (
               <ModalButton
                 activateButton={<Button link>{messages.authorLabel}</Button>}
-                size="medium"
-              >
-                {(onClose) => (
+                size="medium">
+                {onClose => (
                   <Fragment>
                     <ModalHeader>
                       <ModalCloseButton onClick={onClose} title="lukk" />
@@ -87,16 +92,13 @@ const ArticleByline = ({
       {licenseBox && (
         <span {...classes('flex')}>
           <ModalButton
-            activateButton={<Button link>{messages.useContent}</Button>}
-          >
-            {(onClose) => (
+            activateButton={<Button link>{messages.useContent}</Button>}>
+            {onClose => (
               <Fragment>
                 <ModalHeader>
                   <ModalCloseButton onClick={onClose} title="lukk" />
                 </ModalHeader>
-                <ModalBody>
-                  {licenseBox}
-                </ModalBody>
+                <ModalBody>{licenseBox}</ModalBody>
               </Fragment>
             )}
           </ModalButton>

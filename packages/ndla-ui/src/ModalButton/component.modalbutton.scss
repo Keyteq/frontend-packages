@@ -32,6 +32,12 @@
         animation-name: modal-slideup;
       }
     }
+    &--slide-down {
+      animation-name: modal-slidedown-exit;
+      &.c-modal-button__animation-container--animateIn {
+        animation-name: modal-slidedown;
+      }
+    }
     &--subtle {
       animation-name: fadeOut;
       &.c-modal-button__animation-container--animateIn {
@@ -42,6 +48,11 @@
     &--fullscreen {
       width: 100vw;
       height: 100vh;
+    }
+    &--full-width {
+      width: 100vw;
+      height: auto;
+      box-shadow: 0 0 30px rgba($black, 0.2);
     }
     &--large {
       max-width: 970px;
@@ -132,6 +143,24 @@
         padding-top: $spacing;
       }
     }
+    &--left-align {
+      justify-content: flex-start;
+    }
+    &--menu {
+      padding: $spacing--small $spacing--large;
+      justify-content: space-between;
+      border-bottom: 1px solid $brand-grey--lighter;
+      @include mq($until: desktop) {
+        padding: $spacing--small $spacing;
+        .c-button {
+          display: block;
+          margin: 0;
+        }
+        .c-logo {
+          display: none;
+        }
+      }
+    }
   }
   &__body {
     padding: $spacing $spacing $spacing--large $spacing;
@@ -139,5 +168,11 @@
       @include font-size(22px, 26px);
       margin: 0 0 $spacing--small;
     }
+  }
+}
+
+.scrollFixIOS {
+  .c-modal-button__animation-container {
+    padding-top: 38px;
   }
 }

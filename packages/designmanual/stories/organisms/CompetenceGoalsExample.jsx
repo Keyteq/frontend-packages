@@ -2,7 +2,13 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
-import { CompetenceGoals, Button, ModalButton, ModalHeader, ModalCloseButton } from 'ndla-ui';
+import {
+  CompetenceGoals,
+  Button,
+  ModalButton,
+  ModalHeader,
+  ModalCloseButton,
+} from 'ndla-ui';
 
 const classes = BEMHelper('c-competence-goals-dialog');
 
@@ -86,7 +92,9 @@ class CompetenceGoalsExample extends Component {
         headingId={headingId}
         filterOptions={!search ? filterOptions : null}
         filterValues={!search ? this.state.filterValues : null}
-        onFilterClick={(filterValues) => { this.setState({ filterValues }); }}
+        onFilterClick={filterValues => {
+          this.setState({ filterValues });
+        }}
         description="Læreplan i medieuttrykk - felles programfag i utdanningsprogram for medier og kommunikasjon"
         messages={{
           heading: 'Kompetansemål og læreplan',
@@ -94,9 +102,9 @@ class CompetenceGoalsExample extends Component {
         }}
         topics={topics}
       />
-    )
+    );
   }
-};
+}
 
 CompetenceGoalsExample.propTypes = {
   headingId: PropTypes.string,
@@ -109,10 +117,13 @@ export default CompetenceGoalsExample;
 
 export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
   <ModalButton
-    activateButton={<Button lighter {...classes('toggle-button', { wide, narrow })}>Kompetansemål</Button>}
-    size="medium"
-  >
-    {(onClose) => (
+    activateButton={
+      <Button lighter {...classes('toggle-button', { wide, narrow })}>
+        Kompetansemål
+      </Button>
+    }
+    size="medium">
+    {onClose => (
       <Fragment>
         <ModalHeader>
           <ModalCloseButton onClick={onClose} title="lukk" />

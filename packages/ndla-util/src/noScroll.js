@@ -19,7 +19,7 @@ const getScrollbarWidth = () => {
   return scrollbarWidth;
 };
 
-const isIosDevice =
+export const isIosDevice =
   typeof window !== 'undefined' &&
   window.navigator &&
   window.navigator.platform &&
@@ -42,7 +42,6 @@ let currentScrollPosition;
 const scrollTargets = [];
 
 const noScroll = (enable, uuid) => {
-  console.log('noScroll', enable, uuid);
   const htmlElement = document.querySelector('html');
   if (enable) {
     if (!scrollTargets.includes(uuid)) {
@@ -55,10 +54,8 @@ const noScroll = (enable, uuid) => {
       htmlElement.style.left = 0;
       htmlElement.style.right = 0;
       if (isIosDevice) {
-        htmlElement.classList.add('scrollFix');
+        htmlElement.classList.add('scrollFixIOS');
       }
-    } else {
-      console.log('ignored, was already open');
     }
   } else {
     if (scrollTargets.indexOf(uuid) !== -1) {
@@ -71,11 +68,9 @@ const noScroll = (enable, uuid) => {
       htmlElement.style.left = 'auto';
       htmlElement.style.right = 'auto';
       if (isIosDevice) {
-        htmlElement.classList.remove('scrollFix');
+        htmlElement.classList.remove('scrollFixIOS');
         setBodyScrollTop(currentScrollPosition);
       }
-    } else {
-      console.log('did ignore it...');
     }
   }
 };

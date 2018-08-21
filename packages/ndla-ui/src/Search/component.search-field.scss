@@ -1,4 +1,6 @@
-$overlay-height-mobile: 100px;
+$overlay-height-mobile: 74px;
+$overlay-height-tablet: 110px;
+$overlay-height: 136px;
 
 .c-search-field {
   display: flex;
@@ -7,56 +9,31 @@ $overlay-height-mobile: 100px;
   flex-direction: column;
   justify-content: center;
 
-  &--search-is-overlay {
+  &__overlay-content > div:first-child {
+    background: none;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: $overlay-height;
+    overflow-y: visible;
+    box-shadow: none;
+  }
+
+  &__overlay-top {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: $overlay-height-mobile;
+    background: $brand-grey--lighter;
+    @include mq(tablet) {
+      height: $overlay-height-tablet;
+    }
     @include mq(desktop) {
-      max-width: calc(100vw - 140px);
-      margin-left: auto;
-      margin-right: auto;
-      + .c-search-overlay__close-button {
-        position: fixed;
-        top: 58px;
-      }
+      height: $overlay-height;
     }
-    @include mq($from: desktop, $until: wide) {
-      + .c-search-overlay__close-button {
-        right: $spacing--small;
-      }
-    }
-    @include mq($from: wide) {
-      + .c-search-overlay__close-button {
-        right: $spacing--large;
-      }
-    }
-    @include mq($until: desktop) {
-      flex-flow: column;
-      .c-search-field__input {
-        padding-left: $spacing;
-        padding-right: $spacing--small;
-        margin-left: $spacing;
-        margin-right: 0;
-        border-right: 0;
-        border-left: 1px solid $brand-grey--light;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        &:focus {
-          border: 1px solid $brand-color;
-          border-right: 0;
-        }
-      }
-      .c-search-field__filters {
-        border-radius: 0;
-        border-left: 0;
-        border-right: 0;
-        margin-right: 0;
-      }
-      &.c-search-field--has-search-result {
-        .c-search-field__input {
-          border-bottom-left-radius: 4px;
-        }
-      }
-    }
+    box-shadow: 0 0 30px rgba($black, 0.2);
   }
 
   @include mq(desktop) {
@@ -112,7 +89,7 @@ $overlay-height-mobile: 100px;
       padding-right: $spacing--small / 2;
     }
 
-    @include mq(desktop) {
+    @include mq(tablet) {
       height: 58px;
       padding-right: $spacing--small;
     }
@@ -122,6 +99,9 @@ $overlay-height-mobile: 100px;
 
       @include mq(tablet) {
         display: flex;
+        li {
+          margin-bottom: 0;
+        }
       }
       @include mq($until: desktop) {
         padding-right: $spacing--small;
@@ -156,7 +136,7 @@ $overlay-height-mobile: 100px;
 
     @include font-size(16px, 20px);
 
-    @include mq(desktop) {
+    @include mq(tablet) {
       height: 58px;
       line-height: 58px;
       @include font-size(18px, 24px);
@@ -165,15 +145,12 @@ $overlay-height-mobile: 100px;
 
   &__button {
     position: absolute;
-    top: 17px;
-    right: 38px;
     cursor: pointer;
     background: none;
     border: 0;
     padding: $spacing--small;
 
-    @include mq(desktop) {
-      padding: $spacing--small;
+    @include mq(tablet) {
       top: 5px;
       right: 10px;
     }
@@ -186,27 +163,21 @@ $overlay-height-mobile: 100px;
   }
 
   &__input-wrapper {
-    position: relative;
-    display: flex;
     width: 100%;
+    padding: 0 $spacing--large 0 $spacing;
+    display: flex;
     align-items: center;
-    text-align: left;
     flex-flow: row-reverse;
-    @include mq($until: desktop) {
-      padding: $spacing--small $spacing--small*3 $spacing--small $spacing;
-      margin-right: $spacing;
-      height: 84px;
+    @include mq(tablet) {
+      position: relative;
+      padding: 0;
     }
   }
 
   &__search-result {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    top: 58px;
     overflow-y: auto;
-    max-height: calc(100vh - 120px);
+    width: 100%;
+
     background: $white;
     border: 1px solid $brand-grey--light;
     border-top: 0;
@@ -215,17 +186,18 @@ $overlay-height-mobile: 100px;
     padding: $spacing--medium $spacing--large 0 $spacing--large;
     animation: expand 0.2s;
     transform-origin: top;
-    @include mq($until: desktop) {
-      position: static;
-      width: 100%;
-      height: calc(100vh - 100px);
-      max-height: calc(100vh - 100px);
-      padding: $spacing $spacing--medium;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
+
+    @include mq(tablet) {
+      max-height: calc(100vh - 110px);
     }
-    @include mq($until: mobileWide) {
+    @include mq(desktop) {
+      max-height: calc(100vh - 136px);
+    }
+
+    @include mq($until: tablet) {
+      margin-top: $spacing--small;
+      height: calc(100vh - 76px);
+      max-height: none;
       padding: $spacing;
     }
   }
@@ -260,6 +232,47 @@ $overlay-height-mobile: 100px;
     a {
       @extend .c-button;
       box-shadow: none;
+    }
+  }
+  /** Header adjustments... */
+  &__header {
+    @include mq(tablet) {
+      width: $inuit-wrapper-width;
+      max-width: calc(100vw - 156px);
+    }
+    padding: 0;
+    margin: 0 auto;
+  }
+  &__header-container {
+    display: flex;
+    padding-top: $spacing--small;
+    @include mq(tablet) {
+      padding-top: $spacing;
+    }
+    @include mq(desktop) {
+      padding-top: $spacing + $spacing--small;
+    }
+    > .c-search-field {
+      width: 100%;
+      margin-right: -$spacing--large;
+    }
+    > button {
+      width: $spacing--large;
+      height: 48px;
+      @include mq(tablet) {
+        transform: translate($spacing--large, 0);
+        width: $spacing--large;
+        height: 56px;
+        &:hover, &:focus {
+          transform: translate($spacing--large + 1, 1px);
+        }
+      }
+      @include mq(wide) {
+        transform: translate($spacing--large * 2, 0);
+        &:hover, &:focus {
+          transform: translate(($spacing--large * 2) + 1, 1px);
+        }
+      }
     }
   }
 }

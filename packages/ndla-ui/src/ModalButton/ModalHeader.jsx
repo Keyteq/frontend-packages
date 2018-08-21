@@ -16,14 +16,15 @@ const classes = new BEMHelper({
 });
 
 const ModalHeader = ({ children, modifier }) => (
-  <div {...classes('header', modifier)}>
-    {children}
-  </div>
+  <div {...classes('header', modifier)}>{children}</div>
 );
 
 ModalHeader.propTypes = {
   children: PropTypes.node,
-  modifier: PropTypes.string,
+  modifier: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 export default ModalHeader;

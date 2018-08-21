@@ -12,7 +12,14 @@ import BEMHelper from 'react-bem-helper';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
-import { Button, ModalButton, ModalHeader, ModalBody, ModalCloseButton, ActiveFilters } from 'ndla-ui';
+import {
+  Button,
+  ModalButton,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  ActiveFilters,
+} from 'ndla-ui';
 import debounce from 'lodash/debounce';
 
 const filterClasses = new BEMHelper({
@@ -47,8 +54,7 @@ class FilterListPhone extends Component {
   setScreenSize(initial = false) {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
-      currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === 'none';
+      currentBreakpoint === breakpoints.mobile || currentBreakpoint === 'none';
 
     /* eslint react/no-did-mount-set-state: 0 */
     if ((initial && isNarrowScreen) || !initial) {
@@ -82,31 +88,40 @@ class FilterListPhone extends Component {
     }
 
     if (this.state.isNarrowScreen) {
-      const currentlyActiveFilters = options.filter(option => values.some(value => value === option.value));
+      const currentlyActiveFilters = options.filter(option =>
+        values.some(value => value === option.value),
+      );
       return (
         <div {...topicMenuClasses('filter-phone-wrapper')}>
-          {currentlyActiveFilters.length > 0 &&
+          {currentlyActiveFilters.length > 0 && (
             <ActiveFilters
               filters={currentlyActiveFilters}
-              onFilterRemove={(value) => {
+              onFilterRemove={value => {
                 onChange(values.filter(option => option !== value), value);
               }}
             />
-          }
+          )}
           <ModalButton
             size="fullscreen"
-            activateButton={
-              <Button outline>Filter</Button>
-            }>
-            {(onClose) => (
+            animation="slide-up"
+            backgroundColor="white"
+            activateButton={<Button outline>Filter</Button>}>
+            {onClose => (
               <Fragment>
-                <ModalHeader color="white">
-                  <ModalCloseButton title="Lukk" onClick={onClose} />
+                <ModalHeader modifier={['gray', 'left-align']}>
+                  <ModalCloseButton
+                    title={
+                      <Fragment>
+                        <Cross /> Lukk filter
+                      </Fragment>
+                    }
+                    onClick={onClose}
+                  />
                 </ModalHeader>
                 <ModalBody>
                   <h1>{label}</h1>
                   <ul {...filterClasses('item-wrapper')}>
-                    {options.map((option) => (
+                    {options.map(option => (
                       <li {...filterClasses('item')} key={option.value}>
                         <input
                           {...filterClasses('input')}
@@ -263,7 +278,6 @@ FilterListPhone.propTypes = {
   showLabel: PropTypes.string,
   hideLabel: PropTypes.string,
   onToggle: PropTypes.func,
-  isOpen: PropTypes.bool.isRequired,
   messages: PropTypes.shape({
     useFilter: PropTypes.string,
   }),

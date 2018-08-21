@@ -22,20 +22,31 @@ const classes = new BEMHelper({
 
 const uuidList = [];
 
-const Portal = ({ animationDuration, animateIn, animation, size, backgroundColor, noBackdrop, closeOnBackdrop, children, closeModal, onAnimationEnd }) => {
+const Portal = ({
+  animationDuration,
+  animateIn,
+  animation,
+  size,
+  backgroundColor,
+  noBackdrop,
+  closeOnBackdrop,
+  children,
+  closeModal,
+  onAnimationEnd,
+  className,
+}) => {
   const content = (
     <FocusTrapReact>
-      <div {...classes('')}>
+      <div className={`c-modal-button ${className}`}>
         <div
           style={{ animationDuration: `${animationDuration}ms` }}
           onAnimationEnd={onAnimationEnd}
           {...classes('animation-container', {
             [animation]: true,
-            'animateIn': animateIn,
+            animateIn: animateIn,
             [size]: true,
             [backgroundColor]: true,
-          })}
-        >
+          })}>
           {children(closeModal)}
         </div>
         {!noBackdrop && (
@@ -45,13 +56,14 @@ const Portal = ({ animationDuration, animateIn, animation, size, backgroundColor
             onKeyDown={() => {}}
             onClick={closeOnBackdrop && closeModal}
             style={{ animationDuration: `${animationDuration}ms` }}
-            {...classes('backdrop', { 'in': animateIn })}
+            {...classes('backdrop', { in: animateIn })}
           />
         )}
-    </div>
-  </FocusTrapReact>);
+      </div>
+    </FocusTrapReact>
+  );
   return createUniversalPortal(content, 'body');
-}
+};
 
 export default class ModalButton extends React.Component {
   constructor(props) {
@@ -77,9 +89,14 @@ export default class ModalButton extends React.Component {
 
   onAnimationEnd() {
     if (!this.state.animateIn && this.state.isOpen) {
-      this.setState({
-        isOpen: false,
-      }, this.removedModal);
+      this.setState(
+        {
+          isOpen: false,
+        },
+        this.removedModal,
+      );
+    } else if (this.props.onOpen && this.state.isOpen) {
+      this.props.onOpen();
     }
   }
 
@@ -90,7 +107,6 @@ export default class ModalButton extends React.Component {
   }
 
   closeModal() {
-    console.log('close modal', this.state.isOpen);
     if (this.state.isOpen) {
       this.setState({
         animateIn: false,
@@ -99,13 +115,11 @@ export default class ModalButton extends React.Component {
   }
 
   openModal() {
-    console.log('open modal', this.state.isOpen);
     if (!this.state.isOpen) {
       this.setState({
         isOpen: true,
         animateIn: true,
       });
-      // add noScroll!
       if (uuidList.indexOf(this.uuid) === -1) {
         noScroll(true, this.uuid);
         uuidList.push(this.uuid);
@@ -130,6 +144,7 @@ export default class ModalButton extends React.Component {
       activateButton,
       wrapperFunctionForButton,
       willClose,
+      onOpen,
       containerClass: Component,
       onClick: onClickEvent,
       noBackdrop,
@@ -138,42 +153,43 @@ export default class ModalButton extends React.Component {
       animation,
       size,
       backgroundColor,
+      className,
       children,
       ...rest
     } = this.props;
 
-    const {
-      isOpen,
-      animateIn,
-    } = this.state;
+    const { isOpen, animateIn } = this.state;
 
-    const clonedComponent = typeof activateButton === 'string' ?
-      <Button
-        outline
-        onClick={() => {
-          console.log('did click!');
-          this.openModal();
-          if (onClickEvent) {
-            onClickEvent();
-          }
-        }}>
-        {activateButton}
-      </Button> :
-      React.cloneElement(activateButton, {
-        onClick: () => {
-          console.log('did click!');
-          this.openModal();
-          if (onClickEvent) {
-            onClickEvent();
-          }
-        },
-      });
+    const clonedComponent =
+      typeof activateButton === 'string' ? (
+        <Button
+          outline
+          onClick={() => {
+            this.openModal();
+            if (onClickEvent) {
+              onClickEvent();
+            }
+          }}>
+          {activateButton}
+        </Button>
+      ) : (
+        React.cloneElement(activateButton, {
+          onClick: () => {
+            this.openModal();
+            if (onClickEvent) {
+              onClickEvent();
+            }
+          },
+        })
+      );
 
     return (
       <Component {...rest}>
-        {wrapperFunctionForButton ? wrapperFunctionForButton(clonedComponent) : clonedComponent}
+        {wrapperFunctionForButton
+          ? wrapperFunctionForButton(clonedComponent)
+          : clonedComponent}
         <div ref={this.containerRef}>
-          {isOpen &&
+          {isOpen && (
             <Portal
               size={size}
               backgroundColor={backgroundColor}
@@ -184,8 +200,10 @@ export default class ModalButton extends React.Component {
               closeOnBackdrop={closeOnBackdrop}
               closeModal={this.closeModal}
               onAnimationEnd={this.onAnimationEnd}
-            >{children}</Portal>
-          }
+              className={className}>
+              {children}
+            </Portal>
+          )}
         </div>
       </Component>
     );
@@ -197,14 +215,22 @@ ModalButton.propTypes = {
   containerClass: PropTypes.string,
   onClick: PropTypes.func,
   willClose: PropTypes.func,
-  animation: PropTypes.oneOf(['slide-up', 'slide-left', 'slide-right', 'slide-bottom', 'zoom-in', 'subtle']),
-  size: PropTypes.oneOf(['regular', 'medium', 'large', 'fullscreen', 'custom']),
+  animation: PropTypes.oneOf(['slide-up', 'slide-down', 'zoom-in', 'subtle']),
+  size: PropTypes.oneOf([
+    'regular',
+    'medium',
+    'large',
+    'fullscreen',
+    'full-width',
+  ]),
   backgroundColor: PropTypes.oneOf(['white', 'gray', 'blue']),
   animationDuration: PropTypes.number,
   activateButton: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   wrapperFunctionForButton: PropTypes.func,
   noBackdrop: PropTypes.bool,
   closeOnBackdrop: PropTypes.bool,
+  className: PropTypes.string,
+  onOpen: PropTypes.func,
 };
 
 ModalButton.defaultProps = {
@@ -214,4 +240,5 @@ ModalButton.defaultProps = {
   backgroundColor: 'blue',
   animationDuration: 300,
   closeOnBackdrop: true,
+  className: '',
 };

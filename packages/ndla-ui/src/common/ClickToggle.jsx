@@ -163,8 +163,7 @@ export default class ClickToggle extends React.Component {
           onClick={this.handleClick}>
           {title}
         </Button>
-        <div
-          ref={this.containerRef}>
+        <div ref={this.containerRef}>
           {useDialog &&
             (alwaysRenderChildren || showDialog) && (
               <Dialog

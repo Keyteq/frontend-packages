@@ -83,7 +83,7 @@ export class FrontpageSubjects extends Component {
     return (
       <OneColumn noPadding>
         <div {...wrapperClasses()}>
-          {Object.keys(this.props.subjects).map((key) => (
+          {Object.keys(this.props.subjects).map(key => (
             <FrontpageSubjectsSection
               key={key}
               expanded={this.state.expanded === key}
@@ -96,24 +96,26 @@ export class FrontpageSubjects extends Component {
               name={this.props.subjects[key].name}
               subjects={this.props.subjects[key].subjects}
             />
-        ))}
-      </div>
-    </OneColumn>
+          ))}
+        </div>
+      </OneColumn>
     );
   }
-};
+}
 
 FrontpageSubjects.propTypes = {
   expanded: PropTypes.string,
   subjects: PropTypes.shape({
     id: PropTypes.isRequired,
     name: PropTypes.isRequired,
-    subject: PropTypes.arrayOf(PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      yearInfo: PropTypes.string,
-    })),
-  })
+    subject: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+        yearInfo: PropTypes.string,
+      }),
+    ),
+  }),
 };
 
 FrontpageSubjects.defaultProps = {

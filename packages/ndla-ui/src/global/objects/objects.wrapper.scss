@@ -28,6 +28,10 @@
     max-width: 1150px;
   }
 
+  &--ultra-wide {
+    max-width: 1400px;
+  }
+
   /* Add to clear masthead */
   &--clear {
     margin-top: $spacing;

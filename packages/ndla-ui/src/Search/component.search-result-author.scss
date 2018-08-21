@@ -14,6 +14,12 @@
       display: none;
     }
   }
+  &__url {
+    color: $brand-color;
+    &:visited {
+      color: $brand-color;
+    }
+  }
   @include mq($until: desktop) {
     flex-direction: row-reverse;
     background: none;

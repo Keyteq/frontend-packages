@@ -634,71 +634,48 @@ storiesOf('Sammensatte moduler', module)
     <div>
       <StoryIntro title="Oversettelse">
         <p>
-          Brukes til å håndtere modalbokser, inkludert fokus og tabs samt åpne/lukke states.
+          Brukes til å håndtere modalbokser, inkludert fokus og tabs samt
+          åpne/lukke states.
         </p>
       </StoryIntro>
       <StoryBody>
         <h2 className="u-heading">Modalknapp</h2>
-        <ModalButton
-          activateButton={<Button outline>Open Modal</Button>}
-        >
-          {(onClose) => (
+        <ModalButton activateButton={<Button outline>Open Modal</Button>}>
+          {onClose => (
             <Fragment>
               <ModalHeader modifier="white">
                 <ModalCloseButton onClick={onClose} title="Lukk modal" />
               </ModalHeader>
               <ModalBody>
                 <h1>Innhold i modalen..</h1>
-                <p>
-                  Lorem
-                </p>
-                <p>
-                  Lorem
-                </p>
-                <p>
-                  Lorem
-                </p>
-                <p>
-                  Lorem
-                </p>
-                <p>
-                  Lorem
-                </p>
-                <ModalButton
-                  activateButton="Åpne en til!"
-                >
-                  {(onClose2) => (
+                <p>Lorem</p>
+                <p>Lorem</p>
+                <p>Lorem</p>
+                <p>Lorem</p>
+                <p>Lorem</p>
+                <ModalButton activateButton="Åpne en til!">
+                  {onClose2 => (
                     <Fragment>
                       <ModalHeader>
-                        <ModalCloseButton onClick={onClose2} title="Lukk modal" />
+                        <ModalCloseButton
+                          onClick={onClose2}
+                          title="Lukk modal"
+                        />
                       </ModalHeader>
                       <ModalBody>
                         <h1>Another modal!</h1>
                         <ModalButton
                           activateButton="Slide it in"
-                          animation="slide-up"
-                        >
-                          {(onClose3) => (
+                          animation="slide-up">
+                          {onClose3 => (
                             <div>
                               <h1>SLiiiiiiide</h1>
-                                <p>
-                                  Lorem
-                                </p>
-                                <p>
-                                  Lorem
-                                </p>
-                                <p>
-                                  Lorem
-                                </p>
-                                <p>
-                                  Lorem
-                                </p>
-                                <p>
-                                  Lorem
-                                </p>
-                              <Button onClick={onClose3}>
-                                Lukke lukke
-                              </Button>
+                              <p>Lorem</p>
+                              <p>Lorem</p>
+                              <p>Lorem</p>
+                              <p>Lorem</p>
+                              <p>Lorem</p>
+                              <Button onClick={onClose3}>Lukke lukke</Button>
                             </div>
                           )}
                         </ModalButton>

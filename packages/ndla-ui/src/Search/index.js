@@ -8,7 +8,6 @@
 
 import SearchField from './SearchField';
 import SearchOverlay from './SearchOverlay';
-import ToggleSearchButton, { OpenSearchButton } from './ToggleSearchButton';
 import SearchPage from './SearchPage';
 
 import { SearchResult, SearchResultList } from './SearchResult';
@@ -22,8 +21,6 @@ import ActiveFilters from './ActiveFilters';
 
 export {
   SearchField,
-  ToggleSearchButton,
-  OpenSearchButton,
   SearchOverlay,
   SearchPage,
   SearchResult,

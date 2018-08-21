@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Back, Forward } from 'ndla-icons/common';
+import { Back, ChevronRight } from 'ndla-icons/common';
 
 import { SafeLink } from 'ndla-ui';
 import { TopicShape } from '../shapes';
@@ -36,11 +36,11 @@ const SubtopicLink = ({
           onSubtopicExpand(subtopicId);
         }}
         to={to}>
-          <span>
-            {name}
-            {renderAdditionalIcon(additional, messages.additionalTooltipLabel)}
-          </span>
-          <Forward />
+        <span>
+          {name}
+          {renderAdditionalIcon(additional, messages.additionalTooltipLabel)}
+        </span>
+        <ChevronRight />
       </SafeLink>
     </li>
   );
@@ -131,7 +131,7 @@ class SubtopicLinkList extends Component {
           <span {...classes('link-target')}>
             {topic.name} <span {...classes('arrow')}>›</span>
           </span>
-          <Forward />
+          <ChevronRight />
         </SafeLink>
         {hasSubTopics && (
           <ul {...classes('list')}>
@@ -154,12 +154,10 @@ class SubtopicLinkList extends Component {
         {this.props.competenceButton}
         {hasContentTypeResults && (
           <aside
-            {...classes(
-              'content-type-results', [
-                hasContentTypeInfo ? 'with-content-badges' : '',
-                this.state.showAdditionalResources ? 'show-all' : '',
-              ]
-            )}>
+            {...classes('content-type-results', [
+              hasContentTypeInfo ? 'with-content-badges' : '',
+              this.state.showAdditionalResources ? 'show-all' : '',
+            ])}>
             <div>
               <h1>{messages.learningResourcesHeading}</h1>
               {messages.additionalFilterLabel && (

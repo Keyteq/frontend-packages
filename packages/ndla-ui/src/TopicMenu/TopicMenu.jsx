@@ -15,13 +15,12 @@ import BEMHelper from 'react-bem-helper';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import debounce from 'lodash/debounce';
 
-import { Home, Back, Additional, Forward } from 'ndla-icons/common';
+import { Home, Back, Additional, ChevronRight } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-import { Button, SafeLink, Tooltip } from 'ndla-ui';
+import { Button, SafeLink, Tooltip, ModalHeader } from 'ndla-ui';
 import SubtopicLinkList from './SubtopicLinkList';
 import { TopicShape } from '../shapes';
 
-import { OpenSearchButton } from '../Search';
 import Logo from '../Logo';
 import { FilterListPhone } from '../Filter';
 
@@ -53,34 +52,28 @@ export default class TopicMenu extends Component {
     this.handleBtnKeyPress = this.handleBtnKeyPress.bind(this);
     this.handleSubtopicExpand = this.handleSubtopicExpand.bind(this);
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
     this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
-    this.contentRef = React.createRef();
 
     this.state = {
       isNarrowScreen: false,
       competenceGoalsOpen: false,
-      scrollHeader: 0,
     };
   }
 
   componentDidMount() {
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
-    this.contentRef.current.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setScreenSizeDebounced);
-    this.contentRef.current.removeEventListener('scroll', this.handleScroll);
   }
 
   setScreenSize(initial = false) {
     const currentBreakpoint = getCurrentBreakpoint();
     const isNarrowScreen =
-      currentBreakpoint === breakpoints.mobile ||
-      currentBreakpoint === 'none';
+      currentBreakpoint === breakpoints.mobile || currentBreakpoint === 'none';
 
     /* eslint react/no-did-mount-set-state: 0 */
     if ((initial && isNarrowScreen) || !initial) {
@@ -93,12 +86,6 @@ export default class TopicMenu extends Component {
 
   handleClick(event, topicId) {
     this.props.onNavigate(topicId, null);
-  }
-
-  handleScroll(e) {
-    this.setState({
-      scrollHeader: -Math.min(e.target.scrollTop, 84),
-    });
   }
 
   handleSubtopicExpand(subtopicId, index) {
@@ -121,23 +108,28 @@ export default class TopicMenu extends Component {
   }
 
   renderCompentenceGoals(competenceGoalsOpen) {
-    return (<Button
-      className={this.state.isNarrowScreen ? 'c-button c-button--lighter c-topic-menu__competence-open-button' : 'c-topic-menu__competence-toggle-button'}
-      stripped={!this.state.isNarrowScreen}
-      onClick={() =>
-        this.setState({
-          competenceGoalsOpen: !competenceGoalsOpen,
-        })
-      }>
-      {competenceGoalsOpen ? (
-        <span>
-          {this.props.messages.competenceGoalsToggleButtonClose}{' '}
-          <Cross />
-        </span>
-      ) : (
-        this.props.messages.competenceGoalsToggleButtonOpen
-      )}
-    </Button>);
+    return (
+      <Button
+        className={
+          this.state.isNarrowScreen
+            ? 'c-button c-button--lighter c-topic-menu__competence-open-button'
+            : 'c-topic-menu__competence-toggle-button'
+        }
+        stripped={!this.state.isNarrowScreen}
+        onClick={() =>
+          this.setState({
+            competenceGoalsOpen: !competenceGoalsOpen,
+          })
+        }>
+        {competenceGoalsOpen ? (
+          <span>
+            {this.props.messages.competenceGoalsToggleButtonClose} <Cross />
+          </span>
+        ) : (
+          this.props.messages.competenceGoalsToggleButtonOpen
+        )}
+      </Button>
+    );
   }
 
   render() {
@@ -152,12 +144,11 @@ export default class TopicMenu extends Component {
       expandedSubtopicsId,
       filterOptions,
       filterValues,
-      filterIsOpen,
-      onToggleFilterOptions,
       onFilterClick,
       resourceToLinkProps,
       hideSearch,
       competenceGoals,
+      searchFieldComponent,
     } = this.props;
     const { competenceGoalsOpen } = this.state;
     const expandedTopic = topics.find(topic => topic.id === expandedTopicId);
@@ -196,7 +187,11 @@ export default class TopicMenu extends Component {
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
-    const sliderCounter = (expandedTopic ? 1 : 0) + (hasExpandedSubtopics ? 1 : 0) + currentlyExpandedSubTopics.length - 1;
+    const sliderCounter =
+      (expandedTopic ? 1 : 0) +
+      (hasExpandedSubtopics ? 1 : 0) +
+      currentlyExpandedSubTopics.length -
+      1;
 
     const subTopicLinkListMessages = {
       backButton: messages.back,
@@ -208,15 +203,10 @@ export default class TopicMenu extends Component {
       additionalFilterLabel: messages.additionalFilterLabel,
       additionalTooltipLabel: messages.additionalTooltipLabel,
     };
+
     return (
-      <nav {...classes('', '', 'o-wrapper u-1/1')}>
-        <div {...classes('back', 'narrow')}>
-          <SafeLink {...classes('back-link')} to="/">
-            <Home {...classes('home-icon', '', 'c-icon--20')} />
-            {messages.subjectOverview}
-          </SafeLink>
-        </div>
-        <div {...classes('masthead')} style={{ transform: `translateY(${this.state.scrollHeader}px)`}}>
+      <nav>
+        <ModalHeader modifier={['white', 'menu']}>
           <div {...classes('masthead-left')}>
             <button
               type="button"
@@ -227,22 +217,15 @@ export default class TopicMenu extends Component {
             </button>
           </div>
           <div {...classes('masthead-right')}>
-            {!hideSearch && (
-              <OpenSearchButton
-                narrow
-                messages={{
-                  buttonText: messages.search,
-                }}
-              />
-            )}
+            {!hideSearch && searchFieldComponent}
             <Logo
               to="#"
               label="Nasjonal digital læringsarena"
               isBeta={this.props.isBeta}
             />
           </div>
-        </div>
-        <div {...classes('dropdown')} ref={this.contentRef}>
+        </ModalHeader>
+        <div {...classes('dropdown')}>
           <div {...classes('content')}>
             <div {...classes('back', 'wide')}>
               <SafeLink {...classes('back-link')} to="/">
@@ -262,11 +245,14 @@ export default class TopicMenu extends Component {
                     })}>
                     <div {...classes('subject__header')}>
                       <h1>
-                        <SafeLink to={toSubject()}>{subjectTitle}<Forward /></SafeLink>
+                        <SafeLink to={toSubject()}>
+                          {subjectTitle}
+                          <ChevronRight />
+                        </SafeLink>
                       </h1>
-                      {competenceGoals && !this.state.isNarrowScreen && (
-                        this.renderCompentenceGoals(competenceGoalsOpen)
-                      )}
+                      {competenceGoals &&
+                        !this.state.isNarrowScreen &&
+                        this.renderCompentenceGoals(competenceGoalsOpen)}
                     </div>
 
                     {!competenceGoalsOpen &&
@@ -277,8 +263,6 @@ export default class TopicMenu extends Component {
                             options={filterOptions}
                             values={filterValues}
                             onChange={onFilterClick}
-                            onToggle={onToggleFilterOptions}
-                            isOpen={filterIsOpen}
                             label={`${subjectTitle}:`}
                           />
                         </Fragment>
@@ -304,7 +288,11 @@ export default class TopicMenu extends Component {
               <div {...classes('competence')}>
                 <button
                   type="button"
-                  {...classes(this.state.isNarrowScreen ? 'competence-close-button' : 'competence-close-button')}
+                  {...classes(
+                    this.state.isNarrowScreen
+                      ? 'competence-close-button'
+                      : 'competence-close-button',
+                  )}
                   onClick={() =>
                     this.setState({
                       competenceGoalsOpen: false,
@@ -317,11 +305,7 @@ export default class TopicMenu extends Component {
               </div>
             )}
             {!competenceGoalsOpen && (
-              <div
-                {...classes(
-                  'subject-navigation',
-                  `slide-${sliderCounter}`,
-                )}>
+              <div {...classes('subject-navigation', `slide-${sliderCounter}`)}>
                 {!disableMain && (
                   <Fragment>
                     <div {...classes('section', 'main')}>
@@ -330,7 +314,8 @@ export default class TopicMenu extends Component {
                         className={classes('link', 'big').className}>
                         <span {...classes('link-label')}>{messages.goTo}:</span>
                         <span {...classes('link-target')}>
-                          {messages.subjectPage} ›
+                          {messages.subjectPage}
+                          <span {...classes('arrow')}>›</span>
                         </span>
                       </SafeLink>
                       <ul {...classes('list')}>
@@ -357,15 +342,15 @@ export default class TopicMenu extends Component {
                                     messages.additionalTooltipLabel,
                                   )}
                                 </span>
-                                <Forward />
+                                <ChevronRight />
                               </button>
                             </li>
                           );
                         })}
                       </ul>
-                      {competenceGoals && this.state.isNarrowScreen && (
-                        this.renderCompentenceGoals(false)
-                      )}
+                      {competenceGoals &&
+                        this.state.isNarrowScreen &&
+                        this.renderCompentenceGoals(false)}
                     </div>
                   </Fragment>
                 )}
@@ -378,7 +363,13 @@ export default class TopicMenu extends Component {
                       }
                       closeMenu={closeMenu}
                       topic={expandedTopic}
-                      backLabel={!hasExpandedSubtopics ? subjectTitle : currentlyExpandedSubTopics[currentlyExpandedSubTopics.length - 1].name}
+                      backLabel={
+                        !hasExpandedSubtopics
+                          ? subjectTitle
+                          : currentlyExpandedSubTopics[
+                              currentlyExpandedSubTopics.length - 1
+                            ].name
+                      }
                       messages={subTopicLinkListMessages}
                       goToTitle={messages.goTo}
                       toTopic={toTopic}
@@ -391,7 +382,10 @@ export default class TopicMenu extends Component {
                       }}
                       onGoBack={this.handleOnGoBack}
                       resourceToLinkProps={resourceToLinkProps}
-                      competenceButton={this.state.isNarrowScreen && this.renderCompentenceGoals(false)}
+                      competenceButton={
+                        this.state.isNarrowScreen &&
+                        this.renderCompentenceGoals(false)
+                      }
                     />
                   )}
                 {currentlyExpandedSubTopics.map((subTopic, index) => (
@@ -403,7 +397,11 @@ export default class TopicMenu extends Component {
                     }
                     closeMenu={closeMenu}
                     topic={subTopic}
-                    backLabel={currentlyExpandedSubTopics[currentlyExpandedSubTopics.length - 1].name}
+                    backLabel={
+                      currentlyExpandedSubTopics[
+                        currentlyExpandedSubTopics.length - 1
+                      ].name
+                    }
                     messages={subTopicLinkListMessages}
                     toTopic={toTopic}
                     expandedSubtopicId={
@@ -416,7 +414,10 @@ export default class TopicMenu extends Component {
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
-                    competenceButton={this.state.isNarrowScreen && this.renderCompentenceGoals(false)}
+                    competenceButton={
+                      this.state.isNarrowScreen &&
+                      this.renderCompentenceGoals(false)
+                    }
                   />
                 ))}
               </div>
@@ -466,6 +467,5 @@ TopicMenu.propTypes = {
   isBeta: PropTypes.bool,
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,
-  onToggleFilterOptions: PropTypes.func.isRequired,
-  filterIsOpen: PropTypes.bool.isRequired,
+  searchFieldComponent: PropTypes.node.isRequired,
 };

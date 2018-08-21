@@ -11,10 +11,6 @@ import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
 import ModalCloseButton from './ModalCloseButton';
 
-export {
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-};
+export { ModalHeader, ModalBody, ModalCloseButton };
 
 export default ModalButton;

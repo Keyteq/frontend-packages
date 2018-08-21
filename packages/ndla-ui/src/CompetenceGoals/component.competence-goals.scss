@@ -33,6 +33,7 @@
 
   &__description {
     margin-bottom: $spacing;
+    margin-top: 0;
     @include mq($until: tablet) {
       @include font-size(16px, 20px);
     }
@@ -146,9 +147,11 @@
   .c-competence-goals {
     &__heading {
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: $primary-color;
-      font-weight: $font-weight-semibold;
-      @include font-size(16px, 20px);
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing--small / 2;
+      @include font-size(18px, 24px);
     }
     &__topic--expandable {
       padding-left: ($spacing--small + 10px);

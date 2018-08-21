@@ -4,7 +4,7 @@ import BEMHelper from 'react-bem-helper';
 import { Cross } from 'ndla-icons/action';
 import { uuid } from 'ndla-util';
 
-import { SearchField, OpenSearchButton } from '../Search';
+import { SearchField } from '../Search';
 import { OneColumn } from '../Layout';
 import Logo from '../Logo';
 import SafeLink from '../common/SafeLink';
@@ -64,32 +64,24 @@ class FrontpageHeader extends Component {
                 title="Meny"
                 openTitle="Lukk"
                 className="c-topic-menu-container"
-                buttonClassName="c-frontpage-header__menu-button"
-              >
+                buttonClassName="c-frontpage-header__menu-button">
                 {onClose => (
-                  <nav {...classesMenu('', '', 'o-wrapper u-1/1')} id="frontpageMenuId">
+                  <nav
+                    {...classesMenu('', '', 'o-wrapper u-1/1')}
+                    id="frontpageMenuId">
                     <div {...classesMenu('masthead')}>
                       <div {...classesMenu('masthead-left')}>
                         <button
                           type="button"
                           {...classesMenu('close-button')}
                           onClick={onClose}>
-                            <Cross />
-                            <span>{messages.closeButton}</span>
+                          <Cross />
+                          <span>{messages.closeButton}</span>
                         </button>
                       </div>
                       <div {...classesMenu('masthead-right')}>
-                        <OpenSearchButton
-                          onOpen={() => { console.log('onOpenSearch'); }}
-                          narrow
-                          messages={{
-                            buttonText: messages.search,
-                          }}
-                        />
-                        <Logo
-                          to="#"
-                          label="Nasjonal digital læringsarena"
-                        />
+                        <h1>MODAL MENU TOGGLER!!</h1>
+                        <Logo to="#" label="Nasjonal digital læringsarena" />
                       </div>
                     </div>
                     <div {...classesMenu('dropdown')}>
@@ -97,13 +89,13 @@ class FrontpageHeader extends Component {
                         {menuSubject}
                         <div {...classesMenu('section', 'main')}>
                           <ul {...classesMenu('list')}>
-                              {links.map(link => (
-                                <li key={uuid()} {...classesMenu('topic-item')}>
-                                  <SafeLink to={link.to} {...classesMenu('link')}>
-                                    {link.text}
-                                  </SafeLink>
-                                </li>
-                              ))}
+                            {links.map(link => (
+                              <li key={uuid()} {...classesMenu('topic-item')}>
+                                <SafeLink to={link.to} {...classesMenu('link')}>
+                                  {link.text}
+                                </SafeLink>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -131,7 +123,7 @@ class FrontpageHeader extends Component {
       </header>
     );
   }
-};
+}
 
 FrontpageHeader.propTypes = {
   heading: PropTypes.string.isRequired,

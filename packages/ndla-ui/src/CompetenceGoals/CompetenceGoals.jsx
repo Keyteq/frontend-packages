@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { ChevronRight, ChevronDown } from 'ndla-icons/common';
-import { FilterList, FilterListPhone } from '../Filter';
+import { FilterListPhone } from '../Filter';
 
 import SafeLink from '../common/SafeLink';
 
@@ -71,7 +71,8 @@ class CompetenceGoals extends Component {
             {filterOptions &&
               filterOptions.length > 0 && (
                 <Fragment>
-                  <FilterList
+                  <FilterListPhone
+                    label="Filtrer kompetansemål"
                     options={filterOptions}
                     values={filterValues}
                     onChange={onFilterClick}

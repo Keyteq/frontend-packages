@@ -13,7 +13,7 @@ export {
   default as convertFieldWithFallback,
 } from './convertFieldWithFallback';
 export { tagsI18N } from './i18nFieldFinder';
-export { default as noScroll } from './noScroll';
+export { default as noScroll, isIosDevice } from './noScroll';
 export {
   default as getCurrentBreakpoint,
   breakpoints,

@@ -32,7 +32,6 @@ export const Dialog = ({
   disableBackdrop,
   ...rest
 }) => {
-
   const content = (
     <div
       {...classes('', modifier)}
@@ -55,9 +54,7 @@ export const Dialog = ({
             {messages.close}
           </button>
         </div>
-        <div {...classes('content-wrapper')}>
-          {children}
-        </div>
+        <div {...classes('content-wrapper')}>{children}</div>
       </div>
       {!disableBackdrop && <div className="o-backdrop" />}
     </div>

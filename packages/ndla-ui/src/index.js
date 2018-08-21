@@ -69,7 +69,6 @@ export { default as FactBox } from './FactBox';
 export { default as FileList, File } from './FileList';
 
 export {
-  ToggleSearchButton,
   SearchOverlay,
   SearchField,
   SearchPage,
@@ -98,6 +97,7 @@ export {
 } from './Layout';
 export { default as LicenseByline } from './LicenseByline';
 export { default as ClickToggle } from './common/ClickToggle';
+export { createUniversalPortal } from './utils/createUniversalPortal';
 export {
   default as ModalButton,
   ModalHeader,

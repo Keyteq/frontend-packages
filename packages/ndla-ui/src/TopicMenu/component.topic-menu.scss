@@ -2,7 +2,6 @@
 ** TOPIC MENU (MAIN MENU)
 ** 1. Main menu button
 ** 2. Container div (w/active toggle class)
-** 3. Active menu layout
 ** 4. Active menu content
 ** 5. Masthead when menu is active
 **/
@@ -80,45 +79,6 @@ $navigation-row-width: 980px / 3;
   }
 }
 
-/* 3. */
-.c-topic-menu__dropdown {
-  position: fixed;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  padding: 0;
-  min-height: 250px;
-  text-align: left;
-  z-index: 40;
-  top: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0 10px 20px rgba($black, 0.4);
-  text-transform: none;
-  animation-name: fadeIn;
-  animation-duration: 0.4s;
-  @include mq(tablet) {
-    display: flex;
-  }
-
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-
-  // Add background to prevent scrolling glitches on phones
-  &:after {
-    content: "";
-    display: block;
-    position: fixed;
-    top: -100px;
-    left: 0;
-    right: 0;
-    bottom: -200px;
-    background-color: $brand-grey--lightest;
-    z-index: -1;
-  }
-}
-
 .c-topic-menu__content {
   width: 100%;
   background: $brand-grey--lightest;
@@ -126,16 +86,9 @@ $navigation-row-width: 980px / 3;
   display: flex;
   flex-flow: column;
   overflow-x: hidden;
-  min-height: 100vh;
+  overflow-y: hidden;
 
-  padding: $masthead-height 0;
-
-  @include mq(tablet) {
-    min-height: auto;
-    margin-top: $masthead-height;
-    padding: 0 0 $spacing--large 0;
-    overflow: auto;
-  }
+  padding: 0 0 $masthead-height 0;
 }
 
 .c-topic-menu__subject-navigation {
@@ -253,11 +206,7 @@ $navigation-row-width: 980px / 3;
 .c-topic-menu__section {
   flex-grow: 1;
   flex-shrink: 0;
-  z-index: 30;
   padding: 0 0 $spacing--large 0;
-  position: relative;
-  z-index: 1;
-
   width: 100%;
 
   @include mq(tablet) {
@@ -465,11 +414,22 @@ $navigation-row-width: 980px / 3;
     padding: $spacing $spacing $spacing--large + $spacing;
     margin-bottom: -$spacing--medium;
 
+    @include mq($until: tablet) {
+      .c-topic-menu__filter-phone-wrapper {
+        padding: 0 0 $spacing;
+      }
+    }
+
     @include mq(tablet) {
-      padding: $spacing--large;
-      margin: -($spacing + $spacing--small) $spacing 0 $spacing--medium;
+      padding: $spacing $spacing $spacing--large;
+      margin: -$spacing--large $spacing 0 $spacing;
       height: auto;
       overflow: visible;
+    }
+
+    @include mq(desktop) {
+      padding: $spacing--large;
+      margin: -($spacing + $spacing--small) $spacing + $spacing--small 0 $spacing + $spacing--small;
     }
 
     & > * {
@@ -495,7 +455,7 @@ $navigation-row-width: 980px / 3;
   }
 
   &__competence-close-button {
-    @include mq(desktop) {
+    @include mq(tablet) {
       display: none;
     }
     display: flex;
@@ -529,6 +489,10 @@ $navigation-row-width: 980px / 3;
       display: none;
     }
   }
+
+  &__arrow {
+    margin-left: $spacing--small / 2;
+  }
 }
 
 /* 4. */
@@ -545,9 +509,10 @@ $navigation-row-width: 980px / 3;
     padding-right: 0;
   }
 
-  @include mq(tablet) {
+  @include mq(desktop) {
     margin-bottom: $spacing--small;
     padding-left: $spacing + $spacing--small;
+    padding-right: $spacing + $spacing--small;
   }
 
   a {
@@ -760,16 +725,15 @@ $navigation-row-width: 980px / 3;
 }
 
 .c-topic-menu__back {
-  margin-top: $spacing--medium;
+  margin-top: $spacing--large;
   margin-bottom: $spacing--medium;
-  padding: 0 $spacing 0 ($padding-left-narrow + $spacing--small);
+  padding: 0 $spacing + $spacing--small;
 
   @include font-size(18px, 23px);
   display: block;
   color: $brand-color;
 
-  animation-name: fadeInLeft;
-  animation-duration: 0.5s;
+
   &--wide {
     @include mq($until: tablet) {
       display: none;
@@ -780,12 +744,21 @@ $navigation-row-width: 980px / 3;
       display: none;
     }
   }
+  @include mq($until: desktop) {
+    padding: 0 $spacing;
+  }
   @include mq($until: tablet) {
+    animation-name: fadeInLeft;
+    animation-duration: 0.5s;
     position: fixed;
     bottom: 0;
+    transition: bottom 400ms ease;
+    &--scrollingUp {
+      bottom: -52px;
+    }
     left: 0;
     right: 0;
-    z-index: 50;
+    z-index: 9500;
     padding: 0;
     margin: 0;
     .c-topic-menu__back-link {
@@ -804,7 +777,7 @@ $navigation-row-width: 980px / 3;
     }
     animation-name: fadeInBottomFixed;
     opacity: 0;
-    animation-duration: 600ms;
+    animation-duration: 450ms;
     animation-delay: 600ms;
     animation-fill-mode: forwards;
   }
@@ -812,11 +785,6 @@ $navigation-row-width: 980px / 3;
     .c-topic-menu__back-link {
       padding-left: $left-margin-narrow-screen;
     }
-  }
-  @include mq(tablet) {
-    animation-name: none;
-    margin-left: $spacing--medium;
-    padding: $spacing--small 0;
   }
 }
 
