@@ -100,11 +100,11 @@ export { default as LicenseByline } from './LicenseByline';
 export { default as ClickToggle } from './common/ClickToggle';
 export { createUniversalPortal } from './utils/createUniversalPortal';
 export {
-  default as ModalButton,
+  default as Modal,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-} from './ModalButton';
+} from './Modal';
 export { default as SafeLink } from './common/SafeLink';
 export { default as TopicIntroductionList } from './TopicIntroductionList';
 export { default as TopicMenu } from './TopicMenu';

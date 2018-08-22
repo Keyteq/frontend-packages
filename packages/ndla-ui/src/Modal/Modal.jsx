@@ -16,7 +16,7 @@ import { createUniversalPortal } from '../utils/createUniversalPortal';
 import Button from '../Button';
 
 const classes = new BEMHelper({
-  name: 'modal-button',
+  name: 'modal',
   prefix: 'c-',
 });
 
@@ -37,7 +37,7 @@ const Portal = ({
 }) => {
   const content = (
     <FocusTrapReact>
-      <div className={`c-modal-button ${className}`}>
+      <div className={`c-modal ${className}`}>
         <div
           style={{ animationDuration: `${animationDuration}ms` }}
           onAnimationEnd={onAnimationEnd}
@@ -65,7 +65,7 @@ const Portal = ({
   return createUniversalPortal(content, 'body');
 };
 
-export default class ModalButton extends React.Component {
+export default class Modal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,8 +133,8 @@ export default class ModalButton extends React.Component {
       noScroll(false, this.uuid);
       uuidList.splice(uuidList.indexOf(this.uuid), 1);
       window.removeEventListener('keyup', this.onKeypressed, true);
-      if (this.props.willClose) {
-        this.props.willClose();
+      if (this.props.onClose) {
+        this.props.onClose();
       }
     }
   }
@@ -143,7 +143,7 @@ export default class ModalButton extends React.Component {
     const {
       activateButton,
       wrapperFunctionForButton,
-      willClose,
+      onClose,
       onOpen,
       containerClass: Component,
       onClick: onClickEvent,
@@ -210,11 +210,11 @@ export default class ModalButton extends React.Component {
   }
 }
 
-ModalButton.propTypes = {
+Modal.propTypes = {
   children: PropTypes.func.isRequired,
   containerClass: PropTypes.string,
   onClick: PropTypes.func,
-  willClose: PropTypes.func,
+  onClose: PropTypes.func,
   animation: PropTypes.oneOf(['slide-up', 'slide-down', 'zoom-in', 'subtle']),
   size: PropTypes.oneOf([
     'regular',
@@ -233,7 +233,7 @@ ModalButton.propTypes = {
   onOpen: PropTypes.func,
 };
 
-ModalButton.defaultProps = {
+Modal.defaultProps = {
   containerClass: 'div',
   animation: 'zoom-in',
   size: 'regular',

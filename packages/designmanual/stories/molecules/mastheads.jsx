@@ -19,7 +19,7 @@ import {
   DisplayOnPageYOffset,
   SearchField,
   SafeLink,
-  ModalButton,
+  Modal,
   createUniversalPortal,
 } from 'ndla-ui';
 
@@ -151,7 +151,7 @@ class MastheadWithTopicMenu extends Component {
 
     if (!this.props.hideSearchButton) {
       searchButtonView = (
-        <ModalButton
+        <Modal
           backgroundColor="gray"
           animation="slide-down"
           animationDuration={200}
@@ -161,7 +161,7 @@ class MastheadWithTopicMenu extends Component {
               .getElementsByTagName('input')[0]
               .focus();
           }}
-          willClose={() => {
+          onClose={() => {
             this.setState({ value: '' });
           }}
           className="c-search-field__overlay-content"
@@ -186,7 +186,7 @@ class MastheadWithTopicMenu extends Component {
               </div>
             </Fragment>
           )}
-        </ModalButton>
+        </Modal>
       );
     }
 
@@ -197,7 +197,7 @@ class MastheadWithTopicMenu extends Component {
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
           {this.state.renderToFrontpageButton && <SubjectOverviewButton scrollUp={this.state.scrollUp}>{messages.subjectOverview}</SubjectOverviewButton>}
-          <ModalButton
+          <Modal
             size="fullscreen"
             activateButton={
               <Button outline className="c-topic-menu-toggle-button">
@@ -213,7 +213,7 @@ class MastheadWithTopicMenu extends Component {
                 renderToFrontpageButton: true,
               })
             }}
-            willClose={() => {
+            onClose={() => {
               this.setState({
                 renderToFrontpageButton: false,
                 expandedTopicId: null,
@@ -279,7 +279,7 @@ class MastheadWithTopicMenu extends Component {
                 }}
               />
             )}
-          </ModalButton>
+          </Modal>
           <DisplayOnPageYOffset yOffsetMin={150}>
             <BreadcrumbBlock />
           </DisplayOnPageYOffset>

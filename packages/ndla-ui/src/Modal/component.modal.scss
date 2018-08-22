@@ -1,9 +1,9 @@
 /**
-** MODALBUTTON
-** Modal button with dialog classes.
+** MODAL
+** Modal with dialog classes.
 **/
 
-.c-modal-button {
+.c-modal {
   position: fixed;
   z-index: 9500;
   top: 0;
@@ -22,25 +22,25 @@
     // 1. Animations
     &--zoom-in {
       animation-name: modal-zoomIn-exit;
-      &.c-modal-button__animation-container--animateIn {
+      &.c-modal__animation-container--animateIn {
         animation-name: modal-zoomIn;
       }
     }
     &--slide-up {
       animation-name: modal-slideup-exit;
-      &.c-modal-button__animation-container--animateIn {
+      &.c-modal__animation-container--animateIn {
         animation-name: modal-slideup;
       }
     }
     &--slide-down {
       animation-name: modal-slidedown-exit;
-      &.c-modal-button__animation-container--animateIn {
+      &.c-modal__animation-container--animateIn {
         animation-name: modal-slidedown;
       }
     }
     &--subtle {
       animation-name: fadeOut;
-      &.c-modal-button__animation-container--animateIn {
+      &.c-modal__animation-container--animateIn {
         animation-name: fadeIn;
       }
     }
@@ -122,24 +122,24 @@
     align-items: center;
     justify-content: flex-end;
     padding: $spacing;
-    + .c-modal-button__body {
+    + .c-modal__body {
       padding-top: 0;
     }
     &--white {
       background: #fff;
-      + .c-modal-button__body {
+      + .c-modal__body {
         padding-top: $spacing;
       }
     }
     &--gray {
       background: $brand-grey--lightest;
-      + .c-modal-button__body {
+      + .c-modal__body {
         padding-top: $spacing;
       }
     }
     &--blue {
       background: $brand-color--lighter;
-      + .c-modal-button__body {
+      + .c-modal__body {
         padding-top: $spacing;
       }
     }
@@ -183,9 +183,9 @@
 }
 
 .scrollFixIOS {
-  .c-modal-button {
+  .c-modal {
     &:not(.c-search-field__overlay-content) {
-      .c-modal-button__animation-container {
+      .c-modal__animation-container {
         padding-top: 38px;
       }
     }

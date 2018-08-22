@@ -11,20 +11,17 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
 const classes = new BEMHelper({
-  name: 'modal-button',
+  name: 'modal',
   prefix: 'c-',
 });
 
-const ModalHeader = ({ children, modifier }) => (
-  <div {...classes('header', modifier)}>{children}</div>
+const ModalBody = ({ children, modifier }) => (
+  <div {...classes('body', modifier)}>{children}</div>
 );
 
-ModalHeader.propTypes = {
+ModalBody.propTypes = {
   children: PropTypes.node,
-  modifier: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  modifier: PropTypes.oneOfType([PropTypes.string, PropTypes.shape]),
 };
 
-export default ModalHeader;
+export default ModalBody;

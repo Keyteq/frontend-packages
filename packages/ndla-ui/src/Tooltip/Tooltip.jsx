@@ -26,6 +26,7 @@ class Tooltip extends Component {
     };
     this.handleShowTooltip = this.handleShowTooltip.bind(this);
     this.handleHideTooltip = this.handleHideTooltip.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.contentRef = React.createRef();
     this.tooltipRef = React.createRef();
     this.widthRef = 0;
@@ -101,6 +102,16 @@ class Tooltip extends Component {
     this.setState({ showTooltip: false });
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      try {
+        this.contentRef.current.querySelector('[type="button"]').click();
+      } catch (err) {
+        console.log('error', err); // eslint-disable-line no-console
+      }
+    }
+  }
+
   render() {
     // If phone ignore all tooltips //
     if (isMobile) {
@@ -139,6 +150,7 @@ class Tooltip extends Component {
           onMouseOut={this.handleHideTooltip}
           onMouseMove={this.handleShowTooltip}
           onFocus={this.handleShowTooltip}
+          onKeyPress={this.handleKeyPress}
           onBlur={this.handleHideTooltip}
           className={`c-tooltip__content ${this.props.className}`}>
           {this.props.children}

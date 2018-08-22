@@ -6,7 +6,7 @@ import BEMHelper from 'react-bem-helper';
 import { ChevronRight, Back } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 
-import { ModalButton, FilterList, Button } from 'ndla-ui';
+import { Modal, FilterList, Button } from 'ndla-ui';
 
 const classes = BEMHelper({
   prefix: 'c-',
@@ -108,7 +108,7 @@ const PopoverFilter = ({ messages, values, ...rest }) => {
   );
 
   return (
-    <ModalButton
+    <Modal
       activateButton={buttonContent}
       animation="subtle">
       {onClose => (
@@ -119,7 +119,7 @@ const PopoverFilter = ({ messages, values, ...rest }) => {
           values={values}
         />
       )}
-    </ModalButton>
+    </Modal>
   );
 };
 

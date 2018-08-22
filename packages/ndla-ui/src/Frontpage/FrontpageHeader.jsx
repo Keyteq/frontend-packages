@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { Cross } from 'ndla-icons/action';
-import { ModalButton, ModalHeader, SearchField, OneColumn, Logo, SafeLink, Button } from 'ndla-ui';
+import { Modal, ModalHeader, SearchField, OneColumn, Logo, SafeLink, Button } from 'ndla-ui';
 import { uuid } from 'ndla-util';
 
 const classes = BEMHelper('c-frontpage-header');
@@ -39,7 +39,7 @@ const FrontpageHeader = ({
       </OneColumn>
       <OneColumn>
         <div {...classes('content')}>
-          <ModalButton
+          <Modal
             size="fullscreen"
             backgroundColor="gray"
             activateButton={<Button className="c-frontpage-header__menu-button">Meny</Button>}>
@@ -79,7 +79,7 @@ const FrontpageHeader = ({
                 </div>
               </nav>
             )}
-          </ModalButton>
+          </Modal>
           <Logo
             to={logoTo}
             label={heading}

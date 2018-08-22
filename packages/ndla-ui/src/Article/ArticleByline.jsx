@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { Time, User, Additional } from 'ndla-icons/common';
 import {
-  ModalButton,
+  Modal,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -46,7 +46,7 @@ const ArticleByline = ({
           </span>
           <span {...classes('authors')}>
             {authorsLinkable ? (
-              <ModalButton
+              <Modal
                 activateButton={<Button link>{messages.authorLabel}</Button>}>
                 {onClose => (
                   <Fragment>
@@ -61,7 +61,7 @@ const ArticleByline = ({
                     </ModalBody>
                   </Fragment>
                 )}
-              </ModalButton>
+              </Modal>
             ) : (
               `${authors.map(author => author.name).join(', ')} `
             )}
@@ -90,7 +90,7 @@ const ArticleByline = ({
       )}
       {licenseBox && (
         <span {...classes('flex')}>
-          <ModalButton
+          <Modal
             activateButton={<Button link>{messages.useContent}</Button>}>
             {onClose => (
               <Fragment>
@@ -100,7 +100,7 @@ const ArticleByline = ({
                 <ModalBody>{licenseBox}</ModalBody>
               </Fragment>
             )}
-          </ModalButton>
+          </Modal>
         </span>
       )}
     </div>

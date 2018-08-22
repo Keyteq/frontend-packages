@@ -6,11 +6,11 @@
  *
  */
 
-import ModalButton from './ModalButton';
+import Modal from './Modal';
 import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
 import ModalCloseButton from './ModalCloseButton';
 
 export { ModalHeader, ModalBody, ModalCloseButton };
 
-export default ModalButton;
+export default Modal;

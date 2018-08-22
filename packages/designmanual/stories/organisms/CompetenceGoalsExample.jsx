@@ -5,7 +5,7 @@ import BEMHelper from 'react-bem-helper';
 import {
   CompetenceGoals,
   Button,
-  ModalButton,
+  Modal,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -117,7 +117,7 @@ CompetenceGoalsExample.propTypes = {
 export default CompetenceGoalsExample;
 
 export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
-  <ModalButton
+  <Modal
     activateButton={
       <Button lighter {...classes('toggle-button', { wide, narrow })}>
         Kompetansemål
@@ -134,7 +134,7 @@ export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
         </ModalBody>
       </Fragment>
     )}
-  </ModalButton>
+  </Modal>
 );
 
 CompetenceGoalsDialogExample.propTypes = {

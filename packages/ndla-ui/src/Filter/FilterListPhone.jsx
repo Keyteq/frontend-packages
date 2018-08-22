@@ -14,7 +14,7 @@ import { Cross } from 'ndla-icons/action';
 import { getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import {
   Button,
-  ModalButton,
+  Modal,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -101,7 +101,7 @@ class FilterListPhone extends Component {
               }}
             />
           )}
-          <ModalButton
+          <Modal
             size="fullscreen"
             animation="slide-up"
             backgroundColor="white"
@@ -165,7 +165,7 @@ class FilterListPhone extends Component {
                 </ModalBody>
               </Fragment>
             )}
-          </ModalButton>
+          </Modal>
         </div>
       );
     }
