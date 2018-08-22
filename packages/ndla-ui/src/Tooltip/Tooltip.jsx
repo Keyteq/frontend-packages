@@ -105,7 +105,7 @@ class Tooltip extends Component {
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       try {
-        this.contentRef.current.querySelector('[type="button"]').click();
+        this.contentRef.current.querySelectorAll('[type="button"], a')[0].click();
       } catch (err) {
         console.log('error', err); // eslint-disable-line no-console
       }
