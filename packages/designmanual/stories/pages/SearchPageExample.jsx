@@ -131,8 +131,24 @@ const filterOptions = {
     label: 'Fag:',
     options: [
       {
+        title: 'Brønnteknikk',
+        value: 'value2',
+      },
+      {
+        title: 'Kinesisk',
+        value: 'value1',
+      },
+      {
+        title: 'Markedsføring og ledelse',
+        value: 'value3',
+      },
+      {
         title: 'Medieuttrykk og mediasamfunnet',
         value: 'value',
+      },
+      {
+        title: 'Naturbruk',
+        value: 'value4',
       },
     ],
   },
@@ -250,7 +266,7 @@ class SearchPageExample extends Component {
   getActiveFilters(filterOnly) {
     const { filterValues } = this.state;
     const activeFilters = [];
-    console.log('get Active filters', filterOnly);
+
     if (!filterOnly) {
       Object.keys(filterValues).forEach(key => {
         filterValues[key].forEach(value => {
@@ -276,7 +292,6 @@ class SearchPageExample extends Component {
         });
       });
     }
-    console.log('get Active filters PASSED');
     return activeFilters;
   }
 
@@ -311,7 +326,7 @@ class SearchPageExample extends Component {
           options={searchTabFilterOptions[currentTab]}
           values={['value']}
           onChange={values => {
-            console.log('onChange filter', values);  // eslint-disable-line no-console
+            console.log('Changed filter', values); // eslint-disable-line no-console
           }}
         />
       ) : null;
@@ -378,7 +393,7 @@ class SearchPageExample extends Component {
               <Fragment>
                 <SearchFilter
                   label={filterOptions.subject.label}
-                  options={filterOptions.subject.options}
+                  options={[filterOptions.subject.options[3]]}
                   onChange={values => {
                     onChange(values, 'subject');
                   }}
@@ -392,28 +407,7 @@ class SearchPageExample extends Component {
                       hasValuesButtonText: 'Vis flere fag',
                       noValuesButtonText: 'Filtrer på fag',
                     }}
-                    options={[
-                      {
-                        title: 'Brønnteknikk',
-                        value: 'value2',
-                      },
-                      {
-                        title: 'Kinesisk',
-                        value: 'value1',
-                      },
-                      {
-                        title: 'Markedsføring og ledelse',
-                        value: 'value3',
-                      },
-                      {
-                        title: 'Medieuttrykk og mediasamfunnet',
-                        value: 'value',
-                      },
-                      {
-                        title: 'Naturbruk',
-                        value: 'value4',
-                      },
-                    ]}
+                    options={filterOptions.subject.options}
                     values={allValues.subject || []}
                     onChange={values => {
                       onChange(values, 'subject');
