@@ -3,8 +3,6 @@ import BEMHelper from 'react-bem-helper';
 import PropTypes from 'prop-types';
 import { Back } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
-import createFocusTrap from 'focus-trap';
-import { noScroll, uuid } from 'ndla-util';
 import Button from '../Button';
 
 import SafeLink from '../common/SafeLink';
@@ -19,47 +17,13 @@ export default class SearchPage extends Component {
     this.state = {
       filterExpanded: false,
     };
-
-    this.filterContainerRef = null;
-    this.filterCloseButton = null;
-    this.focusTrap = null;
-    this.uuid = uuid();
-
     this.handleToggleFilter = this.handleToggleFilter.bind(this);
   }
 
-  componentDidMount() {
-    console.log('uiid', this.uuid);
-    this.focusTrap = createFocusTrap(this.filterContainerRef, {
-      onActivate: () => {
-        this.setState({
-          filterExpanded: true,
-        });
-        noScroll(true, this.uuid);
-      },
-      onDeactivate: () => {
-        if (this.state.filterExpanded) {
-          this.setState({
-            filterExpanded: false,
-          });
-        }
-        noScroll(false, this.uuid);
-      },
-      clickOutsideDeactivates: true,
-      initialFocus: this.filterCloseButton,
+  handleToggleFilter(filterExpanded) {
+    this.setState({
+      filterExpanded,
     });
-  }
-
-  componentWillUnmount() {
-    this.focusTrap.deactivate();
-  }
-
-  handleToggleFilter(expanded) {
-    if (expanded) {
-      this.focusTrap.activate();
-    } else {
-      this.focusTrap.deactivate();
-    }
   }
 
   render() {
@@ -114,17 +78,10 @@ export default class SearchPage extends Component {
             onClick={() => {
               this.handleToggleFilter(false);
             }}
-            {...classes('filter-close-button', filterModifiers)}
-            ref={ref => {
-              this.filterCloseButton = ref;
-            }}>
+            {...classes('filter-close-button', filterModifiers)}>
             <Back /> <span>{messages.narrowScreenFilterHeading}</span>
           </button>
-          <aside
-            {...classes('filter-wrapper', filterModifiers)}
-            ref={ref => {
-              this.filterContainerRef = ref;
-            }}>
+          <aside {...classes('filter-wrapper', filterModifiers)}>
             <h1 {...classes('filter-heading')}>{messages.filterHeading}</h1>
             <div {...classes('filters')}>{filters}</div>
           </aside>

@@ -74,11 +74,12 @@ const TopicMenuClasses = new BEMHelper({
   prefix: 'c-',
 });
 
-const SubjectOverviewButton = ({ children }) => {
+const SubjectOverviewButton = ({ children, scrollUp }) => {
   const content = (
     <div
       {...TopicMenuClasses('back', {
         narrow: true,
+        scrollUp,
       })}>
       <SafeLink {...TopicMenuClasses('back-link')} to="/">
         <Home {...TopicMenuClasses('home-icon', '', 'c-icon--20')} />
@@ -89,6 +90,11 @@ const SubjectOverviewButton = ({ children }) => {
   return createUniversalPortal(content, 'body');
 };
 
+SubjectOverviewButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  scrollUp: PropTypes.bool.isRequired,
+}
+
 class MastheadWithTopicMenu extends Component {
   constructor(props) {
     super(props);
@@ -97,6 +103,7 @@ class MastheadWithTopicMenu extends Component {
       expandedTopicId: null,
       expandedSubtopicsId: [],
       filterMenuValues: ['Medieuttrykk'],
+      scrollUp: false,
     };
     this.searchFieldRef = React.createRef();
   }
@@ -189,7 +196,7 @@ class MastheadWithTopicMenu extends Component {
         hideOnNarrowScreen={this.props.hideOnNarrowScreen}
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
-          {this.state.renderToFrontpageButton && <SubjectOverviewButton>{messages.subjectOverview}</SubjectOverviewButton>}
+          {this.state.renderToFrontpageButton && <SubjectOverviewButton scrollUp={this.state.scrollUp}>{messages.subjectOverview}</SubjectOverviewButton>}
           <ModalButton
             size="fullscreen"
             activateButton={
@@ -220,6 +227,12 @@ class MastheadWithTopicMenu extends Component {
                 isBeta={this.props.beta}
                 searchFieldComponent={searchButtonView}
                 subjectTitle="Mediefag"
+                scrollUp={this.state.scrollUp}
+                scrollingContent={scrollUp => {
+                  this.setState({
+                    scrollUp,
+                  });
+                }}
                 toSubject={() => '#'}
                 toTopic={() => '#'}
                 topics={topicMenu}

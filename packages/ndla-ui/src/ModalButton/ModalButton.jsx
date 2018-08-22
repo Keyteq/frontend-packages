@@ -43,7 +43,7 @@ const Portal = ({
           onAnimationEnd={onAnimationEnd}
           {...classes('animation-container', {
             [animation]: true,
-            animateIn: animateIn,
+            animateIn,
             [size]: true,
             [backgroundColor]: true,
           })}>
@@ -116,15 +116,15 @@ export default class ModalButton extends React.Component {
 
   openModal() {
     if (!this.state.isOpen) {
-      this.setState({
-        isOpen: true,
-        animateIn: true,
-      });
       if (uuidList.indexOf(this.uuid) === -1) {
         noScroll(true, this.uuid);
         uuidList.push(this.uuid);
         window.addEventListener('keyup', this.onKeypressed, true);
       }
+      this.setState({
+        isOpen: true,
+        animateIn: true,
+      });
     }
   }
 

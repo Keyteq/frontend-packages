@@ -131,6 +131,7 @@ class SearchPageExample extends Component {
     this.state = {
       currentTab: 'all',
       competenceGoalsOpen: false,
+      subjectValues: [],
     };
   }
 
@@ -234,8 +235,9 @@ class SearchPageExample extends Component {
                   value: 'value',
                 },
               ]}
-              values={['value']}>
+              values={this.state.subjectValues}>
               <SearchPopoverFilter
+                onChange={(subjectValues) => { this.setState({ subjectValues }); }}
                 messages={{
                   backButton: 'Tilbake til filter',
                   filterLabel: 'Velg fag',
@@ -266,7 +268,7 @@ class SearchPageExample extends Component {
                     value: 'value4',
                   },
                 ]}
-                values={['value']}
+                values={this.state.subjectValues}
               />
             </SearchFilter>
             <SearchFilter

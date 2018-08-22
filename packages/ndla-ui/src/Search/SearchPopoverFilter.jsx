@@ -6,9 +6,7 @@ import BEMHelper from 'react-bem-helper';
 import { ChevronRight, Back } from 'ndla-icons/common';
 import { Cross } from 'ndla-icons/action';
 
-import ClickToggle from '../common/ClickToggle';
-import { FilterList } from '../Filter';
-import Button from '../Button';
+import { ModalButton, FilterList, Button } from 'ndla-ui';
 
 const classes = BEMHelper({
   prefix: 'c-',
@@ -96,52 +94,34 @@ Popover.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export class PopoverFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-  }
+const PopoverFilter = ({ messages, values, ...rest }) => {
+  const buttonText =
+    values.length > 0
+      ? messages.hasValuesButtonText
+      : messages.noValuesButtonText;
 
-  render() {
-    const { messages, values, ...rest } = this.props;
-    const buttonText =
-      values.length > 0
-        ? messages.hasValuesButtonText
-        : messages.noValuesButtonText;
+  const buttonContent = (
+    <button type="button" className={classes('button')}>
+      <span className={classes('button-text')}>{buttonText}</span>
+      <ChevronRight />
+    </button>
+  );
 
-    const buttonContent = (
-      <Fragment>
-        <span className={classes('button-text')}>{buttonText}</span>
-        <ChevronRight />
-      </Fragment>
-    );
-
-    return (
-      <ClickToggle
-        isOpen={this.state.isOpen}
-        onToggle={isOpen => {
-          this.setState({
-            isOpen,
-          });
-        }}
-        title={buttonContent}
-        className={classes()}
-        noScrollDisabled
-        buttonClassName={classes('button')}>
-        {onClose => (
-          <Popover
-            close={onClose}
-            messages={messages}
-            {...rest}
-            values={values}
-          />
-        )}
-      </ClickToggle>
-    );
-  }
-}
+  return (
+    <ModalButton
+      activateButton={buttonContent}
+      animation="subtle">
+      {onClose => (
+        <Popover
+          close={onClose}
+          messages={messages}
+          {...rest}
+          values={values}
+        />
+      )}
+    </ModalButton>
+  );
+};
 
 PopoverFilter.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string).isRequired,

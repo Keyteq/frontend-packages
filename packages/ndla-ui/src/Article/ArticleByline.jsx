@@ -47,8 +47,7 @@ const ArticleByline = ({
           <span {...classes('authors')}>
             {authorsLinkable ? (
               <ModalButton
-                activateButton={<Button link>{messages.authorLabel}</Button>}
-                size="medium">
+                activateButton={<Button link>{messages.authorLabel}</Button>}>
                 {onClose => (
                   <Fragment>
                     <ModalHeader>

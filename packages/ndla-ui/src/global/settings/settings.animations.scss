@@ -51,7 +51,7 @@
   1% {
     opacity: 0;
     display: flex;
-    transform: translateX(-20px);
+    transform: translate3d(-20px);
   }
   100% {
     opacity: 1;
@@ -77,17 +77,15 @@
 
 @keyframes fadeInLeft {
   0% {
-    display: none;
     opacity: 0;
   }
   1% {
     opacity: 0;
-    display: inline-block;
-    transform: translateX(-20px);
+    transform: translate3d(-20px, 0, 0);
   }
   100% {
     opacity: 1;
-    transform: translateX(0px);
+    transform: translate3d(0, 0, 0);
   }
 }
 @keyframes fadeInRight {

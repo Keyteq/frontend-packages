@@ -86,8 +86,6 @@ $navigation-row-width: 980px / 3;
   display: flex;
   flex-flow: column;
   overflow-x: hidden;
-  overflow-y: hidden;
-
   padding: 0 0 $masthead-height 0;
 }
 
@@ -266,6 +264,7 @@ $navigation-row-width: 980px / 3;
   padding-left: $spacing--small;
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
+  transform: translate3d(0px, 0px, 0px);
 
   label {
     white-space: nowrap;
@@ -287,6 +286,7 @@ $navigation-row-width: 980px / 3;
       ul {
         animation-name: fadeInLeft;
         animation-duration: 0.5s;
+        transform: translate3d(0px, 0px, 0px);
       }
     }
   }
@@ -435,6 +435,7 @@ $navigation-row-width: 980px / 3;
     & > * {
       animation-name: fadeInLeft;
       animation-duration: 0.5s;
+      transform: translate3d(0px, 0px, 0px);
     }
   }
 
@@ -479,6 +480,7 @@ $navigation-row-width: 980px / 3;
   &__competence-open-button {
     animation-name: fadeInLeft;
     animation-duration: 0.5s;
+    transform: translate3d(0px, 0px, 0px);
     margin: $spacing 0 $spacing $spacing;
 
     @include mq($until: mobileWide) {
@@ -505,6 +507,7 @@ $navigation-row-width: 980px / 3;
   @include mq($until: tablet) {
     animation-name: fadeInLeft;
     animation-duration: 0.5s;
+    transform: translate3d(0px, 0px, 0px);
     padding-left: 0;
     padding-right: 0;
   }
@@ -750,10 +753,11 @@ $navigation-row-width: 980px / 3;
   @include mq($until: tablet) {
     animation-name: fadeInLeft;
     animation-duration: 0.5s;
+    transform: translate3d(0px, 0px, 0px);
     position: fixed;
     bottom: 0;
-    transition: bottom 400ms ease;
-    &--scrollingUp {
+    transition: bottom 300ms ease;
+    &--scrollUp {
       bottom: -52px;
     }
     left: 0;
@@ -810,6 +814,7 @@ $navigation-row-width: 980px / 3;
   transition: all 0.1s ease-in-out;
   animation-name: fadeInLeft;
   animation-duration: 0.5s;
+  transform: translate3d(0px, 0px, 0px);
 
   > span {
     display: flex;

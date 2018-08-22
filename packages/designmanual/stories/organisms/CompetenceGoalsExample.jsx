@@ -7,6 +7,7 @@ import {
   Button,
   ModalButton,
   ModalHeader,
+  ModalBody,
   ModalCloseButton,
 } from 'ndla-ui';
 
@@ -128,7 +129,9 @@ export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
         <ModalHeader>
           <ModalCloseButton onClick={onClose} title="lukk" />
         </ModalHeader>
-        <CompetenceGoalsExample headingId={headingId} />
+        <ModalBody>
+          <CompetenceGoalsExample headingId={headingId} />
+        </ModalBody>
       </Fragment>
     )}
   </ModalButton>

@@ -168,11 +168,26 @@
       @include font-size(22px, 26px);
       margin: 0 0 $spacing--small;
     }
+    .c-tabs {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .c-medialist {
+      padding-right: 0;
+    }
+    .react-tabs__tab-panel--selected {
+      animation-name: fadeInLeft;
+      animation-duration: 500ms;
+    }
   }
 }
 
 .scrollFixIOS {
-  .c-modal-button__animation-container {
-    padding-top: 38px;
+  .c-modal-button {
+    &:not(.c-search-field__overlay-content) {
+      .c-modal-button__animation-container {
+        padding-top: 38px;
+      }
+    }
   }
 }

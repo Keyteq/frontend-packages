@@ -102,7 +102,7 @@
   &__button {
     background: none;
     color: $brand-color;
-    width: 100%;
+    // width: 100%;
     border: 0;
     display: flex;
     justify-content: space-between;
@@ -110,6 +110,10 @@
     padding: $spacing--small $spacing;
     cursor: pointer;
     border-radius: 0;
+
+    .c-icon {
+      margin-left: $spacing--medium;
+    }
 
     @include mq(desktop) {
       box-shadow: $link;

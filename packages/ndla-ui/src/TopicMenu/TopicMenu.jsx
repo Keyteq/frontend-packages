@@ -54,16 +54,21 @@ export default class TopicMenu extends Component {
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
     this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleScrollDebounced = debounce(() => this.handleScroll(), 50);
+    this.contentRef = React.createRef();
 
     this.state = {
       isNarrowScreen: false,
       competenceGoalsOpen: false,
+      scrollTop: 0,
     };
   }
 
   componentDidMount() {
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
+    this.contentRef.current.parentNode.addEventListener('scroll', this.handleScrollDebounced);
   }
 
   componentWillUnmount() {
@@ -86,6 +91,18 @@ export default class TopicMenu extends Component {
 
   handleClick(event, topicId) {
     this.props.onNavigate(topicId, null);
+  }
+
+  handleScroll() {
+    this.setState(prevState => {
+      const scrollUp = this.contentRef.current.parentNode.scrollTop > prevState.scrollTop;
+      if (scrollUp !== this.props.scrollUp) {
+        this.props.scrollingContent(scrollUp);
+      }
+      return {
+        scrollTop: this.contentRef.current.parentNode.scrollTop,
+      };
+    });
   }
 
   handleSubtopicExpand(subtopicId, index) {
@@ -205,7 +222,7 @@ export default class TopicMenu extends Component {
     };
 
     return (
-      <nav>
+      <nav ref={this.contentRef}>
         <ModalHeader modifier={['white', 'menu']}>
           <div {...classes('masthead-left')}>
             <button
@@ -225,192 +242,159 @@ export default class TopicMenu extends Component {
             />
           </div>
         </ModalHeader>
-        <div {...classes('dropdown')}>
-          <div {...classes('content')}>
-            <div {...classes('back', 'wide')}>
-              <SafeLink {...classes('back-link')} to="/">
-                <Home {...classes('home-icon', '', 'c-icon--20')} />
-                {messages.subjectOverview}
-              </SafeLink>
-            </div>
-            {!disableMain && (
-              <Fragment>
-                {!disableHeaderNavigation && (
-                  <div
-                    {...classes('subject', {
-                      hasFilter:
-                        filterOptions &&
-                        filterOptions.length > 0 &&
-                        !competenceGoalsOpen,
-                    })}>
-                    <div {...classes('subject__header')}>
-                      <h1>
-                        <SafeLink to={toSubject()}>
-                          {subjectTitle}
-                          <ChevronRight />
-                        </SafeLink>
-                      </h1>
-                      {competenceGoals &&
-                        !this.state.isNarrowScreen &&
-                        this.renderCompentenceGoals(competenceGoalsOpen)}
-                    </div>
-
-                    {!competenceGoalsOpen &&
+        <div {...classes('content')}>
+          <div {...classes('back', 'wide')}>
+            <SafeLink {...classes('back-link')} to="/">
+              <Home {...classes('home-icon', '', 'c-icon--20')} />
+              {messages.subjectOverview}
+            </SafeLink>
+          </div>
+          {!disableMain && (
+            <Fragment>
+              {!disableHeaderNavigation && (
+                <div
+                  {...classes('subject', {
+                    hasFilter:
                       filterOptions &&
-                      filterOptions.length > 0 && (
-                        <Fragment>
-                          <FilterListPhone
-                            options={filterOptions}
-                            values={filterValues}
-                            onChange={onFilterClick}
-                            label={`${subjectTitle}:`}
-                          />
-                        </Fragment>
-                      )}
-                    {!competenceGoalsOpen && (
-                      <div {...classes('back-button-slide-wrapper')}>
-                        <button
-                          type="button"
-                          {...classes(
-                            'back-button-slides',
-                            `slide-${sliderCounter}`,
-                          )}
-                          onClick={this.handleOnGoBack}>
-                          <Back /> <span>{messages.back}</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </Fragment>
-            )}
-            {competenceGoalsOpen && (
-              <div {...classes('competence')}>
-                <button
-                  type="button"
-                  {...classes(
-                    this.state.isNarrowScreen
-                      ? 'competence-close-button'
-                      : 'competence-close-button',
-                  )}
-                  onClick={() =>
-                    this.setState({
-                      competenceGoalsOpen: false,
-                    })
-                  }>
-                  <Back />
-                  {messages.competenceGoalsNarrowBackButton}
-                </button>
-                {competenceGoals}
-              </div>
-            )}
-            {!competenceGoalsOpen && (
-              <div {...classes('subject-navigation', `slide-${sliderCounter}`)}>
-                {!disableMain && (
-                  <Fragment>
-                    <div {...classes('section', 'main')}>
-                      <SafeLink
-                        to={toSubject()}
-                        className={classes('link', 'big').className}>
-                        <span {...classes('link-label')}>{messages.goTo}:</span>
-                        <span {...classes('link-target')}>
-                          {messages.subjectPage}
-                          <span {...classes('arrow')}>›</span>
-                        </span>
+                      filterOptions.length > 0 &&
+                      !competenceGoalsOpen,
+                  })}>
+                  <div {...classes('subject__header')}>
+                    <h1>
+                      <SafeLink to={toSubject()}>
+                        {subjectTitle}
+                        <ChevronRight />
                       </SafeLink>
-                      <ul {...classes('list')}>
-                        {topics.map(topic => {
-                          const active = topic.id === expandedTopicId;
+                    </h1>
+                    {competenceGoals &&
+                      !this.state.isNarrowScreen &&
+                      this.renderCompentenceGoals(competenceGoalsOpen)}
+                  </div>
 
-                          return (
-                            <li
-                              {...classes('topic-item', active && 'active')}
-                              key={topic.id}>
-                              <button
-                                type="button"
-                                {...classes('link')}
-                                onClick={event =>
-                                  this.handleClick(event, topic.id)
-                                }
-                                onKeyPress={event =>
-                                  this.handleBtnKeyPress(event, topic.id)
-                                }>
-                                <span>
-                                  {topic.name}
-                                  {renderAdditionalIcon(
-                                    topic.additional,
-                                    messages.additionalTooltipLabel,
-                                  )}
-                                </span>
-                                <ChevronRight />
-                              </button>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      {competenceGoals &&
-                        this.state.isNarrowScreen &&
-                        this.renderCompentenceGoals(false)}
+                  {!competenceGoalsOpen &&
+                    filterOptions &&
+                    filterOptions.length > 0 && (
+                      <Fragment>
+                        <FilterListPhone
+                          options={filterOptions}
+                          values={filterValues}
+                          onChange={onFilterClick}
+                          label={`${subjectTitle}:`}
+                        />
+                      </Fragment>
+                    )}
+                  {!competenceGoalsOpen && (
+                    <div {...classes('back-button-slide-wrapper')}>
+                      <button
+                        type="button"
+                        {...classes(
+                          'back-button-slides',
+                          `slide-${sliderCounter}`,
+                        )}
+                        onClick={this.handleOnGoBack}>
+                        <Back /> <span>{messages.back}</span>
+                      </button>
                     </div>
-                  </Fragment>
-                )}
-                {expandedTopic &&
-                  !disableSubTopic && (
-                    <SubtopicLinkList
-                      classes={classes}
-                      className={
-                        classes('section', subTopicModifiers).className
-                      }
-                      closeMenu={closeMenu}
-                      topic={expandedTopic}
-                      backLabel={
-                        !hasExpandedSubtopics
-                          ? subjectTitle
-                          : currentlyExpandedSubTopics[
-                              currentlyExpandedSubTopics.length - 1
-                            ].name
-                      }
-                      messages={subTopicLinkListMessages}
-                      goToTitle={messages.goTo}
-                      toTopic={toTopic}
-                      expandedSubtopicId={
-                        currentlyExpandedSubTopics[0] &&
-                        currentlyExpandedSubTopics[0].id
-                      }
-                      onSubtopicExpand={id => {
-                        this.handleSubtopicExpand(id, 0);
-                      }}
-                      onGoBack={this.handleOnGoBack}
-                      resourceToLinkProps={resourceToLinkProps}
-                      competenceButton={
-                        this.state.isNarrowScreen &&
-                        this.renderCompentenceGoals(false)
-                      }
-                    />
                   )}
-                {currentlyExpandedSubTopics.map((subTopic, index) => (
+                </div>
+              )}
+            </Fragment>
+          )}
+          {competenceGoalsOpen && (
+            <div {...classes('competence')}>
+              <button
+                type="button"
+                {...classes(
+                  this.state.isNarrowScreen
+                    ? 'competence-close-button'
+                    : 'competence-close-button',
+                )}
+                onClick={() =>
+                  this.setState({
+                    competenceGoalsOpen: false,
+                  })
+                }>
+                <Back />
+                {messages.competenceGoalsNarrowBackButton}
+              </button>
+              {competenceGoals}
+            </div>
+          )}
+          {!competenceGoalsOpen && (
+            <div {...classes('subject-navigation', `slide-${sliderCounter}`)}>
+              {!disableMain && (
+                <Fragment>
+                  <div {...classes('section', 'main')}>
+                    <SafeLink
+                      to={toSubject()}
+                      className={classes('link', 'big').className}>
+                      <span {...classes('link-label')}>{messages.goTo}:</span>
+                      <span {...classes('link-target')}>
+                        {messages.subjectPage}
+                        <span {...classes('arrow')}>›</span>
+                      </span>
+                    </SafeLink>
+                    <ul {...classes('list')}>
+                      {topics.map(topic => {
+                        const active = topic.id === expandedTopicId;
+
+                        return (
+                          <li
+                            {...classes('topic-item', active && 'active')}
+                            key={topic.id}>
+                            <button
+                              type="button"
+                              {...classes('link')}
+                              onClick={event =>
+                                this.handleClick(event, topic.id)
+                              }
+                              onKeyPress={event =>
+                                this.handleBtnKeyPress(event, topic.id)
+                              }>
+                              <span>
+                                {topic.name}
+                                {renderAdditionalIcon(
+                                  topic.additional,
+                                  messages.additionalTooltipLabel,
+                                )}
+                              </span>
+                              <ChevronRight />
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {competenceGoals &&
+                      this.state.isNarrowScreen &&
+                      this.renderCompentenceGoals(false)}
+                  </div>
+                </Fragment>
+              )}
+              {expandedTopic &&
+                !disableSubTopic && (
                   <SubtopicLinkList
-                    key={subTopic.id}
                     classes={classes}
                     className={
-                      classes('section', ['sub-topic', 'no-border']).className
+                      classes('section', subTopicModifiers).className
                     }
                     closeMenu={closeMenu}
-                    topic={subTopic}
+                    topic={expandedTopic}
                     backLabel={
-                      currentlyExpandedSubTopics[
-                        currentlyExpandedSubTopics.length - 1
-                      ].name
+                      !hasExpandedSubtopics
+                        ? subjectTitle
+                        : currentlyExpandedSubTopics[
+                            currentlyExpandedSubTopics.length - 1
+                          ].name
                     }
                     messages={subTopicLinkListMessages}
+                    goToTitle={messages.goTo}
                     toTopic={toTopic}
                     expandedSubtopicId={
-                      currentlyExpandedSubTopics[index + 1]
-                        ? currentlyExpandedSubTopics[index + 1].id
-                        : 'no way'
+                      currentlyExpandedSubTopics[0] &&
+                      currentlyExpandedSubTopics[0].id
                     }
                     onSubtopicExpand={id => {
-                      this.handleSubtopicExpand(id, index + 1);
+                      this.handleSubtopicExpand(id, 0);
                     }}
                     onGoBack={this.handleOnGoBack}
                     resourceToLinkProps={resourceToLinkProps}
@@ -419,10 +403,41 @@ export default class TopicMenu extends Component {
                       this.renderCompentenceGoals(false)
                     }
                   />
-                ))}
-              </div>
-            )}
-          </div>
+                )}
+              {currentlyExpandedSubTopics.map((subTopic, index) => (
+                <SubtopicLinkList
+                  key={subTopic.id}
+                  classes={classes}
+                  className={
+                    classes('section', ['sub-topic', 'no-border']).className
+                  }
+                  closeMenu={closeMenu}
+                  topic={subTopic}
+                  backLabel={
+                    currentlyExpandedSubTopics[
+                      currentlyExpandedSubTopics.length - 1
+                    ].name
+                  }
+                  messages={subTopicLinkListMessages}
+                  toTopic={toTopic}
+                  expandedSubtopicId={
+                    currentlyExpandedSubTopics[index + 1]
+                      ? currentlyExpandedSubTopics[index + 1].id
+                      : 'no way'
+                  }
+                  onSubtopicExpand={id => {
+                    this.handleSubtopicExpand(id, index + 1);
+                  }}
+                  onGoBack={this.handleOnGoBack}
+                  resourceToLinkProps={resourceToLinkProps}
+                  competenceButton={
+                    this.state.isNarrowScreen &&
+                    this.renderCompentenceGoals(false)
+                  }
+                />
+              ))}
+            </div>
+          )}
         </div>
       </nav>
     );
@@ -468,4 +483,6 @@ TopicMenu.propTypes = {
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,
   searchFieldComponent: PropTypes.node.isRequired,
+  scrollUp: PropTypes.bool.isRequired,
+  scrollingContent: PropTypes.func.isRequired,
 };
