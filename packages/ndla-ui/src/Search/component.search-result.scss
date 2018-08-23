@@ -1,6 +1,6 @@
 .c-search-result {
   background: $white;
-  padding: $spacing 0;
+  padding: 0 0 $spacing 0;
   border: 1px solid $brand-grey--light;
 
   @include mq(desktop) {
