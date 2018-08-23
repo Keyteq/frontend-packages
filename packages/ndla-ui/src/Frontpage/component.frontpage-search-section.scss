@@ -8,4 +8,7 @@
   &__heading {
     @include visually-hidden();
   }
+  .c-search-field__input-wrapper {
+    padding: 0;
+  }
 }

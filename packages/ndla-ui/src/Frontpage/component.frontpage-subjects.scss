@@ -157,3 +157,13 @@
     }
   }
 }
+
+.c-topic-menu__content {
+  .c-frontpage-subjects-section {
+    @include mq($until: tablet) {
+      background: $brand-color--lighter;
+      padding: 0 $spacing;
+      margin-bottom: 1px;
+    }
+  }
+}

@@ -37,7 +37,7 @@ FrontpageSearchSection.propTypes = {
 };
 
 FrontpageSearchSection.defaultProps = {
-  hideSearch: true,
+  hideSearch: false,
 };
 
 export default FrontpageSearchSection;

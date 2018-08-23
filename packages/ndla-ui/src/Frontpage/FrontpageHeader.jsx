@@ -65,11 +65,11 @@ const FrontpageHeader = ({
                 </ModalHeader>
                 <div {...classesMenu('content')}>
                   {menuSubject}
-                  <div {...classesMenu('section', 'main')}>
-                    <ul {...classesMenu('list')}>
+                  <div {...classes('main-menu-content')}>
+                    <ul {...classesMenu('content-type-results')}>
                       {links.map(link => (
-                        <li key={uuid()} {...classesMenu('topic-item')}>
-                          <SafeLink to={link.to} {...classesMenu('link')}>
+                        <li key={uuid()}>
+                          <SafeLink to={link.to}>
                             {link.text}
                           </SafeLink>
                         </li>
@@ -124,7 +124,7 @@ FrontpageHeader.propTypes = {
 };
 
 FrontpageHeader.defaultProps = {
-  hideSearch: true,
+  hideSearch: false,
 };
 
 export default FrontpageHeader;

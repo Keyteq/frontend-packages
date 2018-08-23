@@ -110,7 +110,6 @@ class ArticleAuthorContent extends Component {
 }
 
 ArticleAuthorContent.propTypes = {
-  labelledBy: PropTypes.string.isRequired,
   authors: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -130,7 +129,6 @@ ArticleAuthorContent.propTypes = {
     authorDescription: PropTypes.string.isRequired,
   }).isRequired,
   showAuthor: PropTypes.number,
-  onSelectAuthor: PropTypes.func.isRequired,
 };
 
 ArticleAuthorContent.defaultProps = {

@@ -153,4 +153,15 @@
       }
     }
   }
+
+  &__main-menu-content {
+    margin: $spacing 0 $spacing--large * 2 0;
+    ul {
+      padding: 0 $spacing !important;
+      list-style: none;
+      li {
+        padding: 0 !important;
+      }
+    }
+  }
 }
