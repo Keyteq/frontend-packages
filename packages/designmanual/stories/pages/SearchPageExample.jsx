@@ -361,7 +361,7 @@ class SearchPageExample extends Component {
           });
         }}
         onSearch={onSearch}
-        earchFieldFilters={hasAuthor ? null : this.getActiveFilters('subject')}
+        searchFieldFilters={hasAuthor ? null : this.getActiveFilters('subject')}
         activeFilters={hasAuthor ? null : this.getActiveFilters()}
         author={authorTablet}
         messages={{
