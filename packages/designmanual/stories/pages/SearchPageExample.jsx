@@ -318,18 +318,14 @@ class SearchPageExample extends Component {
         />
       ) : null;
 
-    const contextFilter =
-      searchTabFilterOptions[currentTab] && currentResult.length > 0 ? (
-        <SearchFilter
-          contextFilter
-          label="Egenskaper"
-          options={searchTabFilterOptions[currentTab]}
-          values={['value']}
-          onChange={values => {
-            console.log('Changed filter', values); // eslint-disable-line no-console
-          }}
-        />
-      ) : null;
+    const contextFilter = searchTabFilterOptions[currentTab] ? (
+      <SearchFilter
+        contextFilter
+        label="Egenskaper"
+        options={searchTabFilterOptions[currentTab]}
+        values={['value']}
+      />
+    ) : null;
 
     const onSearch = evt => {
       evt.preventDefault();
@@ -341,6 +337,7 @@ class SearchPageExample extends Component {
     const searchString = this.props.competenceGoals
       ? 'Kompetansemål'
       : 'Ideskaping';
+
     return (
       <SearchPage
         filterScreenChange={isNarrowScreen => {
@@ -348,7 +345,6 @@ class SearchPageExample extends Component {
             isNarrowScreen,
           });
         }}
-        closeUrl="#"
         searchString={hasAuthor ? '«Cecilie Isaksen Eftedal»' : searchString}
         hideResultText={this.state.competenceGoalsOpen}
         onSearchFieldChange={() => {}}
@@ -365,7 +361,7 @@ class SearchPageExample extends Component {
           });
         }}
         onSearch={onSearch}
-        searchFieldFilters={hasAuthor ? null : this.getActiveFilters('subject')}
+        earchFieldFilters={hasAuthor ? null : this.getActiveFilters('subject')}
         activeFilters={hasAuthor ? null : this.getActiveFilters()}
         author={authorTablet}
         messages={{
@@ -373,7 +369,6 @@ class SearchPageExample extends Component {
           resultHeading: hasAuthor
             ? '37 artikler skrevet av Cecilie'
             : '43 treff i Ndla',
-          closeButton: 'Lukk',
           narrowScreenFilterHeading: '10 treff på «ideutvikling»',
           searchFieldTitle: 'Søk',
         }}
@@ -393,7 +388,8 @@ class SearchPageExample extends Component {
               <Fragment>
                 <SearchFilter
                   label={filterOptions.subject.label}
-                  options={[filterOptions.subject.options[3]]}
+                  noFilterSelectedLabel="Ingen filter valgt"
+                  options={filterOptions.subject.options.filter(option => allValues.subject.indexOf(option.value) !== -1)}
                   onChange={values => {
                     onChange(values, 'subject');
                   }}

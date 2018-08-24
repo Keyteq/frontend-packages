@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import BEMHelper from 'react-bem-helper';
 import PropTypes from 'prop-types';
 import { Back } from 'ndla-icons/common';
-import { Cross } from 'ndla-icons/action';
 import createFocusTrap from 'focus-trap';
 import debounce from 'lodash/debounce';
 import { noScroll, getCurrentBreakpoint, breakpoints } from 'ndla-util';
 import Button from '../Button';
 
-import SafeLink from '../common/SafeLink';
 import SearchField from './SearchField';
 import ActiveFilters from './ActiveFilters';
 
@@ -101,7 +99,6 @@ export default class SearchPage extends Component {
       filters,
       children,
       messages,
-      closeUrl,
       author,
       hideResultText,
     } = this.props;
@@ -114,9 +111,6 @@ export default class SearchPage extends Component {
 
     return (
       <main {...classes()}>
-        <SafeLink to={closeUrl} {...classes('close-button')}>
-          <span>{messages.closeButton}</span> <Cross />
-        </SafeLink>
         <div {...classes('search-field-wrapper')}>
           <SearchField
             value={searchString}
@@ -209,10 +203,8 @@ SearchPage.propTypes = {
     filterHeading: PropTypes.string.isRequired,
     narrowScreenFilterHeading: PropTypes.string.isRequired,
     resultHeading: PropTypes.string,
-    closeButton: PropTypes.string.isRequired,
     searchFieldTitle: PropTypes.string.isRequired,
   }).isRequired,
-  closeUrl: PropTypes.string.isRequired,
   author: PropTypes.node,
   hideResultText: PropTypes.bool,
   filterScreenChange: PropTypes.func,

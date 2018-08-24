@@ -33,7 +33,6 @@ class Popover extends Component {
 
   render() {
     const { messages, close, options, onChange } = this.props;
-    const disabled = this.state.values.length === 0;
 
     return (
       <Fragment>
@@ -67,7 +66,6 @@ class Popover extends Component {
             }}
           />
           <Button
-            disabled={disabled}
             className={classes('confirm-button')}
             onClick={() => {
               close();
@@ -124,6 +122,7 @@ const PopoverFilter = ({ messages, values, ...rest }) => {
 PopoverFilter.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
   messages: messagesShape.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PopoverFilter;
