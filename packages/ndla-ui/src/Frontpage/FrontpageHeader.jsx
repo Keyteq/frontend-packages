@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { Cross } from 'ndla-icons/action';
-import { Modal, ModalHeader, SearchField, OneColumn, Logo, SafeLink, Button } from 'ndla-ui';
+import {
+  Modal,
+  ModalHeader,
+  SearchField,
+  OneColumn,
+  Logo,
+  SafeLink,
+  Button,
+} from 'ndla-ui';
 import { uuid } from 'ndla-util';
 
 const classes = BEMHelper('c-frontpage-header');
@@ -42,7 +50,9 @@ const FrontpageHeader = ({
           <Modal
             size="fullscreen"
             backgroundColor="gray"
-            activateButton={<Button className="c-frontpage-header__menu-button">Meny</Button>}>
+            activateButton={
+              <Button className="c-frontpage-header__menu-button">Meny</Button>
+            }>
             {closeMenu => (
               <nav>
                 <ModalHeader modifier={['white', 'menu']}>
@@ -69,9 +79,7 @@ const FrontpageHeader = ({
                     <ul {...classesMenu('content-type-results')}>
                       {links.map(link => (
                         <li key={uuid()}>
-                          <SafeLink to={link.to}>
-                            {link.text}
-                          </SafeLink>
+                          <SafeLink to={link.to}>{link.text}</SafeLink>
                         </li>
                       ))}
                     </ul>

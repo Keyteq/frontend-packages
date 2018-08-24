@@ -108,9 +108,7 @@ const PopoverFilter = ({ messages, values, ...rest }) => {
   );
 
   return (
-    <Modal
-      activateButton={buttonContent}
-      animation="subtle">
+    <Modal activateButton={buttonContent} animation="subtle">
       {onClose => (
         <Popover
           close={onClose}

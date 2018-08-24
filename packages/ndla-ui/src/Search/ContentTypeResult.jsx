@@ -70,10 +70,14 @@ class ContentTypeResult extends Component {
                 </li>
               );
             }
+
+            const safeLinkProps =
+              linkProps && linkProps.to ? { ...linkProps } : { to: item.path };
+
             return (
               <li key={item.path}>
                 <SafeLink
-                  to={item.path}
+                  {...safeLinkProps}
                   onClick={() => {
                     if (onNavigate) {
                       onNavigate();

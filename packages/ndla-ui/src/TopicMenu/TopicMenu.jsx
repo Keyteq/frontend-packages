@@ -68,7 +68,10 @@ export default class TopicMenu extends Component {
   componentDidMount() {
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
-    this.contentRef.current.parentNode.addEventListener('scroll', this.handleScrollDebounced);
+    this.contentRef.current.parentNode.addEventListener(
+      'scroll',
+      this.handleScrollDebounced,
+    );
   }
 
   componentWillUnmount() {
@@ -95,7 +98,8 @@ export default class TopicMenu extends Component {
 
   handleScroll() {
     this.setState(prevState => {
-      const scrollUp = this.contentRef.current.parentNode.scrollTop > prevState.scrollTop;
+      const scrollUp =
+        this.contentRef.current.parentNode.scrollTop > prevState.scrollTop;
       if (scrollUp !== this.props.scrollUp) {
         this.props.scrollingContent(scrollUp);
       }
@@ -374,9 +378,7 @@ export default class TopicMenu extends Component {
                 !disableSubTopic && (
                   <SubtopicLinkList
                     classes={classes}
-                    className={
-                      classes('section', subTopicModifiers).className
-                    }
+                    className={classes('section', subTopicModifiers).className}
                     closeMenu={closeMenu}
                     topic={expandedTopic}
                     backLabel={
