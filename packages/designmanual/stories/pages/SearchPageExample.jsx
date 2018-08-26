@@ -399,8 +399,8 @@ class SearchPageExample extends Component {
                       backButton: 'Tilbake til filter',
                       filterLabel: 'Velg fag',
                       closeButton: 'Lukk',
-                      confirmButton: 'Bruk fag',
-                      hasValuesButtonText: 'Vis flere fag',
+                      confirmButton: 'Oppdater filter',
+                      hasValuesButtonText: 'Flere fag',
                       noValuesButtonText: 'Filtrer på fag',
                     }}
                     options={filterOptions.subject.options}
