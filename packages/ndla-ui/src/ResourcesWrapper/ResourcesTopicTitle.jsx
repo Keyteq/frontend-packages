@@ -68,7 +68,7 @@ const ResourcesTopicTitle = ({
               {onClose => (
                 <Fragment>
                   <ModalHeader>
-                    <ModalCloseButton title="lukk" onClick={onClose} />
+                    <ModalCloseButton title="Lukk" onClick={onClose} />
                   </ModalHeader>
                   <ModalBody>
                     <h1 id={explainationIconLabelledBy}>

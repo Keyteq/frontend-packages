@@ -51,7 +51,7 @@ const ArticleByline = ({
                 {onClose => (
                   <Fragment>
                     <ModalHeader>
-                      <ModalCloseButton onClick={onClose} title="lukk" />
+                      <ModalCloseButton onClick={onClose} title="Lukk" />
                     </ModalHeader>
                     <ModalBody>
                       <ArticleAuthorContent
@@ -65,7 +65,9 @@ const ArticleByline = ({
             ) : (
               `${authors.map(author => author.name).join(', ')} `
             )}
-            ({license})
+          </span>
+          <span>
+            {` (${license})`}
           </span>
         </span>
       )}
@@ -94,7 +96,7 @@ const ArticleByline = ({
             {onClose => (
               <Fragment>
                 <ModalHeader>
-                  <ModalCloseButton onClick={onClose} title="lukk" />
+                  <ModalCloseButton onClick={onClose} title="Lukk" />
                 </ModalHeader>
                 <ModalBody>{licenseBox}</ModalBody>
               </Fragment>

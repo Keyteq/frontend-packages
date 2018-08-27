@@ -49,7 +49,7 @@ class SubjectShortcuts extends Component {
           aria-expanded={isExpanded}
           aria-controls={id}
           onClick={() => this.handleOnExpand(!isExpanded)}
-          {...classes('expand-button')}>
+          className="o-text-link">
           <Forward />
           <span>{buttonText}</span>
         </button>
@@ -73,7 +73,9 @@ class SubjectShortcuts extends Component {
             ))}
           </TransitionGroup>
         </nav>
-        {button}
+        <div className="o-text-link__wrapper">
+          {button}
+        </div>
       </section>
     );
   }

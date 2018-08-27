@@ -18,6 +18,11 @@
     }
   }
 
+  &--extra-padding {
+    padding-left: $spacing--large;
+    padding-right: $spacing--large;
+  }
+
   &--inner {
     max-width: 585px;
     padding-left: $spacing;

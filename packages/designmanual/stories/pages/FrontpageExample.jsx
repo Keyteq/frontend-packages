@@ -49,7 +49,7 @@ const FrontpageExample = () => (
     />
     <main>
       <FrontpageSubjects subjects={subjectsFrontpage} />
-      <OneColumn>
+      <OneColumn wide extraPadding>
         <FrontpageSearchSection
           heading="Søk"
           searchFieldValue=""

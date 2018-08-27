@@ -56,7 +56,7 @@ class TopicIntroductionShortcuts extends Component {
           }}>
           <Forward />
           {showButtonText && (
-            <span {...classes('label')}>{messages.toggleButtonText}</span>
+            <span>{messages.toggleButtonText}</span>
           )}
         </button>
       );

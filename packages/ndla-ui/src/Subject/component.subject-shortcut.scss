@@ -5,14 +5,15 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    margin: 0;
+    margin: -9px 0 0 0;
     padding: 0;
   }
 
   &__item {
     display: block;
     margin-right: 9px;
-    margin-bottom: 9px;
+    margin-top: 9px;
+    margin-bottom: 0;
 
     a {
       display: block;

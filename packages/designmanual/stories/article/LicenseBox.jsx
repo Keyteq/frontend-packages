@@ -34,12 +34,10 @@ const bysaLicenseAbbreviation = 'by-sa';
 
 const VideoContent = () => (
   <div>
-    <div className="u-introduction">
-      <h2>Slik bruker du videoer fra artikkelen</h2>
-      <p>
-        Husk å kopier teksten som skal legges ved videoen der du bruker den.
-      </p>
-    </div>
+    <h2>Slik bruker du videoer fra artikkelen</h2>
+    <p>
+      Husk å kopier teksten som skal legges ved videoen der du bruker den.
+    </p>
     <MediaList>
       {[
         { id: 'video-1', title: 'Søvn og hvile' },

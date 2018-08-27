@@ -173,7 +173,7 @@ export default class ClickToggle extends React.Component {
                 onClose={this.handleClick}
                 disablePortal={disablePortal}
                 disableBackdrop={disableBackdrop}
-                messages={{ close: openTitle || 'lukk' }}
+                messages={{ close: openTitle || 'Lukk' }}
                 modifier={
                   showDialog ? ['active', dialogModifier] : dialogModifier
                 }>

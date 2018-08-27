@@ -5,7 +5,7 @@
     border-radius: 2px;
     background: $white;
     margin-top: -$spacing--large;
-    padding: $spacing--medium $spacing--large;
+    padding: $spacing--small $spacing--large $spacing--large;
   }
 
   & > * {
@@ -21,6 +21,7 @@
 
 .c-frontpage-subjects-section {
   transition: max-height 0.3s ease-in-out;
+  padding-bottom: $spacing;
 
   @include mq($until: tablet) {
     max-height: 48px;
@@ -45,8 +46,8 @@
 
   &__heading-text {
     display: none;
-    @include font-size(22px, 32px);
-    margin: 0 0 $spacing--small;
+    @include font-size(26px, 32px);
+    margin: $spacing--large 0 $spacing--small 0;
 
     @include mq(tablet) {
       display: block;
@@ -75,15 +76,14 @@
     margin: 0;
     padding: 0 0 $spacing 0;
     list-style: none;
+    column-count: 3;
 
-    @include mq(tablet) {
-      padding: 0;
+    @include mq($until: desktop) {
       column-count: 2;
     }
 
-    @include mq(desktop) {
-      padding: 0;
-      column-count: 3;
+    @include mq($until: 800px) {
+      column-count: 1;
     }
 
     &--narrow {
@@ -102,9 +102,11 @@
   }
 
   &__item {
-    margin-bottom: $spacing--small;
+    margin: $spacing--small / 2 0;
     display: block;
-
+    a {
+      padding: $spacing--small / 2 0;
+    }
 
     @include mq($until: tablet) {
       a {
@@ -141,10 +143,14 @@
     box-shadow: $link;
     font-weight: $font-weight-semibold;
 
-    @include font-size(14px, 18px);
+    @include font-size(16px, 18px);
 
     @include mq(tablet) {
-      @include font-size(16px, 20px);
+      @include font-size(18px, 22px);
+    }
+
+    @include mq($from: desktop, $until: 1165px) {
+      @include font-size(16px, 18px);
     }
   }
 

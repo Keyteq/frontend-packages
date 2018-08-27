@@ -81,7 +81,7 @@ export class FrontpageSubjects extends Component {
 
   render() {
     return (
-      <OneColumn noPadding>
+      <OneColumn wide noPadding>
         <div {...wrapperClasses()}>
           {Object.keys(this.props.subjects).map(key => (
             <FrontpageSubjectsSection

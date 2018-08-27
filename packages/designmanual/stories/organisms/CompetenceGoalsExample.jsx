@@ -128,7 +128,7 @@ export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
     {onClose => (
       <Fragment>
         <ModalHeader>
-          <ModalCloseButton onClick={onClose} title="lukk" />
+          <ModalCloseButton onClick={onClose} title="Lukk" />
         </ModalHeader>
         <ModalBody>
           <CompetenceGoalsExample headingId={headingId} />

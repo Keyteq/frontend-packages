@@ -178,7 +178,7 @@ $tabs-spacing: 12px;
 @keyframes tabDropdownAnimation {
   0% {
     opacity: 0;
-    transform: translate3d(20px, 2px, 0px);
+    transform: translate(20px, 2px, 0px);
   }
   100% {
     opacity: 1;

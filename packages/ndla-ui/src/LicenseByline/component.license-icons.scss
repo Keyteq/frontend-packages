@@ -33,7 +33,7 @@
   text-align: left;
   padding: $spacing--small/2 $spacing--small;
   font-family: $font;
-  transform: translate3d(0, calc(-100% - 6.5px), 0);
+  transform: translate(0, calc(-100% - 6.5px));
   @include inuit-font-size(13px);
 }
 .c-license-icons__item:hover {
@@ -43,8 +43,8 @@
   .c-license-icons__hover {
     display: block;
     opacity: 1;
-    animation-name: fadeIn;
-    animation-duration: 400ms;
+    // animation-name: fadeIn;
+    // animation-duration: 400ms;
   }
 }
 

@@ -72,23 +72,23 @@ class Tooltip extends Component {
           moveHorizontal = Math.min(-(tooltipWidth / 2 - centeredLeft + 20), 0);
         }
         if (this.props.align === 'bottom') {
-          this.currentStyles.transform = `translate3d(calc(-50% + ${this
+          this.currentStyles.transform = `translate(calc(-50% + ${this
             .widthRef /
             2 -
-            moveHorizontal}px), calc(${this.heightRef}px + 0.25rem), 0)`;
+            moveHorizontal}px), calc(${this.heightRef}px + 0.25rem))`;
         } else {
-          this.currentStyles.transform = `translate3d(calc(-50% + ${this
+          this.currentStyles.transform = `translate(calc(-50% + ${this
             .widthRef /
             2 -
-            moveHorizontal}px), calc(-100% - 0.25rem), 0)`;
+            moveHorizontal}px), calc(-100% - 0.25rem))`;
         }
       } else if (this.props.align === 'left') {
-        this.currentStyles.transform = `translate3d(calc(-100% - 0.25rem), calc(-50% + ${this
-          .heightRef / 2}px), 0)`;
+        this.currentStyles.transform = `translate(calc(-100% - 0.25rem), calc(-50% + ${this
+          .heightRef / 2}px))`;
       } else {
-        this.currentStyles.transform = `translate3d(calc(${
+        this.currentStyles.transform = `translate(calc(${
           this.widthRef
-        }px + 0.25rem), calc(-50% + ${this.heightRef / 2}px), 0)`;
+        }px + 0.25rem), calc(-50% + ${this.heightRef / 2}px))`;
       }
     }
     return this.currentStyles;

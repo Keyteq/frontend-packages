@@ -21,9 +21,14 @@
   margin-bottom: $spacing;
   margin-left: auto;
   overflow-wrap: break-word;
-  @include font-size(18px, 28px);
+  @include font-size(18px, 29px);
   position: relative;
 
+  > section > p {
+    &:not([class]) {
+      margin-bottom: 29px;
+    }
+  }
   p {
     @include chinese() {
       @include font-size(20px, 32px);
@@ -47,11 +52,17 @@
   }
 
   @include mq(tablet) {
-    @include font-size(18px, 32px);
+    @include font-size(19px, 31px);
 
     p {
       @include chinese() {
         @include font-size(20px, 32px);
+      }
+    }
+
+    > section > p {
+      &:not([class]) {
+        margin-bottom: 31px;
       }
     }
 

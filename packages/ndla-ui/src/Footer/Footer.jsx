@@ -43,7 +43,7 @@ const FooterPrivacy = ({ lang }) => (
     {onClose => (
       <Fragment>
         <ModalHeader>
-          <ModalCloseButton onClick={onClose} title="lukk" />
+          <ModalCloseButton onClick={onClose} title="Lukk" />
         </ModalHeader>
         <ModalBody>
           <div className="footer_privacy">

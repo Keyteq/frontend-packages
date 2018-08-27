@@ -176,7 +176,7 @@ export default () => (
         },
       ]}
     />
-    <OneColumn noPadding>
+    <OneColumn wide>
       <SubjectContent breadcrumb={<Breadcrumb onlySubject />}>
         <ResourcesWrapper
           subjectPage

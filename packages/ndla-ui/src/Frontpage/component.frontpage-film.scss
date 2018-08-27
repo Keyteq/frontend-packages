@@ -8,34 +8,26 @@
     justify-content: flex-end;
     align-items: center;
     padding: $spacing $spacing--medium $spacing $spacing;
-    span {
+    // span {
       color: $brand-color--dark;
       @include font-size(16px, 26px);
-    }
+    // }
     @include mq(tablet) {
       background-size: contain;
       min-height: 250px;
       background-position: -100px center;
+      font-weight: $font-weight-semibold;
       span {
-        font-weight: $font-weight-semibold;
-        max-width: calc(66.6% - 26px);
+        max-width: 66.6%;
       }
     }
     @include mq(700px) {
       background-position: -60px center;
     }
     @include mq(desktop) {
+      @include font-size(18px, 26px);
       min-height: 300px;
       background-position: -30px center;
-    }
-  }
-  &__link-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: $spacing;
-    @include font-size(14px);
-    .c-icon {
-      margin-left: $spacing--small;
     }
   }
 }

@@ -62,7 +62,7 @@ const ModalExample = () => (
       {onClose => (
         <Fragment>
           <ModalHeader>
-            <ModalCloseButton title="lukk" onClick={onClose} />
+            <ModalCloseButton title="Lukk" onClick={onClose} />
           </ModalHeader>
           <ModalBody>
             <h1>Hva ønsker du å gjøre?</h1>
@@ -82,7 +82,7 @@ const ModalExample = () => (
               {onClose2 => (
                 <Fragment>
                   <ModalHeader>
-                    <ModalCloseButton title="lukk" onClick={onClose2} />
+                    <ModalCloseButton title="Lukk" onClick={onClose2} />
                   </ModalHeader>
                   <ModalBody>
                     <h1>En modal over modal!</h1>
@@ -116,7 +116,7 @@ const ModalExample = () => (
       {onClose => (
         <Fragment>
           <ModalHeader>
-            <ModalCloseButton title="lukk" onClick={onClose} />
+            <ModalCloseButton title="Lukk" onClick={onClose} />
           </ModalHeader>
           <ModalBody>
             <h1>Nice Modal!</h1>

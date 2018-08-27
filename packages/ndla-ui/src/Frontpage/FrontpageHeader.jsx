@@ -34,7 +34,7 @@ const FrontpageHeader = ({
   <header {...classes()}>
     <div {...classes('inner-background')} />
     <div {...classes('wrapper')}>
-      <OneColumn noPadding>
+      <OneColumn wide noPadding>
         <nav {...classes('navigation')}>
           <ul>
             {links.map(link => (
@@ -45,7 +45,7 @@ const FrontpageHeader = ({
           </ul>
         </nav>
       </OneColumn>
-      <OneColumn>
+      <OneColumn wide noPadding>
         <div {...classes('content')}>
           <Modal
             size="fullscreen"
