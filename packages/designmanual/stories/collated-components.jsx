@@ -78,7 +78,7 @@ storiesOf('Sammensatte moduler', module)
         ]}
         updated="21.06.2018"
         license="CC BY-SA"
-        licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
+        licenseBox={<LicenseBox />}
         additional
         messages={{
           lastUpdated: 'Publisert',
@@ -134,7 +134,7 @@ storiesOf('Sammensatte moduler', module)
         ]}
         updated="21.06.2018"
         license="CC BY-SA"
-        licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
+        licenseBox={<LicenseBox />}
         additional
         messages={{
           lastUpdated: 'Publisert',

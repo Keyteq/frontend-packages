@@ -71,7 +71,7 @@ const ArticleBylineExample = ({ multipleAuthors, useRealText, additional }) => {
       authors={multipleAuthors ? useAuthors : [useAuthors[0]]}
       updated={useRealText ? '24.04.2018' : '[dato]'}
       license={useRealText ? 'CC BY-SA' : '[lisens]'}
-      licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
+      licenseBox={<LicenseBox />}
       messages={{
         lastUpdated: 'Publisert',
         authorLabel: 'Opphavsmenn',

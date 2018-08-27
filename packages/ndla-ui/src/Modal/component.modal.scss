@@ -92,6 +92,14 @@
         min-width: 613px;
       }
     }
+    &--medium, &--large {
+      .c-modal__body, .c-modal__header {
+        @include mq(790px) {
+          padding-left: $spacing--large;
+          padding-right: $spacing--large;
+        }
+      }
+    }
     // 3. background modifiers
     &--white {
       background: #fff;
@@ -164,9 +172,15 @@
   }
   &__body {
     padding: $spacing $spacing $spacing--large $spacing;
-    > h1 {
-      @include font-size(22px, 26px);
-      margin: 0 0 $spacing--small;
+    hr {
+      position: static;
+      border: 0;
+      height: 1px;
+      background: $brand-color--tertiary;
+      margin: 0;
+      &:before {
+        content:none
+      }
     }
     .c-tabs {
       margin-left: 0;
@@ -178,6 +192,23 @@
     .react-tabs__tab-panel--selected {
       animation-name: fadeInLeft;
       animation-duration: 500ms;
+    }
+  }
+  &--narrow {
+    .c-modal__header {
+      padding-bottom: 0;
+      + .c-modal__body {
+        padding-top: 0;
+      }
+    }
+    .c-modal__body {
+      padding-bottom: $spacing--medium;
+      h1 {
+        @include font-size(22px, 26px);
+        font-weight: $font-weight-semibold;
+        margin: 0 0 $spacing--small;
+        color: $brand-color;
+      }
     }
   }
 }

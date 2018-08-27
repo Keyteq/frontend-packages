@@ -34,10 +34,11 @@ const Portal = ({
   closeModal,
   onAnimationEnd,
   className,
+  narrow,
 }) => {
   const content = (
     <FocusTrapReact>
-      <div className={`c-modal ${className}`}>
+      <div className={`${classes('', { narrow }).className} ${className}`}>
         <div
           style={{ animationDuration: `${animationDuration}ms` }}
           onAnimationEnd={onAnimationEnd}
@@ -155,6 +156,7 @@ export default class Modal extends React.Component {
       backgroundColor,
       className,
       children,
+      narrow,
       ...rest
     } = this.props;
 
@@ -200,7 +202,8 @@ export default class Modal extends React.Component {
               closeOnBackdrop={closeOnBackdrop}
               closeModal={this.closeModal}
               onAnimationEnd={this.onAnimationEnd}
-              className={className}>
+              className={className}
+              narrow={narrow}>
               {children}
             </Portal>
           )}
@@ -231,6 +234,7 @@ Modal.propTypes = {
   closeOnBackdrop: PropTypes.bool,
   className: PropTypes.string,
   onOpen: PropTypes.func,
+  narrow: PropTypes.bool,
 };
 
 Modal.defaultProps = {
@@ -241,4 +245,5 @@ Modal.defaultProps = {
   animationDuration: 300,
   closeOnBackdrop: true,
   className: '',
+  narrow: false,
 };

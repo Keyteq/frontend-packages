@@ -90,7 +90,7 @@ const ArticleByline = ({
       )}
       {licenseBox && (
         <span {...classes('flex')}>
-          <Modal activateButton={<Button link>{messages.useContent}</Button>}>
+          <Modal activateButton={<Button link>{messages.useContent}</Button>} size="medium">
             {onClose => (
               <Fragment>
                 <ModalHeader>

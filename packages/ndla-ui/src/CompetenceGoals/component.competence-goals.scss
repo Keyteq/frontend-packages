@@ -6,12 +6,6 @@
 
   height: 100%;
 
-  &__dialog-wrapper {
-    @include mq(tablet) {
-      padding-left: $spacing;
-    }
-  }
-
   &__heading {
     margin-top: 0;
     @include font-size(20px, 32px);

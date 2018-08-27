@@ -134,7 +134,7 @@
     @include inuit-font-size(16px, 20px);
     color: $text-light-color;
     text-transform: uppercase;
-    margin-bottom: $spacing--small/4;
+    margin-bottom: 0;
     font-family: $font;
     @include mq($until: tablet) {
       margin-bottom: 0;
@@ -153,8 +153,13 @@
     position: absolute;
     left: 0;
 
+    @include mq(tablet) {
+      top: $spacing--small / 2;
+    }
+
     @include mq(desktop) {
       left: -70px;
+      top: $spacing--small / 2;
     }
   }
 }

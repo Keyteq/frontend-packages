@@ -123,6 +123,7 @@ export const CompetenceGoalsDialogExample = ({ narrow, wide, headingId }) => (
         Kompetansemål
       </Button>
     }
+    narrow
     size="medium">
     {onClose => (
       <Fragment>

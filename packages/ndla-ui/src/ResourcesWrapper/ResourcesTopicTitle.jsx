@@ -46,6 +46,7 @@ const ResourcesTopicTitle = ({
           />
           {messages.dialogTooltip && (
             <Modal
+              narrow
               id="resource-title-tooltip"
               wrapperFunctionForButton={activateButton => (
                 <Tooltip
@@ -73,6 +74,7 @@ const ResourcesTopicTitle = ({
                     <h1 id={explainationIconLabelledBy}>
                       {messages.dialogHeading}
                     </h1>
+                    <hr />
                     {messages.dialogTexts.map(text => (
                       <p key={uuid()}>{text}</p>
                     ))}

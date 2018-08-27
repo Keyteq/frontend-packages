@@ -6,8 +6,7 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import Tabs from 'ndla-tabs';
 import { uuid } from 'ndla-util';
 
@@ -431,9 +430,9 @@ const Files = () => (
   </div>
 );
 
-export const LicenseBox = ({ headingId }) => (
-  <div>
-    <h1 className="license__heading" id={headingId}>
+export const LicenseBox = () => (
+  <Fragment>
+    <h1>
       Slik gjenbruker du innhold
     </h1>
     <Tabs
@@ -447,11 +446,7 @@ export const LicenseBox = ({ headingId }) => (
         { title: 'Annet innhold', content: <OtherContent /> },
       ]}
     />
-  </div>
+  </Fragment>
 );
-
-LicenseBox.propTypes = {
-  headingId: PropTypes.string.isRequired,
-};
 
 export default LicenseBox;
