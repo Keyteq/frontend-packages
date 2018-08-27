@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ArticleByline } from 'ndla-ui';
 import LicenseBox from '../article/LicenseBox';
 
-const authorSimple = {
+export const authorSimple = {
   role: '[Rolle]',
   name: '[Ola nordmann]',
   urlContributions: '#',
@@ -17,9 +17,9 @@ const authorSimple = {
   introduction: '[Introduksjonstekst]',
 };
 
-const authorRealText = [
+export const authorRealText = [
   {
-    role: 'rolle',
+    role: 'Forfatter',
     name: 'Cecilie Isaksen Eftedal',
     urlContributions: '#',
     urlContributionsLabel: 'Se hva Cecilie har bidratt med',
@@ -32,7 +32,7 @@ const authorRealText = [
     introduction: 'Er fagleder for bla bla..',
   },
   {
-    role: 'rolle',
+    role: 'Fotograf',
     name: 'Siv Mundal',
     urlContributions: '#',
     urlContributionsLabel: 'Se hva Siv har bidratt med',
@@ -45,7 +45,7 @@ const authorRealText = [
     introduction: 'Er fagleder for bla bla..',
   },
   {
-    role: 'rolle',
+    role: 'Fagansvarlig',
     name: 'Pål Frønsdal',
     urlContributions: '#',
     urlContributionsLabel: 'Se hva Pål har bidratt med',

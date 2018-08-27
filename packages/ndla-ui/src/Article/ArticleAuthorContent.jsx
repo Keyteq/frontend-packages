@@ -50,36 +50,40 @@ class ArticleAuthorContent extends Component {
       <div {...classes()}>
         <div {...classes('author-info')}>
           {image && (
-            <Portrait src={image} alt={name} {...classes('portrait')} />
+            <Portrait src={image} alt={name} />
           )}
           <section>
-            <h1 {...classes('heading')}>{name}</h1>
-            {title && <p>{`${title}${title ? ' / ' : ''}${role}`}</p>}
-            {phone && <p>{phone}</p>}
-            {email && <SafeLink to={`mailto:${email}`}>{email}</SafeLink>}
+            <h1>{name}</h1>
+            <hr />
+            <ul>
+              {title && <li>{`${title}${title ? ' / ' : ''}${role}`}</li>}
+              {phone && <li>{phone}</li>}
+              {email && <li><SafeLink to={`mailto:${email}`}>{email}</SafeLink></li>}
+            </ul>
             {introduction && <p {...classes('', 'ingress')}>{introduction}</p>}
+            <div {...classes('link-container')}>
+              {urlContributions && (
+                <SafeLink
+                  className="c-button c-button--outline"
+                  to={urlContributions}>
+                  {urlContributionsLabel}
+                </SafeLink>
+              )}
+              {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
+            </div>
           </section>
-        </div>
-        <div {...classes('author-link-container')}>
-          {urlContributions && (
-            <SafeLink
-              className="c-button c-button--outline"
-              to={urlContributions}>
-              {urlContributionsLabel}
-            </SafeLink>
-          )}
-          {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
         </div>
       </div>
     );
   }
 
   renderAuthorlist() {
+    const { authorLabel, authorDescription } = this.props.messages;
     return (
-      <div {...classes()}>
-        <h1 {...classes('heading')}>authorLabel</h1>
-        <p>authorDescription</p>
+      <div>
+        <h1>{authorLabel}</h1>
         <hr />
+        <p>{authorDescription}</p>
         <ul {...classes('ul-list')}>
           {this.props.authors.map((author, index) => (
             <li key={author.name}>

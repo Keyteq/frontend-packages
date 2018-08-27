@@ -130,6 +130,9 @@
     align-items: center;
     justify-content: flex-end;
     padding: $spacing;
+    &--no-bottom-padding {
+      padding-bottom: 0;
+    }
     + .c-modal__body {
       padding-top: 0;
     }
@@ -172,6 +175,12 @@
   }
   &__body {
     padding: $spacing $spacing $spacing--large $spacing;
+    h2 {
+      margin: $spacing--large 0 0;
+      + p {
+        margin-top: $spacing--small / 2;
+      }
+    }
     hr {
       position: static;
       border: 0;

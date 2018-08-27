@@ -35,7 +35,7 @@ const ArticleByline = ({
   const authorsLinkable =
     messages.authorLabel &&
     messages.authorDescription &&
-    !authors.some(author => !author.title || !author.role);
+    (authors.length > 1 || (authors[0].title && authors[0].role));
 
   return (
     <div {...classes()}>
@@ -47,10 +47,11 @@ const ArticleByline = ({
           <span {...classes('authors')}>
             {authorsLinkable ? (
               <Modal
-                activateButton={<Button link>{messages.authorLabel}</Button>}>
+                narrow
+                activateButton={<Button link>{authors.length > 1 ? messages.authorLabel : authors[0].name}</Button>}>
                 {onClose => (
                   <Fragment>
-                    <ModalHeader>
+                    <ModalHeader modifier="no-bottom-padding">
                       <ModalCloseButton onClick={onClose} title="Lukk" />
                     </ModalHeader>
                     <ModalBody>
@@ -95,7 +96,7 @@ const ArticleByline = ({
           <Modal activateButton={<Button link>{messages.useContent}</Button>} size="medium">
             {onClose => (
               <Fragment>
-                <ModalHeader>
+                <ModalHeader modifier="no-bottom-padding">
                   <ModalCloseButton onClick={onClose} title="Lukk" />
                 </ModalHeader>
                 <ModalBody>{licenseBox}</ModalBody>

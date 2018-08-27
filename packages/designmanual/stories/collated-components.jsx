@@ -39,6 +39,7 @@ import RelatedArticleListExample, {
 import FileListExample from './molecules/FileListExample';
 import TranslationBoxExample from './organisms/TranslationBoxExample';
 import ModalExample from './molecules/ModalExample';
+import { authorRealText } from './molecules/ArticleBylineExample';
 
 import Oops from '../images/oops.gif';
 
@@ -91,47 +92,7 @@ storiesOf('Sammensatte moduler', module)
       />
       <h2 className="u-heading">Linje med detaljert forfatter informasjon</h2>
       <ArticleByline
-        authors={[
-          {
-            role: 'rolle',
-            name: 'Cecilie Isaksen Eftedal',
-            urlContributions: '#',
-            urlContributionsLabel: 'Se hva Cecilie har bidratt med',
-            urlAuthor: '#',
-            urlAuthorLabel: 'Les mer om Cecilie',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'cecilie@ndla.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-          {
-            role: 'rolle',
-            name: 'Siv Mundal',
-            urlContributions: '#',
-            urlContributionsLabel: 'Se hva Siv har bidratt med',
-            urlAuthor: '#',
-            urlAuthorLabel: 'Les mer om Siv',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'siv.mundal@keyteq.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-          {
-            role: 'rolle',
-            name: 'Pål Frønsdal',
-            urlContributions: '#',
-            urlContributionsLabel: 'Se hva Pål har bidratt med',
-            urlAuthor: '#',
-            urlAuthorLabel: 'Les mer om Pål',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'paal.fronsdal@ndla.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-        ]}
+        authors={authorRealText}
         updated="21.06.2018"
         license="CC BY-SA"
         licenseBox={<LicenseBox />}
