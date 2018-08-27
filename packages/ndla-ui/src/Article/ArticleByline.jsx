@@ -48,7 +48,13 @@ const ArticleByline = ({
             {authorsLinkable ? (
               <Modal
                 narrow
-                activateButton={<Button link>{authors.length > 1 ? messages.authorLabel : authors[0].name}</Button>}>
+                activateButton={
+                  <Button link>
+                    {authors.length > 1
+                      ? messages.authorLabel
+                      : authors[0].name}
+                  </Button>
+                }>
                 {onClose => (
                   <Fragment>
                     <ModalHeader modifier="no-bottom-padding">
@@ -67,9 +73,7 @@ const ArticleByline = ({
               `${authors.map(author => author.name).join(', ')} `
             )}
           </span>
-          <span>
-            {` (${license})`}
-          </span>
+          <span>{` (${license})`}</span>
         </span>
       )}
       <span {...classes('flex')}>
@@ -93,7 +97,9 @@ const ArticleByline = ({
       )}
       {licenseBox && (
         <span {...classes('flex')}>
-          <Modal activateButton={<Button link>{messages.useContent}</Button>} size="medium">
+          <Modal
+            activateButton={<Button link>{messages.useContent}</Button>}
+            size="medium">
             {onClose => (
               <Fragment>
                 <ModalHeader modifier="no-bottom-padding">

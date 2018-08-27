@@ -389,7 +389,9 @@ class SearchPageExample extends Component {
                 <SearchFilter
                   label={filterOptions.subject.label}
                   noFilterSelectedLabel="Ingen filter valgt"
-                  options={filterOptions.subject.options.filter(option => allValues.subject.indexOf(option.value) !== -1)}
+                  options={filterOptions.subject.options.filter(
+                    option => allValues.subject.indexOf(option.value) !== -1,
+                  )}
                   onChange={values => {
                     onChange(values, 'subject');
                   }}

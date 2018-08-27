@@ -17,9 +17,7 @@ const FrontpageFilm = ({ messages, url, imageUrl }) => (
       {messages.text && <span>{messages.text}</span>}
     </div>
     <div className="o-text-link__wrapper o-text-link__wrapper--right">
-      <SafeLink
-        className="o-text-link"
-        to={url}>
+      <SafeLink className="o-text-link" to={url}>
         {messages.linkLabel}
         <Forward />
       </SafeLink>

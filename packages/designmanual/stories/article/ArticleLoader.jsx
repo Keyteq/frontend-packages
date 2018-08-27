@@ -121,9 +121,7 @@ class ArticleLoader extends Component {
                 close: 'Lukk',
                 label,
               }}
-              licenseBox={
-                <LicenseBox />
-              }
+              licenseBox={<LicenseBox />}
               competenceGoals={
                 <CompetenceGoalsDialogExample
                   headingId="article-competence-goals-heading-id"

@@ -93,7 +93,7 @@ const SubjectOverviewButton = ({ children, scrollUp }) => {
 SubjectOverviewButton.propTypes = {
   children: PropTypes.node.isRequired,
   scrollUp: PropTypes.bool.isRequired,
-}
+};
 
 class MastheadWithTopicMenu extends Component {
   constructor(props) {
@@ -196,7 +196,11 @@ class MastheadWithTopicMenu extends Component {
         hideOnNarrowScreen={this.props.hideOnNarrowScreen}
         infoContent={this.props.beta && this.props.betaInfoContent}>
         <MastheadItem left>
-          {this.state.renderToFrontpageButton && <SubjectOverviewButton scrollUp={this.state.scrollUp}>{messages.subjectOverview}</SubjectOverviewButton>}
+          {this.state.renderToFrontpageButton && (
+            <SubjectOverviewButton scrollUp={this.state.scrollUp}>
+              {messages.subjectOverview}
+            </SubjectOverviewButton>
+          )}
           <Modal
             size="fullscreen"
             activateButton={
@@ -211,7 +215,7 @@ class MastheadWithTopicMenu extends Component {
             onOpen={() => {
               this.setState({
                 renderToFrontpageButton: true,
-              })
+              });
             }}
             onClose={() => {
               this.setState({

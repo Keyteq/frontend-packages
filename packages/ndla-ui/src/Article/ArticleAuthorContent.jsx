@@ -49,18 +49,20 @@ class ArticleAuthorContent extends Component {
     return (
       <div {...classes()}>
         <div {...classes('author-info')}>
-          {image && (
-            <Portrait src={image} alt={name} />
-          )}
+          {image && <Portrait src={image} alt={name} />}
           <section>
             <h1>{name}</h1>
             <hr />
             <ul>
               {title && <li>{`${title}${title ? ' / ' : ''}${role}`}</li>}
               {phone && <li>{phone}</li>}
-              {email && <li><SafeLink to={`mailto:${email}`}>{email}</SafeLink></li>}
+              {email && (
+                <li>
+                  <SafeLink to={`mailto:${email}`}>{email}</SafeLink>
+                </li>
+              )}
             </ul>
-            {introduction && <p {...classes('', 'ingress')}>{introduction}</p>}
+            {introduction && <p>{introduction}</p>}
             <div {...classes('link-container')}>
               {urlContributions && (
                 <SafeLink
@@ -69,7 +71,9 @@ class ArticleAuthorContent extends Component {
                   {urlContributionsLabel}
                 </SafeLink>
               )}
-              {urlAuthor && <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>}
+              {urlAuthor && (
+                <SafeLink to={urlAuthor}>{urlAuthorLabel}</SafeLink>
+              )}
             </div>
           </section>
         </div>

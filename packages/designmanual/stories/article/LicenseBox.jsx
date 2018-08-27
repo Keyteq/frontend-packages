@@ -35,9 +35,7 @@ const bysaLicenseAbbreviation = 'by-sa';
 const VideoContent = () => (
   <div>
     <h2>Slik bruker du videoer fra artikkelen</h2>
-    <p>
-      Husk å kopier teksten som skal legges ved videoen der du bruker den.
-    </p>
+    <p>Husk å kopier teksten som skal legges ved videoen der du bruker den.</p>
     <MediaList>
       {[
         { id: 'video-1', title: 'Søvn og hvile' },
@@ -430,9 +428,7 @@ const Files = () => (
 
 export const LicenseBox = () => (
   <Fragment>
-    <h1>
-      Slik gjenbruker du innhold
-    </h1>
+    <h1>Slik gjenbruker du innhold</h1>
     <Tabs
       singleLine
       tabs={[

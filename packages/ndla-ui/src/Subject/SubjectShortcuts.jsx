@@ -73,9 +73,7 @@ class SubjectShortcuts extends Component {
             ))}
           </TransitionGroup>
         </nav>
-        <div className="o-text-link__wrapper">
-          {button}
-        </div>
+        <div className="o-text-link__wrapper">{button}</div>
       </section>
     );
   }

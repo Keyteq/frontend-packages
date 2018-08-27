@@ -55,9 +55,7 @@ class TopicIntroductionShortcuts extends Component {
             this.handleOnToggle(!open);
           }}>
           <Forward />
-          {showButtonText && (
-            <span>{messages.toggleButtonText}</span>
-          )}
+          {showButtonText && <span>{messages.toggleButtonText}</span>}
         </button>
       );
     }
@@ -67,7 +65,9 @@ class TopicIntroductionShortcuts extends Component {
         onMouseLeave={onMouseLeave}
         {...classes()}>
         {buttonView}
-        <ul id={id} className={classes('list', open ? 'visible' : '').className}>
+        <ul
+          id={id}
+          className={classes('list', open ? 'visible' : '').className}>
           {shortcuts.map(shortcut => (
             <li {...classes('item')} key={shortcut.id}>
               <ShortcutItem shortcut={shortcut} />
