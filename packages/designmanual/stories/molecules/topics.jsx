@@ -45,7 +45,6 @@ class Topics extends Component {
                 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
               ],
             }}
-            explainationIconLabelledBy="subject-header-id"
             title="Medieproduksjon"
             hasAdditionalResources={topicList.some(topic => topic.additional)}
             toggleAdditionalResources={this.toggleAdditionalCores}
@@ -55,7 +54,6 @@ class Topics extends Component {
         <TopicIntroductionList
           toTopic={() => '#'}
           topics={topicList}
-          subjectPage
           showAdditionalCores={showAdditionalCores}
           toggleAdditionalCores={this.toggleAdditionalCores}
           messages={{

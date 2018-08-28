@@ -48,6 +48,7 @@ class FilterListPhone extends Component {
   }
 
   componentWillUnmount() {
+    this.setScreenSizeDebounced.cancel();
     window.removeEventListener('resize', this.setScreenSizeDebounced);
   }
 

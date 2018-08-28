@@ -42,6 +42,11 @@
     }
   }
 
+  &--author-licenses {
+    @include font-size(14px, 20px);
+    color: $brand-grey-dark;
+  }
+
   ul {
     margin: $spacing--small 0;
     padding: 0;
@@ -65,7 +70,7 @@
   &__author-info {
     display: flex;
     margin-bottom: $spacing;
-    animation-name: fadeInLeft;
+    animation-name: fadeIn;
     animation-duration: 0.5s;
 
     > :nth-child(2) {

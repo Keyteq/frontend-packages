@@ -52,8 +52,7 @@ $search-field-wrapper-margin: $filter-width + $spacing--small;
       padding: 0;
       margin: 0;
       .c-search-field__button {
-        @include mq($until: desktop) {
-          top: 0px;
+        @include mq($from: tablet, $until: desktop) {
           right: 2px;
         }
       }

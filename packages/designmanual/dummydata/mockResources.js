@@ -230,5 +230,6 @@ export const assessmentResources = [
     id: 'urn:resource:116ce6b7-2abe-4977-9fa9-dce',
     name: 'Vurderingsressurs 2',
     title: 'Vurderingsressurs 2',
+    additional: true,
   },
 ];

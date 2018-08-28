@@ -135,6 +135,30 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    @include mq($until: mobileWide) {
+      background: #fff;
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+      width: 100%;
+      .c-filter__item {
+        display: flex;
+        position: static;
+        width: 100%;
+        height: $spacing--large;
+        align-items: center;
+        border-bottom: 1px solid $brand-grey--lighter;
+      }
+      label {
+        display: flex;
+        width: 100%;
+        justify-items: space-between;
+        flex-direction: row-reverse;
+        .c-filter__text {
+          flex-grow: 1;
+        }
+      }
+    }
   }
 
   &__item {
@@ -198,6 +222,7 @@
     }
 
     label {
+      cursor: pointer;
       display: flex;
       align-items: flex-start;
     }
@@ -211,8 +236,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     opacity: 0;
     z-index: 5;
     cursor: pointer;

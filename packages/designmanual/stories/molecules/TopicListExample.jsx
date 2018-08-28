@@ -50,7 +50,6 @@ class TopicListExample extends Component {
         <TopicIntroductionList
           toTopic={() => '#'}
           topics={this.filterTopics()}
-          subjectPage
           messages={{
             shortcutButtonText: 'Lærestoff',
           }}

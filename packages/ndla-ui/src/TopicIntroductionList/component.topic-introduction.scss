@@ -64,13 +64,12 @@
       color: $brand-color;
     }
 
-    &--subjectPage {
-      @include mq(tablet) {
-        padding-right: 0;
-      }
-      margin-top: $spacing;
-      margin-bottom: $spacing--small;
+    @include mq(tablet) {
+      padding-right: 0;
     }
+    margin-top: $spacing;
+    margin-bottom: $spacing--small;
+
     &--additional {
       display: none;
     }

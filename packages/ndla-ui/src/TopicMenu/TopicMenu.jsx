@@ -54,27 +54,20 @@ export default class TopicMenu extends Component {
     this.handleOnGoBack = this.handleOnGoBack.bind(this);
     this.setScreenSize = this.setScreenSize.bind(this);
     this.setScreenSizeDebounced = debounce(() => this.setScreenSize(false), 50);
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleScrollDebounced = debounce(() => this.handleScroll(), 50);
-    this.contentRef = React.createRef();
 
     this.state = {
       isNarrowScreen: false,
       competenceGoalsOpen: false,
-      scrollTop: 0,
     };
   }
 
   componentDidMount() {
     this.setScreenSize(true);
     window.addEventListener('resize', this.setScreenSizeDebounced);
-    this.contentRef.current.parentNode.addEventListener(
-      'scroll',
-      this.handleScrollDebounced,
-    );
   }
 
   componentWillUnmount() {
+    this.setScreenSizeDebounced.cancel();
     window.removeEventListener('resize', this.setScreenSizeDebounced);
   }
 
@@ -94,19 +87,6 @@ export default class TopicMenu extends Component {
 
   handleClick(event, topicId) {
     this.props.onNavigate(topicId, null);
-  }
-
-  handleScroll() {
-    this.setState(prevState => {
-      const scrollUp =
-        this.contentRef.current.parentNode.scrollTop > prevState.scrollTop;
-      if (scrollUp !== this.props.scrollUp) {
-        this.props.scrollingContent(scrollUp);
-      }
-      return {
-        scrollTop: this.contentRef.current.parentNode.scrollTop,
-      };
-    });
   }
 
   handleSubtopicExpand(subtopicId, index) {
@@ -208,11 +188,10 @@ export default class TopicMenu extends Component {
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
-    const sliderCounter =
-      (expandedTopic ? 1 : 0) +
-      (hasExpandedSubtopics ? 1 : 0) +
-      currentlyExpandedSubTopics.length -
-      1;
+    console.log(expandedTopicId);
+    const sliderCounter = !expandedTopicId ? 0 : expandedSubtopicsId.length + 1;
+
+    console.log('slideCounter', sliderCounter);
 
     const subTopicLinkListMessages = {
       backButton: messages.back,
@@ -226,7 +205,7 @@ export default class TopicMenu extends Component {
     };
 
     return (
-      <nav ref={this.contentRef}>
+      <nav>
         <ModalHeader modifier={['white', 'menu']}>
           <div {...classes('masthead-left')}>
             <button
@@ -415,11 +394,7 @@ export default class TopicMenu extends Component {
                   }
                   closeMenu={closeMenu}
                   topic={subTopic}
-                  backLabel={
-                    currentlyExpandedSubTopics[
-                      currentlyExpandedSubTopics.length - 1
-                    ].name
-                  }
+                  backLabel={index === 0 ? this.props.topics.find(topic => topic.id === this.props.expandedTopicId).name : currentlyExpandedSubTopics[index - 1].name}
                   messages={subTopicLinkListMessages}
                   toTopic={toTopic}
                   expandedSubtopicId={
@@ -485,6 +460,4 @@ TopicMenu.propTypes = {
   hideSearch: PropTypes.bool,
   competenceGoals: PropTypes.node,
   searchFieldComponent: PropTypes.node.isRequired,
-  scrollUp: PropTypes.bool.isRequired,
-  scrollingContent: PropTypes.func.isRequired,
 };

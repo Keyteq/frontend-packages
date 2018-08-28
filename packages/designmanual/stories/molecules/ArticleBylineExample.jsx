@@ -30,6 +30,7 @@ export const authorRealText = [
     email: 'cecilie@ndla.no',
     image: 'http://via.placeholder.com/200x200',
     introduction: 'Er fagleder for bla bla..',
+    licenses: 'CC BY-NC-SA',
   },
   {
     role: 'Fotograf',
@@ -43,6 +44,7 @@ export const authorRealText = [
     email: 'siv.mundal@keyteq.no',
     image: 'http://via.placeholder.com/200x200',
     introduction: 'Er fagleder for bla bla..',
+    licenses: 'CC BY-NC-SA',
   },
   {
     role: 'Fagansvarlig',
@@ -56,6 +58,7 @@ export const authorRealText = [
     email: 'paal.fronsdal@ndla.no',
     image: 'http://via.placeholder.com/200x200',
     introduction: 'Er fagleder for bla bla..',
+    licenses: 'CC BY-NC-SA',
   },
 ];
 

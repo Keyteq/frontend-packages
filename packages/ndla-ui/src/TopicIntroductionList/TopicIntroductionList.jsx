@@ -23,7 +23,6 @@ const topicClasses = new BEMHelper({
 const TopicIntroduction = ({
   toTopic,
   topic,
-  subjectPage,
   shortcuts,
   messages,
   shortcutAlwaysExpanded,
@@ -38,7 +37,6 @@ const TopicIntroduction = ({
   return (
     <li
       className={topicClasses('item', {
-        subjectPage,
         additional,
         showAdditionalCores,
       })}>
@@ -93,7 +91,6 @@ TopicIntroduction.propTypes = {
   }),
   topic: TopicShape.isRequired,
   toTopic: PropTypes.func.isRequired,
-  subjectPage: PropTypes.bool,
   shortcuts: PropTypes.arrayOf(ShortcutShape),
   twoColumns: PropTypes.bool,
   shortcutAlwaysExpanded: PropTypes.bool,

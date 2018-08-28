@@ -39,10 +39,14 @@ const FrontpageExample = () => (
         },
         {
           to: '#2',
-          text: 'Åpne digitale læremidler for videregående opplæring',
+          text: 'NDLA i sosiale medier',
         },
         {
           to: '#3',
+          text: 'Nyhetsbrev',
+        },
+        {
+          to: '#4',
           text: 'Change language',
         },
       ]}
@@ -102,7 +106,7 @@ const FrontpageExample = () => (
           />
           <InfoWidget
             heading="Følg oss"
-            description="Ndla har mange Facebook og Twitter kontoer. Finn den som passer for deg og følg oss!"
+            description="Ndla har mange facebook og twitter kontoer. Finn den som passer for deg og følg oss!"
             mainLink={{
               name: 'Følg oss',
               url: '#2',

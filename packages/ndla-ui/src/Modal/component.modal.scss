@@ -107,6 +107,9 @@
     &--gray {
       background: $brand-grey--lightest;
     }
+    &--gray-dark {
+      background: $brand-grey--lighter;
+    }
     &--blue {
       background: $brand-color--lighter;
     }
@@ -181,6 +184,12 @@
         margin-top: $spacing--small / 2;
       }
     }
+    ol {
+      padding: 0;
+      > li {
+        margin-left: $spacing--large + $spacing;
+      }
+    }
     hr {
       position: static;
       border: 0;
@@ -227,6 +236,16 @@
     &:not(.c-search-field__overlay-content) {
       .c-modal__animation-container {
         padding-top: 38px;
+      }
+    }
+  }
+
+  .c-modal__animation-container {
+    // 1. Animations
+    .c-modal__animation-container--zoom-in {
+      animation-name: FadeIn;
+      &.c-modal__animation-container--animateIn {
+        animation-name: FadeOut;
       }
     }
   }

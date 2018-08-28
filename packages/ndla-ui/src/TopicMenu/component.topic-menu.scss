@@ -619,9 +619,9 @@ $navigation-row-width: 980px / 3;
   background: none;
   @include font-size(14px, 20px);
   position: absolute;
-  left: 28px;
+  transform: translateX(28px);
   @include mq($until: mobileWide) {
-    left: $left-margin-narrow-screen;
+    transform: translateX($left-margin-narrow-screen);
   }
   top: $spacing;
 
@@ -660,7 +660,6 @@ $navigation-row-width: 980px / 3;
     opacity: 0;
     &--slide-0, &--slide-1, &--slide-2, &--slide-3, &--slide-4, &--slide-5, &--slide-6, &--slide-7, &--slide-8, &--slide-9, &--slide-10 {
       display: flex;
-      // animation-name: fadeIn;
     }
     @include mq(tablet) {
       &--slide-1, &--slide-2, &--slide-3, &--slide-4, &--slide-5, &--slide-6, &--slide-7, &--slide-8, &--slide-9, &--slide-10 {
@@ -757,9 +756,6 @@ $navigation-row-width: 980px / 3;
     position: fixed;
     bottom: 0;
     transition: bottom 300ms ease;
-    &--scrollUp {
-      bottom: -52px;
-    }
     left: 0;
     right: 0;
     z-index: 9500;

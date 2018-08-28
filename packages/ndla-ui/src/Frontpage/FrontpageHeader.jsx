@@ -49,7 +49,7 @@ const FrontpageHeader = ({
         <div {...classes('content')}>
           <Modal
             size="fullscreen"
-            backgroundColor="gray"
+            backgroundColor="gray-dark"
             activateButton={
               <Button className="c-frontpage-header__menu-button">Meny</Button>
             }>

@@ -16,7 +16,6 @@ import {
   ModalCloseButton,
   Button,
 } from 'ndla-ui';
-import Tabs from 'ndla-tabs';
 
 import { privacyTexts } from './privacyTexts';
 
@@ -38,6 +37,7 @@ export const FooterEditor = ({ title, name }) => (
 
 const FooterPrivacy = ({ lang }) => (
   <Modal
+    narrow
     activateButton={<Button link>{privacyTexts[lang].linkLabel}</Button>}
     size="medium">
     {onClose => (
@@ -45,17 +45,7 @@ const FooterPrivacy = ({ lang }) => (
         <ModalHeader>
           <ModalCloseButton onClick={onClose} title="Lukk" />
         </ModalHeader>
-        <ModalBody>
-          <div className="footer_privacy">
-            <h1 id="privacyId">{privacyTexts[lang].header}</h1>
-            <Tabs
-              tabs={privacyTexts[lang].tabs.map(tab => ({
-                title: tab.title,
-                content: tab.content,
-              }))}
-            />
-          </div>
-        </ModalBody>
+        <ModalBody>{privacyTexts[lang].content}</ModalBody>
       </Fragment>
     )}
   </Modal>

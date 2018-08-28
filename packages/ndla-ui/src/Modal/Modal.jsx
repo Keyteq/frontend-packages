@@ -55,6 +55,9 @@ const Portal = ({
             role="button"
             tabIndex={-1}
             onKeyDown={() => {}}
+            onTouchStart={e => e.preventDefault()}
+            onTouchMove={e => e.preventDefault()}
+            onTouchEnd={e => e.preventDefault()}
             onClick={closeOnBackdrop && closeModal}
             style={{ animationDuration: `${animationDuration}ms` }}
             {...classes('backdrop', { in: animateIn })}
@@ -226,7 +229,7 @@ Modal.propTypes = {
     'fullscreen',
     'full-width',
   ]),
-  backgroundColor: PropTypes.oneOf(['white', 'gray', 'blue']),
+  backgroundColor: PropTypes.oneOf(['white', 'gray', 'gray-dark', 'blue']),
   animationDuration: PropTypes.number,
   activateButton: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   wrapperFunctionForButton: PropTypes.func,

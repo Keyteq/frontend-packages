@@ -74,11 +74,11 @@
 
   &__content {
     display: flex;
-    padding: $spacing--medium $spacing--large $spacing--large;
+    padding: $spacing--medium $spacing $spacing--large;
     justify-content: space-between;
 
     @include mq(tablet) {
-      padding-top: $spacing--small;
+      padding: $spacing--medium $spacing--large $spacing--large;
       align-items: center;
     }
 

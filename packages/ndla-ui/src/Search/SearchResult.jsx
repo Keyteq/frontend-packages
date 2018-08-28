@@ -51,7 +51,7 @@ export const SearchResult = ({
         </ul>
       )}
     {!competenceGoalsOpen &&
-      competenceGoals !== null && (
+      currentCompetenceGoal !== null && (
         <p {...resultClasses('current-goal-info')}>
           {messages.openCompetenceGoalsButtonPrefix}{' '}
           <Button link onClick={onToggleCompetenceGoals}>

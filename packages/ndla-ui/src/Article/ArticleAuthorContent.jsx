@@ -91,18 +91,18 @@ class ArticleAuthorContent extends Component {
         <ul {...classes('ul-list')}>
           {this.props.authors.map((author, index) => (
             <li key={author.name}>
-              <span>{author.role}:</span>
+              {author.role && <span>{author.role}:</span>}
               <span>
-                <button
+                {author.introduction || author.email || author.phone || author.image || author.urlContributions || author.urlAuthor ? <button
                   type="button"
                   className="c-button--link"
                   onClick={() => {
                     this.onSelectAuthor(index);
                   }}>
                   {author.name}
-                </button>
+                </button> : author.name}
               </span>
-              {author.licenses && <span>{author.licenses}</span>}
+              {author.licenses && <span {...classes('', 'author-licenses')}>{author.licenses}</span>}
             </li>
           ))}
         </ul>

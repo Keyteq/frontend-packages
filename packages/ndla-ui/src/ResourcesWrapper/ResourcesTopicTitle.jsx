@@ -18,7 +18,6 @@ import ResourceToggleFilter from '../ResourceGroup/ResourceToggleFilter';
 
 const ResourcesTopicTitle = ({
   title,
-  explainationIconLabelledBy,
   hasAdditionalResources,
   toggleAdditionalResources,
   showAdditionalResources,
@@ -71,7 +70,7 @@ const ResourcesTopicTitle = ({
                     <ModalCloseButton title="Lukk" onClick={onClose} />
                   </ModalHeader>
                   <ModalBody>
-                    <h1 id={explainationIconLabelledBy}>
+                    <h1>
                       {messages.dialogHeading}
                     </h1>
                     <hr />
@@ -94,17 +93,6 @@ ResourcesTopicTitle.propTypes = {
   title: PropTypes.string, // Should be required
   toggleAdditionalResources: PropTypes.func.isRequired,
   hasAdditionalResources: PropTypes.bool.isRequired,
-  explainationIconLabelledBy: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'string' && props.hasAdditionalResources) {
-      console.warn(
-        `<${componentName} /> explainationIconLabelledBy prop must be a string if props[hasAdditionalResources] === true`,
-      );
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`,
-      );
-    }
-    return null;
-  },
   showAdditionalResources: PropTypes.bool.isRequired,
   messages: PropTypes.shape({
     label: PropTypes.string.isRequired,

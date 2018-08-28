@@ -19,8 +19,12 @@
   }
 
   &--extra-padding {
-    padding-left: $spacing--large;
-    padding-right: $spacing--large;
+    padding-left: $spacing;
+    padding-right: $spacing;
+    @include mq(tablet) {
+      padding-left: $spacing--large;
+      padding-right: $spacing--large;
+    }
   }
 
   &--inner {

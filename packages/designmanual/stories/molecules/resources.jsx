@@ -7,6 +7,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   ResourcesWrapper,
@@ -101,7 +102,6 @@ class Resources extends Component {
                 'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
               ],
             }}
-            explainationIconLabelledBy="learning-resources-info-header-id"
             id="learning-resources-id"
             title="Havbunnsløsninger"
             toggleAdditionalResources={this.toggleAdditionalResources}
@@ -113,7 +113,7 @@ class Resources extends Component {
           <ResourceGroup
             key={group.id}
             title={group.title}
-            resources={group.resources}
+            resources={this.props.onlyAdditional ? group.resources.filter(resource => resource.additional) : group.resources}
             showAdditionalResources={showAdditionalResources}
             toggleAdditionalResources={this.toggleAdditionalResources}
             contentType={group.contentType}
@@ -132,5 +132,9 @@ class Resources extends Component {
     );
   }
 }
+
+Resources.propTypes = {
+  onlyAdditional: PropTypes.bool,
+};
 
 export default Resources;
