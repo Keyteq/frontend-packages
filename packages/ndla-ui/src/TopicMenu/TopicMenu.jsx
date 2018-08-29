@@ -188,10 +188,7 @@ export default class TopicMenu extends Component {
     const disableHeaderNavigation =
       this.state.isNarrowScreen && competenceGoalsOpen;
 
-    console.log(expandedTopicId);
     const sliderCounter = !expandedTopicId ? 0 : expandedSubtopicsId.length + 1;
-
-    console.log('slideCounter', sliderCounter);
 
     const subTopicLinkListMessages = {
       backButton: messages.back,

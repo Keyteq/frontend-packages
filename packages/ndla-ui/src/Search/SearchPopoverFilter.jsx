@@ -36,7 +36,6 @@ class Popover extends Component {
 
     return (
       <Fragment>
-        <div className="o-backdrop" />
         <div
           className={classes('popover')}
           role="dialog"

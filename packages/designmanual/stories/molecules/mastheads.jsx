@@ -149,7 +149,7 @@ class MastheadWithTopicMenu extends Component {
     if (!this.props.hideSearchButton) {
       searchButtonView = (
         <Modal
-          backgroundColor="gray"
+          backgroundColor="grey"
           animation="slide-down"
           animationDuration={200}
           size="full-width"
@@ -187,6 +187,8 @@ class MastheadWithTopicMenu extends Component {
       );
     }
 
+    console.log('menu renders!!!');
+
     return (
       <Masthead
         fixed
@@ -207,7 +209,7 @@ class MastheadWithTopicMenu extends Component {
             }
             animation="subtle"
             animationDuration={150}
-            backgroundColor="gray"
+            backgroundColor="grey"
             noBackdrop
             onOpen={() => {
               this.setState({

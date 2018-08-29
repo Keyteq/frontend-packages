@@ -105,11 +105,11 @@ class FilterListPhone extends Component {
           <Modal
             size="fullscreen"
             animation="slide-up"
-            backgroundColor="white"
+            backgroundColor="grey"
             activateButton={<Button outline>Filter</Button>}>
             {onClose => (
               <Fragment>
-                <ModalHeader modifier={['gray', 'left-align']}>
+                <ModalHeader modifier={['grey-dark', 'left-align']}>
                   <ModalCloseButton
                     title={
                       <Fragment>
@@ -120,8 +120,8 @@ class FilterListPhone extends Component {
                   />
                 </ModalHeader>
                 <ModalBody>
-                  <h1>{label}</h1>
-                  <ul {...filterClasses('item-wrapper')}>
+                  <h1 {...filterClasses('label')}>{label}</h1>
+                  <ul {...filterClasses('item-wrapper', 'extended-padding')}>
                     {options.map(option => (
                       <li {...filterClasses('item')} key={option.value}>
                         <input

@@ -104,10 +104,10 @@
     &--white {
       background: #fff;
     }
-    &--gray {
+    &--grey {
       background: $brand-grey--lightest;
     }
-    &--gray-dark {
+    &--grey-dark {
       background: $brand-grey--lighter;
     }
     &--blue {
@@ -145,8 +145,14 @@
         padding-top: $spacing;
       }
     }
-    &--gray {
+    &--grey {
       background: $brand-grey--lightest;
+      + .c-modal__body {
+        padding-top: $spacing;
+      }
+    }
+    &--grey-dark {
+      background: $brand-grey--lighter;
       + .c-modal__body {
         padding-top: $spacing;
       }
@@ -178,6 +184,9 @@
   }
   &__body {
     padding: $spacing $spacing $spacing--large $spacing;
+    &--no-padding {
+      padding: 0 !important;
+    }
     h2 {
       margin: $spacing--large 0 0;
       + p {

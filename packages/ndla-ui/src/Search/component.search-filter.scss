@@ -1,5 +1,4 @@
 .c-search-filter {
-  background: $white;
   width: 100%;
   text-align: left;
 
@@ -9,9 +8,12 @@
     }
   }
 
+  margin: $spacing--small 0;
+
   @include mq(desktop) {
     border: none;
-    margin-bottom: $spacing--small;
+    background: $white;
+    margin: 0 0 $spacing--small;
   }
 
   &--context-filter {

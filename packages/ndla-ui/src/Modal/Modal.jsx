@@ -34,12 +34,16 @@ const Portal = ({
   closeModal,
   onAnimationEnd,
   className,
+  uuidData,
   narrow,
+  onScroll,
 }) => {
   const content = (
     <FocusTrapReact>
       <div className={`${classes('', { narrow }).className} ${className}`}>
         <div
+          onScroll={onScroll}
+          data-modal={uuidData}
           style={{ animationDuration: `${animationDuration}ms` }}
           onAnimationEnd={onAnimationEnd}
           {...classes('animation-container', {
@@ -80,13 +84,21 @@ export default class Modal extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
     this.onKeypressed = this.onKeypressed.bind(this);
+    this.onScroll = this.onScroll.bind(this);
     this.containerRef = React.createRef();
+    this.scrollPosition = null;
+    this.el = null;
     this.uuid = uuid();
+  }
+
+  componentDidUpdate() {
+    if (this.scrollPosition && this.el) {
+      this.el.scrollTop = this.scrollPosition;
+    }
   }
 
   componentWillUnmount() {
     if (this.state.isOpen) {
-      // remove noScroll!
       this.removedModal();
     }
   }
@@ -99,8 +111,11 @@ export default class Modal extends React.Component {
         },
         this.removedModal,
       );
-    } else if (this.props.onOpen && this.state.isOpen) {
-      this.props.onOpen();
+    } else if (this.state.animateIn && this.state.isOpen) {
+      this.el = document.body.querySelector(`[data-modal='${this.uuid}']`);
+      if (this.props.onOpen) {
+        this.props.onOpen();
+      }
     }
   }
 
@@ -108,6 +123,10 @@ export default class Modal extends React.Component {
     if (e.key === 'Escape' && uuidList[uuidList.length - 1] === this.uuid) {
       this.closeModal();
     }
+  }
+
+  onScroll(e) {
+    this.scrollPosition = e.target.scrollTop;
   }
 
   closeModal() {
@@ -133,6 +152,7 @@ export default class Modal extends React.Component {
   }
 
   removedModal() {
+    this.scrollPosition = 0;
     if (uuidList.indexOf(this.uuid) !== -1) {
       noScroll(false, this.uuid);
       uuidList.splice(uuidList.indexOf(this.uuid), 1);
@@ -205,7 +225,9 @@ export default class Modal extends React.Component {
               closeOnBackdrop={closeOnBackdrop}
               closeModal={this.closeModal}
               onAnimationEnd={this.onAnimationEnd}
+              onScroll={this.onScroll}
               className={className}
+              uuidData={this.uuid}
               narrow={narrow}>
               {children}
             </Portal>
@@ -229,7 +251,7 @@ Modal.propTypes = {
     'fullscreen',
     'full-width',
   ]),
-  backgroundColor: PropTypes.oneOf(['white', 'gray', 'gray-dark', 'blue']),
+  backgroundColor: PropTypes.oneOf(['white', 'grey', 'grey-dark', 'blue']),
   animationDuration: PropTypes.number,
   activateButton: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   wrapperFunctionForButton: PropTypes.func,

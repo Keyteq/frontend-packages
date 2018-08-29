@@ -54,7 +54,7 @@ class FilterList extends Component {
               {this.props.noFilterSelectedLabel}
             </span>
           )}
-        <ul {...filterClasses('item-wrapper')}>
+        <ul {...filterClasses('item-wrapper', 'extended-padding')}>
           {options.map((option, index) => {
             const itemModifiers = [];
 

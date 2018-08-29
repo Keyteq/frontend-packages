@@ -50,6 +50,11 @@
       flex-flow: row;
     }
 
+    .c-filter__label {
+      text-transform: uppercase;
+      @include font-size(12px, 16px);
+    }
+
     &--float-right {
       float: right;
       top: 0;
@@ -64,18 +69,20 @@
     &--search-popover {
       flex-flow: column;
 
-      .c-filter {
-        &__label {
-          display: block;
-          margin: 0 0 $spacing--small 0;
-          font-weight: 600;
-        }
-        &__item {
-          display: block;
-          margin: 0 0 $spacing--small;
+      @include mq(desktop) {
+        .c-filter {
+          &__label {
+            display: block;
+            margin: 0 0 $spacing--small 0;
+            font-weight: 600;
+          }
+          &__item {
+            display: block;
+            margin: 0 0 $spacing--small;
 
-          &--hidden {
-            display: none;
+            &--hidden {
+              display: none;
+            }
           }
         }
       }
@@ -105,7 +112,7 @@
     }
 
     &--search {
-      padding: $spacing;
+      padding: $spacing 0;
 
       @include mq(tablet) {
         padding: $spacing--small $spacing;
@@ -135,13 +142,33 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
     @include mq($until: mobileWide) {
-      background: #fff;
       display: flex;
       flex-flow: column;
       align-items: flex-start;
       width: 100%;
+      background: #fff;
+
+      &--extended-padding {
+        li:before {
+          content: "";
+          display: block;
+          width: 100%;
+          left: 0;
+          position: absolute;
+          z-index: -1;
+          height: $spacing--large;
+          background: #fff;
+          border-bottom: 1px solid $brand-grey--lighter;
+        }
+      }
+
+      .c-filter__item-wrapper {
+        background: #fff;
+      }
       .c-filter__item {
+        margin: 0;
         display: flex;
         position: static;
         width: 100%;
@@ -157,8 +184,12 @@
         .c-filter__text {
           flex-grow: 1;
         }
+        .c-filter__item-checkbox {
+          margin-right: 0;
+        }
       }
     }
+
   }
 
   &__item {
