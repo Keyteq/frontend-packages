@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectT } from 'ndla-i18n';
 import { ArticleByline } from 'ndla-ui';
 import LicenseBox from '../article/LicenseBox';
 
@@ -64,7 +65,7 @@ const authors = {
   real: authorRealText,
 };
 
-const ArticleBylineExample = ({ multipleAuthors, useRealText, additional }) => {
+const ArticleBylineExample = ({ multipleAuthors, useRealText, additional, t, }) => {
   const useAuthors = authors[useRealText ? 'real' : 'simple'];
   return (
     <ArticleByline
@@ -77,7 +78,7 @@ const ArticleBylineExample = ({ multipleAuthors, useRealText, additional }) => {
         authorLabel: 'Opphavsmenn',
         authorDescription: 'Denne artikkelen er laget av flere opphavsmenn',
         useContent: 'Bruk innhold',
-        closeLabel: 'Lukk',
+        closeLabel: t('modal.closeModal'),
       }}
       additional={additional}
     />
@@ -88,6 +89,7 @@ ArticleBylineExample.propTypes = {
   useRealText: PropTypes.bool,
   multipleAuthors: PropTypes.bool,
   additional: PropTypes.bool,
+  t: PropTypes.func.isRequired,
 };
 
 ArticleBylineExample.defaultProps = {
@@ -96,4 +98,4 @@ ArticleBylineExample.defaultProps = {
   additional: false,
 };
 
-export default ArticleBylineExample;
+export default injectT(ArticleBylineExample);
