@@ -40,6 +40,7 @@ import { LanguageSelector } from './LanguageWrapper';
 import FileListExample from './molecules/FileListExample';
 import TranslationBoxExample from './organisms/TranslationBoxExample';
 import ModalExample from './molecules/ModalExample';
+import ListViewExample from './organisms/ListViewExample';
 
 import Oops from '../images/oops.gif';
 
@@ -313,6 +314,14 @@ storiesOf('Sammensatte moduler', module)
           </article>
         </Center>
       </Content>
+    </PageContainer>
+  ))
+  .add('Listevisning', () => (
+    <PageContainer>
+      <StoryIntro title="Listevisning" />
+      <LayoutItem layout="center">
+        <ListViewExample />
+      </LayoutItem>
     </PageContainer>
   ))
   .add('Læringsressurser', () => (

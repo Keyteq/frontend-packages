@@ -7,11 +7,59 @@
  */
 
 import React, { Component } from 'react';
-import { Concept, OneColumn, LayoutItem, Image } from 'ndla-ui';
+import PropTypes from 'prop-types';
+import {
+  Concept,
+  ConceptDialogContent,
+  ConceptDialogText,
+  ConceptDialogImage,
+  OneColumn,
+  LayoutItem,
+  Image,
+} from 'ndla-ui';
+import Tabs from 'ndla-tabs';
 import { addShowConceptDefinitionClickListeners } from 'ndla-article-scripts';
 
 import FigureWithLicense from '../article/FigureWithLicense';
 import ArticleBylineExample from '../molecules/ArticleBylineExample';
+
+const ConceptContent = ({ content }) => (
+  <ConceptDialogContent>
+    {content.text ? (
+      <ConceptDialogText small>{content.text}</ConceptDialogText>
+    ) : null}
+    {content.image ? (
+      <ConceptDialogImage
+        src={content.image.url}
+        alt={content.image.altText}
+        small
+      />
+    ) : null}
+  </ConceptDialogContent>
+);
+
+ConceptContent.propTypes = {
+  content: PropTypes.shape(),
+};
+
+const ConceptDialog = ({ content }) => {
+  let contentElements = null;
+  if (content.tabs) {
+    const tabContent = content.tabs.map(tab => ({
+      title: tab.title,
+      content: <ConceptContent content={tab.content} />,
+    }));
+
+    contentElements = <Tabs tabs={tabContent} />;
+  } else {
+    contentElements = <ConceptContent content={content} />;
+  }
+  return <div>{contentElements}</div>;
+};
+
+ConceptDialog.propTypes = {
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.shape()]),
+};
 
 class ConceptExample extends Component {
   componentDidMount() {
@@ -19,6 +67,36 @@ class ConceptExample extends Component {
   }
 
   render() {
+    const socialisingContent = {
+      text:
+        'Sosialisering, betegnelse for de sosiale prosessene som fører til at individer tar opp i seg, eller internaliserer, samfunnets normer og atferdsmønstre med andre ord at de blir som de andre i samfunnet.',
+      image: '',
+    };
+    const sanctionContent = {
+      tabs: [
+        {
+          title: 'Begrep',
+          content: {
+            image: {
+              url:
+                'https://studieweb.no/wp-content/uploads/2014/08/sanksjon.jpg',
+              altText: '',
+            },
+            text:
+              'Sanksjon, en negativ eller positiv reaksjon på noens atferd. I dagligtalen er det vanlig å oppfatte sanksjoner først og fremst som negative reaksjoner rettet mot uønsket atferd eller avvik. Et eksempel er foreldrene som nekter ungen lørdagsgodteri (sanksjon) fordi han eller hun ikke spiser opp grønnsakene sine (uønsket atferd).',
+          },
+        },
+        {
+          title: 'Ordliste',
+          content: {
+            text: 'Ordliste goes here',
+          },
+        },
+      ],
+    };
+    const socialisingDialog = <ConceptDialog content={socialisingContent} />;
+    const sanctionDialog = <ConceptDialog content={sanctionContent} />;
+
     return (
       <OneColumn cssModifier="narrow">
         <article className="c-article c-article--clean">
@@ -38,7 +116,7 @@ class ConceptExample extends Component {
                   <i>
                     Gjennom{' '}
                     <Concept
-                      content="Sosialisering, betegnelse for de sosiale prosessene som fører til at individer tar opp i seg, eller internaliserer, samfunnets normer og atferdsmønstre med andre ord at de blir som de andre i samfunnet."
+                      content={socialisingDialog}
                       authors={['Gary Waters']}
                       source="snl.no"
                       title="Sosialisering"
@@ -84,13 +162,15 @@ class ConceptExample extends Component {
                   For å forsterke innlæringen av normer følges de opp av
                   reaksjoner eller sanksjoner.{' '}
                   <Concept
-                    content="Sanksjon, en negativ eller positiv reaksjon på noens atferd. I dagligtalen er det vanlig å oppfatte sanksjoner først og fremst som negative reaksjoner rettet mot uønsket atferd eller avvik. Et eksempel er foreldrene som nekter ungen lørdagsgodteri (sanksjon) fordi han eller hun ikke spiser opp grønnsakene sine (uønsket atferd)."
+                    content={sanctionDialog}
                     authors={[]}
                     title="sanksjon"
                     messages={{
                       ariaLabel: 'Vis begrep beskrivelse',
                       close: 'Lukk',
                     }}
+                    linkTo={{ href: '#', label: 'Les artikkel om Sanksjon' }}
+                    tags={['Test tag', 'Tag 2']}
                     license="by-nc-nd"
                     id={2}>
                     Sanksjonene

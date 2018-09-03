@@ -29,6 +29,7 @@ import {
 } from './mockSearch';
 
 import contentCards from './mockContentCards';
+import { mockListView } from './mockListView';
 
 export {
   topicMenu,
@@ -52,4 +53,5 @@ export {
   searchTabFilterOptions,
   searchFilterOptions,
   contentCards,
+  mockListView,
 };
