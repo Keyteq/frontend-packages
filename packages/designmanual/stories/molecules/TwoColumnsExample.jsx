@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { TopicIntroductionList, SubjectFilter } from 'ndla-ui';
-import { topicList } from '../../dummydata/index';
 
-class TopicListExample extends Component {
+class TwoColumnsExample extends Component {
   constructor(props) {
     super(props);
     this.state = { filterValues: [] };
@@ -15,11 +15,11 @@ class TopicListExample extends Component {
 
   filterTopics() {
     const { filterValues } = this.state;
-    if (filterValues.length === 0) return topicList;
+    if (filterValues.length === 0) return this.props.topicList;
     const topics = [];
-    const len = topicList.length;
+    const len = this.props.topicList.length;
     for (let i = 0; i < len; i += 1) {
-      const topic = topicList[i];
+      const topic = this.props.topicList[i];
       const filterlen = filterValues.length;
       for (let j = 0; j < filterlen; j += 1) {
         const filter = filterValues[j];
@@ -37,11 +37,7 @@ class TopicListExample extends Component {
       <section>
         <SubjectFilter
           label="Filter"
-          options={[
-            { title: 'VG1', value: 'VG1' },
-            { title: 'VG2', value: 'VG2' },
-            { title: 'VG3', value: 'VG3' },
-          ]}
+          options={this.props.subjectFilterOptions}
           values={filterValues}
           onChange={(newValues, value) => {
             this.onFilterChange(newValues, value, this);
@@ -60,4 +56,20 @@ class TopicListExample extends Component {
   }
 }
 
-export default TopicListExample;
+TwoColumnsExample.propTypes = {
+  subjectFilterOptions: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
+  topicList: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+
+TwoColumnsExample.defaultProps = {
+  subjectFilterOptions: [
+    { title: 'VG1', value: 'VG1' },
+    { title: 'VG2', value: 'VG2' },
+    { title: 'VG3', value: 'VG3' },
+  ],
+}
+
+export default TwoColumnsExample;

@@ -38,7 +38,8 @@ import { EmailOutline } from 'ndla-icons/common';
 import { breakpoints } from 'ndla-util';
 
 import exampleBackground from '../../images/banners/salg_service_sikkerhet.svg';
-import article, { contentCards } from '../../dummydata/index';
+import exampleBackgroundLanguages from '../../images/banners/kinesisk.svg';
+import article, { contentCards, topicList, topicListLanguages } from '../../dummydata/index';
 
 import TopicListExample from '../molecules/TopicListExample';
 import TwoColumnsExample from '../molecules/TwoColumnsExample';
@@ -284,7 +285,123 @@ export const SubjectWithTwoColumn = () => (
         <ResourcesWrapper
           subjectPage
           header={<ResourcesTitle>Emner</ResourcesTitle>}>
-          <TwoColumnsExample />
+          <TwoColumnsExample topicList={topicList} />
+        </ResourcesWrapper>
+        <SubjectChildContent>
+          <SubjectFlexWrapper>
+            <SubjectFlexChild>
+              <SubjectShortcuts
+                messages={{
+                  heading: 'Gå direkte til',
+                  showMore: 'Vis flere',
+                  showLess: 'Vis færre',
+                }}
+                links={[
+                  {
+                    url: '#1',
+                    text: 'Fagstoff',
+                  },
+                  {
+                    url: '#2',
+                    text: 'Oppgaver',
+                  },
+                  {
+                    url: '#3',
+                    text: 'Læringsstier',
+                  },
+                  {
+                    url: '#4',
+                    text: 'Film',
+                  },
+                  {
+                    url: '#5',
+                    text: 'Spill',
+                  },
+                  {
+                    url: '#6',
+                    text: 'Verktøy og mal',
+                  },
+                  {
+                    url: '#7',
+                    text: 'Kategori 7',
+                  },
+                  {
+                    url: '#8',
+                    text: 'Kategori 8',
+                  },
+                ]}
+              />
+            </SubjectFlexChild>
+            <SubjectFlexChild>
+              <SubjectLinks
+                heading="Mest lest"
+                links={[
+                  {
+                    url: '#1',
+                    text: 'Grafisk design',
+                  },
+                  {
+                    url: '#2',
+                    text: 'Nettsider',
+                  },
+                  {
+                    url: '#3',
+                    text: 'Prøv deg som journalist',
+                  },
+                  {
+                    url: '#4',
+                    text: 'Grenseløs journalistikk',
+                  },
+                ]}
+              />
+            </SubjectFlexChild>
+          </SubjectFlexWrapper>
+          <SubjectCarousel
+            narrowScreen
+            subjects={contentCards}
+            title="Litt forskjellig fra faget"
+          />
+        </SubjectChildContent>
+      </SubjectContent>
+    </OneColumn>
+    <OneColumn noPadding>
+      <SubjectChildContent>
+        <SubjectFlexWrapper>
+          <SubjectFlexChild>{subjectArchive()}</SubjectFlexChild>
+          <SubjectFlexChild>{subjectAbout()}</SubjectFlexChild>
+        </SubjectFlexWrapper>
+      </SubjectChildContent>
+    </OneColumn>
+    <SubjectCarousel
+      wideScreen
+      subjects={contentCards}
+      title="Litt forskjellig fra faget"
+      subjectPage
+    />
+    {secondaryContent}
+    <OneColumn noPadding>
+      <SubjectChildContent>{some}</SubjectChildContent>
+    </OneColumn>
+  </article>
+);
+
+export const SubjectWithTwoColumnLanguage = () => (
+  <article>
+    <SubjectHeader
+      heading="Kinesisk 1"
+      images={[
+        {
+          url: exampleBackgroundLanguages,
+          types: Object.keys(breakpoints),
+        },
+      ]}
+    />
+    <OneColumn noPadding>
+      <SubjectContent twoColumns breadcrumb={<Breadcrumb onlySubject />}>
+        <ResourcesWrapper
+          subjectPage
+          header={<ResourcesTitle>Emner</ResourcesTitle>}>
+          <TwoColumnsExample topicList={topicListLanguages} />
         </ResourcesWrapper>
         <SubjectChildContent>
           <SubjectFlexWrapper>

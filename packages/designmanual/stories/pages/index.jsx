@@ -27,7 +27,7 @@ import {
 import { StoryIntro, BannerList } from '../wrappers';
 
 import { MastheadWithTopicMenu } from '../molecules/mastheads';
-import Subject, { SubjectWithTwoColumn } from './Subject';
+import Subject, { SubjectWithTwoColumn, SubjectWithTwoColumnLanguage } from './Subject';
 
 import FooterExample from '../molecules/footers';
 import ArticleLoader from '../article/ArticleLoader';
@@ -293,7 +293,7 @@ storiesOf('Emnesider', module)
     <PageContainer>
       <Content>
         <MastheadWithTopicMenu />
-        <SubjectWithTwoColumn />
+        <SubjectWithTwoColumnLanguage />
       </Content>
       <FooterExample />
     </PageContainer>
