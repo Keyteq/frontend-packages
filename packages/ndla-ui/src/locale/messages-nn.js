@@ -282,6 +282,8 @@ const messages = {
       images: 'Bilde',
       audio: 'Lyd',
       video: 'Video',
+      files: 'Filer',
+      other: 'Anna innhald',
     },
     images: {
       heading: 'Slik bruker du bilder frå artikkelen',
