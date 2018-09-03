@@ -289,7 +289,16 @@ storiesOf('Emnesider', module)
       <FooterExample />
     </PageContainer>
   ))
-  .add('4. Hovedemne', () => (
+  .add('4. Fagforside språk', () => (
+    <PageContainer>
+      <Content>
+        <MastheadWithTopicMenu />
+        <SubjectWithTwoColumn />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('5. Hovedemne', () => (
     <PageContainer backgroundWide>
       <Content>
         <MastheadWithTopicMenu />
@@ -313,7 +322,7 @@ storiesOf('Emnesider', module)
       <FooterExample />
     </PageContainer>
   ))
-  .add('5. Underemne', () => (
+  .add('6. Underemne', () => (
     <PageContainer backgroundWide>
       <Content>
         <MastheadWithTopicMenu />
