@@ -233,7 +233,7 @@
   }
   &--narrow {
     .c-modal__header {
-      padding-bottom: 0;
+      // padding-bottom: 0;
       + .c-modal__body {
         padding-top: 0;
       }

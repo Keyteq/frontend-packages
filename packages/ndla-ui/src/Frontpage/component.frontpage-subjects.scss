@@ -104,12 +104,12 @@
     margin: $spacing--small / 2 0;
     display: inline-block;
     width: 100%;
-    a {
+    > a, > button {
       padding: $spacing--small / 2 0;
     }
 
     @include mq($until: tablet) {
-      a {
+      > a {
         padding-top: $spacing--small;
         padding-bottom: $spacing--small;
         display: flex;
@@ -217,4 +217,11 @@
       }
     }
   }
+}
+
+.c-frontpage-menuitem-extention {
+  position: absolute;
+  z-index: 99;
+  background: $brand-color--tertiary;
+  padding: $spacing;
 }

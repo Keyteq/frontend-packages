@@ -8,7 +8,7 @@
 
 export const subjectsFrontpageAlternative = {
   fellesfag: {
-    name: 'Fellesfag???',
+    name: 'Fellesfag',
     subjects: [
       {
         url: '#1',

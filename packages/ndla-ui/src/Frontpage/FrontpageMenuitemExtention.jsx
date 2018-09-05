@@ -8,7 +8,11 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { SafeLink } from 'ndla-ui';
+import BEMHelper from 'react-bem-helper';
+import { SafeLink, Button } from 'ndla-ui';
+
+const classesMainLink = BEMHelper('c-frontpage-subjects-section');
+const classesExtention = BEMHelper('c-frontpage-menuitem-extention');
 
 class FrontpageMenuitemExtention extends Component {
   constructor(props) {
@@ -28,10 +32,10 @@ class FrontpageMenuitemExtention extends Component {
   render() {
     return (
       <Fragment>
-        <button type="button" onClick={this.handleOpen}>
+        <Button stripped type="button" onClick={this.handleOpen} {...classesMainLink('link')}>
           {this.props.children}
-        </button>
-        {this.state.open && <div>
+        </Button>
+        {this.state.open && <div {...classesExtention()}>
           {this.props.subLinks.map(items => (
             <SafeLink key={items.name} to={items.url}>{items.name}</SafeLink>
           ))}
