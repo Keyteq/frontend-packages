@@ -104,6 +104,23 @@
         }
       }
     }
+
+    &--filter-single-checkbox {
+      @include mq($until: mobileWide) {
+        width: 100% !important;
+        margin: $spacing 0 0 0 !important;
+        padding: $spacing--small / 2 $left-margin-narrow-screen;
+        background: $brand-grey--lighter;
+        flex-direction: row;
+        .c-filter__item label {
+          padding-left: 0;
+          flex-direction: row;
+          .c-filter__item-checkbox {
+            margin-right: $spacing--small;
+          }
+        }
+      }
+    }
   }
 
   &__label {

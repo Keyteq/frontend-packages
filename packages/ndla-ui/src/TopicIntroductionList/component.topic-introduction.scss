@@ -23,20 +23,17 @@
     padding: 0;
 
     &--twoColumns {
-      @include mq(tablet) {
+      @include mq(850px) {
         display: flex;
         flex-wrap: wrap;
         border-bottom: none;
         margin-bottom: 0;
+        justify-content: space-between;
       }
 
       & > li {
-        flex-basis: 50%;
+        flex-basis: calc(50% - 26px);
         box-sizing: border-box;
-
-        @include mq(tablet) {
-          padding-right: $spacing;
-        }
       }
     }
   }

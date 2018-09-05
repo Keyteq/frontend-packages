@@ -307,20 +307,6 @@ $navigation-row-width: 980px / 3;
         padding-left: $left-margin-narrow-screen;
       }
     }
-    .c-filter__list {
-      width: 100% !important;
-      margin: $spacing 0 0 0 !important;
-      padding: $spacing--small / 2 $left-margin-narrow-screen;
-      background: $brand-grey--lighter;
-      flex-direction: row;
-      .c-filter__item label {
-        padding-left: 0;
-        flex-direction: row;
-        .c-filter__item-checkbox {
-          margin-right: $spacing--small;
-        }
-      }
-    }
     .c-content-type-result {
       padding-left: $left-margin-narrow-screen;
       padding-right: $left-margin-narrow-screen;

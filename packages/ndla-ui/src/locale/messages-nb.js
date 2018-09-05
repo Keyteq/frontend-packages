@@ -228,7 +228,7 @@ const messages = {
       'Det er ikke noe kjernestoff tilgjengelig.',
     noCoreResourcesAvailable: 'Det er ikke noe kjernestoff for {name}.',
     activateAdditionalResources: 'Vis tilleggsstoff',
-    toggleFilterLabel: 'Tilleggsressurser',
+    toggleFilterLabel: 'Vis tilleggsressurser',
     label: 'Læringsressurser',
     shortcutButtonText: 'Lærestoff',
     tooltipCoreTopic: 'Kjernestoff',
@@ -253,9 +253,11 @@ const messages = {
     additionalLabel: 'Tilleggsstoff',
     urlContributionsLabel: 'Se hva {name} har bidratt med',
     urlAuthorLabel: 'Les mer om {name}',
-    multipleAuthorsLabel: 'Opphavsmenn',
-    multipleAuthorsExplanation:
-      'Denne artikkelen er laget av flere opphavsmenn',
+    multipleAuthorsLabelAbbreviation: 'm. fl.',
+    multipleAuthorsLabel: 'Opphavere av artikkel:',
+    multipleAuthorsLabelAria: 'Opphavere av artikkelen er {names}',
+    multipleAuthorsLabelAriaConjunction: 'og',
+    singleAuthorsLabelAria: 'Opphaver av artikkelen er {name}',
   },
   competenceGoals: {
     closeCompetenceGoals: 'Lukk kompetansemål',

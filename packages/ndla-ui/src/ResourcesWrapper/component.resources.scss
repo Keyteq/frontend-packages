@@ -22,11 +22,26 @@
     border: 0;
     outline: 0;
     background: transparent;
+    // dual coloured icon..
+    #HelpCircleDual-background {
+      fill: $brand-color--tertiary;
+    }
+    #HelpCircleDual-symbol {
+      fill: $brand-color;
+    }
+    &:hover, &:focus {
+      #HelpCircleDual-background {
+        fill: $brand-color;
+      }
+      #HelpCircleDual-symbol {
+        fill: #fff;
+      }
+    }
   }
 
   &__title {
     display: block;
-    @include inuit-font-size(16px, 18px);
+    @include inuit-font-size(18px, 20px);
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -63,9 +78,26 @@
       .c-filter__list {
         width: auto;
       }
+      .c-filter__item {
+        margin-right: $spacing--small / 2;
+      }
       &:last-child {
         padding: $spacing--small / 2 0;
       }
+    }
+    @include mq($until: mobileWide) {
+      .c-filter__list--filter-single-checkbox {
+        margin-top: $spacing--small !important;
+      }
+      .c-filter__list + div {
+        display: none;
+      }
+      > div {
+        display: block;
+      }
+    }
+    @include mq($until: tablet) {
+      display: block;
     }
   }
 

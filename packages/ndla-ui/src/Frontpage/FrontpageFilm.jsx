@@ -10,7 +10,7 @@ const classes = BEMHelper('c-frontpage-film');
 
 const FrontpageFilm = ({ messages, url, imageUrl }) => (
   <section {...classes('')}>
-    <SectionHeading large className="c-frontpage-highlighted__heading">
+    <SectionHeading large>
       {messages.header}
     </SectionHeading>
     <div {...classes('image')} style={{ backgroundImage: `url(${imageUrl})` }}>

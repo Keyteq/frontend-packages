@@ -16,6 +16,11 @@
 
   &__link {
     color: $primary-color;
+    &:hover, &:focus {
+      .c-content-card__heading {
+        text-decoration: underline;
+      }
+    }
   }
 
   &__type {
@@ -41,7 +46,7 @@
     font-weight: $font-weight-semibold;
     @include font-size(12px);
     margin: 0;
-    color: $brand-color--dark;
+    color: $brand-color;
 
     @include mq(tablet) {
       margin: $spacing--small 0 0;
