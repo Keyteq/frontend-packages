@@ -153,14 +153,14 @@
 
   &__content {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 
     & > img {
       width: 75px;
-      height: 75px;
+      height: auto;
       flex-shrink: 0;
-      margin: 0 $spacing--small $spacing $spacing;
+      margin: $spacing--small $spacing--small $spacing--small $spacing;
 
       @include mq(desktop) {
         width: 80px;

@@ -124,6 +124,7 @@ export const CompetenceGoalsDialogExample = ({ narrow, wide }) => (
             {t('competenceGoals.showCompetenceGoals')}
           </Button>
         }
+        size="medium"
         narrow>
         {onClose => (
           <Fragment>

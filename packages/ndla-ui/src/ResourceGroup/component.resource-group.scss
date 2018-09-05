@@ -54,6 +54,9 @@
       @include mq(desktop) {
         min-height: 70px;
       }
+      &:visited {
+        color: #6c1873;
+      }
     }
     .c-topic-resource__icon {
       padding-right: $spacing--small;
@@ -83,7 +86,7 @@
     }
     .c-topic-resource__item--additional {
       background-color: $subject-material-additional;
-      border: 2px dashed $subject-material-light;
+      border: 1px dashed rgba($subject-material-dark, 0.4);
     }
   }
 
@@ -93,7 +96,7 @@
     }
     .c-topic-resource__item--additional {
       background-color: $tasks-and-activities-additional;
-      border: 2px dashed $tasks-and-activities-light;
+      border: 1px dashed rgba($tasks-and-activities-dark, 0.4);
     }
   }
 
@@ -103,7 +106,7 @@
     }
     .c-topic-resource__item--additional {
       background-color: $assessment-resource-additional;
-      border: 2px dashed $assessment-resource-light;
+      border: 1px dashed rgba($assessment-resource-dark, 0.4);
     }
   }
 
@@ -113,7 +116,7 @@
     }
     .c-topic-resource__item--additional {
       background-color: $learning-path-background-additional;
-      border: 2px dashed $learning-path-background-additional-border;
+      border: 1px dashed rgba($learning-path-dark, 0.4);
     }
   }
 }

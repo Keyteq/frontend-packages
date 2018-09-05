@@ -229,14 +229,9 @@
       display: none !important;
     }
 
-    &--disabled {
-      pointer-events: none;
-      > * {
-        opacity: 0.5;
-      }
-    }
-
     &--no-results {
+      cursor: not-allowed;
+      pointer-events: none;
       color: $brand-color--tertiary;
 
       .c-filter__item-checkbox {

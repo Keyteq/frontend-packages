@@ -70,13 +70,10 @@ class FilterList extends Component {
               itemModifiers.push('hidden');
             }
 
-            if (option.noResults) {
-              itemModifiers.push('no-results');
-            }
+            const disabled = option.noResults || option.hits === 0;
 
-            const disabled = option.hits === 0;
             if (disabled) {
-              itemModifiers.push('disabled');
+              itemModifiers.push('no-results');
             }
 
             return (
@@ -87,6 +84,7 @@ class FilterList extends Component {
                   id={option.value}
                   value={option.value}
                   disabled={disabled}
+                  tabIndex={disabled ? -1 : 0}
                   checked={checked}
                   onChange={event => {
                     let newValues = null;

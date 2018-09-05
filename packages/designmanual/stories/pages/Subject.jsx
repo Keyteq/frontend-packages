@@ -9,6 +9,7 @@
 /* eslint max-len: 0 */
 import React from 'react';
 
+import { Trans } from 'ndla-i18n';
 import {
   Image,
   OneColumn,
@@ -32,6 +33,7 @@ import {
   EmbeddedTwitter,
   EmbeddedFacebook,
   InfoWidget,
+  constants,
 } from 'ndla-ui';
 
 import { EmailOutline } from 'ndla-icons/common';
@@ -45,6 +47,8 @@ import TopicListExample from '../molecules/TopicListExample';
 import TwoColumnsExample from '../molecules/TwoColumnsExample';
 import TwoColumnsLanguageExample from '../molecules/TwoColumnsLanguageExample';
 import Breadcrumb from '../molecules/breadcrumbs';
+
+const { contentTypes } = constants;
 
 const subjectArchive = (fixedWidth = false) => (
   <SubjectArchive
@@ -108,52 +112,65 @@ const subjectAbout = (fixedWidth = false) => (
     description="Her kan det komme en tekstlig beskrivelse av hvordan faget er bygget opp eller hvilke særpreg dette faget har. Det kan også være i form av en film som introduserer faget"
   />
 );
-
+console.log(contentTypes.SUBJECT_MATERIAL);
 const secondaryContent = (
-  <SubjectSecondaryContent>
-    <OneColumn noPadding>
-      <SubjectChildContent>
-        <SubjectFlexWrapper>
-          <SubjectFlexChild>
-            <SubjectNewContent
-              heading="Nytt innhold"
-              content={[
-                {
-                  name: 'Radio- og tvstruktur',
-                  url: '#1',
-                  topicName: 'Mediene i samfunnet',
-                  formattedDate: '10.02.2018',
-                },
-                {
-                  name: 'Hva er makt?',
-                  url: '#2',
-                  topicName: 'Mediene i samfunnet',
-                  formattedDate: '24.01.2018',
-                },
-              ]}
-            />
-          </SubjectFlexChild>
-          <SubjectFlexChild>
-            <InfoWidget
-              center
-              heading="Nyhetsbrev"
-              description="Hold deg oppdatert. Abonnér på siste nytt fra NDLA."
-              mainLink={{
-                name: 'Meld deg på',
-                url: '#1',
-              }}
-              iconLinks={[
-                {
-                  icon: <EmailOutline />,
-                  name: 'Meld deg på nyhetsbrev',
-                },
-              ]}
-            />
-          </SubjectFlexChild>
-        </SubjectFlexWrapper>
-      </SubjectChildContent>
-    </OneColumn>
-  </SubjectSecondaryContent>
+  <Trans>
+    {({ t }) => (
+      <SubjectSecondaryContent>
+        <OneColumn noPadding>
+          <SubjectChildContent>
+            <SubjectFlexWrapper>
+              <SubjectFlexChild>
+                <SubjectNewContent
+                  heading={t('subjectPage.newContent.heading')}
+                  content={[
+                    {
+                      name: 'Hvordan finne svar på det du lurer på?',
+                      url: '#1',
+                      topicName: ['Mediene i samfunnet', 'Kildebruk, opphavsrett og personvern'],
+                      formattedDate: '10.02.2018',
+                      contentType: contentTypes.SUBJECT_MATERIAL,
+                    },
+                    {
+                      name: 'Hva koster det å nå bærekraftmålene?',
+                      url: '#2',
+                      topicName: ['Mediene i samfunnet', 'Mediestruktur i Norge'],
+                      formattedDate: '24.01.2018',
+                      contentType: contentTypes.SUBJECT_MATERIAL,
+                    },
+                    {
+                      name: 'Hva koster det å nå bærekraftmålene?',
+                      url: '#3',
+                      topicName: ['Mediene i samfunnet', 'Mediebruk'],
+                      formattedDate: '24.01.2018',
+                      contentType: contentTypes.SUBJECT_MATERIAL,
+                    },
+                  ]}
+                />
+              </SubjectFlexChild>
+              <SubjectFlexChild>
+                <InfoWidget
+                  center
+                  heading={t('newsLetter.heading')}
+                  description={t('newsLetter.description')}
+                  mainLink={{
+                    name: t('newsLetter.mainLinkName'),
+                    url: '#1',
+                  }}
+                  iconLinks={[
+                    {
+                      icon: <EmailOutline />,
+                      name: t('newsLetter.iconLinkName'),
+                    },
+                  ]}
+                />
+              </SubjectFlexChild>
+            </SubjectFlexWrapper>
+          </SubjectChildContent>
+        </OneColumn>
+      </SubjectSecondaryContent>
+    )}
+  </Trans>
 );
 
 const some = (

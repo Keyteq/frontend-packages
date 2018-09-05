@@ -193,7 +193,7 @@ class FilterListPhone extends Component {
             }
 
             return (
-              <li {...filterClasses('item', itemModifiers)} key={option.value}>
+              <li {...filterClasses('item', itemModifiers)} tabIndex={option.noResults ? -1 : 0} key={option.value}>
                 <input
                   {...filterClasses('input')}
                   type="checkbox"

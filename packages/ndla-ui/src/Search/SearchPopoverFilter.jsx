@@ -96,7 +96,6 @@ const PopoverFilter = ({ messages, values, onChange, ...rest }) => {
     <Modal
       animation="slide-up"
       size="medium"
-      backgroundColor="grey"
       activateButton={buttonContent}>
       {onClose => (
         <Fragment>

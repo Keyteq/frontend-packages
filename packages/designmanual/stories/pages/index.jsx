@@ -271,6 +271,14 @@ storiesOf('Emnesider', module)
       <FooterExample />
     </PageContainer>
   ))
+  .add('1. Fagoversikt alt', () => (
+    <PageContainer background>
+      <Content>
+        <Frontpage />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
   .add('2. Fag', () => (
     <PageContainer>
       <Content>

@@ -123,7 +123,7 @@ const messages = {
       label: 'Filter',
     },
     newContent: {
-      heading: 'Nytt innhold',
+      heading: 'Har du fått med deg?',
     },
   },
   subjectsPage: {

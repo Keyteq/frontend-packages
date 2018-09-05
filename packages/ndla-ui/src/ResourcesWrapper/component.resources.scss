@@ -24,10 +24,10 @@
     background: transparent;
     // dual coloured icon..
     #HelpCircleDual-background {
-      fill: $brand-color--tertiary;
+      fill: $brand-color--light;
     }
     #HelpCircleDual-symbol {
-      fill: $brand-color;
+      fill: $brand-color--dark;
     }
     &:hover, &:focus {
       #HelpCircleDual-background {
