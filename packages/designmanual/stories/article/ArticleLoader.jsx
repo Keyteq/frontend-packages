@@ -43,6 +43,7 @@ const ResourcesSubTopics = ({ showAdditionalCores, toggleAdditionalCores }) => (
     <TopicIntroductionList
       toTopic={() => '#'}
       topics={topicList}
+      toggleAdditionalCores={() => {}}
       messages={{
         shortcutButtonText: 'Lærestoff',
       }}

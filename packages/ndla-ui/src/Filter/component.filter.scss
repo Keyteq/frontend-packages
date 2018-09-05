@@ -146,55 +146,59 @@
     padding: 0;
     list-style: none;
 
-    @include mq($until: mobileWide) {
-      width: 100%;
-      flex-flow: column;
-      .c-filter__item {
+    &--collapse-mobile {
+      @include mq($until: mobileWide) {
         width: 100%;
-      }
-    }
-    @include mq($from: mobileWide, $until: tabletWide) {
-      flex-flow: wrap;
-      width: calc(100% + 24px);
-      margin-left: -24px;
-      .c-filter__item {
-        width: auto;
-        max-width: 50%;
-        flex: 50%;
-        padding-left: $spacing--small;
-        padding-right: $spacing--small;
-        transform: translateX($spacing--small);
-        &:nth-child(odd) {
-          transform: translateX($spacing--small - 2);
+        flex-flow: column;
+        .c-filter__item {
+          width: 100%;
         }
       }
-    }
-    @include mq($until: tabletWide) {
-      display: flex;
-      align-items: flex-start;
+      @include mq($from: mobileWide, $until: tabletWide) {
+        flex-flow: wrap;
+        width: calc(100% + 24px);
+        margin-left: -24px;
+        .c-filter__item {
+          width: auto;
+          max-width: 50%;
+          flex: 50%;
+          padding-left: $spacing--small;
+          padding-right: $spacing--small;
+          transform: translateX($spacing--small);
+          &:nth-child(odd) {
+            transform: translateX($spacing--small - 2);
+          }
+        }
+      }
 
-      .c-filter__item {
-        background: #fff;
-        margin: 0;
+
+      @include mq($until: tabletWide) {
         display: flex;
-        position: static;
-        min-height: 52px;
-        align-items: center;
-        border-bottom: 1px solid $brand-grey--lighter;
-      }
-      .c-filter__label {
-        text-transform: uppercase;
-        @include font-size(12px, 16px);
-      }
-      .c-filter__input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        opacity: 0;
-        z-index: 5;
-        cursor: pointer;
+        align-items: flex-start;
+
+        .c-filter__item {
+          background: #fff;
+          margin: 0;
+          display: flex;
+          position: static;
+          min-height: 52px;
+          align-items: center;
+          border-bottom: 1px solid $brand-grey--lighter;
+        }
+        .c-filter__label {
+          text-transform: uppercase;
+          @include font-size(12px, 16px);
+        }
+        .c-filter__input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 0;
+          opacity: 0;
+          z-index: 5;
+          cursor: pointer;
+        }
       }
     }
     &--aligned-grouping {

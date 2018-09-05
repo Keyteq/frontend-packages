@@ -36,6 +36,7 @@ class FilterList extends Component {
       showLabel,
       hideLabel,
       alignedGroup,
+      collapseMobile,
     } = this.props;
 
     const showAll =
@@ -58,6 +59,7 @@ class FilterList extends Component {
         <ul
           {...filterClasses('item-wrapper', {
             'aligned-grouping': alignedGroup,
+            'collapse-mobile': collapseMobile,
           })}>
           {options.map((option, index) => {
             const itemModifiers = [];
@@ -174,6 +176,7 @@ FilterList.propTypes = {
   noFilterSelectedLabel: PropTypes.string,
   hideLabel: PropTypes.string,
   alignedGroup: PropTypes.bool,
+  collapseMobile: PropTypes.bool,
 };
 
 FilterList.defaultProps = {

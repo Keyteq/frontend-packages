@@ -704,7 +704,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200011',
     name: 'Leksjon 9: På kjøpesenteret',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -747,7 +747,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200012',
     name: 'Leksjon 10: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -790,7 +790,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200013',
     name: 'Leksjon 11: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -833,7 +833,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200014',
     name: 'Leksjon 12: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -876,7 +876,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200015',
     name: 'Leksjon 11: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -919,7 +919,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200016',
     name: 'Leksjon 13: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -962,7 +962,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200017',
     name: 'Leksjon 11: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -1005,7 +1005,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200018',
     name: 'Leksjon 14: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -1048,7 +1048,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200019',
     name: 'Leksjon 11: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -1091,7 +1091,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200020',
     name: 'Leksjon 15: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -1134,7 +1134,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200021',
     name: 'Leksjon 11: Lorem ipsum',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',
@@ -1177,7 +1177,7 @@ export const topicListChinese = [
     ],
   },
   {
-    id: 'urn:topic:1:200010',
+    id: 'urn:topic:1:200022',
     name: 'Kinesisk film',
     contentUri: 'urn:article:2513',
     parent: 'urn:subject:100',

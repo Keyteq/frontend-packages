@@ -77,6 +77,7 @@ class FilterListPhone extends Component {
       hideLabel,
       messages,
       alignedGroup,
+      collapseMobile,
     } = this.props;
 
     const showAll =
@@ -123,6 +124,7 @@ class FilterListPhone extends Component {
                   <ul
                     {...filterClasses('item-wrapper', {
                       'aligned-grouping': alignedGroup,
+                      'collapse-mobile': collapseMobile,
                     })}>
                     {options.map(option => (
                       <li {...filterClasses('item')} key={option.value}>
@@ -282,6 +284,7 @@ FilterListPhone.propTypes = {
   hideLabel: PropTypes.string,
   onToggle: PropTypes.func,
   alignedGroup: PropTypes.bool,
+  collapseMobile: PropTypes.bool,
   messages: PropTypes.shape({
     useFilter: PropTypes.string.isRequired,
     openFilter: PropTypes.string.isRequired,
@@ -295,6 +298,7 @@ FilterListPhone.defaultProps = {
   defaultVisibleCount: null,
   onToggle: null,
   alignedGroup: false,
+  collapseMobile: true,
 };
 
 export default FilterListPhone;
