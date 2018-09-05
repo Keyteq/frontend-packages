@@ -52,7 +52,7 @@ const ResourcesTopicTitle = ({
             wrapperFunctionForButton={activateButton => (
               <Tooltip tooltip={t('resource.dialogTooltip')}>{activateButton}</Tooltip>
             )}
-            activateButton={<HelpIcon />}>
+            activateButton={<button className="c-button c-button--stripped" type="button"><HelpIcon /></button>}>
             {onClose => (
             <Fragment>
               <ModalHeader>

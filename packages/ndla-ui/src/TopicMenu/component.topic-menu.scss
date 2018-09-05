@@ -85,7 +85,7 @@ $navigation-row-width: 980px / 3;
   position: relative;
   display: flex;
   flex-flow: column;
-  padding: $masthead-height 0 0 0;
+  padding: 0;
   min-height: 100%;
   &--fill-page {
     min-height: calc(100vh - 77px);
@@ -283,6 +283,7 @@ $navigation-row-width: 980px / 3;
 
   @include mq($until: tabletWide) {
     margin-top: 0;
+    margin-bottom: 0;
     padding-left: $spacing;
   }
 
