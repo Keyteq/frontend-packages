@@ -274,7 +274,7 @@ storiesOf('Emnesider', module)
   .add('1. Fagoversikt alt', () => (
     <PageContainer background>
       <Content>
-        <Frontpage />
+        <Frontpage alternative />
       </Content>
       <FooterExample />
     </PageContainer>

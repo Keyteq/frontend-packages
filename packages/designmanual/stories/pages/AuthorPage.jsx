@@ -16,6 +16,8 @@ import {
   Button,
 } from 'ndla-ui';
 
+import cecilie from '../../images/cecilie.png';
+
 export default () => (
   <OneColumn>
     <ArticleWrapper>
@@ -23,7 +25,7 @@ export default () => (
         <AuthorInfo
           authorName="Cecilie Isaksen Eftedal"
           authorRole="Stilling / rolle"
-          image="https://placehold.it/300x300"
+          image={cecilie}
           email="cecilie@ndla.no"
           phone="+47 123 45 678"
         />

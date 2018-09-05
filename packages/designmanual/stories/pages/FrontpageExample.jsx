@@ -17,10 +17,10 @@ import { breakpoints } from 'ndla-util';
 
 import { EmailOutline, Facebook, Twitter } from 'ndla-icons/common';
 
-import { contentCards, subjectsFrontpage } from '../../dummydata/index';
+import { contentCards, subjectsFrontpage, subjectsFrontpageAlternative } from '../../dummydata/index';
 import NdlaFilmIllustration from '../../images/film_illustrasjon.png';
 
-const FrontpageExample = ({ t }) => (
+const FrontpageExample = ({ t, alternative }) => (
   <Fragment>
     <FrontpageHeader
       heading="Nasjonal digital læringsarena"
@@ -29,7 +29,7 @@ const FrontpageExample = ({ t }) => (
       onSearchFieldChange={() => {}}
       onSearch={() => {}}
       searchFieldPlaceholder={t('welcomePage.heading.searchFieldPlaceholder')}
-      menuSubject={<FrontpageSubjects subjects={subjectsFrontpage} />}
+      menuSubject={<FrontpageSubjects subjects={alternative ? subjectsFrontpageAlternative : subjectsFrontpage} />}
       messages={{
         searchFieldTitle: t('welcomePage.heading.messages.searchFieldTitle'),
         menuButton: t('welcomePage.heading.messages.menuButton'),
@@ -54,7 +54,7 @@ const FrontpageExample = ({ t }) => (
       ]}
     />
     <main>
-      <FrontpageSubjects subjects={subjectsFrontpage} />
+      <FrontpageSubjects subjects={alternative ? subjectsFrontpageAlternative : subjectsFrontpage} />
       <OneColumn wide extraPadding>
         <FrontpageSearchSection
           heading={t('welcomePage.heading.messages.searchFieldTitle')}
@@ -141,6 +141,7 @@ const FrontpageExample = ({ t }) => (
 
 FrontpageExample.propTypes = {
   t: PropTypes.func.isRequired,
+  alternative: PropTypes.bool,
 };
 
 export default injectT(FrontpageExample);

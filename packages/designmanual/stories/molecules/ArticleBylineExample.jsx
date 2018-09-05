@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { ArticleByline } from 'ndla-ui';
 import LicenseBox from '../article/LicenseBox';
 
+import cecilie from '../../images/cecilie.png';
+
 export const authorSimple = {
   role: '[Rolle]',
   name: 'Ola nordmann',
@@ -12,7 +14,7 @@ export const authorSimple = {
   title: '[Tittel]',
   phone: '[Telefon nr]',
   email: '[Epost]',
-  image: 'http://via.placeholder.com/200x200',
+  image: cecilie,
   introduction: '[Introduksjonstekst]',
 };
 
@@ -26,7 +28,7 @@ export const authorRealText = [
     title: 'Stilling',
     phone: '+47 123 45 678',
     email: 'cecilie@ndla.no',
-    image: 'http://via.placeholder.com/200x200',
+    image: cecilie,
     introduction: 'Er fagleder for bla bla..',
     licenses: 'CC BY-NC-SA',
   },
@@ -39,7 +41,7 @@ export const authorRealText = [
     title: 'Stilling',
     phone: '+47 123 45 678',
     email: 'siv.mundal@keyteq.no',
-    image: 'http://via.placeholder.com/200x200',
+    image: cecilie,
     introduction: 'Er fagleder for bla bla..',
     licenses: 'CC BY-NC-SA',
   },
@@ -52,7 +54,7 @@ export const authorRealText = [
     title: 'Stilling',
     phone: '+47 123 45 678',
     email: 'paal.fronsdal@ndla.no',
-    image: 'http://via.placeholder.com/200x200',
+    image: cecilie,
     introduction: 'Er fagleder for bla bla..',
     licenses: 'CC BY-NC-SA',
   },

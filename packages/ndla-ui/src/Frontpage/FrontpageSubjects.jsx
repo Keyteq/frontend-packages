@@ -3,6 +3,7 @@ import BEMHelper from 'react-bem-helper';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
 
+import { FrontpageMenuitemExtention } from 'ndla-ui';
 import { OneColumn } from '../Layout';
 import SafeLink from '../common/SafeLink';
 
@@ -19,6 +20,11 @@ export const FrontpageSubjectsSection = ({
   const getItems = (disable = false) =>
     subjects.map(subject => (
       <li key={subject.url} {...sectionClasses('item')}>
+        {subject.subLinks ?
+        <FrontpageMenuitemExtention subLinks={subject.subLinks}>
+          <span {...sectionClasses('text')}>{subject.text}</span>
+          <span {...sectionClasses('year-info')}>{subject.yearInfo}</span>
+        </FrontpageMenuitemExtention> :
         <SafeLink
           tabIndex={disable ? '-1' : null}
           to={subject.url}
@@ -26,7 +32,7 @@ export const FrontpageSubjectsSection = ({
           aria-label={`${subject.text} ${subject.yearInfo}`}>
           <span {...sectionClasses('text')}>{subject.text}</span>
           <span {...sectionClasses('year-info')}>{subject.yearInfo}</span>
-        </SafeLink>
+        </SafeLink>}
       </li>
     ));
 

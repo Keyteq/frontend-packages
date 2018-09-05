@@ -11,6 +11,9 @@ import {
   subjectsFrontpage,
 } from './mockSubjects';
 import {
+  subjectsFrontpageAlternative,
+} from './mockSubjectsFrontpageAlternative';
+import {
   firstBrightcoveList,
   secondBrightcoveList,
   brightCoveMockVideo,
@@ -37,6 +40,7 @@ export {
   subjectList,
   subjectConcepts,
   subjectsFrontpage,
+  subjectsFrontpageAlternative,
   learningPathResources,
   articleResources,
   exerciseResources,
