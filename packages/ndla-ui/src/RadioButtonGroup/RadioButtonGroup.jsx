@@ -9,6 +9,7 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
+import { uuid } from 'ndla-util';
 
 const classes = BEMHelper('c-radio-button-group');
 
@@ -19,13 +20,14 @@ class RadioButtonGroup extends Component {
       selected: props.selected || props.options[0].value,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.uuid = this.props.uniqeIds && uuid();
   }
 
   handleOnChange(e) {
     this.setState({
       selected: e.target.value,
     });
-    this.props.onChange(e);
+    this.props.onChange(e.target.value);
   }
 
   render() {
@@ -33,8 +35,9 @@ class RadioButtonGroup extends Component {
       <section>
         <div role="radiogroup" {...classes('wrapper')}>
           {this.props.label && <h1 {...classes('label-heading')}>{this.props.label}</h1>}
-          {this.props.options.map(option => (
-            <Fragment>
+          {this.props.options.map((option) => {
+            const id = this.uuid ? `${this.uuid}_${option.value}` : option.value;
+            return (<Fragment key={option.value}>
               <input
                 {...classes('input')}
                 disabled={option.disabled}
@@ -42,15 +45,15 @@ class RadioButtonGroup extends Component {
                 checked={this.state.selected === option.value}
                 type="radio"
                 value={option.value}
-                id={option.value}
-                name={option.title}
+                id={id}
+                name={id}
                 onChange={this.handleOnChange}
               />
-              <label htmlFor={option.value} {...classes('label')}>
+              <label htmlFor={id} {...classes('label')}>
                 {option.title}
               </label>
-            </Fragment>
-          ))}
+            </Fragment>);
+          })}
         </div>
       </section>
     )
@@ -65,6 +68,7 @@ RadioButtonGroup.propTypes = {
     disabled: PropTypes.bool,
   })).isRequired,
   label: PropTypes.string,
+  uniqeIds: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };
 

@@ -27,8 +27,8 @@ const LanguageSelector = () => (
             label="Velg språk:"
             options={LANGUAGES}
             selected={context.lang}
-            onChange={e => {
-              context.changeLanguage(e.target.value);
+            onChange={value => {
+              context.changeLanguage(value);
             }}
           />
         </div>
