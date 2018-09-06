@@ -1,9 +1,10 @@
 /* eslint-disable no-alert */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { BY, SA, NC, ND, PD, CC0, COPYRIGHTED } from 'ndla-licenses';
+import { Trans } from 'ndla-i18n';
 import {
   ErrorMessage,
   FilterList,
@@ -19,6 +20,11 @@ import {
   TranslationLine,
   ArticleByline,
   RadioButtonGroup,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
 } from 'ndla-ui';
 
 import { StoryIntro, StoryBody } from './wrappers';
@@ -412,16 +418,33 @@ storiesOf('Sammensatte moduler', module)
   ))
   .add('Lisensboks', () => (
     <PageContainer>
-      <Content>
-        <Center>
-          <h2 className="u-heading">Lisensboks</h2>
-          <article className="article">
-            <LayoutItem layout="center">
-              <LicenseBox headingId="licenseBox-headingId" />
-            </LayoutItem>
-          </article>
-        </Center>
-      </Content>
+      <StoryIntro title="Lisensboks">
+        <p>
+          Skal åpnes i en modalboks. Skal ligge ved alle artikler.
+        </p>
+      </StoryIntro>
+      <StoryBody>
+        <h2 className="u-heading">Eksempel på lisensboks</h2>
+        <p>Klikk på lenken for å åpne lisensboksen:</p>
+        <Trans>
+          {({ t }) => (
+            <Modal
+              activateButton={<Button link>{t('article.useContent')}</Button>}
+              size="medium">
+              {onClose => (
+                <Fragment>
+                  <ModalHeader modifier="no-bottom-padding">
+                    <ModalCloseButton onClick={onClose} title="Lukk" />
+                  </ModalHeader>
+                  <ModalBody>
+                    <LicenseBox />
+                  </ModalBody>
+                </Fragment>
+              )}
+            </Modal>
+          )}
+        </Trans>
+      </StoryBody>
     </PageContainer>
   ))
   .add('Læringsressurser', () => (
