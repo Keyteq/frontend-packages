@@ -6,10 +6,10 @@
  *
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { ClickToggle } from 'ndla-ui';
+import { Modal, ModalBody, ModalHeader, ModalCloseButton, Button } from 'ndla-ui';
 import Tabs from 'ndla-tabs';
 
 import { privacyTexts } from './privacyTexts';
@@ -31,22 +31,28 @@ export const FooterEditor = ({ title, name }) => (
 );
 
 const FooterPrivacy = ({ lang }) => (
-  <ClickToggle
-    id="privacyId"
-    renderAsLink
-    containerClass="span"
-    dialogModifier="medium"
-    title={privacyTexts[lang].linkLabel}>
-    <div className="footer_privacy">
-      <h1 id="privacyId">{privacyTexts[lang].header}</h1>
-      <Tabs
-        tabs={privacyTexts[lang].tabs.map(tab => ({
-          title: tab.title,
-          content: tab.content,
-        }))}
-      />
-    </div>
-  </ClickToggle>
+  <Modal
+    size="medium"
+    activateButton={<Button renderAsLink>{privacyTexts[lang].linkLabel}</Button>}>
+    {(onClose) => (
+      <Fragment>
+        <ModalHeader>
+          <ModalCloseButton onClick={onClose} title="Lukk" />
+        </ModalHeader>
+        <ModalBody>
+          <div className="footer_privacy">
+            <h1 id="privacyId">{privacyTexts[lang].header}</h1>
+            <Tabs
+              tabs={privacyTexts[lang].tabs.map(tab => ({
+                title: tab.title,
+                content: tab.content,
+              }))}
+            />
+          </div>
+        </ModalBody>
+      </Fragment>
+    )}
+  </Modal>
 );
 
 FooterPrivacy.propTypes = {
