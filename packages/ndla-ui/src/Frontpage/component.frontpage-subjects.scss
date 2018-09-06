@@ -102,10 +102,11 @@
 
   &__item {
     margin: $spacing--small / 2 0;
-    display: inline-block;
+    display: inline-flex;
     width: 100%;
-    > a, > button {
+    > * {
       padding: $spacing--small / 2 0;
+      display: inline-flex;
     }
 
     @include mq($until: tablet) {
@@ -115,6 +116,7 @@
         display: flex;
       }
       margin-bottom: 0;
+      justify-content: space-between;
     }
 
     &:last-child {
@@ -135,6 +137,15 @@
     &:focus {
       .c-frontpage-subjects-section__text {
         box-shadow: $link--hover;
+      }
+    }
+    &--with-extention {
+      &:hover,
+      &:active,
+      &:focus {
+        .c-frontpage-subjects-section__text {
+          box-shadow: $link;
+        }
       }
     }
   }
@@ -161,6 +172,13 @@
     @include mq(tablet) {
       @include font-size(14px, 18px);
     }
+  }
+  &__beta-label-container {
+    margin-left: $spacing--small;
+  }
+  &__beta-label {
+    padding: $spacing--small / 2;
+    line-height: 1em;
   }
 }
 
@@ -219,9 +237,55 @@
   }
 }
 
+.c-frontpage-menuitem-extention-container-active {
+  padding-bottom: $spacing + $spacing--small / 2;
+  margin-bottom: -$spacing;
+  .c-frontpage-menuitem-extention-active-border {
+    position: relative;
+    left: -50%;
+    top: 13px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $brand-color;
+    animation-duration: 300ms;
+    animation: fadeIn;
+  }
+}
 .c-frontpage-menuitem-extention {
   position: absolute;
   z-index: 99;
-  background: $brand-color--tertiary;
-  padding: $spacing;
+  background: $brand-color;
+  padding: 0 $spacing--small;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInMenuExtention;
+  animation-duration: 300ms;
+  animation-delay: 50ms;
+  animation-fill-mode: forwards;
+  a {
+    color: #fff;
+    padding: $spacing;
+    box-shadow: none;
+    text-decoration: underline;
+    font-weight: $font-weight-semibold;
+    &:hover, &:focus {
+      color: $brand-grey--lighter;
+    }
+  }
+}
+
+@keyframes fadeInMenuExtention {
+  0% {
+    opacity: 0;
+    transform: translate(-20px, 20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-20px, 35px);
+  }
 }

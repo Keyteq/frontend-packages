@@ -19,8 +19,8 @@
     li {
       margin: 0;
       padding: $spacing--small / 2 0;
-      span {
-        padding-right: $spacing / 2;
+      span:not(:first-child) {
+        padding-left: $spacing--small / 2;
       }
     }
     button {

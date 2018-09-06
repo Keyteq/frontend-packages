@@ -6,13 +6,13 @@
  *
  */
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
-import { SafeLink, Button } from 'ndla-ui';
+import { SafeLink } from 'ndla-ui';
 
-const classesMainLink = BEMHelper('c-frontpage-subjects-section');
 const classesExtention = BEMHelper('c-frontpage-menuitem-extention');
+const linkClass = BEMHelper('c-frontpage-subjects-section');
 
 class FrontpageMenuitemExtention extends Component {
   constructor(props) {
@@ -21,6 +21,15 @@ class FrontpageMenuitemExtention extends Component {
       open: false,
     };
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleCloseFromLink = this.handleCloseFromLink.bind(this);
+    this.containerRef = React.createRef();
+  }
+
+  handleCloseFromLink(e) {
+    if (e.target.nextSibling === null) {
+      this.handleClose();
+    }
   }
 
   handleOpen() {
@@ -29,18 +38,29 @@ class FrontpageMenuitemExtention extends Component {
     });
   }
 
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
   render() {
     return (
-      <Fragment>
-        <Button stripped type="button" onClick={this.handleOpen} {...classesMainLink('link')}>
+      <div className={this.state.open ? 'c-frontpage-menuitem-extention-container-active' : undefined} ref={this.containerRef} onMouseEnter={this.handleOpen} onMouseLeave={this.handleClose} onFocus={this.handleOpen}>
+        <SafeLink
+          {...linkClass('link', { 'with-extention': this.state.open })}
+          to={this.props.to}
+        >
           {this.props.children}
-        </Button>
-        {this.state.open && <div {...classesExtention()}>
+          {this.state.open && <div className="c-frontpage-menuitem-extention-active-border" />}
+        </SafeLink>
+
+        {this.state.open && (<div {...classesExtention()}>
           {this.props.subLinks.map(items => (
-            <SafeLink key={items.name} to={items.url}>{items.name}</SafeLink>
+            <SafeLink key={items.name} to={items.url} onBlur={this.handleCloseFromLink}>{items.name}</SafeLink>
           ))}
-        </div>}
-      </Fragment>
+        </div>)}
+      </div>
     )
 
   }
@@ -48,6 +68,7 @@ class FrontpageMenuitemExtention extends Component {
 
 FrontpageMenuitemExtention.propTypes = {
   children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
   subLinks: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,

@@ -30,6 +30,7 @@ export { default as Grid } from './Grid';
 export { default as HelpCircle } from './HelpCircle';
 export { default as HelpCircleDual } from './HelpCircleDual';
 export { default as Home } from './Home';
+export { default as Information } from './Information';
 export { default as Link } from './Link';
 export { default as Pause } from './Pause';
 export { default as Play } from './Play';

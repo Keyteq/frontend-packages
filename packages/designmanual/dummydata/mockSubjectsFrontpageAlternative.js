@@ -50,14 +50,17 @@ export const subjectsFrontpageAlternative = {
         url: '#9',
         text: 'Norsk',
         yearInfo: 'YF og SF',
+        beta: true,
       },
       {
         url: '#10',
         text: 'Samfunnsfag',
+        beta: true,
       },
       {
         url: '#11',
         text: 'Sørsamisk som førstespråk',
+        beta: true,
       },
     ],
   },
@@ -165,16 +168,16 @@ export const subjectsFrontpageAlternative = {
         text: 'Internasjonal engelsk',
       },
       {
-        url: '#4',
+        url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel',
         text: 'Kinesisk',
         subLinks: [
           {
             name: 'Kinesisk 1',
-            url: '#4.a',
+            url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk1',
           },
           {
             name: 'Kinesisk 2',
-            url: '#4.b',
+            url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk2',
           }
         ]
       },

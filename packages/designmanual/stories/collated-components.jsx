@@ -75,7 +75,7 @@ storiesOf('Sammensatte moduler', module)
             {
               name: 'Pål Frønsdal',
               shortName: 'Pål',
-              role: 'Fagansvarlig',
+              role: 'Oversetter',
             },
           ]}
           updated="21.06.2018"
@@ -135,7 +135,7 @@ storiesOf('Sammensatte moduler', module)
               introduction: 'Er fagleder for bla bla..',
             },
             {
-              role: 'Fagansvarlig',
+              role: 'Oversetter',
               name: 'Siv Mundal',
               shortName: 'Siv',
               urlContributions: '#',
@@ -148,8 +148,8 @@ storiesOf('Sammensatte moduler', module)
               introduction: 'Er fagleder for bla bla..',
             },
             {
-              role: 'Medvirkende',
-              name: 'Pål Frøsndal',
+              role: 'Oversetter',
+              name: 'Pål Frønsdal',
               shortName: 'Pål',
               urlContributions: '#',
               urlAuthor: '#',

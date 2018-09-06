@@ -125,6 +125,11 @@ const messages = {
     newContent: {
       heading: 'Har du fått med deg?',
     },
+    subjectIsBeta: {
+      iconLabel: 'i arbeid',
+      dialogHeader: 'Faget er i arbeid',
+      dialogText: '*Lorem ipsum, forklaringstekst til hva det betyr at et fag er "i arbeid"',
+    },
   },
   subjectsPage: {
     errorDescription: 'Beklager, en feil oppsto under lasting av fagene.',

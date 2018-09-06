@@ -127,6 +127,11 @@ const messages = {
     newContent: {
       heading: 'New content',
     },
+    subjectIsBeta: {
+      iconLabel: '*i arbeid',
+      dialogHeader: '*Faget er i arbeid',
+      dialogText: '*Lorem ipsum, forklaringstekst til hva det betyr at et fag er "i arbeid"',
+    },
   },
   subjectsPage: {
     chooseSubject: 'Choose subject',

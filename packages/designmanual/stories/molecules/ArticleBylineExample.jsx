@@ -46,7 +46,7 @@ export const authorRealText = [
     licenses: 'CC BY-NC-SA',
   },
   {
-    role: 'Fagansvarlig',
+    role: 'Oversetter',
     name: 'Pål Frønsdal',
     shortName: 'Pål',
     urlContributions: '#',
