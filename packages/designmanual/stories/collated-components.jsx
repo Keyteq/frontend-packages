@@ -42,6 +42,7 @@ import TranslationBoxExample from './organisms/TranslationBoxExample';
 import ModalExample from './molecules/ModalExample';
 
 import Oops from '../images/oops.gif';
+import cecilie from '../images/cecilie.png';
 
 const toggle = () => {
   document
@@ -104,7 +105,7 @@ storiesOf('Sammensatte moduler', module)
               title: 'Stilling',
               phone: '+47 123 45 678',
               email: 'cecilie@ndla.no',
-              image: 'http://via.placeholder.com/200x200',
+              image: cecilie,
               introduction: 'Er fagleder for bla bla..',
             },
           ]}
@@ -128,7 +129,7 @@ storiesOf('Sammensatte moduler', module)
               title: 'Stilling',
               phone: '+47 123 45 678',
               email: 'cecilie@ndla.no',
-              image: 'http://via.placeholder.com/200x200',
+              image: cecilie,
               introduction: 'Er fagleder for bla bla..',
             },
             {
@@ -141,7 +142,7 @@ storiesOf('Sammensatte moduler', module)
               title: 'Stilling',
               phone: '+47 123 45 678',
               email: 'siv.mundal@keyteq.no',
-              image: 'http://via.placeholder.com/200x200',
+              image: cecilie,
               introduction: 'Er fagleder for bla bla..',
             },
             {
@@ -154,7 +155,7 @@ storiesOf('Sammensatte moduler', module)
               title: 'Stilling',
               phone: '+47 123 45 678',
               email: 'paal.fronsdal@ndla.no',
-              image: 'http://via.placeholder.com/200x200',
+              image: cecilie,
               introduction: 'Er fagleder for bla bla..',
             },
           ]}

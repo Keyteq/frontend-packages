@@ -112,7 +112,6 @@ const subjectAbout = (fixedWidth = false) => (
     description="Her kan det komme en tekstlig beskrivelse av hvordan faget er bygget opp eller hvilke særpreg dette faget har. Det kan også være i form av en film som introduserer faget"
   />
 );
-console.log(contentTypes.SUBJECT_MATERIAL);
 const secondaryContent = (
   <Trans>
     {({ t }) => (

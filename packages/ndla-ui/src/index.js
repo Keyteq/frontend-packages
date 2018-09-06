@@ -171,3 +171,5 @@ export {
   ModalBody,
   ModalCloseButton,
 } from './Modal';
+
+export { default as RadioButtonGroup } from './RadioButtonGroup';

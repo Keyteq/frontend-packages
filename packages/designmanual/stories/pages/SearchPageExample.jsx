@@ -21,6 +21,7 @@ import {
 import { injectT } from 'ndla-i18n';
 
 import CompetenceGoalsExample from '../organisms/CompetenceGoalsExample';
+import cecilie from '../../images/cecilie.png';
 
 import {
   searchTabOptions,
@@ -175,7 +176,7 @@ class SearchPageExample extends Component {
             readmoreLabel: t('article.urlAuthorLabel', { name: 'Cecilie' }),
           }}
           url="/?selectedKind=Sidevisninger&selectedStory=Forfatter%20sidemal&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel"
-          image="http://www.placehold.it/300x300"
+          image={cecilie}
         />
       ) : null;
 
