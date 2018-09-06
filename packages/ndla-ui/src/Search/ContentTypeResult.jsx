@@ -115,7 +115,7 @@ class ContentTypeResult extends Component {
     }
 
     console.log(contentTypeResult.contentType);
-    
+
     return (
       <section {...classes()}>
         <header>

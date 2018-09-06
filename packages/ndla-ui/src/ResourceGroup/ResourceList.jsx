@@ -101,7 +101,11 @@ const ResourceList = ({
             showAdditionalResources={showAdditionalResources}
             {...rest}
             resource={resource}
-            contentTypeDescription={resource.additional ? t('resource.tooltipAdditionalTopic') : t('resource.tooltipCoreTopic')}
+            contentTypeDescription={
+              resource.additional
+                ? t('resource.tooltipAdditionalTopic')
+                : t('resource.tooltipCoreTopic')
+            }
             id={`${resource.id}_${index}`}
           />
         ))}
@@ -110,7 +114,9 @@ const ResourceList = ({
             <NoContentBox
               onClick={onClick}
               buttonText={t('resource.toggleFilterLabel')}
-              text={t('resource.noCoreResourcesAvailable', { name: title.toLowerCase() })}
+              text={t('resource.noCoreResourcesAvailable', {
+                name: title.toLowerCase(),
+              })}
             />
           </li>
         )}

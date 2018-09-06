@@ -46,33 +46,51 @@ class FrontpageMenuitemExtention extends Component {
 
   render() {
     return (
-      <div className={this.state.open ? 'c-frontpage-menuitem-extention-container-active' : undefined} ref={this.containerRef} onMouseEnter={this.handleOpen} onMouseLeave={this.handleClose} onFocus={this.handleOpen}>
+      <div
+        className={
+          this.state.open
+            ? 'c-frontpage-menuitem-extention-container-active'
+            : undefined
+        }
+        ref={this.containerRef}
+        onMouseEnter={this.handleOpen}
+        onMouseLeave={this.handleClose}
+        onFocus={this.handleOpen}>
         <SafeLink
           {...linkClass('link', { 'with-extention': this.state.open })}
-          to={this.props.to}
-        >
+          to={this.props.to}>
           {this.props.children}
-          {this.state.open && <div className="c-frontpage-menuitem-extention-active-border" />}
+          {this.state.open && (
+            <div className="c-frontpage-menuitem-extention-active-border" />
+          )}
         </SafeLink>
 
-        {this.state.open && (<div {...classesExtention()}>
-          {this.props.subLinks.map(items => (
-            <SafeLink key={items.name} to={items.url} onBlur={this.handleCloseFromLink}>{items.name}</SafeLink>
-          ))}
-        </div>)}
+        {this.state.open && (
+          <div {...classesExtention()}>
+            {this.props.subLinks.map(items => (
+              <SafeLink
+                key={items.name}
+                to={items.url}
+                onBlur={this.handleCloseFromLink}>
+                {items.name}
+              </SafeLink>
+            ))}
+          </div>
+        )}
       </div>
-    )
-
+    );
   }
-};
+}
 
 FrontpageMenuitemExtention.propTypes = {
   children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
-  subLinks: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  })),
+  subLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 export default FrontpageMenuitemExtention;

@@ -168,18 +168,21 @@ export const subjectsFrontpageAlternative = {
         text: 'Internasjonal engelsk',
       },
       {
-        url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel',
+        url:
+          '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel',
         text: 'Kinesisk',
         subLinks: [
           {
             name: 'Kinesisk 1',
-            url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk1',
+            url:
+              '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk1',
           },
           {
             name: 'Kinesisk 2',
-            url: '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk2',
-          }
-        ]
+            url:
+              '?selectedKind=Emnesider&selectedStory=4.%20Fagforside%20språk&full=0&addons=0&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel&filterexample=Kinesisk2',
+          },
+        ],
       },
       {
         url: '#6',

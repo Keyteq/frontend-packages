@@ -25,7 +25,9 @@ class TwoColumnsLanguageExample extends Component {
   componentDidMount() {
     // Storybook only: Extract filter values from URL to examplify how language links with filter should work from frontpage.
     if (window.location.href.indexOf('&filterexample=') !== -1) {
-      const filteredValueFromUrl = window.location.href.substr(window.location.href.lastIndexOf('=') + 1);
+      const filteredValueFromUrl = window.location.href.substr(
+        window.location.href.lastIndexOf('=') + 1,
+      );
       this.setState({
         filterValues: [filteredValueFromUrl],
       });

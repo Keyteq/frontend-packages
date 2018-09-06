@@ -24,7 +24,7 @@ const SubjectNewContent = ({ heading, content }) => (
                 background
                 outline
               />
-            <div {...classes('content-link')}>
+              <div {...classes('content-link')}>
                 <div {...classes('date')}>{item.formattedDate}</div>
                 <SafeLink to={item.url} {...classes('link')}>
                   {item.name}

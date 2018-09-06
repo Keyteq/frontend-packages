@@ -306,7 +306,8 @@ storiesOf('Sammensatte moduler', module)
     <div>
       <StoryIntro title="Filter">
         <p>
-          Radiobutton group komponent som håndterer states og gir callback ved endring
+          Radiobutton group komponent som håndterer states og gir callback ved
+          endring
         </p>
       </StoryIntro>
       <StoryBody>
@@ -329,8 +330,7 @@ storiesOf('Sammensatte moduler', module)
               name: 'options',
               type: 'ArrayOf(Shape)',
               default: 'Required',
-              description:
-                `[{ title: '1T', value '1T' }, { title: 'R1', value: 'R1' }]`,
+              description: `[{ title: '1T', value '1T' }, { title: 'R1', value: 'R1' }]`,
             },
             {
               name: 'onChange',
@@ -342,7 +342,8 @@ storiesOf('Sammensatte moduler', module)
               name: 'uniqeIds',
               type: 'Bool',
               default: 'null',
-              description: 'Lager unike id på input og label. Sørger for at ikke htmlFor og input name/id ikke krasjer med andre komponenter på siden',
+              description:
+                'Lager unike id på input og label. Sørger for at ikke htmlFor og input name/id ikke krasjer med andre komponenter på siden',
             },
           ]}
           status={2}>
@@ -355,7 +356,7 @@ storiesOf('Sammensatte moduler', module)
                 { title: 'R2', value: 'R2' },
                 { title: 'S1', value: 'S1' },
               ]}
-              onChange={(value) => {
+              onChange={value => {
                 console.log('changed to', value); // eslint-disable-line no-console
               }}
             />
@@ -371,7 +372,7 @@ storiesOf('Sammensatte moduler', module)
               ]}
               uniqeIds
               label="Velg fag"
-              onChange={(value) => {
+              onChange={value => {
                 console.log('changed to', value); // eslint-disable-line no-console
               }}
             />
@@ -419,9 +420,7 @@ storiesOf('Sammensatte moduler', module)
   .add('Lisensboks', () => (
     <PageContainer>
       <StoryIntro title="Lisensboks">
-        <p>
-          Skal åpnes i en modalboks. Skal ligge ved alle artikler.
-        </p>
+        <p>Skal åpnes i en modalboks. Skal ligge ved alle artikler.</p>
       </StoryIntro>
       <StoryBody>
         <h2 className="u-heading">Eksempel på lisensboks</h2>

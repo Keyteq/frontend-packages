@@ -9,9 +9,7 @@ const classes = BEMHelper('c-frontpage-highlighted');
 
 const FrontpageHighlighted = ({ heading, children }) => (
   <section {...classes()}>
-    <SectionHeading large>
-      {heading}
-    </SectionHeading>
+    <SectionHeading large>{heading}</SectionHeading>
     <Carousel
       settings={{
         responsive: [

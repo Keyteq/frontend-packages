@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 import { HelpCircleDual } from 'ndla-icons/common';
 import { injectT } from 'ndla-i18n';
-import { Modal, ModalBody, ModalHeader, ModalCloseButton, Tooltip } from 'ndla-ui';
+import {
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalCloseButton,
+  Tooltip,
+} from 'ndla-ui';
 
 import { classes } from './ResourcesWrapper';
 
@@ -12,12 +18,10 @@ import ResourceToggleFilter from '../ResourceGroup/ResourceToggleFilter';
 const HelpIcon = () => (
   <div {...classes('topic-title-icon')}>
     <HelpCircleDual
-      className={`c-icon--22 u-margin-left-tiny ${
-        classes('icon').className
-      }`}
+      className={`c-icon--22 u-margin-left-tiny ${classes('icon').className}`}
     />
   </div>
-)
+);
 
 const ResourcesTopicTitle = ({
   title,
@@ -50,27 +54,30 @@ const ResourcesTopicTitle = ({
           <Modal
             narrow
             wrapperFunctionForButton={activateButton => (
-              <Tooltip tooltip={t('resource.dialogTooltip')}>{activateButton}</Tooltip>
+              <Tooltip tooltip={t('resource.dialogTooltip')}>
+                {activateButton}
+              </Tooltip>
             )}
-            activateButton={<button className="c-button c-button--stripped" type="button"><HelpIcon /></button>}>
+            activateButton={
+              <button className="c-button c-button--stripped" type="button">
+                <HelpIcon />
+              </button>
+            }>
             {onClose => (
-            <Fragment>
-              <ModalHeader>
-                <ModalCloseButton title={t('modal.closeModal')} onClick={onClose} />
-              </ModalHeader>
-              <ModalBody>
-                <h1>
-                  {t('resource.dialogHeading')}
-                </h1>
-                <hr />
-                <p>
-                  {t('resource.dialogText1')}
-                </p>
-                <p>
-                  {t('resource.dialogText2')}
-                </p>
-              </ModalBody>
-            </Fragment>
+              <Fragment>
+                <ModalHeader>
+                  <ModalCloseButton
+                    title={t('modal.closeModal')}
+                    onClick={onClose}
+                  />
+                </ModalHeader>
+                <ModalBody>
+                  <h1>{t('resource.dialogHeading')}</h1>
+                  <hr />
+                  <p>{t('resource.dialogText1')}</p>
+                  <p>{t('resource.dialogText2')}</p>
+                </ModalBody>
+              </Fragment>
             )}
           </Modal>
         </div>

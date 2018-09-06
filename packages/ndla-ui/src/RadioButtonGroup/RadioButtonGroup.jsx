@@ -34,39 +34,47 @@ class RadioButtonGroup extends Component {
     return (
       <section>
         <div role="radiogroup" {...classes('wrapper')}>
-          {this.props.label && <h1 {...classes('label-heading')}>{this.props.label}</h1>}
-          {this.props.options.map((option) => {
-            const id = this.uuid ? `${this.uuid}_${option.value}` : option.value;
-            return (<Fragment key={option.value}>
-              <input
-                {...classes('input')}
-                disabled={option.disabled}
-                aria-checked={this.state.selected === option.value}
-                checked={this.state.selected === option.value}
-                type="radio"
-                value={option.value}
-                id={id}
-                name={id}
-                onChange={this.handleOnChange}
-              />
-              <label htmlFor={id} {...classes('label')}>
-                {option.title}
-              </label>
-            </Fragment>);
+          {this.props.label && (
+            <h1 {...classes('label-heading')}>{this.props.label}</h1>
+          )}
+          {this.props.options.map(option => {
+            const id = this.uuid
+              ? `${this.uuid}_${option.value}`
+              : option.value;
+            return (
+              <Fragment key={option.value}>
+                <input
+                  {...classes('input')}
+                  disabled={option.disabled}
+                  aria-checked={this.state.selected === option.value}
+                  checked={this.state.selected === option.value}
+                  type="radio"
+                  value={option.value}
+                  id={id}
+                  name={id}
+                  onChange={this.handleOnChange}
+                />
+                <label htmlFor={id} {...classes('label')}>
+                  {option.title}
+                </label>
+              </Fragment>
+            );
           })}
         </div>
       </section>
-    )
+    );
   }
 }
 
 RadioButtonGroup.propTypes = {
   selected: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    disabled: PropTypes.bool,
-  })).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      disabled: PropTypes.bool,
+    }),
+  ).isRequired,
   label: PropTypes.string,
   uniqeIds: PropTypes.bool,
   onChange: PropTypes.func.isRequired,

@@ -1,4 +1,9 @@
-import { topicMenu, subtopicList, topicList, topicListChinese } from './mockTopics';
+import {
+  topicMenu,
+  subtopicList,
+  topicList,
+  topicListChinese,
+} from './mockTopics';
 import {
   learningPathResources,
   articleResources,
@@ -10,9 +15,7 @@ import {
   subjectConcepts,
   subjectsFrontpage,
 } from './mockSubjects';
-import {
-  subjectsFrontpageAlternative,
-} from './mockSubjectsFrontpageAlternative';
+import { subjectsFrontpageAlternative } from './mockSubjectsFrontpageAlternative';
 import {
   firstBrightcoveList,
   secondBrightcoveList,

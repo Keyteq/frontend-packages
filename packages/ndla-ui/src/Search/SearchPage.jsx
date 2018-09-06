@@ -126,11 +126,11 @@ class SearchPage extends Component {
                   <Fragment>
                     <ModalHeader modifier="white left-align">
                       <ModalCloseButton
-                        title={(
+                        title={
                           <Fragment>
                             <Back /> {messages.narrowScreenFilterHeading}
                           </Fragment>
-                        )}
+                        }
                         onClick={onClose}>
                         Close
                       </ModalCloseButton>

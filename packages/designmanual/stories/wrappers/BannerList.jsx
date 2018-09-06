@@ -85,14 +85,15 @@ const BannerList = ({ banners }) =>
           outline
           style={{ marginRight: '13px' }}
           onClick={() => {
-            copyTextToClipboard(`${window.location.origin}${addLeadingSlash(banner.mobile)}`);
+            copyTextToClipboard(
+              `${window.location.origin}${addLeadingSlash(banner.mobile)}`,
+            );
           }}
           copyNode={
             <Fragment>
               <Copy /> Kopiert!
             </Fragment>
-          }
-          >
+          }>
           <Fragment>
             <Copy /> Kopier mobil banner
           </Fragment>
@@ -100,14 +101,15 @@ const BannerList = ({ banners }) =>
         <CopyButton
           outline
           onClick={() => {
-            copyTextToClipboard(`${window.location.origin}${addLeadingSlash(banner.desktop)}`);
+            copyTextToClipboard(
+              `${window.location.origin}${addLeadingSlash(banner.desktop)}`,
+            );
           }}
           copyNode={
             <Fragment>
               <Copy /> Kopiert!
             </Fragment>
-          }
-          >
+          }>
           <Fragment>
             <Copy /> Kopier desktop banner
           </Fragment>
