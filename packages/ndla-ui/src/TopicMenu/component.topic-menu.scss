@@ -93,7 +93,6 @@ $navigation-row-width: 980px / 3;
 
   @include mq(desktop) {
     min-height: auto;
-    margin-top: $masthead-height;
     padding: 0 0 $spacing--large 0;
     overflow: auto;
   }

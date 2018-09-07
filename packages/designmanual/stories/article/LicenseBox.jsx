@@ -29,15 +29,27 @@ import {
 
 import { COPYRIGHTED, metaTypes } from 'ndla-licenses';
 
+import { mockDownloadArticleText } from '../../dummydata';
 import H5PExamples from '../../images/h5p-contenttype';
+
+const triggerDownloadText = () => {
+  // TODO: Fetch texts from article..
+  const blob = new Blob([mockDownloadArticleText], { type: 'text/plain' });
+  const anchor = document.createElement('a');
+
+  anchor.download = "navn på artikkel.txt";
+  anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+  anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+  anchor.click();
+}
 
 const byncndLicenseAbbreviation = 'by-nc-nd';
 const bysaLicenseAbbreviation = 'by-sa';
 
-const VideoContent = () => (
+const VideoContent = injectT(({ t }) => (
   <div>
-    <h2>Slik bruker du videoer fra artikkelen</h2>
-    <p>Husk å kopier teksten som skal legges ved videoen der du bruker den.</p>
+    <h2>{t('license.video.heading')}</h2>
+    <p>{t('license.video.description')}</p>
     <MediaList>
       {[
         { id: 'video-1', title: 'Søvn og hvile' },
@@ -57,7 +69,7 @@ const VideoContent = () => (
           </MediaListItemImage>
           <div className="o-media__body c-medialist__body">
             <h3 className="c-medialist__title">
-              Regler for bruk av interaktiv video:
+              {t('license.video.rules')}
             </h3>
             <p>Oppsøk innholdsobjektet for å finne regler for gjenbruk.</p>
             <a
@@ -85,16 +97,13 @@ const VideoContent = () => (
       ))}
     </MediaList>
   </div>
-);
+));
 
-const TextContent = () => (
+const TextContent = injectT(({ t }) => (
   <div>
     <div className="u-introduction">
-      <h2>Slik bruker du tekst fra artikkelen</h2>
-      <p>
-        Artikkelen kan være satt sammen av flere ulike tekster, som listes opp
-        her.
-      </p>
+      <h2>{t('license.text.heading')}</h2>
+      <p>{t('license.text.description')}</p>
     </div>
     <MediaList>
       {[
@@ -107,7 +116,7 @@ const TextContent = () => (
           </MediaListItemImage>
           <MediaListItemBody
             license={bysaLicenseAbbreviation}
-            title="Regler for bruk av teksten:"
+            title={t('license.text.rules')}
             resourceUrl=""
             resourceType="text">
             <MediaListItemActions>
@@ -136,11 +145,18 @@ const TextContent = () => (
                     },
                   ]}
                 />
-                <CopyButton outline copyNode="Kopiert!">
-                  Kopier referanse
+              <CopyButton outline copyNode={t('license.hasCopiedTitle')}>
+                  {t('license.copyTitle')}
                 </CopyButton>
-                <button className="c-button c-button--outline" type="button">
-                  Last ned
+                <button
+                  className="c-button c-button--outline"
+                  type="button"
+                  onClick={() => {
+                    // window.open(`data:application/octet-stream;charset=utf-8;base64,${btoa(mockDownloadArticleText)}`);
+                    triggerDownloadText();
+                  }}
+                >
+                  {t('license.download')}
                 </button>
               </div>
             </MediaListItemActions>
@@ -149,15 +165,13 @@ const TextContent = () => (
       ))}
     </MediaList>
   </div>
-);
+));
 
-const AudioContent = () => (
+const AudioContent = injectT(({ t }) => (
   <div>
     <div className="u-introduction">
-      <h2>Slik bruker du lydfiler</h2>
-      <p>
-        Husk å kopier teksten som skal legges ved lydfilen der du bruker den.
-      </p>
+      <h2>{t('license.audio.heading')}</h2>
+      <p>{t('license.audio.description')}</p>
     </div>
     <MediaList>
       {[
@@ -170,7 +184,7 @@ const AudioContent = () => (
           </MediaListItemImage>
           <MediaListItemBody
             license={bysaLicenseAbbreviation}
-            title="Regler for bruk av lydfilen:"
+            title={t('license.audio.rules')}
             resourceUrl=""
             resourceType="audio">
             <MediaListItemActions>
@@ -194,11 +208,11 @@ const AudioContent = () => (
                     },
                   ]}
                 />
-                <CopyButton outline copyNode="Kopiert!">
-                  Kopier referanse
+                <CopyButton outline copyNode={t('license.hasCopiedTitle')}>
+                  {t('license.copyTitle')}
                 </CopyButton>
                 <button className="c-button c-button--outline" type="button">
-                  Last ned
+                  {t('license.download')}
                 </button>
               </div>
             </MediaListItemActions>
@@ -207,15 +221,13 @@ const AudioContent = () => (
       ))}
     </MediaList>
   </div>
-);
+));
 
-const ImageContent = () => (
+const ImageContent = injectT(({ t }) => (
   <div>
     <div className="u-introduction">
-      <h2>Slik bruker du bilder fra artikkelen</h2>
-      <p className="article-introduction">
-        Husk å kopiere teksten som skal vises med bildet der du bruker det.
-      </p>
+      <h2>{t('license.images.heading')}</h2>
+      <p>{t('license.images.description')}</p>
     </div>
     <MediaList>
       {[
@@ -229,7 +241,7 @@ const ImageContent = () => (
           </MediaListItemImage>
           <MediaListItemBody
             license={byncndLicenseAbbreviation}
-            title="Regler for bruk av bildet:"
+            title={t('license.images.rules')}
             messages={{
               modelPremission:
                 'Personen(e) på bildet har godkjent at det kan brukes videre.',
@@ -262,11 +274,11 @@ const ImageContent = () => (
                     },
                   ]}
                 />
-                <CopyButton outline copyNode="Kopiert!">
-                  Kopier referanse
+                <CopyButton outline copyNode={t('license.hasCopiedTitle')}>
+                  {t('license.copyTitle')}
                 </CopyButton>
                 <button className="c-button c-button--outline" type="button">
-                  Last ned bilde
+                  {t('license.download')}
                 </button>
               </div>
             </MediaListItemActions>
@@ -284,7 +296,7 @@ const ImageContent = () => (
         </MediaListItemImage>
         <MediaListItemBody
           license={byncndLicenseAbbreviation}
-          title="Regler for bruk av bildet:">
+          title={t('license.images.rules')}>
           <MediaListItemActions>
             <div className="c-medialist__ref">
               <MediaListItemMeta
@@ -306,8 +318,8 @@ const ImageContent = () => (
                   },
                 ]}
               />
-              <CopyButton outline copyNode="Kopiert!">
-                Kopier referanse
+              <CopyButton outline copyNode={t('license.hasCopiedTitle')}>
+                {t('license.copyTitle')}
               </CopyButton>
               <button className="c-button c-button--outline" type="button">
                 Last ned bilde
@@ -321,13 +333,13 @@ const ImageContent = () => (
       </MediaListItem>
     </MediaList>
   </div>
-);
+));
 
-const OtherContent = () => (
+const OtherContent = injectT(({ t }) => (
   <div>
     <div className="u-introduction">
-      <h2>Slik bruker du annet innhold fra artikkelen</h2>
-      <p>Du finner retningslinjene for bruk av innholdet i innholdselementet</p>
+      <h2>{t('license.other.heading')}</h2>
+      <p>{t('license.other.description')}</p>
     </div>
     <MediaList>
       {H5PExamples.map(example => (
@@ -369,13 +381,13 @@ const OtherContent = () => (
       ))}
     </MediaList>
   </div>
-);
+));
 
-const Files = () => (
+const Files = injectT(({ t }) => (
   <div>
     <div className="u-introduction">
-      <h2>Slik bruker du filer fra artikkelen</h2>
-      <p>Husk å kopier teksten som skal legges ved filen der du bruker den.</p>
+      <h2>{t('license.files.heading')}</h2>
+      <p>{t('license.files.description')}</p>
     </div>
     <MediaList>
       {[
@@ -390,7 +402,7 @@ const Files = () => (
           </MediaListItemImage>
           <MediaListItemBody
             license={COPYRIGHTED}
-            title="Regler for bruk av filen:"
+            title={t('license.files.rules')}
             resourceUrl="">
             <MediaListItemActions>
               <div className="c-medialist__ref">
@@ -413,11 +425,11 @@ const Files = () => (
                     },
                   ]}
                 />
-                <CopyButton outline copyNode="Kopiert!">
-                  Kopier referanse
+                <CopyButton outline copyNode={t('license.hasCopiedTitle')}>
+                  {t('license.copyTitle')}
                 </CopyButton>
                 <button className="c-button c-button--outline" type="button">
-                  Last ned
+                  {t('license.download')}
                 </button>
               </div>
             </MediaListItemActions>
@@ -426,7 +438,26 @@ const Files = () => (
       ))}
     </MediaList>
   </div>
-);
+));
+
+TextContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+ImageContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+VideoContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+AudioContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+Files.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+OtherContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
 const LicenseBox = ({ t }) => (
   <Fragment>

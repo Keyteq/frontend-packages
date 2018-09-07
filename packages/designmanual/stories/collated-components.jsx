@@ -13,7 +13,6 @@ import {
   LicenseByline,
   TopicIntroductionList,
   PageContainer,
-  Content,
   LayoutItem,
   Image,
   Translation,
@@ -81,7 +80,7 @@ storiesOf('Sammensatte moduler', module)
             {
               name: 'Pål Frønsdal',
               shortName: 'Pål',
-              role: 'Oversetter',
+              role: 'Manusforfatter',
             },
           ]}
           updated="21.06.2018"
@@ -141,7 +140,7 @@ storiesOf('Sammensatte moduler', module)
               introduction: 'Er fagleder for bla bla..',
             },
             {
-              role: 'Oversetter',
+              role: 'Illustratør',
               name: 'Siv Mundal',
               shortName: 'Siv',
               urlContributions: '#',
@@ -154,7 +153,7 @@ storiesOf('Sammensatte moduler', module)
               introduction: 'Er fagleder for bla bla..',
             },
             {
-              role: 'Oversetter',
+              role: 'Manusforfatter',
               name: 'Pål Frønsdal',
               shortName: 'Pål',
               urlContributions: '#',

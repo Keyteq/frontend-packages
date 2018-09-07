@@ -319,6 +319,17 @@ const messages = {
         'Husk å kopiere teksten som skal legges ved videoen der du bruker den.',
       rules: 'Regler for bruk av videoen:',
     },
+    other: {
+      heading: 'Slik bruker du annet innhold fra artikkelen',
+      description:
+        'Du finner retningslinjene for bruk av innholdet i innholdselementet',
+    },
+    files: {
+      heading: 'Slik bruker du filer fra artikkelen',
+      description:
+        'Husk å kopier teksten som skal legges ved filen der du bruker den.',
+      rules: 'Regler for bruk av filen:',
+    },
     creditType: {
       originator: 'Opphavsmann',
       authorDesc: 'Denne artikkelen er laget av flere opphavsmenn',

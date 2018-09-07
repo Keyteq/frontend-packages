@@ -36,6 +36,8 @@ import {
 
 import contentCards from './mockContentCards';
 
+import { mockDownloadArticleText } from './mockDownloadArticleText';
+
 export {
   topicMenu,
   topicList,
@@ -60,4 +62,5 @@ export {
   searchTabFilterOptions,
   searchFilterOptions,
   contentCards,
+  mockDownloadArticleText,
 };

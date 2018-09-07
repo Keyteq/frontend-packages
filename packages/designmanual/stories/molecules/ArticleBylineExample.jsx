@@ -33,7 +33,7 @@ export const authorRealText = [
     licenses: 'CC BY-NC-SA',
   },
   {
-    role: 'Fotograf',
+    role: 'Illustratør',
     name: 'Siv Mundal',
     shortName: 'Siv',
     urlContributions: '#',
@@ -46,7 +46,7 @@ export const authorRealText = [
     licenses: 'CC BY-NC-SA',
   },
   {
-    role: 'Oversetter',
+    role: 'Manusforfatter',
     name: 'Pål Frønsdal',
     shortName: 'Pål',
     urlContributions: '#',
