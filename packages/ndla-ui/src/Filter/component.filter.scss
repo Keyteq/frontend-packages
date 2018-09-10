@@ -412,25 +412,6 @@
       padding: 0;
     }
   }
-  /*
-  &--subject {
-    .c-filter {
-      &__item {
-        @include mq($until: tablet) {
-          display: block;
-          margin-left: 0;
-          margin-bottom: $spacing;
-        }
-
-        &:last-child {
-          @include mq($until: tablet) {
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
-  }
-  */
 
   &__usefilter-wrapper {
     display: flex;
