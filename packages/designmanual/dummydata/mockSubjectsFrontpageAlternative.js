@@ -50,7 +50,6 @@ export const subjectsFrontpageAlternative = {
         url: '#9',
         text: 'Norsk',
         yearInfo: 'YF og SF',
-        beta: true,
       },
       {
         url: '#10',

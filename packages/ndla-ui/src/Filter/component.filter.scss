@@ -146,14 +146,18 @@
     padding: 0;
     list-style: none;
 
-    &--collapse-mobile {
+    // &--collapse-mobile {
       @include mq($until: mobileWide) {
+        flex-flow: wrap;
         width: 100%;
         flex-flow: column;
         .c-filter__item {
           width: 100%;
+          border-bottom: 1px solid $brand-grey--lighter;
+          margin-bottom: 0;
         }
       }
+    &--collapse-mobile {
       @include mq($from: mobileWide, $until: tabletWide) {
         flex-flow: wrap;
         width: calc(100% + 24px);
@@ -408,7 +412,7 @@
       padding: 0;
     }
   }
-
+  /*
   &--subject {
     .c-filter {
       &__item {
@@ -426,6 +430,7 @@
       }
     }
   }
+  */
 
   &__usefilter-wrapper {
     display: flex;
