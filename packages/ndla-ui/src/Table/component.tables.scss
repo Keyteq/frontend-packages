@@ -242,8 +242,11 @@ article table {
     }
 
     p {
-      margin: 0;
       line-height: 1.6em;
+    }
+
+    p:last-child {
+      margin: 0;
     }
 
     img {

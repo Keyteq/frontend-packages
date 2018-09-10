@@ -39,9 +39,11 @@ const triggerDownloadText = () => {
 
   anchor.download = 'navn på artikkel';
   anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-  anchor.dataset.downloadurl = ['text/html', anchor.download, anchor.href].join(':');
+  anchor.dataset.downloadurl = ['text/html', anchor.download, anchor.href].join(
+    ':',
+  );
   anchor.click();
-}
+};
 
 const byncndLicenseAbbreviation = 'by-nc-nd';
 const bysaLicenseAbbreviation = 'by-sa';
@@ -69,9 +71,7 @@ const VideoContent = injectT(({ t }) => (
             </a>
           </MediaListItemImage>
           <div className="o-media__body c-medialist__body">
-            <h3 className="c-medialist__title">
-              {t('license.video.rules')}
-            </h3>
+            <h3 className="c-medialist__title">{t('license.video.rules')}</h3>
             <p>Oppsøk innholdsobjektet for å finne regler for gjenbruk.</p>
             <a
               className="c-figure-license__link"
@@ -155,8 +155,7 @@ const TextContent = injectT(({ t }) => (
                   onClick={() => {
                     // window.open(`data:application/octet-stream;charset=utf-8;base64,${btoa(mockDownloadArticleText)}`);
                     triggerDownloadText();
-                  }}
-                >
+                  }}>
                   {t('license.download')}
                 </button>
               </div>
@@ -288,7 +287,11 @@ const ImageContent = injectT(({ t }) => (
       ))}
       <MediaListItem>
         <MediaListItemImage>
-          <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label={t('license.images.itemImage.ariaLabel')}>
+          <a
+            href="https://example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('license.images.itemImage.ariaLabel')}>
             <img
               alt="alt"
               src="https://cdntest-c.ndla.no/sites/default/files/images/ku-collage_v2_3.fullbredde.jpg"
@@ -325,9 +328,6 @@ const ImageContent = injectT(({ t }) => (
               <button className="c-button c-button--outline" type="button">
                 {t('license.download')}
               </button>
-              <button className="c-button c-button--outline" type="button">
-                Se del-elementer
-              </button>
             </div>
           </MediaListItemActions>
         </MediaListItemBody>
@@ -346,7 +346,11 @@ const OtherContent = injectT(({ t }) => (
       {H5PExamples.map(example => (
         <MediaListItem key={example.id}>
           <MediaListItemImage>
-            <a href={example.url} target="_blank" rel="noopener noreferrer" aria-label={t('license.other.itemImage.ariaLabel')}>
+            <a
+              href={example.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('license.other.itemImage.ariaLabel')}>
               <img
                 src={example.image}
                 alt={example.name}
@@ -397,7 +401,11 @@ const Files = injectT(({ t }) => (
       ].map(el => (
         <MediaListItem key={el.id}>
           <MediaListItemImage>
-            <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label={t('license.files.itemImage.ariaLabel')}>
+            <a
+              href="https://example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('license.files.itemImage.ariaLabel')}>
               <FileDownloadOutline className="c-medialist__icon" />
             </a>
           </MediaListItemImage>

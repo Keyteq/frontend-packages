@@ -37,7 +37,6 @@ export const FooterEditor = ({ title, name }) => (
 
 const FooterPrivacy = ({ lang }) => (
   <Modal
-    narrow
     activateButton={<Button link>{privacyTexts[lang].linkLabel}</Button>}
     size="medium">
     {onClose => (

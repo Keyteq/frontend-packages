@@ -22,7 +22,7 @@ import {
   subjectsFrontpage,
   subjectsFrontpageAlternative,
 } from '../../dummydata/index';
-import NdlaFilmIllustration from '../../images/film_illustrasjon.png';
+import NdlaFilmIllustration from '../../images/film_illustrasjon.svg';
 
 const FrontpageExample = ({ t, alternative }) => (
   <Fragment>
@@ -98,11 +98,6 @@ const FrontpageExample = ({ t, alternative }) => (
         <FrontpageFilm
           imageUrl={NdlaFilmIllustration}
           url="https://ndla.no/nb/film"
-          messages={{
-            header: t('welcomePage.film.header'),
-            linkLabel: t('welcomePage.film.linkLabel'),
-            text: t('welcomePage.film.text'),
-          }}
         />
         <FrontpageInfo>
           <InfoWidget
