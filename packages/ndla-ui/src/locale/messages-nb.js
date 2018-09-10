@@ -297,6 +297,9 @@ const messages = {
       description:
         'Husk å kopiere teksten som skal legges ved bildet der du bruker det.',
       rules: 'Regler for bruk av bildet:',
+      itemImage: {
+        ariaLabel: 'Åpne bilde i ny fane',
+      },
       source: 'Kilde',
       title: 'Tittel',
     },
@@ -318,17 +321,26 @@ const messages = {
       description:
         'Husk å kopiere teksten som skal legges ved videoen der du bruker den.',
       rules: 'Regler for bruk av videoen:',
+      itemImage: {
+        ariaLabel: 'Se video i ny fane',
+      },
     },
     other: {
       heading: 'Slik bruker du annet innhold fra artikkelen',
       description:
         'Du finner retningslinjene for bruk av innholdet i innholdselementet',
+      itemImage: {
+        ariaLabel: 'Åpne i nytt vindu',
+      },
     },
     files: {
       heading: 'Slik bruker du filer fra artikkelen',
       description:
         'Husk å kopier teksten som skal legges ved filen der du bruker den.',
       rules: 'Regler for bruk av filen:',
+      itemImage: {
+        ariaLabel: 'Åpne i nytt vindu',
+      },
     },
     creditType: {
       originator: 'Opphavsmann',

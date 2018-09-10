@@ -75,12 +75,18 @@
         border-radius: 100%;
         @include svg_icon(openInNew, #fff);
         background-color: $brand-color;
-        background-size: 24px 24px;
+        background-size: 18px 18px;
         background-position-x: center;
         background-position-y: center;
         background-repeat: no-repeat;
         width: $spacing--medium;
         height: $spacing--medium;
+      }
+      &:hover {
+        &:before {
+          background-color: $brand-color--dark;
+          transform: scale3d(1.1, 1.1, 1);
+        }
       }
     }
   }
