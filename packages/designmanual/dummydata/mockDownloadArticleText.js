@@ -7,8 +7,7 @@
  */
 
 export const mockDownloadArticleText = `
-Artikkel fagstoff
-
-Du har en kjempegod idé til en kortfilm. Men det koster mange penger å produsere filmen.
-
+<small>FAGSTOFF</small>
+<h1>Artikkel fagstoff</h1>
+<h2>Du har en kjempegod idé til en kortfilm. Men det koster mange penger å produsere filmen.</h2>
 Pitching er også en god måte å bevisstgjøre seg selv på. Når du pitcher, blir idéen og historien i den filmen du planlegger å lage, tydeligere for både deg selv og dem du eventuelt jobber sammen med i klassen.`;

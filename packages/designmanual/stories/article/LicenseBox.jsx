@@ -33,13 +33,13 @@ import { mockDownloadArticleText } from '../../dummydata';
 import H5PExamples from '../../images/h5p-contenttype';
 
 const triggerDownloadText = () => {
-  // TODO: Fetch texts from article..
-  const blob = new Blob([mockDownloadArticleText], { type: 'text/plain' });
+  // TODO: Fetch texts from article.. https://github.com/MrRio/jsPDF combined with hide interactive elements?
+  const blob = new Blob([mockDownloadArticleText], { type: 'text/html' });
   const anchor = document.createElement('a');
 
-  anchor.download = "navn på artikkel.txt";
+  anchor.download = 'navn på artikkel';
   anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-  anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+  anchor.dataset.downloadurl = ['text/html', anchor.download, anchor.href].join(':');
   anchor.click();
 }
 
