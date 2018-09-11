@@ -29,7 +29,7 @@ export const authorRealText = [
     phone: '+47 123 45 678',
     email: 'cecilie@ndla.no',
     image: cecilie,
-    introduction: 'Er fagleder for bla bla..',
+    introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     licenses: 'CC BY-NC-SA',
   },
   {
@@ -42,7 +42,7 @@ export const authorRealText = [
     phone: '+47 123 45 678',
     email: 'siv.mundal@keyteq.no',
     image: cecilie,
-    introduction: 'Er fagleder for bla bla..',
+    introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     licenses: 'CC BY-NC-SA',
   },
   {
@@ -55,7 +55,7 @@ export const authorRealText = [
     phone: '+47 123 45 678',
     email: 'paal.fronsdal@ndla.no',
     image: cecilie,
-    introduction: 'Er fagleder for bla bla..',
+    introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
     licenses: 'CC BY-NC-SA',
   },
 ];
