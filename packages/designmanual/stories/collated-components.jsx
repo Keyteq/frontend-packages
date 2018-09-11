@@ -1,9 +1,10 @@
 /* eslint-disable no-alert */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { BY, SA, NC, ND, PD, CC0, COPYRIGHTED } from 'ndla-licenses';
+import { Trans } from 'ndla-i18n';
 import {
   ErrorMessage,
   FilterList,
@@ -12,12 +13,17 @@ import {
   LicenseByline,
   TopicIntroductionList,
   PageContainer,
-  Content,
   LayoutItem,
   Image,
   Translation,
   TranslationLine,
   ArticleByline,
+  RadioButtonGroup,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
 } from 'ndla-ui';
 
 import { StoryIntro, StoryBody } from './wrappers';
@@ -40,9 +46,11 @@ import { LanguageSelector } from './LanguageWrapper';
 import FileListExample from './molecules/FileListExample';
 import TranslationBoxExample from './organisms/TranslationBoxExample';
 import ModalExample from './molecules/ModalExample';
+import ComponentInfo from './ComponentInfo';
 import ListViewExample from './organisms/ListViewExample';
 
 import Oops from '../images/oops.gif';
+import cecilie from '../images/cecilie.png';
 
 const toggle = () => {
   document
@@ -52,92 +60,120 @@ const toggle = () => {
 
 storiesOf('Sammensatte moduler', module)
   .add('Artikkel info linje', () => (
-    <Center>
-      <h2 className="u-heading">Linje artikkel enkel variant</h2>
-      <ArticleByline
-        authors={[
-          {
-            name: 'Cecilie Isaksen Eftedal',
-          },
-          {
-            name: 'Pål Frønsdal',
-          },
-        ]}
-        updated="21.06.2018"
-        license="CC BY-SA"
-        messages={{
-          authorLabel: 'Opphavsmenn',
-          authorDescription: 'Denne artikkelen er laget av flere opphavsmenn',
-        }}
-      />
-      <h2 className="u-heading">Linje med tilleggsstoff og lisensboks</h2>
-      <ArticleByline
-        authors={[
-          {
-            name: 'Cecilie Isaksen Eftedal',
-          },
-        ]}
-        updated="21.06.2018"
-        license="CC BY-SA"
-        licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
-        additional
-        messages={{
-          authorDescription: 'Denne artikkelen er laget av flere opphavsmenn',
-        }}
-      />
-      <h2 className="u-heading">Linje med detaljert forfatter informasjon</h2>
-      <ArticleByline
-        authors={[
-          {
-            role: 'rolle',
-            name: 'Cecilie Isaksen Eftedal',
-            shortName: 'Cecilie',
-            urlContributions: '#',
-            urlAuthor: '#',
-            licenses: 'CC BY-SA',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'cecilie@ndla.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-          {
-            role: 'rolle',
-            name: 'Siv Mundal',
-            shortName: 'Siv',
-            urlContributions: '#',
-            urlAuthor: '#',
-            licenses: 'CC BY-SA',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'siv.mundal@keyteq.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-          {
-            role: 'rolle',
-            name: 'Pål Frøsndal',
-            shortName: 'Pål',
-            urlContributions: '#',
-            urlAuthor: '#',
-            licenses: 'CC BY-SA',
-            title: 'Stilling',
-            phone: '+47 123 45 678',
-            email: 'paal.fronsdal@ndla.no',
-            image: 'http://via.placeholder.com/200x200',
-            introduction: 'Er fagleder for bla bla..',
-          },
-        ]}
-        updated="21.06.2018"
-        license="CC BY-SA"
-        licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
-        additional
-        messages={{
-          authorLabel: 'Opphavsmenn',
-          authorDescription: 'Denne artikkelen er laget av flere opphavsmenn',
-        }}
-      />
-    </Center>
+    <div>
+      <StoryIntro title="Artikkel informasjonslinje">
+        <p>
+          Innholder informasjon om forfatter(e), lisensrettigheter, beskrivelse
+          av regler ved bruk av innhold, ikon hvis artikkel er tilleggsstoff og
+          dato for forrige oppdatering.
+        </p>
+      </StoryIntro>
+      <StoryBody layout="extend">
+        <LanguageSelector />
+        <h2 className="u-heading">Linje artikkel enkel variant</h2>
+        <ArticleByline
+          authors={[
+            {
+              name: 'Cecilie Isaksen Eftedal',
+              shortName: 'Cecilie',
+              role: 'Forfatter',
+            },
+            {
+              name: 'Pål Frønsdal',
+              shortName: 'Pål',
+              role: 'Manusforfatter',
+            },
+          ]}
+          updated="21.06.2018"
+          license="CC BY-SA"
+        />
+        <h2 className="u-heading">Linje med tilleggsstoff og lisensboks</h2>
+        <ArticleByline
+          authors={[
+            {
+              name: 'Cecilie Isaksen Eftedal',
+              shortName: 'Cecilie',
+            },
+          ]}
+          updated="21.06.2018"
+          license="CC BY-SA"
+          licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
+          additional
+        />
+        <h2 className="u-heading">Linje med detaljert forfatter informasjon</h2>
+        <ArticleByline
+          authors={[
+            {
+              role: 'rolle',
+              name: 'Cecilie Isaksen Eftedal',
+              shortName: 'Cecilie',
+              urlContributions: '#',
+              urlAuthor: '#',
+              licenses: 'CC BY-SA',
+              title: 'Stilling',
+              phone: '+47 123 45 678',
+              email: 'cecilie@ndla.no',
+              image: cecilie,
+              introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+            },
+          ]}
+          updated="21.06.2018"
+          license="CC BY-SA"
+          licenseBox={<LicenseBox headingId="article-license-box-heading-id" />}
+          additional
+        />
+        <h2 className="u-heading">
+          Linje med flere forfattere med detaljert informasjon
+        </h2>
+        <ArticleByline
+          authors={[
+            {
+              role: 'Forfatter',
+              name: 'Cecilie Isaksen Eftedal',
+              shortName: 'Cecilie',
+              urlContributions: '#',
+              urlAuthor: '#',
+              licenses: 'CC BY-SA',
+              title: 'Stilling',
+              phone: '+47 123 45 678',
+              email: 'cecilie@ndla.no',
+              image: cecilie,
+              introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+            },
+            {
+              role: 'Illustratør',
+              name: 'Siv Mundal',
+              shortName: 'Siv',
+              urlContributions: '#',
+              urlAuthor: '#',
+              licenses: 'CC BY-SA',
+              title: 'Stilling',
+              phone: '+47 123 45 678',
+              email: 'siv.mundal@keyteq.no',
+              image: cecilie,
+              introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+            },
+            {
+              role: 'Manusforfatter',
+              name: 'Pål Frønsdal',
+              shortName: 'Pål',
+              urlContributions: '#',
+              urlAuthor: '#',
+              licenses: 'CC BY-SA',
+              title: 'Stilling',
+              phone: '+47 123 45 678',
+              email: 'paal.fronsdal@ndla.no',
+              image: cecilie,
+              introduction: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+            },
+          ]}
+          updated="21.06.2018"
+          license="CC BY-SA"
+          licenseBox={<LicenseBox />}
+          additional
+        />
+      </StoryBody>
+    </div>
   ))
   .add('Brødsmulesti', () => (
     <Center>
@@ -266,6 +302,85 @@ storiesOf('Sammensatte moduler', module)
       </StoryBody>
     </div>
   ))
+  .add('Radiobuttons', () => (
+    <div>
+      <StoryIntro title="Filter">
+        <p>
+          Radiobutton group komponent som håndterer states og gir callback ved
+          endring
+        </p>
+      </StoryIntro>
+      <StoryBody>
+        <ComponentInfo
+          reactCode={`
+            <RadioButtonGroup
+              options={[
+                { title: '1T', value: '1T' },
+                { title: 'R1', value: 'R1' },
+                { title: 'R2', value: 'R2' },
+                { title: 'S1', value: 'S1' },
+              ]}
+              onChange={(value) => {
+                console.log('changed to', value);
+              }}
+            />
+          `}
+          usesPropTypes={[
+            {
+              name: 'options',
+              type: 'ArrayOf(Shape)',
+              default: 'Required',
+              description: `[{ title: '1T', value '1T' }, { title: 'R1', value: 'R1' }]`,
+            },
+            {
+              name: 'onChange',
+              type: 'Function',
+              default: 'Required',
+              description: '(val) => {}',
+            },
+            {
+              name: 'uniqeIds',
+              type: 'Bool',
+              default: 'null',
+              description:
+                'Lager unike id på input og label. Sørger for at ikke htmlFor og input name/id ikke krasjer med andre komponenter på siden',
+            },
+          ]}
+          status={2}>
+          <h2 className="u-heading">Radiobuttons (group) uten label</h2>
+          <div className="c-filter u-margin-top">
+            <RadioButtonGroup
+              options={[
+                { title: '1T', value: '1T' },
+                { title: 'R1', value: 'R1' },
+                { title: 'R2', value: 'R2' },
+                { title: 'S1', value: 'S1' },
+              ]}
+              onChange={value => {
+                console.log('changed to', value); // eslint-disable-line no-console
+              }}
+            />
+          </div>
+          <h2 className="u-heading">Radiobuttons (group) med label</h2>
+          <div className="c-filter u-margin-top">
+            <RadioButtonGroup
+              options={[
+                { title: '1T', value: '1T' },
+                { title: 'R1', value: 'R1' },
+                { title: 'R2', value: 'R2' },
+                { title: 'S1', value: 'S1' },
+              ]}
+              uniqeIds
+              label="Velg fag"
+              onChange={value => {
+                console.log('changed to', value); // eslint-disable-line no-console
+              }}
+            />
+          </div>
+        </ComponentInfo>
+      </StoryBody>
+    </div>
+  ))
   .add('Hovedhode', () => (
     <div>
       <MastheadWithLogo />
@@ -304,16 +419,31 @@ storiesOf('Sammensatte moduler', module)
   ))
   .add('Lisensboks', () => (
     <PageContainer>
-      <Content>
-        <Center>
-          <h2 className="u-heading">Lisensboks</h2>
-          <article className="article">
-            <LayoutItem layout="center">
-              <LicenseBox headingId="licenseBox-headingId" />
-            </LayoutItem>
-          </article>
-        </Center>
-      </Content>
+      <StoryIntro title="Lisensboks">
+        <p>Skal åpnes i en modalboks. Skal ligge ved alle artikler.</p>
+      </StoryIntro>
+      <StoryBody>
+        <h2 className="u-heading">Eksempel på lisensboks</h2>
+        <p>Klikk på lenken for å åpne lisensboksen:</p>
+        <Trans>
+          {({ t }) => (
+            <Modal
+              activateButton={<Button link>{t('article.useContent')}</Button>}
+              size="medium">
+              {onClose => (
+                <Fragment>
+                  <ModalHeader modifier="no-bottom-padding">
+                    <ModalCloseButton onClick={onClose} title="Lukk" />
+                  </ModalHeader>
+                  <ModalBody>
+                    <LicenseBox />
+                  </ModalBody>
+                </Fragment>
+              )}
+            </Modal>
+          )}
+        </Trans>
+      </StoryBody>
     </PageContainer>
   ))
   .add('Listevisning', () => (
@@ -627,7 +757,11 @@ storiesOf('Sammensatte moduler', module)
   .add('Modalboks', () => (
     <div>
       <StoryIntro title="Modalboks">
-        <p>Some tekst</p>
+        <p>
+          Brukes som modalboks (dialog). Innebygget logikk for håndtering av
+          åpne/lukke, focusTrap og git mulighet å lytte på callbacks som onOpen
+          og onClose
+        </p>
       </StoryIntro>
       <StoryBody>
         <ModalExample />

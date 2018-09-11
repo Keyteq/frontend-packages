@@ -114,6 +114,8 @@ class ContentTypeResult extends Component {
       view = <p {...classes('no-hit')}>{messages.noHit}</p>;
     }
 
+    console.log(contentTypeResult.contentType);
+
     return (
       <section {...classes()}>
         <header>

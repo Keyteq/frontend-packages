@@ -29,6 +29,7 @@ export {
   FrontpageInfo,
   FrontpageSearchSection,
   FrontpageFilm,
+  FrontpageMenuitemExtention,
 } from './Frontpage';
 
 export { default as ContentCard } from './ContentCard';
@@ -178,3 +179,5 @@ export {
   ModalBody,
   ModalCloseButton,
 } from './Modal';
+
+export { default as RadioButtonGroup } from './RadioButtonGroup';

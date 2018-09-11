@@ -126,6 +126,12 @@ const messages = {
     newContent: {
       heading: 'Nytt innhald',
     },
+    subjectIsBeta: {
+      iconLabel: '*i arbeid',
+      dialogHeader: '*Faget er i arbeid',
+      dialogText:
+        '*Lorem ipsum, forklaringstekst til hva det betyr at et fag er "i arbeid"',
+    },
   },
   subjectsPage: {
     errorDescription: 'Orsak, ein feil oppstod under lasting av faga.',
@@ -228,7 +234,7 @@ const messages = {
       'Det er ikkje noko kjernestoff tilgjengeleg.',
     noCoreResourcesAvailable:
       'Det er ikkje noko kjernestoff tilgjengeleg for {name}.',
-    toggleFilterLabel: 'Tilleggsressursar',
+    toggleFilterLabel: 'Vis tilleggsressursar',
     activateAdditionalResources: 'Vis tilleggsressursar',
     label: 'Læringsressursar',
     shortcutButtonText: 'Lærestoff',
@@ -254,9 +260,11 @@ const messages = {
     additionalLabel: 'Tilleggsstoff',
     urlContributionsLabel: 'Sjå kva {name} har bidratt med',
     urlAuthorLabel: 'Les meir om {name}',
-    multipleAuthorsLabel: 'Opphavsmenn',
-    multipleAuthorsExplanation:
-      'Denne artikkelen er laga av fleire opphavsmenn',
+    multipleAuthorsLabelAbbreviation: 'm. fl.',
+    multipleAuthorsLabel: 'Opphavere av artikkel:',
+    multipleAuthorsLabelAria: 'Opphavere av artikkelen er {names}',
+    multipleAuthorsLabelAriaConjunction: 'og',
+    singleAuthorsLabelAria: 'Opphaver av artikkelen er {name}',
   },
   competenceGoals: {
     closeCompetenceGoals: 'Lukk kompetansemål',

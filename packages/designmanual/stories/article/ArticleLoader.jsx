@@ -33,12 +33,6 @@ const ResourcesSubTopics = ({ showAdditionalCores, toggleAdditionalCores }) => (
         messages={{
           label: 'Emner',
           additionalFilterLabel: 'Vis tilleggsemner',
-          dialogTooltip: 'Hva er kjernestoff og tilleggsstoff?',
-          dialogHeading: 'Kjernestoff og tilleggsstoff',
-          dialogTexts: [
-            'Når du lærer deg kjernestoffet skaffer du deg den kompetansen som beskrives i læreplanen for faget.',
-            'Tilleggstoff er innhold i faget som du kan velge i tillegg til kjernestoffet. Gjennom tilleggsstoffet kan du fordype deg i et emne eller tilnærme deg emnet på en annen måte.',
-          ],
         }}
         title="Medieproduksjon"
         hasAdditionalResources={topicList.some(topic => topic.additional)}
@@ -49,6 +43,7 @@ const ResourcesSubTopics = ({ showAdditionalCores, toggleAdditionalCores }) => (
     <TopicIntroductionList
       toTopic={() => '#'}
       topics={topicList}
+      toggleAdditionalCores={() => {}}
       messages={{
         shortcutButtonText: 'Lærestoff',
       }}

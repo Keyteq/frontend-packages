@@ -280,3 +280,16 @@
     transform: translate3d(0, -52px, 0);
   }
 }
+/* Modal animation ends */
+
+@keyframes pulseAnimation {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

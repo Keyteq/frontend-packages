@@ -15,6 +15,7 @@ export { default as ForwardArrow } from './ForwardArrow';
 export { default as Grid } from './Grid';
 export { default as List } from './List';
 export { default as Minus } from './Minus';
+export { default as OpenInNew } from './OpenInNew';
 export { default as Pencil } from './Pencil';
 export { default as Plus } from './Plus';
 export { default as RemoveCircle } from './RemoveCircle';
