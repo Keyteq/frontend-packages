@@ -23,6 +23,11 @@ import {
   OneColumn,
   PageContainer,
   Content,
+  LayoutItem,
+  ArticleWrapper,
+  ArticleHeaderWrapper,
+  ArticleTitle,
+  ArticleIntroduction,
 } from 'ndla-ui';
 import { StoryIntro, BannerList } from '../wrappers';
 
@@ -41,6 +46,7 @@ import ArticleSourceMaterial from './ArticleSourceMaterial';
 import ArticleAssessmentResource from './ArticleAssessmentResource';
 import Breadcrumb, { BreadcrumbSimpleArticle } from '../molecules/breadcrumbs';
 import Frontpage from './FrontpageExample';
+import ListViewExample from '../organisms/ListViewExample';
 
 import NotExist from '../../images/not-exist.gif';
 import banners from '../../images/banners';
@@ -351,6 +357,41 @@ storiesOf('Emnesider', module)
       </Content>
       <FooterExample />
     </PageContainer>
+  ))
+  .add('7. Listevisning som emne', () => (
+    <PageContainer backgroundWide>
+      <Content>
+        <MastheadWithTopicMenu />
+        <SubjectHero>
+          <OneColumn>
+            <div className="c-hero__content">
+              <section>
+                <Breadcrumb />
+              </section>
+            </div>
+          </OneColumn>
+        </SubjectHero>
+      </Content>
+      <OneColumn>
+        <ArticleWrapper>
+          <LayoutItem layout="center">
+            <ArticleHeaderWrapper>
+              <ArticleTitle
+                icon={<SubjectBadge background size="large" />}
+                label="Emne">
+                Mat i naturbruk
+              </ArticleTitle>
+              <ArticleIntroduction>
+                Ingress med forklaring til hva en finner på denne siden, oppsummering til innholdet på denne siden, hvordan kan dette brukes.
+              </ArticleIntroduction>
+            </ArticleHeaderWrapper>
+          </LayoutItem>
+
+          <ListViewExample />
+        </ArticleWrapper>
+      </OneColumn>
+    <FooterExample />
+  </PageContainer>
   ))
   .add('Bannerbilder', () => (
     <div>

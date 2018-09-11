@@ -3,11 +3,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
-import { FilterList, Select } from 'ndla-ui';
+import { FilterListPhone, Select } from 'ndla-ui';
 import { List as ListIcon, Grid as GridIcon } from 'ndla-icons/action';
 import { Search as SearchIcon } from 'ndla-icons/common';
 import ListViewDialog from './ListViewDialog';
 import ListItem from './ListItem';
+
+export const listItemShape = PropTypes.shape({
+  name: PropTypes.string,
+  text: PropTypes.string,
+  image: PropTypes.string,
+  id: PropTypes.string,
+  subject: PropTypes.shape({
+    title: PropTypes.string,
+    value: PropTypes.string,
+  }),
+  category: PropTypes.shape({
+    title: PropTypes.string,
+    value: PropTypes.string,
+  }),
+  source: PropTypes.string,
+  license: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+});
 
 const classes = BEMHelper('c-listview');
 const searchFieldClasses = new BEMHelper('c-search-field');
@@ -18,7 +36,7 @@ class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewStyle: this.props.viewStyle,
+      viewStyle: props.viewStyle,
     };
   }
 
@@ -53,17 +71,6 @@ class ListView extends Component {
       />
     ));
 
-    const filterComponents = filters.map(filter => (
-      <FilterList
-        modifiers="listview"
-        options={filter.options}
-        values={filter.values}
-        label={filter.label}
-        onChange={filter.onChange}
-        key={filter.id}
-      />
-    ));
-
     const sortByComponent = sortBy ? (
       <div {...classes('sortBy')}>
         <Select
@@ -84,9 +91,8 @@ class ListView extends Component {
             {...searchFieldClasses('input', 'small')}
             type="search"
             placeholder={search.placeholder}
-            onChange={e =>
-              search.callback ? search.callback(e.target.value) : null
-            }
+            value={search.value}
+            onChange={(e) => search.onChange(e.target.value)}
           />
           <button
             tabIndex="-1"
@@ -101,17 +107,18 @@ class ListView extends Component {
 
     return (
       <div {...classes()}>
-        <h1>Listevisning</h1>
         <div {...classes('sorting')}>
           {sortByComponent}
           {searchComponent}
           <div {...classes('list-style')}>
             <button
+              type="button"
               {...classes('style-button', { active: viewStyle === 'list' })}
               onClick={() => this.setState({ viewStyle: 'list' })}>
               <ListIcon />
             </button>
             <button
+              type="button"
               {...classes('style-button', { active: viewStyle === 'grid' })}
               onClick={() => this.setState({ viewStyle: 'grid' })}>
               <GridIcon />
@@ -123,6 +130,7 @@ class ListView extends Component {
               {alphabet.split('').map(letter => (
                 <li key={`letter-${letter}`} {...classes('letter')}>
                   <button
+                    type="button"
                     {...classes('letter-button', {
                       active: selectedLetter === letter,
                       disabled: !this.getActiveLetters()[letter],
@@ -139,8 +147,15 @@ class ListView extends Component {
             </ul>
           ) : null}
         </div>
-        {filterComponents}
-
+        {filters && filters.map(filter => (
+          <FilterListPhone
+            key={filter.key}
+            label={filter.label}
+            options={filter.options}
+            values={filter.filterValues}
+            onChange={(values) => { filter.onChange(filter.key, values) }}
+          />
+        ))}
         <ul {...classes('content', [viewStyle])}>{listItems}</ul>
         {detailedItem ? (
           <ListViewDialog
@@ -153,13 +168,24 @@ class ListView extends Component {
   }
 }
 
+const filterShapes = PropTypes.shape({
+  options: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    icon: PropTypes.func,
+    noResults: PropTypes.bool,
+  })).isRequired,
+  onChange: PropTypes.func.isRequired,
+  filterValues: PropTypes.arrayOf([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string.isRequired,
+  key: PropTypes.string.isRequired,
+});
+
 ListView.propTypes = {
   items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-    }),
+    listItemShape,
   ).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.shape({})),
+  filters: PropTypes.arrayOf(filterShapes),
   detailedItem: PropTypes.shape(),
   selectCallback: PropTypes.func,
   selectedLetterCallback: PropTypes.func,
@@ -170,13 +196,14 @@ ListView.propTypes = {
     onChange: PropTypes.func,
   }),
   search: PropTypes.shape({
+    value: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
   }),
   viewStyle: PropTypes.oneOf(['grid', 'list']),
 };
 
 ListView.defaultProps = {
-  filters: [],
   viewStyle: 'grid',
   selectedLetter: '',
 };

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
+import { listItemShape } from './ListView';
+
 const classes = BEMHelper('c-listview');
 
 class ListItem extends Component {
@@ -42,7 +44,7 @@ class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-  item: PropTypes.shape(),
+  item: listItemShape,
   clickCallback: PropTypes.func,
   nextItem: PropTypes.shape(),
   previousItem: PropTypes.shape(),

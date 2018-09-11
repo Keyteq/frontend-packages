@@ -48,7 +48,6 @@ import TranslationBoxExample from './organisms/TranslationBoxExample';
 import ModalExample from './molecules/ModalExample';
 import ComponentInfo from './ComponentInfo';
 import ListViewExample from './organisms/ListViewExample';
-
 import Oops from '../images/oops.gif';
 import cecilie from '../images/cecilie.png';
 
