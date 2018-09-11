@@ -271,14 +271,6 @@ storiesOf('Emnesider', module)
       <FooterExample />
     </PageContainer>
   ))
-  .add('1. Fagoversikt alt', () => (
-    <PageContainer background>
-      <Content>
-        <Frontpage alternative />
-      </Content>
-      <FooterExample />
-    </PageContainer>
-  ))
   .add('2. Fag', () => (
     <PageContainer>
       <Content>
@@ -390,6 +382,14 @@ storiesOf('Emnesider', module)
           icon={<SubjectBadge size="large" background />}
           label="Emne"
         />
+      </Content>
+      <FooterExample />
+    </PageContainer>
+  ))
+  .add('Fagoversikt hover språk (ikke i bruk)', () => (
+    <PageContainer background>
+      <Content>
+        <Frontpage alternative />
       </Content>
       <FooterExample />
     </PageContainer>
