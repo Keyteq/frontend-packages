@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
+import { injectT } from 'ndla-i18n';
 import { FilterListPhone, Select } from 'ndla-ui';
 import { List as ListIcon, Grid as GridIcon } from 'ndla-icons/action';
 import { Search as SearchIcon } from 'ndla-icons/common';
@@ -29,7 +30,6 @@ export const listItemShape = PropTypes.shape({
 
 const classes = BEMHelper('c-listview');
 const searchFieldClasses = new BEMHelper('c-search-field');
-
 const alphabet = 'abcdefghijklmnopqrstuvxyzæøå';
 
 class ListView extends Component {
@@ -37,7 +37,11 @@ class ListView extends Component {
     super(props);
     this.state = {
       viewStyle: props.viewStyle,
+      searchInput: '',
+      filters: props.activeFilters,
+      sortBy: props.sortBy,
     };
+    this.handleSortBy = this.handleSortBy.bind(this);
   }
 
   getActiveLetters() {
@@ -51,48 +55,80 @@ class ListView extends Component {
     return letters;
   }
 
+  handleChangeFilters(key, values) {
+    this.setState(prevState => {
+      const currentFilters = prevState.filters;
+      currentFilters[key] = values;
+      return {
+        filters: currentFilters,
+      };
+    });
+  }
+
+  handleSortBy(sortBy) {
+    this.setState({
+      sortBy,
+    });
+  }
+
   render() {
     const {
       items,
-      filters,
+      filters: useFilters,
       detailedItem,
       selectedLetter,
       selectCallback,
       selectedLetterCallback,
-      sortBy,
-      search,
+      disableSortBy,
+      disableSearch,
+      t,
     } = this.props;
-    const { viewStyle } = this.state;
-    const listItems = items.map(item => (
-      <ListItem
-        item={item}
-        key={item.id}
-        clickCallback={() => selectCallback(item)}
-      />
+
+    const {
+      searchInput,
+      filters,
+      sortBy,
+    } = this.state;
+
+    // 1. Filter items
+    let filteredItems = items.filter(item => (
+      Object.keys(filters).length === 0 || Object.keys(filters).every((filterKey) => (
+        !filters[filterKey] || filters[filterKey].length === 0 || filters[filterKey].includes(item[filterKey].value)
+      ))
     ));
 
-    const sortByComponent = sortBy ? (
-      <div {...classes('sortBy')}>
-        <Select
-          id="listViewSortBy"
-          label={sortBy.label}
-          onChange={sortBy.onChange}>
-          {sortBy.options.map(option => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </Select>
-      </div>
-    ) : null;
+    // 2. Filter with search (testing name, description and tags[])
+    if (searchInput.length > 0) {
+      const searchInputLowercase = searchInput.toLowerCase();
+      filteredItems = filteredItems.filter(item => (
+        (item.tags && item.tags.some(tag => tag.toLowerCase().indexOf(searchInputLowercase) !== -1)) ||
+        (item.description && item.description.toLowerCase().indexOf(searchInputLowercase) !== -1) ||
+        item.name.toLowerCase().indexOf(searchInputLowercase) !== -1
+      ));
+    }
 
-    const searchComponent = search ? (
+    // 3. Sort filtered results ??? how????
+    if (sortBy === 'title') {
+      filteredItems = filteredItems.sort((a, b) => (
+        a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+      ));
+    } else {
+      filteredItems = filteredItems.sort((a, b) => (
+        a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1
+      ));
+    }
+
+    const { viewStyle } = this.state;
+
+    const searchComponent = !disableSearch ? (
       <div {...classes('search')}>
         <div {...searchFieldClasses()}>
           <input
             {...searchFieldClasses('input', 'small')}
             type="search"
-            placeholder={search.placeholder}
-            value={search.value}
-            onChange={(e) => search.onChange(e.target.value)}
+            placeholder='Søk i listevisning'
+            value={searchInput}
+            onChange={(e) => this.setState({ searchInput: e.target.value })}
           />
           <button
             tabIndex="-1"
@@ -108,7 +144,19 @@ class ListView extends Component {
     return (
       <div {...classes()}>
         <div {...classes('sorting')}>
-          {sortByComponent}
+          {!disableSortBy && (
+            <div {...classes('sortBy')}>
+              <Select
+                id="listViewSortBy"
+                label="Sorter etter"
+                defaultValue={sortBy}
+                onChange={this.handleSortBy}>
+                  <option value="title">Tittle</option>
+                  <option value="subject">Fag</option>
+                  <option value="category">Kategori</option>
+              </Select>
+            </div>
+          )}
           {searchComponent}
           <div {...classes('list-style')}>
             <button
@@ -147,16 +195,31 @@ class ListView extends Component {
             </ul>
           ) : null}
         </div>
-        {filters && filters.map(filter => (
+        {useFilters && useFilters.map(filter => (
           <FilterListPhone
             key={filter.key}
             label={filter.label}
             options={filter.options}
-            values={filter.filterValues}
-            onChange={(values) => { filter.onChange(filter.key, values) }}
+            values={filters[filter.key]}
+            messages={{
+              useFilter: t('masthead.menu.useFilter'),
+              openFilter: t('masthead.menu.openFilter'),
+              closeFilter: t('masthead.menu.closeFilter'),
+            }}
+            onChange={(values) => { this.handleChangeFilters(filter.key, values) }}
           />
         ))}
-        <ul {...classes('content', [viewStyle])}>{listItems}</ul>
+        <div {...classes('content-wrapper')}>
+          <div {...classes('content', [viewStyle])}>
+            {filteredItems.map(item => (
+              <ListItem
+                item={item}
+                key={item.id}
+                clickCallback={() => selectCallback(item)}
+              />
+            ))}
+          </div>
+        </div>
         {detailedItem ? (
           <ListViewDialog
             item={detailedItem}
@@ -186,26 +249,26 @@ ListView.propTypes = {
     listItemShape,
   ).isRequired,
   filters: PropTypes.arrayOf(filterShapes),
+  activeFilters: PropTypes.shape({
+    subject: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+    category: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  }),
   detailedItem: PropTypes.shape(),
   selectCallback: PropTypes.func,
   selectedLetterCallback: PropTypes.func,
   selectedLetter: PropTypes.string,
-  sortBy: PropTypes.shape({
-    label: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.string),
-    onChange: PropTypes.func,
-  }),
-  search: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-  }),
   viewStyle: PropTypes.oneOf(['grid', 'list']),
+  disableSortBy: PropTypes.bool,
+  disableSearch: PropTypes.bool,
+  sortBy: PropTypes.oneOf(['title', 'category', 'subject']),
+  t: PropTypes.func.isRequired,
 };
 
 ListView.defaultProps = {
   viewStyle: 'grid',
   selectedLetter: '',
+  activeFilters: {},
+  sortBy: 'title',
 };
 
-export default ListView;
+export default injectT(ListView);

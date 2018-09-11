@@ -2,7 +2,7 @@ export const mockListView = {
   items: [
     {
       name: 'Bajonettsag',
-      text: 'Bajonettsag brukes med ulike typer blad.',
+      description: 'Bajonettsag brukes med ulike typer blad.',
       image: 'https://www.clasohlson.com/medias/sys_master/9058803056670.jpg',
       id: '1',
       category: {
@@ -15,7 +15,7 @@ export const mockListView = {
       },
       source: 'snl.no',
       license: 'by-nc-nd',
-      tags: ['Murerfaget'],
+      tags: ['Murerfaget', 'test'],
     },
     {
       name: 'Armeringskutter',

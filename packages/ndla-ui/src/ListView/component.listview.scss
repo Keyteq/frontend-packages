@@ -19,6 +19,14 @@
     @include inuit-font-size(14px);
   }
 
+  &__content-wrapper {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    margin-right: -26px;
+    height: 400px;
+  }
+
   &__content {
     list-style: none;
 
@@ -75,6 +83,7 @@
    */
   &__item {
     padding: $spacing--small;
+    animation: fadeIn 150ms ease;
 
     &:hover {
       cursor: pointer;
