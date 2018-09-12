@@ -53,6 +53,7 @@
   font-family: $font-serif;
   width: 90%;
   left: 5%;
+  z-index: 1;
 
   @include mq($until: mobileWide) {
     left: 0;
@@ -62,6 +63,7 @@
     width: 100%;
     position: fixed;
     overflow-y: scroll;
+    z-index: 9999;
   }
 
   .c-tabs {
@@ -93,7 +95,6 @@
   }
   box-shadow: 0 0 30px rgba($black, 0.2);
   box-sizing: border-box;
-  z-index: 1;
   background: $white;
   padding: $spacing;
   opacity: 0;

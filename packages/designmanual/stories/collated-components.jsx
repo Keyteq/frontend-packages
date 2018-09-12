@@ -188,9 +188,7 @@ storiesOf('Sammensatte moduler', module)
     </Center>
   ))
   .add('Begrepsforklaring', () => (
-    <Center>
-      <ConceptExample />
-    </Center>
+    <ConceptExample />
   ))
   .add('Emnebeskrivelse', () => (
     <Center>
