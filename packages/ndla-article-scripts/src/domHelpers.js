@@ -52,7 +52,7 @@ export const removeModifiers = (className, modifier, rootSelector = '') => {
 };
 
 export const getElementOffset = element => {
-  const rect = element.getBoundingClientRect();
+  const rect = element ? element.getBoundingClientRect() : 0;
   const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 

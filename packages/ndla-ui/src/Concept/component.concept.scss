@@ -54,6 +54,20 @@
   width: 90%;
   left: 5%;
 
+  @include mq($until: mobileWide) {
+    left: 0;
+    right: 0;
+    top: 0 !important;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    overflow-y: scroll;
+  }
+
+  .c-tabs {
+    margin-left: 0;
+  }
+
   &--listview {
     position: fixed;
     max-height: 100%;

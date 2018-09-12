@@ -2,9 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
-import { listItemShape } from './ListView';
-
 const classes = BEMHelper('c-listview');
+
+const listItemShape = PropTypes.shape({
+  name: PropTypes.string,
+  text: PropTypes.string,
+  image: PropTypes.string,
+  id: PropTypes.string,
+  subject: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    value: PropTypes.string,
+  })),
+  category: PropTypes.shape({
+    title: PropTypes.string,
+    value: PropTypes.string,
+  }),
+  source: PropTypes.string,
+  license: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+});
 
 class ListItem extends Component {
   constructor(props) {

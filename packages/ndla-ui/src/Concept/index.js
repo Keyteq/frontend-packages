@@ -13,3 +13,5 @@ export {
   ConceptDialogText,
   ConceptDialogImage,
 } from './ConceptDialog';
+
+export { default as ConceptDialogWrapper } from './ConceptDialogWrapper';

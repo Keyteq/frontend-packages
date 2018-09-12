@@ -7,8 +7,11 @@
  */
 
 import jump from 'jump.js';
+import createFocusTrap from 'focus-trap';
 
 import { forEachElement, inIframe, getElementOffset } from './domHelpers';
+
+const trapCoceptInstances = {};
 
 export const addShowConceptDefinitionClickListeners = () => {
   forEachElement('.c-concept__item', item => {
@@ -16,6 +19,14 @@ export const addShowConceptDefinitionClickListeners = () => {
     const popup = document.querySelector(`[data-concept-id='${id}']`);
     const openBtn = item.querySelector('.c-concept__link');
     const closeBtn = popup.querySelector('.c-concept__close');
+
+    trapCoceptInstances[id] = createFocusTrap(popup, {
+      onDeactivate: () => {
+        popup.classList.remove('c-concept__popup--visible');
+        popup.setAttribute('aria-hidden', true);
+      },
+      clickOutsideDeactivates: true,
+    });
 
     openBtn.onclick = () => {
       const wasHidden = !popup.classList.contains('c-concept__popup--visible');
@@ -26,7 +37,7 @@ export const addShowConceptDefinitionClickListeners = () => {
 
       if (wasHidden) {
         popup.classList.add('c-concept__popup--visible');
-        const parentOffset = getElementOffset(popup.offsetParent).top;
+        const parentOffset = getElementOffset(popup.parentNode).top;
         const openBtnBottom =
           openBtn.getBoundingClientRect().bottom +
           window.pageYOffset -
@@ -55,6 +66,7 @@ export const addShowConceptDefinitionClickListeners = () => {
         } else {
           offset = popupHeight;
         }
+
         if (inIframe() && window.parent) {
           window.parent.postMessage(
             {
@@ -64,10 +76,20 @@ export const addShowConceptDefinitionClickListeners = () => {
             },
             '*',
           );
+          const instance = trapCoceptInstances[id];
+          if (instance) {
+            instance.activate();
+          }
         } else {
           jump(popup, {
             duration: 300,
             offset,
+            callback: () => {
+              const instance = trapCoceptInstances[id];
+              if (instance) {
+                instance.activate();
+              }
+            },
           });
         }
       }
@@ -75,8 +97,10 @@ export const addShowConceptDefinitionClickListeners = () => {
     };
 
     closeBtn.onclick = () => {
-      popup.classList.remove('c-concept__popup--visible');
-      popup.setAttribute('aria-hidden', true);
+      const instance = trapCoceptInstances[id];
+      if (instance) {
+        instance.deactivate();
+      }
     };
   });
 };

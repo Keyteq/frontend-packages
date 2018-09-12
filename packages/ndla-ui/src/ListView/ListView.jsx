@@ -7,16 +7,15 @@ import { injectT } from 'ndla-i18n';
 import {
   FilterListPhone,
   Select,
-  ConceptDialog,
+  ConceptDialogWrapper,
   ConceptDialogContent,
   ConceptDialogImage,
   ConceptDialogText,
+  ListItem,
 } from 'ndla-ui';
 import { List as ListIcon, Grid as GridIcon } from 'ndla-icons/action';
-// import ListViewDialog from './ListViewDialog';
-import ListItem from './ListItem';
 
-export const listItemShape = PropTypes.shape({
+const listItemShape = PropTypes.shape({
   name: PropTypes.string,
   text: PropTypes.string,
   image: PropTypes.string,
@@ -81,7 +80,6 @@ class ListView extends Component {
   }
 
   handleSelectItem(detailedItem) {
-    console.log('handleSelectItem', detailedItem);
     this.setState({
       detailedItem,
     });
@@ -105,7 +103,7 @@ class ListView extends Component {
       sortBy,
       detailedItem,
     } = this.state;
-    
+
     let filteredItems = items;
 
     // 1. Filter items on subjects
@@ -247,7 +245,7 @@ class ListView extends Component {
           </div>
         </div>
         {detailedItem && (
-          <ConceptDialog
+          <ConceptDialogWrapper
             title={detailedItem.name}
             subtitle={detailedItem.category.title}
             content={(
