@@ -7,7 +7,6 @@ import { injectT } from 'ndla-i18n';
 import {
   FilterListPhone,
   Select,
-  Modal,
   ConceptDialog,
   ConceptDialogContent,
   ConceptDialogImage,
@@ -51,6 +50,7 @@ class ListView extends Component {
       detailedItem: null,
     };
     this.handleSortBy = this.handleSortBy.bind(this);
+    this.handleSelectItem = this.handleSelectItem.bind(this);
   }
 
   getActiveLetters() {
@@ -81,6 +81,7 @@ class ListView extends Component {
   }
 
   handleSelectItem(detailedItem) {
+    console.log('handleSelectItem', detailedItem);
     this.setState({
       detailedItem,
     });
@@ -104,9 +105,7 @@ class ListView extends Component {
       sortBy,
       detailedItem,
     } = this.state;
-
-    console.log('render', detailedItem);
-
+    
     let filteredItems = items;
 
     // 1. Filter items on subjects
@@ -119,8 +118,7 @@ class ListView extends Component {
       filteredItems = filteredItems.filter(item => filters.category.includes(item.category.value));
     }
 
-
-    // 2. Filter with search (testing name, description and tags[])
+    // 3. Filter with search (testing name, description and tags[])
     if (searchInput.length > 0) {
       const searchInputLowercase = searchInput.toLowerCase();
       filteredItems = filteredItems.filter(item => (
@@ -130,34 +128,23 @@ class ListView extends Component {
       ));
     }
 
-    // 3. Sort filtered results ??? how????
+    // 4. Sort filtered results
     if (sortBy === 'title') {
       filteredItems = filteredItems.sort((a, b) => (
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
       ));
-    } else {
+    } else if (sortBy === 'category'){
       filteredItems = filteredItems.sort((a, b) => (
-        a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1
+        a.category.title.toLowerCase() > b.category.title.toLowerCase() ? 1 : -1
+      ));
+    } else {
+      // TODO: Clarify, how do you sort an array of subjects?
+      filteredItems = filteredItems.sort((a, b) => (
+        a.subject[0].title.toLowerCase() > b.subject[0].title.toLowerCase() ? 1 : -1
       ));
     }
 
     const { viewStyle } = this.state;
-
-    const searchComponent = !disableSearch ? (
-      <div {...classes('search')}>
-        <div {...searchFieldClasses()}>
-          <div {...searchFieldClasses('input-wrapper', 'with-icon')}>
-            <input
-              {...searchFieldClasses('input', 'small')}
-              type="search"
-              placeholder='Søk i listevisning'
-              value={searchInput}
-              onChange={(e) => this.setState({ searchInput: e.target.value })}
-            />
-          </div>
-        </div>
-      </div>
-    ) : null;
 
     return (
       <div {...classes()}>
@@ -175,7 +162,21 @@ class ListView extends Component {
               </Select>
             </div>
           )}
-          {searchComponent}
+          {!disableSearch && (
+            <div {...classes('search')}>
+              <div {...searchFieldClasses()}>
+                <div {...searchFieldClasses('input-wrapper', 'with-icon')}>
+                  <input
+                    {...searchFieldClasses('input', 'small')}
+                    type="search"
+                    placeholder='Søk i listevisning'
+                    value={searchInput}
+                    onChange={(e) => this.setState({ searchInput: e.target.value })}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           {!disableViewOption && (<div {...classes('list-style')}>
             <button
               type="button"
@@ -245,32 +246,29 @@ class ListView extends Component {
             ))}
           </div>
         </div>
-        {detailedItem !== null && <Modal controllable isOpen onClose={() => { this.handleSelectItem(null); }}>
-          {(onClose) => (
-            <ConceptDialog
-              title={detailedItem.name}
-              subtitle={detailedItem.category.title}
-              content={(
-                <ConceptDialogContent>
-                  {detailedItem.image ? (
-                    <ConceptDialogImage src={detailedItem.image} alt={detailedItem.description} wide />
-                  ) : null}
-                  <ConceptDialogText>{detailedItem.description}</ConceptDialogText>
-                </ConceptDialogContent>
-              )}
-              modifiers={['visible', 'listview']}
-              messages={{
-                close: 'Lukk',
-                ariaLabel: '',
-              }}
-              closeCallback={onClose}
-              license={detailedItem.license}
-              source={detailedItem.source}
-              tags={detailedItem.tags}
-              ariaHidden={false}
-            />
-          )}
-        </Modal>}
+        {detailedItem && (
+          <ConceptDialog
+            title={detailedItem.name}
+            subtitle={detailedItem.category.title}
+            content={(
+              <ConceptDialogContent>
+                {detailedItem.image ? (
+                  <ConceptDialogImage src={detailedItem.image} alt={detailedItem.description} wide />
+                ) : null}
+                <ConceptDialogText>{detailedItem.description}</ConceptDialogText>
+              </ConceptDialogContent>
+            )}
+            modifiers={['visible', 'listview']}
+            messages={{
+              close: 'Lukk',
+              ariaLabel: '',
+            }}
+            closeCallback={this.handleSelectItem}
+            license={detailedItem.license}
+            source={detailedItem.source}
+            tags={detailedItem.tags}
+          />
+        )}
       </div>
     );
   }

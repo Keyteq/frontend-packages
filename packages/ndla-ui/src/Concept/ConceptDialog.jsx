@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 import { getLicenseByAbbreviation } from 'ndla-licenses';
 import { ForwardArrow } from 'ndla-icons/action';
+import { Modal } from 'ndla-ui';
 import LicenseByline from '../LicenseByline';
 
 const classes = new BEMHelper({
@@ -77,60 +78,63 @@ const ConceptDialog = ({
 }) => {
   const licenseRights = getLicenseByAbbreviation(license).rights;
   return (
-    <div
-      {...classes('popup', modifiers)}>
-      <button
-        type="button"
-        {...classes('close', 'u-close')}
-        onClick={() => (closeCallback ? closeCallback() : null)}>
-        Lukk...
-      </button>
-      <h3 {...classes('title')}>
-        {title}{' '}
-        {subtitle ? <span {...classes('subtitle')}>{subtitle}</span> : null}
-      </h3>
-      <div {...classes('content')}>{content}</div>
+    <Modal controllable isOpen onClose={closeCallback}>
+      {(onCloseModal) => (
+        <div {...classes('popup', modifiers)}>
+        <button
+          type="button"
+          {...classes('close', 'u-close')}
+          onClick={onCloseModal}>
+          Lukk...
+        </button>
+        <h3 {...classes('title')}>
+          {title}{' '}
+          {subtitle ? <span {...classes('subtitle')}>{subtitle}</span> : null}
+        </h3>
+        <div {...classes('content')}>{content}</div>
 
-      {tags || linkTo ? (
-        <div {...classes('popup-extra')}>
-          {tags ? (
-            <div {...classes('popup-tags')}>
-              Brukes i:
-              {tags.map(tag => (
-                <span {...classes('popup-tag')} key={`key-${tag}`}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ) : null}
-          {linkTo ? (
-            <div {...classes('popup-link')}>
-              <a {...classes('linkTo')} href={linkTo.href}>
-                {linkTo.label} <ForwardArrow />
-              </a>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+        {tags || linkTo ? (
+          <div {...classes('popup-extra')}>
+            {tags ? (
+              <div {...classes('popup-tags')}>
+                Brukes i:
+                {tags.map(tag => (
+                  <span {...classes('popup-tag')} key={`key-${tag}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+            {linkTo ? (
+              <div {...classes('popup-link')}>
+                <a {...classes('linkTo')} href={linkTo.href}>
+                  {linkTo.label} <ForwardArrow />
+                </a>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
-      <div {...sourceClasses()}>
-        {licenseRights.length > 0 && (
-          <LicenseByline
-            className="c-source-list__item"
-            licenseRights={licenseRights}
-          />
-        )}
-        {authors.map(author => (
-          <span {...sourceClasses('item')} key={author}>
-            {author}
+        <div {...sourceClasses()}>
+          {licenseRights.length > 0 && (
+            <LicenseByline
+              className="c-source-list__item"
+              licenseRights={licenseRights}
+            />
+          )}
+          {authors.map(author => (
+            <span {...sourceClasses('item')} key={author}>
+              {author}
+            </span>
+          ))}
+          <span {...sourceClasses('item')} key={source}>
+            {source}
           </span>
-        ))}
-        <span {...sourceClasses('item')} key={source}>
-          {source}
-        </span>
-        <span {...classes('popup__licensebox')}>{licenseBox}</span>
+          <span {...classes('popup__licensebox')}>{licenseBox}</span>
+        </div>
       </div>
-    </div>
+      )}
+    </Modal>
   );
 };
 
@@ -155,7 +159,7 @@ ConceptDialog.propTypes = {
 ConceptDialog.defaultProps = {
   authors: [],
   license: '',
-  children: '',
+  children: 'sdfsf',
   modifiers: [],
 };
 

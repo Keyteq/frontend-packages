@@ -224,12 +224,10 @@ export const searchFilterOptions = {
         {
           title: 'YF VG2',
           value: 'bronnteknikk:yfvg2',
-          hits: 7,
         },
         {
           title: 'YF VG3',
           value: 'bronnteknikk:yfvg3',
-          hits: 23,
         },
       ],
     },
@@ -241,12 +239,10 @@ export const searchFilterOptions = {
         {
           title: 'VG1',
           value: 'kinesisk:vg1',
-          hits: 0,
         },
         {
           title: 'VG2',
           value: 'kinesisk:vg2',
-          hits: 3,
         },
       ],
     },
@@ -258,12 +254,10 @@ export const searchFilterOptions = {
         {
           title: 'VG1',
           value: 'markedsforing_og_ledelse:vg1',
-          hits: 6,
         },
         {
           title: 'VG2',
           value: 'markedsforing_og_ledelse:vg2',
-          hits: 8,
         },
       ],
     },
@@ -275,27 +269,22 @@ export const searchFilterOptions = {
         {
           title: 'Medieuttrykk',
           value: 'medieuttrykk_og_mediesamfunnet:medieuttrykk',
-          hits: 3,
         },
         {
           title: 'Mediesamfunnet',
           value: 'medieuttrykk_og_mediesamfunnet:mediesamfunnet',
-          hits: 1,
         },
         {
           title: 'VG1',
           value: 'medieuttrykk_og_mediesamfunnet:vg1',
-          hits: 2,
         },
         {
           title: 'VG2',
           value: 'medieuttrykk_og_mediesamfunnet:vg2',
-          hits: 6,
         },
         {
           title: 'VG3',
           value: 'medieuttrykk_og_mediesamfunnet:vg3',
-          hits: 0,
         },
       ],
     },
@@ -307,7 +296,6 @@ export const searchFilterOptions = {
         {
           title: 'VG1',
           value: 'naturbruk:vg1',
-          hits: 8,
         },
       ],
     },
@@ -316,32 +304,26 @@ export const searchFilterOptions = {
     {
       title: 'Emne',
       value: 'contentTypeFilter:1',
-      hits: 19,
     },
     {
       title: 'Læringssti',
       value: 'contentTypeFilter:2',
-      hits: 52,
     },
     {
       title: 'Fagstoff',
       value: 'contentTypeFilter:3',
-      hits: 74,
     },
     {
       title: 'Oppgaver og aktiviteter',
       value: 'contentTypeFilter:4',
-      hits: 21,
     },
     {
       title: 'Vurderingsressurs',
       value: 'contentTypeFilter:5',
-      hits: 21,
     },
     {
       title: 'Delte ressurser',
       value: 'contentTypeFilter:6',
-      hits: 21,
     },
   ],
   contentFilter: [
@@ -383,12 +365,10 @@ export const searchFilterOptions = {
     {
       title: 'Ndla',
       value: 'createdByFilter:1',
-      hits: 123,
     },
     {
       title: 'Andre',
       value: 'createdByFilter:2',
-      hits: 44,
     },
   ],
 };

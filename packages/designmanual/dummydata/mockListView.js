@@ -26,7 +26,7 @@ export const mockListView = {
         'https://ndla.no/sites/default/files/images/side44-armeringskutter-bc-16.jpg',
       id: '2',
       category: {
-        title: 'El-Håndverkøy',
+        title: 'Maskiner',
         value: 'maskiner',
       },
       subject: [
