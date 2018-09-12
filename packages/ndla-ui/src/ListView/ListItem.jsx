@@ -14,12 +14,15 @@ class ListItem extends Component {
   }
 
   handleClick() {
-    if (this.props.clickCallback)
+    if (this.props.clickCallback) {
       this.props.clickCallback(this.props.item, this.props.itemIndex);
+    }
   }
 
-  handleKeyUp() {
-    this.props.clickCallback(this.props.item, this.props.itemIndex);
+  handleKeyUp(evt) {
+    if (evt.key === 'Enter') {
+      this.props.clickCallback(this.props.item, this.props.itemIndex);
+    }
   }
 
   render() {
@@ -35,7 +38,7 @@ class ListItem extends Component {
           {item.image ? <img src={item.image} alt={item.description} /> : null}
           <span {...classes('item-category')}>{item.category.title}</span>
         </div>
-        <span {...classes('item-subject')}>{item.subject.title}</span>
+        <span {...classes('item-subject')}>{item.subject[0].title}</span>
         <h3 {...classes('item-name')}>{item.name}</h3>
         <p {...classes('item-description')}>{item.description}</p>
       </div>

@@ -1,3 +1,5 @@
+$input-widths: 230px;
+
 .c-listview {
   &__filter {
     padding: $spacing--small;
@@ -20,11 +22,7 @@
   }
 
   &__content-wrapper {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width: 100%;
-    margin-right: -26px;
-    height: 400px;
+    // width: 100%;
   }
 
   &__content {
@@ -134,18 +132,30 @@
    * Style for filter/sorting elements
    */
    &__sorting {
-     display: flex;
+     display: none;
      flex-wrap: wrap;
      justify-content: space-evenly;
+     > * {
+       &:not(:last-child) {
+         margin-right: $spacing--medium;
+       }
+     }
+     @include mq(tabletWide) {
+       display: flex;
+     }
    }
 
    &__style-button {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 48px;
+     width: 48px;
      background-color: $brand-grey--lighter;
      border: none;
-     border-radius: 5px;
+     border-radius: $border-radius;
      color: $brand-color--tertiary;
-     margin-left: $spacing--small;
-     padding: $spacing--small;
+     margin-left: $spacing--small / 2;
      text-align: center;
 
      &--active {
@@ -157,31 +167,35 @@
        cursor: pointer;
        color: $brand-color--dark;
      }
+     .c-icon {
+       width: 24px;
+       height: 24px;
+     }
    }
 
    &__sortBy {
-     flex: 0 1 33.33%;
-     padding-right: $spacing--small;
      label {
-       flex: 0 1 33%;
+       white-space: no-wrap;
      }
-
-     .c-select {
-       flex: 0 1 67%;
+     .c-select__wrapper {
+       width: $input-widths;
      }
    }
 
    &__search {
-     flex: 0 1 33.33%;
+     flex-grow: 1;
      .c-search-field {
-       max-width: 75%;
+       align-items: flex-start;
+     }
+     .c-search-field__input-wrapper {
+       width: $input-widths;
      }
    }
 
    &__list-style {
-     flex: 3 1 33.33%;
-     text-align: right;
+     display: flex;
    }
+
    /* Style for alphabet filter */
    &__alphabet {
      flex: 0 1 100%;

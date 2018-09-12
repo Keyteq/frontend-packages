@@ -9,13 +9,15 @@ export const mockListView = {
         title: 'El-Håndverkøy',
         value: 'elhandverktoy',
       },
-      subject: {
-        title: 'Murerfaget',
-        value: 'murerfaget',
-      },
+      subject: [
+        {
+          title: 'Murerfaget',
+          value: 'murerfaget',
+        }
+      ],
       source: 'snl.no',
       license: 'by-nc-nd',
-      tags: ['Murerfaget', 'test'],
+      tags: ['Murerfaget'],
     },
     {
       name: 'Armeringskutter',
@@ -25,12 +27,14 @@ export const mockListView = {
       id: '2',
       category: {
         title: 'El-Håndverkøy',
-        value: 'elhandverktoy',
+        value: 'maskiner',
       },
-      subject: {
-        title: 'Betongfaget',
-        value: 'betongfaget',
-      },
+      subject: [
+        {
+          title: 'Betongfaget',
+          value: 'betongfaget',
+        }
+      ],
       source: 'snl.no',
       license: 'by-nc-nd',
     },
@@ -43,10 +47,12 @@ export const mockListView = {
         title: 'El-Håndverkøy',
         value: 'elhandverktoy',
       },
-      subject: {
-        title: 'Murerfaget',
-        value: 'murerfaget',
-      },
+      subject: [
+        {
+          title: 'Murerfaget',
+          value: 'murerfaget',
+        }
+      ],
       source: 'snl.no',
       license: 'by-nc-nd',
     },
@@ -60,10 +66,12 @@ export const mockListView = {
         title: 'El-Håndverkøy',
         value: 'elhandverktoy',
       },
-      subject: {
-        title: 'Betongfaget',
-        value: 'betongfaget',
-      },
+      subject: [
+        {
+          title: 'Betongfaget',
+          value: 'betongfaget',
+        }
+      ],
       source: 'snl.no',
       license: 'by-nc-nd',
     },

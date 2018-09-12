@@ -439,20 +439,6 @@ $navigation-row-width: 980px / 3;
 }
 
 .c-topic-menu {
-  &__filter-phone-wrapper {
-    padding: $spacing;
-    @include mq($until: mobileWide) {
-      padding: $left-margin-narrow-screen;
-    }
-    .c-active-filters {
-      padding-bottom: 0;
-      flex-direction: row;
-      button {
-        margin-right: $spacing--small / 2;
-        width: auto;
-      }
-    }
-  }
   &__competence {
     flex-grow: 1;
     background: $brand-color--lighter;
@@ -466,9 +452,6 @@ $navigation-row-width: 980px / 3;
       left: 0;
       right: 0;
       bottom: 0;
-      .c-topic-menu__filter-phone-wrapper {
-        padding: 0 0 $spacing;
-      }
     }
 
     @include mq(tabletWide) {
@@ -487,6 +470,12 @@ $navigation-row-width: 980px / 3;
       animation-name: fadeInLeft;
       animation-duration: 0.5s;
       transform: translate3d(0px, 0px, 0px);
+    }
+  }
+
+  &__filter-wrapper {
+    @include mq($until: tabletWide) {
+      padding: $left-margin-narrow-screen;
     }
   }
 

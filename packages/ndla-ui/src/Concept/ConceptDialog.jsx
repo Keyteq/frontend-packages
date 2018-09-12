@@ -67,13 +67,10 @@ const ConceptDialog = ({
   authors,
   source,
   content,
-  id,
-  messages,
   license,
   modifiers,
   closeCallback,
   subtitle,
-  ariaHidden,
   linkTo,
   tags,
   licenseBox,
@@ -81,17 +78,12 @@ const ConceptDialog = ({
   const licenseRights = getLicenseByAbbreviation(license).rights;
   return (
     <div
-      aria-hidden={ariaHidden}
-      role="dialog"
-      data-concept-id={id}
-      aria-labelledby={id}
-      aria-describedby={id}
       {...classes('popup', modifiers)}>
       <button
         type="button"
         {...classes('close', 'u-close')}
         onClick={() => (closeCallback ? closeCallback() : null)}>
-        {messages.close}
+        Lukk...
       </button>
       <h3 {...classes('title')}>
         {title}{' '}
@@ -143,21 +135,15 @@ const ConceptDialog = ({
 };
 
 ConceptDialog.propTypes = {
-  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   authors: PropTypes.arrayOf(PropTypes.string),
   source: PropTypes.string,
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
-  messages: PropTypes.shape({
-    ariaLabel: PropTypes.string.isRequired,
-    close: PropTypes.string.isRequired,
-  }),
   license: PropTypes.string,
   children: PropTypes.string,
   modifiers: PropTypes.arrayOf(PropTypes.string),
   closeCallback: PropTypes.func,
   subtitle: PropTypes.string,
-  ariaHidden: PropTypes.bool,
   linkTo: PropTypes.shape({
     label: PropTypes.string,
     href: PropTypes.string,
@@ -171,7 +157,6 @@ ConceptDialog.defaultProps = {
   license: '',
   children: '',
   modifiers: [],
-  ariaHidden: true,
 };
 
 export default ConceptDialog;

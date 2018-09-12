@@ -4,10 +4,17 @@ import PropTypes from 'prop-types';
 import BEMHelper from 'react-bem-helper';
 
 import { injectT } from 'ndla-i18n';
-import { FilterListPhone, Select } from 'ndla-ui';
+import {
+  FilterListPhone,
+  Select,
+  Modal,
+  ConceptDialog,
+  ConceptDialogContent,
+  ConceptDialogImage,
+  ConceptDialogText,
+} from 'ndla-ui';
 import { List as ListIcon, Grid as GridIcon } from 'ndla-icons/action';
-import { Search as SearchIcon } from 'ndla-icons/common';
-import ListViewDialog from './ListViewDialog';
+// import ListViewDialog from './ListViewDialog';
 import ListItem from './ListItem';
 
 export const listItemShape = PropTypes.shape({
@@ -15,10 +22,10 @@ export const listItemShape = PropTypes.shape({
   text: PropTypes.string,
   image: PropTypes.string,
   id: PropTypes.string,
-  subject: PropTypes.shape({
+  subject: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     value: PropTypes.string,
-  }),
+  })),
   category: PropTypes.shape({
     title: PropTypes.string,
     value: PropTypes.string,
@@ -29,6 +36,7 @@ export const listItemShape = PropTypes.shape({
 });
 
 const classes = BEMHelper('c-listview');
+const filterClasses = BEMHelper('c-filter');
 const searchFieldClasses = new BEMHelper('c-search-field');
 const alphabet = 'abcdefghijklmnopqrstuvxyzæøå';
 
@@ -40,6 +48,7 @@ class ListView extends Component {
       searchInput: '',
       filters: props.activeFilters,
       sortBy: props.sortBy,
+      detailedItem: null,
     };
     this.handleSortBy = this.handleSortBy.bind(this);
   }
@@ -71,16 +80,21 @@ class ListView extends Component {
     });
   }
 
+  handleSelectItem(detailedItem) {
+    this.setState({
+      detailedItem,
+    });
+  }
+
   render() {
     const {
       items,
       filters: useFilters,
-      detailedItem,
       selectedLetter,
-      selectCallback,
       selectedLetterCallback,
       disableSortBy,
       disableSearch,
+      disableViewOption,
       t,
     } = this.props;
 
@@ -88,14 +102,23 @@ class ListView extends Component {
       searchInput,
       filters,
       sortBy,
+      detailedItem,
     } = this.state;
 
-    // 1. Filter items
-    let filteredItems = items.filter(item => (
-      Object.keys(filters).length === 0 || Object.keys(filters).every((filterKey) => (
-        !filters[filterKey] || filters[filterKey].length === 0 || filters[filterKey].includes(item[filterKey].value)
-      ))
-    ));
+    console.log('render', detailedItem);
+
+    let filteredItems = items;
+
+    // 1. Filter items on subjects
+    if (filters.subject && filters.subject.length) {
+      filteredItems = filteredItems.filter(item => item.subject.some(subject => filters.subject.includes(subject.value)))
+    }
+
+    // 2 Filter items on category
+    if (filters.category && filters.category.length) {
+      filteredItems = filteredItems.filter(item => filters.category.includes(item.category.value));
+    }
+
 
     // 2. Filter with search (testing name, description and tags[])
     if (searchInput.length > 0) {
@@ -123,20 +146,15 @@ class ListView extends Component {
     const searchComponent = !disableSearch ? (
       <div {...classes('search')}>
         <div {...searchFieldClasses()}>
-          <input
-            {...searchFieldClasses('input', 'small')}
-            type="search"
-            placeholder='Søk i listevisning'
-            value={searchInput}
-            onChange={(e) => this.setState({ searchInput: e.target.value })}
-          />
-          <button
-            tabIndex="-1"
-            {...searchFieldClasses('button')}
-            type="submit"
-            value="Search">
-            <SearchIcon />
-          </button>
+          <div {...searchFieldClasses('input-wrapper', 'with-icon')}>
+            <input
+              {...searchFieldClasses('input', 'small')}
+              type="search"
+              placeholder='Søk i listevisning'
+              value={searchInput}
+              onChange={(e) => this.setState({ searchInput: e.target.value })}
+            />
+          </div>
         </div>
       </div>
     ) : null;
@@ -158,7 +176,7 @@ class ListView extends Component {
             </div>
           )}
           {searchComponent}
-          <div {...classes('list-style')}>
+          {!disableViewOption && (<div {...classes('list-style')}>
             <button
               type="button"
               {...classes('style-button', { active: viewStyle === 'list' })}
@@ -171,7 +189,7 @@ class ListView extends Component {
               onClick={() => this.setState({ viewStyle: 'grid' })}>
               <GridIcon />
             </button>
-          </div>
+          </div>)}
 
           {viewStyle === 'list' && selectedLetterCallback ? (
             <ul {...classes('alphabet')}>
@@ -195,37 +213,64 @@ class ListView extends Component {
             </ul>
           ) : null}
         </div>
-        {useFilters && useFilters.map(filter => (
-          <FilterListPhone
-            key={filter.key}
-            label={filter.label}
-            options={filter.options}
-            values={filters[filter.key]}
-            messages={{
-              useFilter: t('masthead.menu.useFilter'),
-              openFilter: t('masthead.menu.openFilter'),
-              closeFilter: t('masthead.menu.closeFilter'),
-            }}
-            onChange={(values) => { this.handleChangeFilters(filter.key, values) }}
-          />
-        ))}
+        {useFilters && (
+          <div className="c-bodybox">
+            <div {...filterClasses('wrapper-multiple-filters')}>
+              {useFilters.map(filter => (
+                <FilterListPhone
+                  key={filter.key}
+                  label={filter.label}
+                  options={filter.options}
+                  alignedGroup
+                  values={filters[filter.key]}
+                  messages={{
+                    useFilter: t(`listview.filters.${filter.key}.useFilter`),
+                    openFilter: t(`listview.filters.${filter.key}.openFilter`),
+                    closeFilter: t(`listview.filters.${filter.key}.closeFilter`),
+                  }}
+                  onChange={(values) => { this.handleChangeFilters(filter.key, values) }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <div {...classes('content-wrapper')}>
           <div {...classes('content', [viewStyle])}>
             {filteredItems.map(item => (
               <ListItem
                 item={item}
                 key={item.id}
-                clickCallback={() => selectCallback(item)}
+                clickCallback={() => this.handleSelectItem(item)}
               />
             ))}
           </div>
         </div>
-        {detailedItem ? (
-          <ListViewDialog
-            item={detailedItem}
-            closeCallback={() => selectCallback(null)}
-          />
-        ) : null}
+        {detailedItem !== null && <Modal controllable isOpen onClose={() => { this.handleSelectItem(null); }}>
+          {(onClose) => (
+            <ConceptDialog
+              title={detailedItem.name}
+              subtitle={detailedItem.category.title}
+              content={(
+                <ConceptDialogContent>
+                  {detailedItem.image ? (
+                    <ConceptDialogImage src={detailedItem.image} alt={detailedItem.description} wide />
+                  ) : null}
+                  <ConceptDialogText>{detailedItem.description}</ConceptDialogText>
+                </ConceptDialogContent>
+              )}
+              modifiers={['visible', 'listview']}
+              messages={{
+                close: 'Lukk',
+                ariaLabel: '',
+              }}
+              closeCallback={onClose}
+              license={detailedItem.license}
+              source={detailedItem.source}
+              tags={detailedItem.tags}
+              ariaHidden={false}
+            />
+          )}
+        </Modal>}
       </div>
     );
   }
@@ -241,7 +286,7 @@ const filterShapes = PropTypes.shape({
   onChange: PropTypes.func.isRequired,
   filterValues: PropTypes.arrayOf([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired,
+  key: PropTypes.oneOf(['subject', 'category']),
 });
 
 ListView.propTypes = {
@@ -253,13 +298,12 @@ ListView.propTypes = {
     subject: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     category: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   }),
-  detailedItem: PropTypes.shape(),
-  selectCallback: PropTypes.func,
   selectedLetterCallback: PropTypes.func,
   selectedLetter: PropTypes.string,
   viewStyle: PropTypes.oneOf(['grid', 'list']),
   disableSortBy: PropTypes.bool,
   disableSearch: PropTypes.bool,
+  disableViewOption: PropTypes.bool,
   sortBy: PropTypes.oneOf(['title', 'category', 'subject']),
   t: PropTypes.func.isRequired,
 };

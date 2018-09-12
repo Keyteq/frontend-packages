@@ -31,6 +31,34 @@
     }
   }
 
+  &__wrapper-multiple-filters {
+    > * {
+      > .c-filter__label {
+        width: 120px;
+      }
+      > .c-filter__item-wrapper {
+        width: calc(100% - 120px);
+      }
+      &:not(:last-child) {
+        margin-bottom: $spacing--small;
+        @include mq(tabletWide) {
+          margin-bottom: $spacing--small / 2;
+        }
+      }
+      &:not(:first-child) {
+        border-top: 1px solid $brand-grey--lighter;
+        @include mq(tabletWide) {
+          padding-top: $spacing--small;
+        }
+        @include mq($until: tabletWide) {
+          .c-active-filters {
+            padding-top: $spacing--small;
+          }
+        }
+      }
+    }
+  }
+
   &__list {
     margin: 0;
     padding: 0;
@@ -124,7 +152,7 @@
   }
 
   &__label {
-    @include font-size(16px, 28px);
+    @include font-size(16px, 22px);
 
 
     @include mq(tablet) {
@@ -146,17 +174,17 @@
     padding: 0;
     list-style: none;
 
-    // &--collapse-mobile {
-      @include mq($until: mobileWide) {
-        flex-flow: wrap;
+    @include mq($until: mobileWide) {
+      flex-flow: wrap;
+      width: 100%;
+      flex-flow: column;
+      .c-filter__item {
         width: 100%;
-        flex-flow: column;
-        .c-filter__item {
-          width: 100%;
-          border-bottom: 1px solid $brand-grey--lighter;
-          margin-bottom: 0;
-        }
+        border-bottom: 1px solid $brand-grey--lighter;
+        margin-bottom: 0;
       }
+    }
+
     &--collapse-mobile {
       @include mq($from: mobileWide, $until: tabletWide) {
         flex-flow: wrap;
@@ -175,14 +203,13 @@
         }
       }
 
-
       @include mq($until: tabletWide) {
         display: flex;
         align-items: flex-start;
 
         .c-filter__item {
-          background: #fff;
           margin: 0;
+          background: #fff;
           display: flex;
           position: static;
           min-height: 52px;
@@ -222,8 +249,10 @@
   &__item {
     display: inline-block;
     position: relative;
+    @include mq(tabletWide) {
+      margin: 0 $spacing--small 0 2px;
+    }
     color: $brand-color;
-    margin: 0 $spacing--small 0 2px;
     border-radius: $border-radius;
     transition: $transition;
     cursor: pointer;
@@ -426,5 +455,20 @@
     @include mq($until: mobileWide) {
       padding: 0 $spacing $spacing--small $spacing;
     }
+  }
+
+  &__narrow-active-filters {
+    .c-active-filters {
+      padding-bottom: 0;
+      flex-direction: row;
+      button {
+        margin-right: $spacing--small / 2;
+        width: auto;
+      }
+    }
+  }
+
+  &__modal-button {
+    margin-top: $spacing--small;
   }
 }
