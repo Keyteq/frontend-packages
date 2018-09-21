@@ -9,8 +9,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import classNames from 'classnames';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
-import { fontSans, spacing, spacingSmall, brandColor, brandGreyLight } from 'ndla-styles';
+import { fontSans, spacing, spacingSmall, spacingLarge, brandColor, brandGreyLightest, brandGreyLighter } from 'ndla-styles';
 
 const AccordionWrapper = styled.div`
   display: flex;
@@ -33,18 +34,30 @@ const AccordionChildWrapper = styled.section`
       display: none !important;
     }
   }
+  &.framedChildren > div {
+    width: 100%;
+    padding: ${spacing} ${spacing} ${spacingLarge};
+    border: 1px solid ${brandColor};
+    border-top: 0;
+  }
 `
 
 const AccordionTitleBar = styled.button`
   font-family: ${fontSans};
-  border-radius: 3px;
-  backgroundColor: ${brandGreyLight};
+  background: ${brandGreyLightest};
   padding: ${spacingSmall} ${spacing};
   color: ${brandColor};
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  border: 0;
+  border-bottom: 1px solid ${brandGreyLighter};
+  transition: color 100ms ease, background 100ms ease;
+  &.open, &:hover, &:focus {
+    background: ${brandColor};
+    color: #fff;
+  }
 `
 
 class Accordion extends React.Component {
@@ -64,7 +77,7 @@ class Accordion extends React.Component {
       toggleTab(index);
     } else if (onlyOpenOne) {
       this.setState({
-        tabsOpen: [index],
+        tabsOpen: tabsOpen.includes(index) ? [] : [index],
       });
     } else if (tabsOpen.includes(index)) {
       tabsOpen.splice(tabsOpen.indexOf(index), 1);
@@ -90,8 +103,12 @@ class Accordion extends React.Component {
         {this.props.tabs.map((tab, index) => {
           const expanded = tabsOpen.includes(index);
           const tabId = `${tab.title}-id`;
+          const classes = classNames({
+            closed: !expanded,
+            framedChildren: this.props.framedChildren,
+          });
           return (<Fragment key={tab.title}>
-            <AccordionTitleBar onClick={(e) => this.toggleTab(index, e)} aria-expanded={expanded} aria-controls={tabId}>
+            <AccordionTitleBar className={expanded ? 'open' : null} onClick={(e) => this.toggleTab(index, e)} aria-expanded={expanded} aria-controls={tabId}>
               {tab.title}
               {expanded ? (
                 <ChevronDown />
@@ -99,7 +116,7 @@ class Accordion extends React.Component {
                 <ChevronUp />
               )}
             </AccordionTitleBar>
-            <AccordionChildWrapper maxHeight={this.props.maxHeight} className={expanded ? '' : 'closed'} id={tabId} aria-hidden={expanded}>
+            <AccordionChildWrapper maxHeight={this.props.maxHeight} className={classes} id={tabId} aria-hidden={expanded}>
               <div>{tab.children}</div>
             </AccordionChildWrapper>
           </Fragment>);
@@ -115,10 +132,11 @@ Accordion.propTypes = {
     children: PropTypes.node.isRequired,
     open: PropTypes.bool,
   })).isRequired,
-  controllable: PropTypes.bool,
+  controllable: PropTypes.bool, // TODO: implement it!
   onlyOpenOne: PropTypes.bool,
-  toggleTab: PropTypes.func,
+  toggleTab: PropTypes.func, // TODO: create example of usage!
   maxHeight: PropTypes.number,
+  framedChildren: PropTypes.bool,
 };
 
 Accordion.defaultProps = {

@@ -45,6 +45,26 @@ storiesOf('Produksjonssystem', module)
             },
           ]}
         />
+        <h2>Eksempel 2, framed og kun en tillatt åpen om gangen</h2>
+        <Accordion
+          framedChildren
+          onlyOpenOne
+          tabs={[
+            {
+              title: 'Tab 1',
+              children: <div><p>noe innhold 1</p></div>,
+              open: true,
+            },
+            {
+              title: 'Tab 2',
+              children: <div><p>noe innhold 2</p><Button>Hello</Button></div>,
+            },
+            {
+              title: 'Tab 3',
+              children: <div><p>noe innhold 3</p></div>,
+            },
+          ]}
+        />
       </StoryBody>
     </div>
     ))
