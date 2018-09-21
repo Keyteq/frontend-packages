@@ -6,5 +6,7 @@
  *
  */
 
-export const fontSans = '"Source Sans Pro", Helvetica, Arial, STKaiti, 华文楷体, KaiTi, SimKai, 楷体, KaiU, DFKai-SB, 標楷體, SongTi, 宋体, sans-serif';
-export const fontSerif = '"Source Serif Pro", Georgia, STKaiti, 华文楷体, KaiTi, SimKai, 楷体, KaiU, DFKai-SB, 標楷體, SongTi, 宋体, serif';
+export const fontSans =
+  '"Source Sans Pro", Helvetica, Arial, STKaiti, 华文楷体, KaiTi, SimKai, 楷体, KaiU, DFKai-SB, 標楷體, SongTi, 宋体, sans-serif';
+export const fontSerif =
+  '"Source Serif Pro", Georgia, STKaiti, 华文楷体, KaiTi, SimKai, 楷体, KaiU, DFKai-SB, 標楷體, SongTi, 宋体, serif';

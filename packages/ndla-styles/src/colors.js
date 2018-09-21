@@ -6,9 +6,9 @@
  *
  */
 
- /**
-  * NDLA Brand colors
-  */
+/**
+ * NDLA Brand colors
+ */
 
 export const brandColor = '#20588f';
 export const brandColorSecondary = '#507aa4';
@@ -17,9 +17,9 @@ export const brandColorLight = '#ceddea';
 export const brandColorLighter = '#deebf6';
 export const brandColorDark = '#184673';
 
- /**
-  * NDLA Grays
-  */
+/**
+ * NDLA Grays
+ */
 
 export const brandGrey = '#777777';
 export const brandGreyLight = '#e8e3e3';

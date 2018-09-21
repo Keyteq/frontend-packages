@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017-present, NDLA.
+ * Copyright (c) 2018-present, NDLA.
  *
  * This source code is licensed under the GPLv3 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,17 +11,25 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import classNames from 'classnames';
 import { ChevronDown, ChevronUp } from 'ndla-icons/common';
-import { fontSans, spacing, spacingSmall, spacingLarge, brandColor, brandGreyLightest, brandGreyLighter } from 'ndla-styles';
+import {
+  fontSans,
+  spacing,
+  spacingSmall,
+  spacingLarge,
+  brandColor,
+  brandGreyLightest,
+  brandGreyLighter,
+} from 'ndla-styles';
 
 const AccordionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const AccordionChildWrapper = styled.section`
   display: flex;
   overflow-y: scroll;
-  transition: opacity 300ms ease;
+  transition: opacity 200ms ease;
   opacity: 1;
   ${props =>
     css`
@@ -40,7 +48,7 @@ const AccordionChildWrapper = styled.section`
     border: 1px solid ${brandColor};
     border-top: 0;
   }
-`
+`;
 
 const AccordionTitleBar = styled.button`
   font-family: ${fontSans};
@@ -54,17 +62,21 @@ const AccordionTitleBar = styled.button`
   border: 0;
   border-bottom: 1px solid ${brandGreyLighter};
   transition: color 100ms ease, background 100ms ease;
-  &.open, &:hover, &:focus {
+  &.open,
+  &:hover,
+  &:focus {
     background: ${brandColor};
     color: #fff;
   }
-`
+`;
 
 class Accordion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabsOpen: props.tabs.map((tab, index) => (tab.open ? index : null)).filter(isOpen => isOpen !== null),
+      tabsOpen: props.tabs
+        .map((tab, index) => (tab.open ? index : null))
+        .filter(isOpen => isOpen !== null),
     };
     this.toggleTab = this.toggleTab.bind(this);
   }
@@ -93,10 +105,7 @@ class Accordion extends React.Component {
   }
 
   render() {
-
-    const {
-      tabsOpen,
-    } = this.state;
+    const { tabsOpen } = this.state;
 
     return (
       <AccordionWrapper>
@@ -107,19 +116,26 @@ class Accordion extends React.Component {
             closed: !expanded,
             framedChildren: this.props.framedChildren,
           });
-          return (<Fragment key={tab.title}>
-            <AccordionTitleBar className={expanded ? 'open' : null} onClick={(e) => this.toggleTab(index, e)} aria-expanded={expanded} aria-controls={tabId}>
-              {tab.title}
-              {expanded ? (
-                <ChevronDown />
-              ) : (
-                <ChevronUp />
-              )}
-            </AccordionTitleBar>
-            <AccordionChildWrapper maxHeight={this.props.maxHeight} className={classes} id={tabId} aria-hidden={expanded}>
-              <div>{tab.children}</div>
-            </AccordionChildWrapper>
-          </Fragment>);
+          return (
+            <Fragment key={tab.title}>
+              <AccordionTitleBar
+                className={expanded ? 'open' : null}
+                onClick={e => this.toggleTab(index, e)}
+                aria-label={tab.title}
+                aria-expanded={expanded}
+                aria-controls={tabId}>
+                {tab.title}
+                {expanded ? <ChevronDown /> : <ChevronUp />}
+              </AccordionTitleBar>
+              <AccordionChildWrapper
+                maxHeight={this.props.maxHeight}
+                className={classes}
+                id={tabId}
+                aria-hidden={expanded}>
+                <div>{tab.children}</div>
+              </AccordionChildWrapper>
+            </Fragment>
+          );
         })}
       </AccordionWrapper>
     );
@@ -127,11 +143,13 @@ class Accordion extends React.Component {
 }
 
 Accordion.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    open: PropTypes.bool,
-  })).isRequired,
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      children: PropTypes.node.isRequired,
+      open: PropTypes.bool,
+    }),
+  ).isRequired,
   controllable: PropTypes.bool, // TODO: implement it!
   onlyOpenOne: PropTypes.bool,
   toggleTab: PropTypes.func, // TODO: create example of usage!
